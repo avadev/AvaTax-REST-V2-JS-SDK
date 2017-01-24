@@ -1,0 +1,12 @@
+{
+  "name": "avatax_js_sdk",
+  "version": "1.0.0",
+  "description": "AvaTax v2 SDK for languages using JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
