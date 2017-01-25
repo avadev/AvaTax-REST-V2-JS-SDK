@@ -24,7 +24,6 @@ describe('Avatax Companies', () => {
     it('should return single company', () => {
       return client.getCompanyById({ id })
         .then( res => {
-          console.log(JSON.stringify(res, null, 2));
           expect(res).toEqual(companyGetResponse);
         });
     });
