@@ -4,17 +4,28 @@
  */
 
 import Avatax from '../';
+import { account, licenseKey } from './test_creds';
+import nock from 'nock';
+import accountResponse from './fixtures/account_response';
 
-const myBeverage = {
-  delicious: true,
-  sour: false,
-};
+describe('Avatax Accounts', () => {
+  const baseUrl = 'https://sandbox-rest.avatax.com';
+  const client = new Avatax({ account, licenseKey });
 
+  describe('Getting accounts by id', () => {
 
-describe('Avatax Transaction', () => {
-  it('should create a new transaction', () => {
-    console.log('all good');
-    expect(myBeverage.delicious).toBeTruthy();
+    beforeEach(() => {
+      nock(baseUrl)
+        .get(`/api/v2/accounts/${account}`)
+        .reply(200, accountResponse);
+    });
+    
+    it('should return account by id', () => {
+      return client.getAccountById({ id: account })
+        .then(res => {
+          expect(res).toEqual(accountResponse);
+        });
+    });
   });
 });
 
