@@ -5,22 +5,16 @@
 
 import Avatax from '../lib/AvaTaxClient';
 import { v4 } from 'node-uuid';
-import { account, licenseKey } from './test_creds';
+import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import companyGetResponse from './fixtures/company_get_response';
 import companiesListResponse from './fixtures/companies_list_response';
 
 describe('Company Integration Tests', () => {
-  const username = '';
-  const password = '';
-  const appName = 'myapp';
-  const appVersion = '1.0';
-  const environment = 'sandbox';
-  const machineName = 'mbp';
 
   describe('Valid company initialize request', () => {
-    const client = new Avatax({ appName, appVersion, environment, machineName })
-      .withSecurity({ username, password });
+    const clientCreds = loadCreds();
+    const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
     it('should initialize a company', () => {
       const request = {
@@ -49,16 +43,16 @@ describe('Company Integration Tests', () => {
     });
 
     describe('Invalid company initialize request', () => {
+      it('should return valid exception response');
     });
   });
 });
 
-describe('Avatax Companies', () => {
+describe('Company Unit Tests', () => {
+  const clientCreds = loadCreds();
   const baseUrl = 'https://sandbox-rest.avatax.com';
-  // const client = new Avatax({ account, licenseKey });
 
-  const client = new Avatax({ appName, appVersion, environment, machineName })
-    .withSecurity({ username, password });
+  const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
 
   describe('Get company by id', () => {
@@ -70,10 +64,9 @@ describe('Avatax Companies', () => {
     });
     
     it('should return single company', () => {
-      return client.getCompanyById({ id })
-        .then( res => {
-          expect(res).toEqual(companyGetResponse);
-        });
+      return client.getCompany({ id }).then( res => {
+        expect(res).toEqual(companyGetResponse);
+      });
     });
   });
   
@@ -85,10 +78,9 @@ describe('Avatax Companies', () => {
     });
 
     it('should return list of companies', () => {
-      return client.listCompanies()
-        .then(res => {
-          expect(res).toEqual(companiesListResponse);
-        });
+      return client.queryCompanies().then(res => {
+        expect(res).toEqual(companiesListResponse);
+      });
     });
   });
 });
