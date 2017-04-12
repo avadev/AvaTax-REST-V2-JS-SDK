@@ -6,7 +6,10 @@
   "scripts": {
     "test": "jest"
   },
-  "keywords": [ "avalara", "avatax" ],
+  "keywords": [
+    "avalara",
+    "avatax"
+  ],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
@@ -16,7 +19,9 @@
   },
   "devDependencies": {
     "babel-jest": "^18.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "jest": "^18.1.0",
     "nock": "^9.0.2",
-    "jest": "^18.1.0"
+    "node-uuid": "^1.4.8"
   }
 }

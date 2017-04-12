@@ -45,3 +45,7 @@ jspm_packages
 
 # Yarn Integrity file
 .yarn-integrity
+
+# ignore local credentials file
+local_creds.json
+
