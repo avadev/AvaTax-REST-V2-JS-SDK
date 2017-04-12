@@ -26,6 +26,8 @@ export default function() {
     machineName: 'mbp'
   };
 
+  console.log(`check user: ${process.env.SANDBOX_USERNAME.substring(0, 5)}`);
+
   // look for env creds first, this is primarily used for travis-ci job
   if (process.env.SANDBOX_USERNAME && process.env.SANDBOX_PASSWORD) {
     console.log('resolving creds from env variables');
