@@ -8,7 +8,7 @@ Test credentials are resolved in the following order:
 1. Environment variables
 
 The following environment variables will get loaded as test credentials
-```
+```bash
 SANDBOX_USERNAME="your-username"
 SANDBOX_PASSWORD="your-password"
 ```
