@@ -16,7 +16,7 @@ describe('Company Integration Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    it.skip('should initialize a company', () => {
+    it('should initialize a company', () => {
       const request = {
         name: "Bob's Artisan Pottery",
         companyCode: v4().replace(/-/gi, '').substring(0, 8),
