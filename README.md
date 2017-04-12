@@ -6,12 +6,14 @@ Running integration tests will hit the deployed lower environment
 
 Test credentials are resolved in the following order:
 1. Environment variables
+
 The following environment variables will get loaded as test credentials
 ```
 SANDBOX_USERNAME="your-username"
 SANDBOX_PASSWORD="your-password"
 ```
 2. Local credentials file
+
 You can also add a local credentials file to the the path "<project_root>/local_creds.json". This file will be gitignored
 ```
 {
