@@ -15,7 +15,7 @@ SANDBOX_PASSWORD="your-password"
 2. Local credentials file
 
 You can also add a local credentials file to the the path "<project_root>/local_creds.json". This file will be gitignored
-```
+```json
 {
   "username": "your-username",
   "password": "your-password"
