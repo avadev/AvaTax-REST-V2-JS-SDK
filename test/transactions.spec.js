@@ -3,17 +3,15 @@
  * file: test/transactions.spec.js
  */
 
-// import Avatax from '../';
 import Avatax from '../lib/AvaTaxClient';
 import nock from 'nock';
-// import { account, licenseKey, companyCode } from './test_creds';
 import transactionRequest from './fixtures/transaction_request';
 import transactionResponse from './fixtures/transaction_response';
 import transactionsListResponse from './fixtures/transactions_list_response';
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
-describe('Avatax Transactions', () => {
+describe.skip('Avatax Transactions', () => {
   const username = '';
   const password = '';
   const appName = 'myapp';
@@ -23,7 +21,6 @@ describe('Avatax Transactions', () => {
 
   const client = new Avatax({ appName, appVersion, environment, machineName })
     .withSecurity({ username, password });
-  // const client = new Avatax({ account, licenseKey });
 
   describe('Listing transactions by company', () => {
     beforeEach(() => {
@@ -31,7 +28,7 @@ describe('Avatax Transactions', () => {
         .reply(200, transactionsListResponse);
     })
     
-    it.only('should resolve address', () => {
+    it('should resolve address', () => {
       const address = {
         city: 'irvine',
         postalCode: '92615',
