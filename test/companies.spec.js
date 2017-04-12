@@ -64,6 +64,7 @@ describe('Company Unit Tests', () => {
     });
     
     it('should return single company', () => {
+      console.log('testing output from test fixture')
       return client.getCompany({ id }).then( res => {
         expect(res).toEqual(companyGetResponse);
       });
