@@ -23,6 +23,8 @@ You can also add a local credentials file to the the path "<project_root>/local_
 ```
 3. Static (mock) values
 
+The mocked values are used for unit tests via 'nock'.
+
 The test credentials helper can be found here
 https://github.com/avadev/AvaTax-REST-V2-JS-SDK/blob/master/test/helpers/load_creds.js
 
