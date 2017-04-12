@@ -40,6 +40,7 @@ export default function() {
     const localCreds = require('../../local_creds.json');
     return { ...defaultCreds, ...localCreds }
   } else { // return fake creds, this will work for unit tests via nock
+    console.log('falling back to mock creds')
     return {
       ...defaultCreds, ...{
         username: 'mock-user@avalara.com',
