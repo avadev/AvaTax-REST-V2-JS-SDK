@@ -6,7 +6,7 @@
 export default {
   "type": "SalesInvoice",
   "companyCode": "abc123",
-  "date": "2017-01-10T00:00:00-08:00",
+  "date": "2017-01-10",
   "customerCode": "ABC",
   "purchaseOrderNo": "2017-01-10-001",
   "addresses": {
@@ -29,7 +29,6 @@ export default {
     }
   ],
   "commit": true,
-  "taxDate": "2017-01-10T00:00:00-08:00",
   "currencyCode": "USD",
   "description": "Yarn"
 }
