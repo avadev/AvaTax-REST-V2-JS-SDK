@@ -8,9 +8,9 @@ export default {
     "newTransaction": {
         "type": "SalesInvoice",
         "companyCode": "abc123",
-        "date": "2017-01-11",
+        "date": "2017-04-13",
         "customerCode": "ABC",
-        "purchaseOrderNo": "2017-01-11-001",
+        "purchaseOrderNo": "2017-04-13-001",
         "addresses": {
             "SingleLocation": {
                 "line1": "123 Main Street",
