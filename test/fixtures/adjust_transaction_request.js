@@ -8,9 +8,9 @@ export default {
     "newTransaction": {
         "type": "SalesInvoice",
         "companyCode": "abc123",
-        "date": "2017-01-10T00:00:00-08:00",
+        "date": "2017-01-11",
         "customerCode": "ABC",
-        "purchaseOrderNo": "2017-01-10-001",
+        "purchaseOrderNo": "2017-01-11-001",
         "addresses": {
             "SingleLocation": {
                 "line1": "123 Main Street",
@@ -31,7 +31,6 @@ export default {
             }
         ],
         "commit": true,
-        "taxDate": "2017-01-10T00:00:00-08:00",
         "currencyCode": "USD",
         "description": "Yarn"
     }
