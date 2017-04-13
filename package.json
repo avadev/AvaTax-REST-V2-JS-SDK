@@ -1,6 +1,6 @@
 ﻿{
   "name": "avatax_js_sdk",
-  "version": "2.17.4.60",
+  "version": "2.17.4",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "scripts": {
