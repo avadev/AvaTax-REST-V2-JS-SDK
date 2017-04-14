@@ -17,8 +17,7 @@ import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
 let transactionCode = transactionResponse.code;
-
-console.log(transactionCode);
+console.log(companyCode);
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -40,6 +39,7 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(transactionResponse);
                 });
         });
+        console.log(transactionCode + " || " + companyCode);
     });
 
     /*Case for adjusting existing transaction
@@ -48,7 +48,6 @@ describe('Avatax Transactions', () => {
     * transactionCode = actualResponse.code;
     * EDIT - its hard coded in so we can cheat a little
     * */
-    console.log(transactionCode); 
     describe('Adjusting existing transactions', () => {
         beforeEach(() => {
             nock(baseUrl)
@@ -62,6 +61,7 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(adjustTransactionResponse);
                 });
         });
+        console.log(transactionCode);
     });
 
     /* Code for voiding an existing transaction
