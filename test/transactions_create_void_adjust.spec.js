@@ -48,6 +48,7 @@ describe('Avatax Transactions', () => {
     * transactionCode = actualResponse.code;
     * EDIT - its hard coded in so we can cheat a little
     * */
+    console.log(transactionCode); 
     describe('Adjusting existing transactions', () => {
         beforeEach(() => {
             nock(baseUrl)
