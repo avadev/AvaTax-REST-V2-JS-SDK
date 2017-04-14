@@ -16,7 +16,7 @@ import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
 let transactionCode = transactionResponse.code;
-let companyCode = transactionResponse.companyCode;
+let companyCode = transactionRequest.companyCode;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -60,6 +60,8 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(adjustTransactionResponse);
                 });
         });
+        console.log(`/api/v2/companies/${companyCode}/transactions/${transactionCode}/adjust`);
+        console.log('/api/v2/companies/' + companyCode +'/transactions/'+transactionCode+'/adjust');
     });
 
     /* Code for voiding an existing transaction
