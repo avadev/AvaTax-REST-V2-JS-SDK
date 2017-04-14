@@ -14,6 +14,7 @@ import adjustTransactionRequest from './fixtures/adjust_transaction_request';
 import adjustTransactionResponse from './fixtures/adjust_transaction_response';
 import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
+import companyGetResponse from './fixtures/company_get_response';
 
 let transactionCode = transactionResponse.code;
 let companyCode = transactionRequest.companyCode;
