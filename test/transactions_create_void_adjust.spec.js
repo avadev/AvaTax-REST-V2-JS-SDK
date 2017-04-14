@@ -20,7 +20,7 @@ const transactionCode = transactionResponse.code;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
-describe.skip('Avatax Transactions', () => {
+describe('Avatax Transactions', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
