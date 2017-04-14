@@ -5,7 +5,7 @@
 
 
 /*Import sample data and expected responses*/
-import Avatax from '../lib/AvaTax';
+import Avatax from '../lib/AvaTaxClient';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import { account, licenseKey, companyCode } from './test_creds';
@@ -16,7 +16,7 @@ import adjustTransactionResponse from './fixtures/adjust_transaction_response';
 import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
-var transactionCode = transactionResponse.code;
+const transactionCode = transactionResponse.code;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
