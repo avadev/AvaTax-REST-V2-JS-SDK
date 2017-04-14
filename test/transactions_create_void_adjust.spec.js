@@ -16,7 +16,9 @@ import adjustTransactionResponse from './fixtures/adjust_transaction_response';
 import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
-const transactionCode = transactionResponse.code;
+let transactionCode = transactionResponse.code;
+
+console.log(transactionCode);
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
