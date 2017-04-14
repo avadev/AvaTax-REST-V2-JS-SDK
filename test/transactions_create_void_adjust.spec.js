@@ -24,6 +24,20 @@ describe('Avatax Transactions', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
+    describe('Get company by id', () => {
+        const id = 12345;
+
+        beforeEach(() => {
+            nock(baseUrl).get(`/api/v2/companies/${id}`)
+                .reply(200, companyGetResponse);
+        });
+
+        it('should return single company', () => {
+            return client.getCompany({ id }).then( res => {
+                expect(res).toEqual(companyGetResponse);
+            });
+        });
+    });
 
     describe('Creating new transactions', () => {
         beforeEach(() => {
@@ -38,7 +52,6 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(transactionResponse);
                 });
         });
-        console.log(transactionCode + " || " + companyCode);
     });
 
     /*Case for adjusting existing transaction
@@ -60,8 +73,6 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(adjustTransactionResponse);
                 });
         });
-        console.log(`/api/v2/companies/${companyCode}/transactions/${transactionCode}/adjust`);
-        console.log('/api/v2/companies/' + companyCode +'/transactions/'+transactionCode+'/adjust');
     });
 
     /* Code for voiding an existing transaction
