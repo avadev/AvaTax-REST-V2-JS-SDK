@@ -8,7 +8,6 @@
 import Avatax from '../lib/AvaTaxClient';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
-import { account, licenseKey, companyCode } from './test_creds';
 import transactionRequest from './fixtures/transaction_request';
 import transactionResponse from './fixtures/transaction_response';
 import adjustTransactionRequest from './fixtures/adjust_transaction_request';
@@ -17,7 +16,7 @@ import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
 let transactionCode = transactionResponse.code;
-console.log(companyCode);
+let companyCode = transactionResponse.companyCode;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -61,7 +60,6 @@ describe('Avatax Transactions', () => {
                     expect(actualResponse).toEqual(adjustTransactionResponse);
                 });
         });
-        console.log(transactionCode);
     });
 
     /* Code for voiding an existing transaction
