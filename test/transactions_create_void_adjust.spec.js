@@ -14,7 +14,6 @@ import adjustTransactionRequest from './fixtures/adjust_transaction_request';
 import adjustTransactionResponse from './fixtures/adjust_transaction_response';
 import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
-import companyGetResponse from './fixtures/company_get_response';
 
 let transactionCode = transactionResponse.code;
 let companyCode = transactionRequest.companyCode;
@@ -25,20 +24,6 @@ describe('Avatax Transactions', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    describe('Get company by id', () => {
-        const id = 12345;
-
-        beforeEach(() => {
-            nock(baseUrl).get(`/api/v2/companies/${id}`)
-                .reply(200, companyGetResponse);
-        });
-
-        it('should return single company', () => {
-            return client.getCompany({ id }).then( res => {
-                expect(res).toEqual(companyGetResponse);
-            });
-        });
-    });
 
     describe('Creating new transactions', () => {
         beforeEach(() => {
