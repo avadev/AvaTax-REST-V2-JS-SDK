@@ -33,7 +33,7 @@ describe('Avatax Transactions', () => {
         });
 
         it('should create a new transaction', () => {
-            return client.createTransaction(transactionRequest)
+            return client.createTransaction({model: transactionRequest })
                 .then(actualResponse => {
                     expect(actualResponse).toEqual(transactionResponse);
                 });
@@ -54,7 +54,7 @@ describe('Avatax Transactions', () => {
         });
 
         it('should adjust an existing transaction', () => {
-            return client.adjustTransaction(companyCode, transactionCode,adjustTransactionRequest)
+            return client.adjustTransaction({companyCode, transactionCode, model: adjustTransactionRequest})
                 .then(actualResponse => {
                     expect(actualResponse).toEqual(adjustTransactionResponse);
                 });
@@ -73,7 +73,7 @@ describe('Avatax Transactions', () => {
         });
 
         it('should void an existing transaction', () => {
-            return client.voidTransaction(companyCode, transactionCode, voidTransactionRequest)
+            return client.voidTransaction({companyCode, transactionCode, model: voidTransactionRequest})
                 .then(actualResponse => {
                     expect(actualResponse).toEqual(voidTransactionResponse);
                 });
