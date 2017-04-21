@@ -20,7 +20,23 @@ let companyCode = transactionRequest.companyCode;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
-describe('Avatax Transactions', () => {
+describe('Transactions Intrgration Tests', () => {
+    const clientCreds = loadCreds();
+    const client = new Avatax(clientCreds).withSecurity(clientCreds);
+
+    it('should create a new transaction',()=> {
+        return client.createTransaction({model: transactionRequest}).then(res => {
+            expect(res).toBeDefined();
+            expect(res.totalTax).toBeGreaterThan(0);
+            expect(res.lines.length).toBeGreaterThanOrEqual(3);
+            expect(res.lines.details[1].jurisName).toMatch('ORANGE');
+        })
+
+    });
+
+});
+
+describe('Transactions Unit Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
@@ -32,7 +48,7 @@ describe('Avatax Transactions', () => {
                 .reply(201, transactionResponse);
         });
 
-        it('should create a new transaction', () => {
+        it('should create a new transactionTwo', () => {
             return client.createTransaction({model: transactionRequest })
                 .then(actualResponse => {
                     expect(actualResponse).toEqual(transactionResponse);
