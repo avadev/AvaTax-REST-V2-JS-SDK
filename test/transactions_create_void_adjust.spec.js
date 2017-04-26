@@ -16,11 +16,11 @@ import voidTransactionRequest from './fixtures/void_transaction_request';
 import voidTransactionResponse from './fixtures/void_transaction_response';
 
 let transactionCode = transactionResponse.code;
-let companyCode = transactionRequest.companyCode; 
+let companyCode = transactionRequest.companyCode;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
-describe.skip('Transaction Full Integration Tests', () => {
+describe('Transaction Full Integration Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
     let transCode = '';
