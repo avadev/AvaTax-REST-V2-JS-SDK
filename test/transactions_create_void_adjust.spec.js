@@ -20,19 +20,46 @@ let companyCode = transactionRequest.companyCode;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
-describe('Transactions Intrgration Tests', () => {
+describe.skip('Transaction Full Integration Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
+    let transCode = '';
 
-    it('should create a new transaction',()=> {
-        return client.createTransaction({model: transactionRequest}).then(res => {
-            expect(res).toBeDefined();
-            expect(res.totalTax).toBeGreaterThan(0);
-            expect(res.lines.length).toBeGreaterThanOrEqual(3);
-            expect(res.lines.details[1].jurisName).toMatch('ORANGE');
-        })
+    describe('Create Transaction', () => {
 
+        it('should create a new transaction', () => {
+            return client.createTransaction({model: transactionRequest}).then(res => {
+                expect(res).toBeDefined();
+                expect(res.totalTax).toBeGreaterThan(0);
+                expect(res.lines.length).toBeGreaterThanOrEqual(3);
+                expect(res.lines.details[1].jurisName).toMatch('ORANGE');
+                transCode = res.code;
+            });
+
+        });
     });
+
+    describe('Adjust transaction', () => {
+        it('should adjust the newly created transaction', () =>{
+           return client.adjustTransaction({companyCode, transCode, model:adjustTransactionRequest}).then(res => {
+               expect(res).toBeDefined();
+               expect(res.totalTax).toEqual(6.98);
+               expect(res.adjustmentReason).toBeDefined();
+               expect(res.adjustmentDescription).toBeDefined();
+               expect(res.totalAmount).toEqual(90);
+           })
+        });
+    });
+
+    describe('Void transaction', () => {
+        it('should avoid the created and adjusted transaction', () => {
+           return client.voidTransaction({companyCode, transCode, model: voidTransactionRequest}).then(res => {
+               expect(res.totalAmount).toEqual(90);
+               expect(res.status).toEqual("Cancelled");
+           });
+        });
+    });
+
 
 });
 
