@@ -73,6 +73,9 @@ describe('Transactions Unit Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
+    afterEach(() => {
+      nock.cleanAll();
+    });
 
     describe('Creating new transactions', () => {
         beforeEach(() => {
