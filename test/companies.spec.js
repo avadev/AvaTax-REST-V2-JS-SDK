@@ -51,9 +51,11 @@ describe('Company Integration Tests', () => {
 describe('Company Unit Tests', () => {
   const clientCreds = loadCreds();
   const baseUrl = 'https://sandbox-rest.avatax.com';
-
   const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
+  afterEach(() => {
+    nock.cleanAll();
+  });
 
   describe('Get company by id', () => {
     const id = 12345;
