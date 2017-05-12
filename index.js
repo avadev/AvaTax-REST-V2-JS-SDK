@@ -3,6 +3,6 @@
  * file: index.js
  */
 
-import client from './lib/client';
+import client from './lib/AvaTaxClient';
 module.exports = client;
 
