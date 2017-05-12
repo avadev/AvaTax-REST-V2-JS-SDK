@@ -4,13 +4,14 @@
  */
 
 import Avatax from '../';
-import { account, licenseKey } from './test_creds';
+import { account } from './test_creds';
 import nock from 'nock';
 import accountResponse from './fixtures/account_response';
+import loadCreds from './helpers/load_creds';
 
 describe('Avatax Accounts', () => {
   const baseUrl = 'https://sandbox-rest.avatax.com';
-  const client = new Avatax({ account, licenseKey });
+  const client = new Avatax(loadCreds());
 
   describe('Getting accounts by id', () => {
 
@@ -21,12 +22,11 @@ describe('Avatax Accounts', () => {
     });
     
     it('should return account by id', () => {
-      return client.getAccountById({ id: account })
+      return client.getAccount({ id: account })
         .then(res => {
           expect(res).toEqual(accountResponse);
         });
     });
   });
 });
-
 
