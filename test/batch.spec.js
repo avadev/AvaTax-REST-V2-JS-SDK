@@ -8,13 +8,41 @@ import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import batchCreateRequest from './fixtures/batch_create_request';
 import batchCreateResponse from './fixtures/batch_create_response';
-import batchDownloadReponse from './fixtures/batch_download_response';
+import batchDownloadResponse from './fixtures/batch_download_response';
 
-let companyId = 2382146;
+let companyId = 238146;
 let batchId   = 1136793;
-let id        = 2066531;
+let id        = 2066530;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
+
+describe('Batch Full Integration Tests', () => {
+    const clientCreds = loadCreds();
+    const client = new Avatax(clientCreds).withSecurity(clientCreds);
+
+    describe('Create Batch', () => {
+
+        it('should create a new batch', () => {
+            return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
+               expect(res).toBeDefined();
+               expect(res.status).toEqual("Waiting");
+               expect(res.type).toEqual("TransactionImport");
+               expect(res.companyId).toEqual(companyId);
+            });
+        });
+    });
+
+    describe('Download Batch', () => {
+
+        it('should download the specified batch', () =>{
+            return client.downloadBatch({companyId, batchId, id}).then(res => {
+                expect(res).toBeDefined();
+                expect(res["transfer-encoding"]).toEqual("chunked");
+            });
+        });
+    });
+});
+
 
 /*nock unit tests for creating and downloading a batch*/
 describe('Batch Unit Tests', () => {
@@ -33,7 +61,7 @@ describe('Batch Unit Tests', () => {
                .reply(201, batchCreateResponse);
        });
 
-       it('should create a new batch', () =>{
+       it('should create a new batchNock', () =>{
            return client.createBatches({companyId, model: batchCreateRequest})
                .then(actualResponse => {
                    expect(actualResponse).toEqual(batchCreateResponse);
@@ -43,14 +71,14 @@ describe('Batch Unit Tests', () => {
 
     /* top passes, this does not */
     /*Unit test for downloading a batch*/
-    describe('downloading a batch', () => {
+    describe('Downloading a batch', () => {
         beforeEach(() => {
             nock(baseUrl)
-                .post(`/api/v2/companies/${companyId}/batches/${batchId}/files/${id}/attachment`)
-                .reply(201, batchDownloadReponse);
+                .get(`/api/v2/companies/${companyId}/batches/${batchId}/files/${id}/attachment`)
+                .reply(201, batchDownloadResponse);
         });
 
-        it('should download the specified batch', () =>{
+        it('should download the specified batchNock', () =>{
             return client.downloadBatch({companyId, batchId, id})
                 .then(actualResponse => {
                     expect(actualResponse).toEqual(batchDownloadResponse);
