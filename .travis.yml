@@ -5,7 +5,9 @@ before_deploy:
   - npm run build
 deploy:
   provider: script
+  script: scripts/publish.sh
   skip_cleanup: true
-  # on:
+  on:
+    branch: master
     # tags: true
     # node: "4"
