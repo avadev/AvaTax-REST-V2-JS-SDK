@@ -24,7 +24,6 @@ describe('Batch Full Integration Tests', () => {
 
         it('should create a new batch', () => {
             return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
-              console.log(JSON.stringify(res[0], null, 2))
                expect(res[0]).toBeDefined();
                expect(res[0].status).toEqual("Waiting");
                expect(res[0].type).toEqual("TransactionImport");
