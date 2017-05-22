@@ -1,2 +1,5 @@
+#!/bin/bash
 
-pwd
+echo "running publish script"
+ls .build
+
