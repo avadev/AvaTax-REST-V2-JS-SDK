@@ -4,8 +4,8 @@
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./.build && babel lib -d .build && cp package.json ./.build",
-    "publish": "ls .build",
+    "build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build",
+    "publish": "npm publish --tag beta ./.build",
     "test": "jest"
   },
   "keywords": [

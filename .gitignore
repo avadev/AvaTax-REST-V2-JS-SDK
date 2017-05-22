@@ -49,3 +49,5 @@ jspm_packages
 # ignore local credentials file
 local_creds.json
 
+# babel build directory
+.build
