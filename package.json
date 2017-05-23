@@ -1,29 +1,28 @@
 ﻿{
-  "name": "avatax",
-  "version": "17.5.0",
-  "description": "AvaTax v2 SDK for languages using JavaScript",
-  "main": "index.js",
-  "scripts": {
-    "build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build",
-    "publish": "npm publish --tag beta ./.build",
-    "test": "jest"
-  },
-  "keywords": [
-    "avalara",
-    "avatax"
-  ],
-  "author": "",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-jest": "^18.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "jest": "^18.1.0",
-    "nock": "^9.0.2",
-    "node-uuid": "^1.4.8"
-  }
+	"name": "avatax",
+	"version": "17.5.1",
+	"description": "AvaTax v2 SDK for languages using JavaScript",
+	"main": "index.js",
+	"scripts": {
+		"build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build",
+		"test": "jest"
+	},
+	"keywords": [
+		"avalara",
+		"avatax"
+	],
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"isomorphic-fetch": "^2.2.1"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.22.2",
+		"babel-preset-es2015": "^6.22.0",
+		"babel-jest": "^18.0.0",
+		"babel-plugin-transform-object-rest-spread": "^6.23.0",
+		"jest": "^18.1.0",
+		"nock": "^9.0.2",
+		"node-uuid": "^1.4.8"
+	}
 }
