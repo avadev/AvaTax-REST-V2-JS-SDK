@@ -6,7 +6,7 @@ before_deploy:
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 deploy:
   provider: script
-  script: npm run publish
+  script: npm publish --tag beta ./.build
   skip_cleanup: true
   on:
     branch: master
