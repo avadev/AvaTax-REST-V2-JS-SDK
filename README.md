@@ -8,7 +8,7 @@ AvaTax v2 SDK for languages using node.js
 
 ## Installation
 Install the package with:
-```
+``` bash
 # using npm 
 npm install 
 
