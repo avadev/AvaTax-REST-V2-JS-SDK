@@ -75,7 +75,7 @@ const taxDocument = {
   description: 'Yarn'
 }
 
-return client.createTransaction({ data: taxDocument })
+return client.createTransaction({ model: taxDocument })
   .then(result => {
     // response tax document
     console.log(result);
