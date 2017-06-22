@@ -3,6 +3,11 @@
   "version": "17.6.0",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
+  "homepage": "https://github.com/avadev/AvaTax-REST-V2-JS-SDK",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/avadev/AvaTax-REST-V2-JS-SDK.git"
+  },
   "scripts": {
     "build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build",
     "test": "jest",
