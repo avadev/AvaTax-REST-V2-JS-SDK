@@ -2,11 +2,12 @@ language: node_js
 node_js:
   - "6"
 before_deploy:
+  - npm run lint
   - npm run build
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 deploy:
   provider: script
-  script: npm publish --tag beta ./.build
+  script: npm publish ./.build
   skip_cleanup: true
   on:
     branch: master

@@ -1,11 +1,12 @@
 {
   "name": "avatax",
-  "version": "17.6.0",
+  "version": "17.5.2",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build",
     "test": "jest",
+    "lint": "eslint lib/**/*.js test/**/*.js --cache",
     "format": "prettier --single-quote --write ./test/**/*.js ./lib/**/*.js"
   },
   "keywords": [
@@ -22,6 +23,7 @@
     "babel-jest": "^18.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
+    "eslint": "^4.0.0",
     "jest": "^18.1.0",
     "nock": "^9.0.2",
     "node-uuid": "^1.4.8",
