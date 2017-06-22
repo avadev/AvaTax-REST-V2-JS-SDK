@@ -29,21 +29,24 @@ export default function() {
   // look for env creds first, this is primarily used for travis-ci job
   if (process.env.SANDBOX_USERNAME && process.env.SANDBOX_PASSWORD) {
     return {
-      ...defaultCreds, ...{
+      ...defaultCreds,
+      ...{
         username: process.env.SANDBOX_USERNAME,
-        password: process.env.SANDBOX_PASSWORD,
+        password: process.env.SANDBOX_PASSWORD
       }
     };
-  } else if (fs.existsSync('local_creds.json')) { // check for local development creds
+  } else if (fs.existsSync('local_creds.json')) {
+    // check for local development creds
     const localCreds = require('../../local_creds.json');
-    return { ...defaultCreds, ...localCreds }
-  } else { // return fake creds, this will work for unit tests via nock
+    return { ...defaultCreds, ...localCreds };
+  } else {
+    // return fake creds, this will work for unit tests via nock
     return {
-      ...defaultCreds, ...{
+      ...defaultCreds,
+      ...{
         username: 'mock-user@avalara.com',
-        password: 'mocked-password',
+        password: 'mocked-password'
       }
     };
-  } 
+  }
 }
-
