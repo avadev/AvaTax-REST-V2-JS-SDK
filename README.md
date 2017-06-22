@@ -128,3 +128,9 @@ The mocked values are used for unit tests via 'nock'.
 The test credentials helper can be found here
 https://github.com/avadev/AvaTax-REST-V2-JS-SDK/blob/master/test/helpers/load_creds.js
 
+### Publish tags upstream
+``` bash
+# assuming a tag of v17.5.2 and a remote of 'upstream'
+git push upstream v17.5.2
+```
+
