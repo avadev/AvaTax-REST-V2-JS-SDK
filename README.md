@@ -10,7 +10,7 @@ AvaTax v2 SDK for languages using node.js
 Install the package with:
 ``` bash
 # using npm 
-npm install 
+npm install avatax
 
 # using yarn
 yarn add avatax
