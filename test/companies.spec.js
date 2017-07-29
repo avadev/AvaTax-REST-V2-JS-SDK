@@ -11,7 +11,6 @@ import companyGetResponse from './fixtures/company_get_response';
 import companiesListResponse from './fixtures/companies_list_response';
 
 describe('Company Integration Tests', () => {
-
   describe('Valid company initialize request', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
@@ -20,18 +19,18 @@ describe('Company Integration Tests', () => {
       const request = {
         name: "Bob's Artisan Pottery",
         companyCode: v4().replace(/-/gi, '').substring(0, 8),
-        taxpayerIdNumber: "12-3456789",
-        line1: "123 Main Street",
-        city: "Irvine",
-        region: "CA",
-        postalCode: "92615",
-        country: "US",
-        firstName: "Bob",
-        lastName: "Example",
-        title: "Owner",
-        email: "bob@example.org",
-        phoneNumber: "714 555-2121",
-        mobileNumber: "714 555-1212"
+        taxpayerIdNumber: '12-3456789',
+        line1: '123 Main Street',
+        city: 'Irvine',
+        region: 'CA',
+        postalCode: '92615',
+        country: 'US',
+        firstName: 'Bob',
+        lastName: 'Example',
+        title: 'Owner',
+        email: 'bob@example.org',
+        phoneNumber: '714 555-2121',
+        mobileNumber: '714 555-1212'
       };
 
       return client.companyInitialize({ model: request }).then(res => {
@@ -61,22 +60,21 @@ describe('Company Unit Tests', () => {
     const id = 12345;
 
     beforeEach(() => {
-      nock(baseUrl).get(`/api/v2/companies/${id}`)
+      nock(baseUrl)
+        .get(`/api/v2/companies/${id}`)
         .reply(200, companyGetResponse);
     });
-    
+
     it('should return single company', () => {
-      return client.getCompany({ id }).then( res => {
+      return client.getCompany({ id }).then(res => {
         expect(res).toEqual(companyGetResponse);
       });
     });
   });
-  
-  describe('Listing companies for account', () => {
 
+  describe('Listing companies for account', () => {
     beforeEach(() => {
-      nock(baseUrl).get(`/api/v2/companies`)
-        .reply(200, companiesListResponse);
+      nock(baseUrl).get(`/api/v2/companies`).reply(200, companiesListResponse);
     });
 
     it('should return list of companies', () => {
@@ -86,4 +84,3 @@ describe('Company Unit Tests', () => {
     });
   });
 });
-
