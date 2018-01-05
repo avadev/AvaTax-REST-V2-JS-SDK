@@ -7,7 +7,7 @@ export default {
   adjustmentDescription: 'Price dropped before shipping',
   newTransaction: {
     type: 'SalesInvoice',
-    companyCode: 'abc123',
+    companyCode: 'DEFAULT',
     date: '2017-04-13',
     customerCode: 'ABC',
     purchaseOrderNo: '2017-04-13-001',

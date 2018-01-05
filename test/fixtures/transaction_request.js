@@ -5,7 +5,7 @@
 
 export default {
   type: 'SalesInvoice',
-  companyCode: 'abc123',
+  companyCode: 'DEFAULT',
   date: '2017-04-12',
   customerCode: 'ABC',
   purchaseOrderNo: '2017-04-12-001',

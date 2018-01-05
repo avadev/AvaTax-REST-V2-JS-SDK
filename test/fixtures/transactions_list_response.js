@@ -8,7 +8,7 @@ export default {
   value: [
     {
       id: 125677756,
-      code: 'abc123',
+      code: 'DEFAULT',
       companyId: 265543,
       date: '2015-11-06T00:00:00',
       taxDate: '2015-11-06T00:00:00',
@@ -52,7 +52,7 @@ export default {
     },
     {
       id: 125678099,
-      code: 'abc123',
+      code: 'DEFAULT',
       companyId: 265543,
       date: '2015-11-06T00:00:00',
       taxDate: '2015-11-06T00:00:00',
@@ -94,7 +94,7 @@ export default {
       history: [
         {
           id: 125677756,
-          code: 'abc123',
+          code: 'DEFAULT',
           companyId: 265543,
           date: '2015-11-06T00:00:00',
           taxDate: '2015-11-06T00:00:00',

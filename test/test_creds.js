@@ -6,6 +6,6 @@
 export default {
   account: '54321',
   licenseKey: '12345',
-  companyCode: 'abc123'
+  companyCode: 'DEFAULT'
 }
 

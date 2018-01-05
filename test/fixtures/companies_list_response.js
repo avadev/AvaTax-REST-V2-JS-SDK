@@ -10,7 +10,7 @@ export default {
       id: 265543,
       accountId: 2000002513,
       sstPid: '',
-      companyCode: 'abc123',
+      companyCode: 'DEFAULT',
       name: 'API Trial Company',
       isDefault: true,
       defaultLocationId: 0,
