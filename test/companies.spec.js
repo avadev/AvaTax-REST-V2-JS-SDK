@@ -5,6 +5,7 @@
 
 import Avatax from '../lib/AvaTaxClient';
 import { v4 } from 'node-uuid';
+import moment from 'moment';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import companyGetResponse from './fixtures/company_get_response';
@@ -18,7 +19,7 @@ describe('Company Integration Tests', () => {
     it('should initialize a company', () => {
       const request = {
         name: "Bob's Artisan Pottery",
-        companyCode: v4().replace(/-/gi, ''),
+        companyCode: `co-${moment.utc().format('YYYYMMDD-HHmmssS')}`,
         taxpayerIdNumber: '12-3456789',
         line1: '123 Main Street',
         city: 'Irvine',
