@@ -18,7 +18,7 @@ describe('Company Integration Tests', () => {
     it('should initialize a company', () => {
       const request = {
         name: "Bob's Artisan Pottery",
-        companyCode: v4().replace(/-/gi, '').substring(0, 8),
+        companyCode: v4().replace(/-/gi, ''),
         taxpayerIdNumber: '12-3456789',
         line1: '123 Main Street',
         city: 'Irvine',
