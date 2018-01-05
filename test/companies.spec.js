@@ -37,7 +37,7 @@ describe('Company Integration Tests', () => {
         expect(res).toBeDefined();
         expect(res.contacts.length).toEqual(1);
         expect(res.locations.length).toEqual(1);
-        expect(res.nexus.length).toEqual(3);
+        expect(res.nexus.length).toEqual(2);
       });
     });
 
