@@ -34,8 +34,6 @@ describe('Company Integration Tests', () => {
         mobileNumber: '714 555-1212'
       };
 
-      console.log(JSON.stringify(request, null, 2));
-
       return client.companyInitialize({ model: request }).then(res => {
         expect(res).toBeDefined();
         expect(res.contacts.length).toEqual(1);
