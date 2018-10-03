@@ -9,7 +9,7 @@ import nock from 'nock';
 import batchCreateRequest from './fixtures/batch_create_request';
 import batchCreateResponse from './fixtures/batch_create_response';
 import batchDownloadResponse from './fixtures/batch_download_response';
-// 811825
+
 let companyId = 238146;
 let batchId = 1136793;
 let id = 2066530;
