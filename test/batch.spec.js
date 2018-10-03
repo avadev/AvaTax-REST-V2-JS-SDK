@@ -35,11 +35,10 @@ describe('Batch Full Integration Tests', () => {
 
     describe('Download Batch', () => {
 
-        it.only('should download the specified batch', () =>{
+        it('should download the specified batch', () =>{
             return client.downloadBatch({companyId, batchId, id}).then(res => {
-				//console.log('RES', res)
                 expect(res).toBeDefined();
-                expect(res["transfer-encoding"]).toEqual("chunked");
+                expect(res.headers.get("transfer-encoding")).toEqual("chunked");
             });
         });
     });
@@ -87,6 +86,4 @@ describe('Batch Unit Tests', () => {
                 });
         });
     });
-
-
 });

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\lib",
+    "\\test",
+    "\\test\\fixtures"
   ],
+  "SelectedNode": "\\lib\\AvaTaxClient.js",
   "PreviewInSolutionExplorer": false
 }
