@@ -51,3 +51,6 @@ local_creds.json
 
 # babel build directory
 .build
+
+#vs folder
+.vs
