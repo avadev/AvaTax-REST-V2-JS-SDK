@@ -10,9 +10,13 @@ import batchCreateRequest from './fixtures/batch_create_request';
 import batchCreateResponse from './fixtures/batch_create_response';
 import batchDownloadResponse from './fixtures/batch_download_response';
 
-let companyId = 811825;
-let batchId = 3883044;
-let id = 5822671;
+// let companyId = 811825;
+// let batchId = 3883044;
+// let id = 5822671;
+
+let companyId = 238146;
+let batchId = 1136793;
+let id = 2066530;
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -24,11 +28,10 @@ describe('Batch Full Integration Tests', () => {
 
         it('should create a new batch', () => {
             return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
-				
-               expect(res[0]).toBeDefined();
-               expect(res[0].status).toEqual("Waiting");
-               expect(res[0].type).toEqual("TransactionImport");
-               expect(res[0].companyId).toEqual(companyId);
+                expect(res[0]).toBeDefined();
+                expect(res[0].status).toEqual("Waiting");
+                expect(res[0].type).toEqual("TransactionImport");
+                expect(res[0].companyId).toEqual(companyId);
             });
         });
     });
@@ -37,6 +40,7 @@ describe('Batch Full Integration Tests', () => {
 
         it('should download the specified batch', () =>{
             return client.downloadBatch({companyId, batchId, id}).then(res => {
+                // console.log('________RES__________', res)
                 expect(res).toBeDefined();
                 expect(res.headers.get("transfer-encoding")).toEqual("chunked");
             });
