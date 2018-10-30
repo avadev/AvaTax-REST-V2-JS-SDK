@@ -35,7 +35,7 @@ describe('Batch Full Integration Tests', () => {
 
     describe('Download Batch', () => {
 
-        it('should download the specified batch', () =>{
+        it.skip('should download the specified batch', () =>{
             return client.downloadBatch({companyId, batchId, id}).then(res => {
                 expect(res).toBeDefined();
                 expect(res.headers.get("transfer-encoding")).toEqual("chunked");
