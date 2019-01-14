@@ -18,7 +18,7 @@
     "avalara",
     "avatax"
   ],
-  "author": "",
+  "author": "Justin Soliz, Genevieve Conty",
   "license": "Apache-2.0",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
