@@ -1,6 +1,6 @@
 {
   "name": "avatax",
-  "version": "18.12.0",
+  "version": "19.1.1",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "homepage": "https://github.com/avadev/AvaTax-REST-V2-JS-SDK",
