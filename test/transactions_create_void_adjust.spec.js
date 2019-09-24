@@ -32,7 +32,7 @@ describe('Transaction Full Integration Tests', () => {
           // TODO: set travis-ci avatax account nexus config
           // expect(res.totalTax).toBeGreaterThan(0);
           expect(res.lines.length).toBeGreaterThanOrEqual(1);
-          expect(res.lines[0].details[1].jurisName).toMatch('ORANGE');
+          expect(res.lines[0].details[0].jurisName).toMatch('CALIFORNIA');
         });
     });
   });
