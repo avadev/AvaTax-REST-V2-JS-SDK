@@ -22,6 +22,8 @@ const baseUrl = 'https://sandbox-rest.avatax.com';
 describe('Transaction Full Integration Tests', () => {
   const clientCreds = loadCreds();
   const client = new Avatax(clientCreds).withSecurity(clientCreds);
+  console.log(clientCreds);
+  
 
   describe('Create Transaction', () => {
     it('should create a new transaction', () => {
