@@ -39,9 +39,7 @@ export default function() {
     // check for local development creds
     const localCreds = require('../../local_creds.json');
     return { ...defaultCreds, ...localCreds };
-  } else {
-    console.log('FAKE CREDS USED');
-    
+  } else {    
     // return fake creds, this will work for unit tests via nock
     return {
       ...defaultCreds,
