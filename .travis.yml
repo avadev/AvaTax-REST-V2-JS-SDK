@@ -8,11 +8,10 @@ notifications:
 before_deploy:	
 - npm run lint	
 - npm run build
-deploy:
-  provider: npm
-  email: svc.developer@avalara.com
-  api_key:
-    secure: KjLIG2OEifLdk1YWCe1YRpx2lUcfXm+N9/+gM8IYuNfRCuKHm8W/BEMjHwimdIdIRBAHBYR5UsVYNcQTVbCXB7XEa9q2yZkTjE+iBaI01MpQk3nPkumOD9n+4fVa6jQ2ru4fm1smHkrX3Qn0CnaV18w1vmjxr/KEtVk0n6mvTTeGLk20N5pn0Xyv+WhK6YAcrjQoaVaITsarTkZS/+BdzE/l1bH45MO9uGGq+QaE/T/viIA0IIaHkZL4eNeoJ2l+m8fu5Nv+fXNFds46rXyyE+Xj/vyZKWPedx11ulafwxnR75HtlO9+PDWYilEc+j5y03+6vyKTg3XOxfwoPYEp5mqd1+XLm2XY+PT0HR59MsOdBs53TmdYS8Mj1Ml41mDty1zuQxWQ8HpmYT+6Dr2DKu9S5otp+34ozi+PZJO45cnAAI5uehC1J7e0rN9Lvs9gvmyg7/96cyAIOdyM7xuJv1RSW5zQXJWz+iqBdiMtftOTtjQxT+LhWP6NLy48de8XRgXjKJ1no62kGCbt0S4sUyJrkTyybeoPGjltnetrxtvHryacPgM6z/cwnVnRksMlmXcac988xpFODgycQ7WavVBbeiRAcZOei5z76zRBfRsWfJ+ddoaKhVW2eWmqyawmNZRoKN4oQdR/nYvlaUfZqW51hXDfMzHNDUWtZHZ28z4=
+- echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc	
+deploy:	
+  provider: script	
+  script: npm publish ./.build
   on:
     tags: true
     branch: master
