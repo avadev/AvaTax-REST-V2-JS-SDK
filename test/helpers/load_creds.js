@@ -17,8 +17,9 @@ import fs from 'fs';
  * 3. If the first two are not present, fall back to mock creds. This will work for the
  *    unit tests via Nock but the integration tests will not pass without valid creds.
  */
+
 export default function() {
-  // set default client values
+  // set default client values obj
   const defaultCreds = {
     appName: 'myapp',
     appVersion: '1.0',
