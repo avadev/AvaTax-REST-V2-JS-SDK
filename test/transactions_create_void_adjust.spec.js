@@ -22,6 +22,8 @@ const baseUrl = 'https://sandbox-rest.avatax.com';
 describe('Transaction Full Integration Tests', () => {
   const clientCreds = loadCreds();
   const client = new Avatax(clientCreds).withSecurity(clientCreds);
+  
+  
 
   describe('Create Transaction', () => {
     it('should create a new transaction', () => {
@@ -32,7 +34,7 @@ describe('Transaction Full Integration Tests', () => {
           // TODO: set travis-ci avatax account nexus config
           // expect(res.totalTax).toBeGreaterThan(0);
           expect(res.lines.length).toBeGreaterThanOrEqual(1);
-          expect(res.lines[0].details[1].jurisName).toMatch('ORANGE');
+          expect(res.lines[0].details[0].jurisName).toMatch('CALIFORNIA');
         });
     });
   });
