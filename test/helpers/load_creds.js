@@ -28,6 +28,7 @@ export default function() {
 
   // look for env creds first, this is primarily used for travis-ci job
   if (process.env.SANDBOX_USERNAME && process.env.SANDBOX_PASSWORD) {
+    console.log('REAL CREDS');
     return {
       ...defaultCreds,
       ...{
@@ -36,10 +37,13 @@ export default function() {
       }
     };
   } else if (fs.existsSync('local_creds.json')) {
+    console.log('LOCAL CREDS');
     // check for local development creds
     const localCreds = require('../../local_creds.json');
     return { ...defaultCreds, ...localCreds };
   } else {    
+    console.log('MOCK CREDS');
+    
     // return fake creds, this will work for unit tests via nock
     return {
       ...defaultCreds,
