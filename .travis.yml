@@ -12,6 +12,6 @@ before_deploy:
 deploy:	
   provider: script	
   script: npm publish ./.build
-    on:
+  on:
     tags: true
     branch: master
