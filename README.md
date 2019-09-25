@@ -17,7 +17,7 @@ yarn add avatax
 ```
 
 ## Usage
-
+ 
 ### Configuration
 ``` js
 
