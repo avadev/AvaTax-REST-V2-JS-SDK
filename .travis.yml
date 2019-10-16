@@ -6,6 +6,7 @@ notifications:
     on_success: never
     on_failure: never
 before_deploy:
+- npm install eslint
 - npm run lint
 - npm run build
 - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
