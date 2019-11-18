@@ -10,7 +10,7 @@ before_install:
 
 jobs:
   include:
-    - stage: "PreDeploy"
+    - stage: "Tests"
       name: "Lint Test"
       script: npm run lint
     - stage: "Build"
