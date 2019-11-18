@@ -7,7 +7,7 @@ notifications:
     on_failure: never
 before_install:
 - npm install eslint
-tests:
+after_install:
 - npm run lint
 - npm run build
 before_deploy:
