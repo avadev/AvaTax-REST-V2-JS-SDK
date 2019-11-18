@@ -7,14 +7,16 @@ notifications:
     on_failure: never
 before_install:
 - npm install eslint
+
 jobs:
   include:
-    - test1: npm run lint
-    - test2: npm run build
-before_deploy:
-- npm run lint
-- npm run build
-- echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+    - stage: "PreDeploy"
+      name: "Lint Test"
+      script: npm run lint
+    - stage: "Build"
+      name: Build
+    script: npm run build
+      name: "Build"
 deploy:
   provider: npm
   email: svc.developer@avalara.com
