@@ -7,7 +7,6 @@ notifications:
     on_failure: never
 before_install:
 - npm install eslint
-
 jobs:
   include:
     - stage: "Tests"
