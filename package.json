@@ -13,7 +13,7 @@
     "test": "jest",
     "lint": "eslint lib/**/*.js test/**/*.js --cache",
     "format": "prettier --single-quote --write ./test/**/*.js ./lib/*.js ./lib/**/*.js",
-    "publish": "npm run lint && npm run build && npm publish ./.build"
+    "publish": "npm run build && npm publish ./.build"
   },
   "keywords": [
     "avalara",
