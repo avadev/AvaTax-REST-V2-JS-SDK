@@ -14,7 +14,7 @@ jobs:
       script: npm run lint
     - stage: "Build"
       name: Build
-    script: npm run build
+      script: npm run build
       name: "Build"
 deploy:
   provider: npm
