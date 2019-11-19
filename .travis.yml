@@ -11,7 +11,7 @@ jobs:
       name: Lint Test
       script: npm run lint
     - script: npm run build
-      name: "Build Test"
+      name: Build Test
     - stage: "Deploy"
       name: Deploy
       deploy:
