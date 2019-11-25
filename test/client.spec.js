@@ -45,5 +45,54 @@ describe('Avatax Client', () => {
       expect(client.baseUrl).toBe(expected);
     })
   });
+
+  describe('creatRestCallOptions',()=>{
+    let client;
+    beforeEach(()=>{
+
+      client = new Avatax({ 
+        appName:'myapp', 
+        appVersion:'1.0',
+        machineName: 'test-run',
+      });
+
+    });
+
+    it("should avoid creating a body for gets and heads", ()=>{
+      const opts = client.createRestOptions('get');
+      expect(opts.hasOwnProperty('body')).toBe(false)
+      const fakePayload = { fake:"data" };
+      const opts2 = client.createRestOptions('post', fakePayload);
+      expect(opts2.hasOwnProperty('body')).toBe(true);
+      expect(opts2.body).toEqual(JSON.stringify(fakePayload));
+    });
+
+    it("should add additional headers when addtional headers are added to the config", ()=>{
+
+      client = new Avatax({ 
+        appName:'myapp', 
+        appVersion:'1.0',
+        machineName: 'test-run',
+        headers: {
+          'X-Avalara-DataSource':"fake source"
+        }
+      });
+
+      client.withSecurity({
+        bearerToken:"fake token"
+      })
+
+      const opts = client.createRestOptions('get');
+
+      expect(opts.headers).toMatchObject({
+         Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Avalara-DataSource': 'fake source',
+        Authorization: 'Bearer fake token'
+      });
+
+    });
+
+  })
 });
 
