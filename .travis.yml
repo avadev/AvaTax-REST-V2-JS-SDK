@@ -14,8 +14,6 @@ jobs:
       name: Build Test
     - stage: "Deploy"
       name: Deploy
-      before_deploy:
-        - npm run build
       deploy:
         provider: npm
         email: svc.developer@avalara.com
