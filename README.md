@@ -16,8 +16,7 @@ npm install avatax
 yarn add avatax
 ```
 
-## Usage
- 
+
 ### Configuration
 ``` js
 
@@ -41,7 +40,11 @@ const creds = {
 };
 
 var client = new Avatax(config).withSecurity(creds);
-``` 
+```
+
+## Usage
+
+For all available methods, see the [api docs](./api.md) 
 
 ### Tax Calculation
 ``` js
@@ -134,3 +137,6 @@ https://github.com/avadev/AvaTax-REST-V2-JS-SDK/blob/master/test/helpers/load_cr
 git push upstream v17.5.2
 ```
 
+### Generating API docs
+
+`npm run docs`
