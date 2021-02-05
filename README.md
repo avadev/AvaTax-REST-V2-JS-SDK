@@ -7,7 +7,7 @@ AvaTax v2 SDK for languages using node.js
 [![Try on RunKit](https://badge.runkitcdn.com/avatax.svg)](https://runkit.com/npm/avatax)
 
 ## Installation
-Install the package with:
+Install the package with: 
 ``` bash
 # using npm 
 npm install avatax
