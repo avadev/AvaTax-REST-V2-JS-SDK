@@ -64,5 +64,25 @@ describe.skip('Avatax Transactions', () => {
         });
     });
   });
+  
+  describe('handling big integers in rest api response', () => {
+    beforeEach(() => {
+      nock(baseUrl)
+        .get(`/api/v2/companies/${companyCode}/transactions/${transactionCode}`)
+        .reply(200, bigintTransactionResponse);
+    });
+
+    it('handling bigint', () => {
+      return client
+        .getTransactionByCode({
+          companyCode,
+          transactionCode
+        })
+        .then(actualResponse => {
+          console.log(actualResponse);
+          expect(actualResponse.id).toEqual(618368842515476464);
+        });
+    });
+  });
 });
 
