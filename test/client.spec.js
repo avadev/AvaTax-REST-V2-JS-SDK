@@ -16,7 +16,7 @@ describe('Avatax Client', () => {
     const environment = 'sandbox';
     const machineName = 'mbp';
 
-    const client = new Avatax({ appName, appVersion, environment, machineName })
+    new Avatax({ appName, appVersion, environment, machineName })
       .withSecurity({ accountId, licenseKey });
 
     // assert
