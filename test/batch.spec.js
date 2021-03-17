@@ -26,8 +26,8 @@ describe('Batch Full Integration Tests', () => {
             return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
                 
                 expect(res[0]).toBeDefined();
-                expect(res[0].status).toEqual("Waiting");
-                expect(res[0].type).toEqual("TransactionImport");
+                expect(res[0].status).toEqual('Waiting');
+                expect(res[0].type).toEqual('TransactionImport');
                 expect(res[0].companyId).toEqual(companyId);
             });
         });
@@ -38,7 +38,7 @@ describe('Batch Full Integration Tests', () => {
         it.skip('should download the specified batch', () =>{
             return client.downloadBatch({companyId, batchId, id}).then(res => {
                 expect(res).toBeDefined();
-                expect(res.headers.get("transfer-encoding")).toEqual("chunked");
+                expect(res.headers.get('transfer-encoding')).toEqual('chunked');
             });
         });
     });

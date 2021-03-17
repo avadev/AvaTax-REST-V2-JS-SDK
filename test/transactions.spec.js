@@ -8,6 +8,7 @@ import nock from 'nock';
 import transactionRequest from './fixtures/transaction_request';
 import transactionResponse from './fixtures/transaction_response';
 import transactionsListResponse from './fixtures/transactions_list_response';
+import bigintTransactionResponse from './fixtures/bigint_transaction_response';
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -18,6 +19,8 @@ describe.skip('Avatax Transactions', () => {
   const appVersion = '1.0';
   const environment = 'sandbox';
   const machineName = 'mbp';
+  const companyCode = 'DEFAULT';
+  const transactionCode = 'transactionCode';
 
   const client = new Avatax({ appName, appVersion, environment, machineName })
     .withSecurity({ username, password });
@@ -38,7 +41,7 @@ describe.skip('Avatax Transactions', () => {
 
       return client.resolveAddress(address)
         .then(res => {
-          console.log(res);
+          expect(res).toBeDefined();
         });
     });
 
@@ -64,5 +67,23 @@ describe.skip('Avatax Transactions', () => {
         });
     });
   });
-});
+  
+  describe('handling big integers in rest api response', () => {
+    beforeEach(() => {
+      nock(baseUrl)
+        .get(`/api/v2/companies/${companyCode}/transactions/${transactionCode}`)
+        .reply(200, bigintTransactionResponse);
+    });
 
+    it('handling bigint', () => {
+      return client
+        .getTransactionByCode({
+          companyCode,
+          transactionCode
+        })
+        .then(actualResponse => {
+          expect(actualResponse.id).toEqual(618368842515476464);
+        });
+    });
+  });
+});

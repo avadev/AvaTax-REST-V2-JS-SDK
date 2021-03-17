@@ -4,7 +4,6 @@
  */
 
 import Avatax from '../lib/AvaTaxClient';
-import { v4 } from 'node-uuid';
 import moment from 'moment';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
