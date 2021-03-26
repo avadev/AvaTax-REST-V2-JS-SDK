@@ -98,7 +98,7 @@ return client.resolveAddress(address)
   });
 
 ```
-## Release Note
+## Release Notes
 
 In the JS-SDK 21.2.1 release, the SDK can now return big integers from API responses.
 Big integers in JavaScript are displayed in responses by appending an 'n' to the end of an integer literal. For example, 618368842515476464 -> 618368842515476464n.
