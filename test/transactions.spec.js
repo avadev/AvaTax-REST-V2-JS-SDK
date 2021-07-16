@@ -8,7 +8,6 @@ import nock from 'nock';
 import transactionRequest from './fixtures/transaction_request';
 import transactionResponse from './fixtures/transaction_response';
 import transactionsListResponse from './fixtures/transactions_list_response';
-import bigintTransactionResponse from './fixtures/bigint_transaction_response';
 
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
@@ -62,26 +61,6 @@ describe.skip('Avatax Transactions', () => {
       return client.createTransaction(transactionRequest)
         .then(actualResponse => {
           expect(actualResponse).toEqual(transactionResponse);
-        });
-    });
-  });
-
-  describe('handling big integers in rest api response', () => {
-    beforeEach(() => {
-      nock(baseUrl)
-        .get(`/api/v2/companies/${companyCode}/transactions/${transactionCode}`)
-        .reply(200, bigintTransactionResponse);
-    });
-
-    it('handling bigint', () => {
-      return client
-        .getTransactionByCode({
-          companyCode,
-          transactionCode
-        })
-        .then(actualResponse => {
-          console.log(actualResponse);
-          expect(actualResponse.id).toEqual(618368842515476464);
         });
     });
   });
