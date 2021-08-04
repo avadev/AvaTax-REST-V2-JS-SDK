@@ -41,6 +41,12 @@ describe('Address integration test', () => {
             expect(res.address.line1).toEqual('1510 Foster Circle');
         });
     });
+
+    it('should list cross border sections', () => {
+        return client.listCrossBorderSections().then(res => {
+            expect(res).toBeDefined();
+        });
+    });
 });
 
 describe('Address resolve Tests', () => {
