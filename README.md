@@ -33,6 +33,7 @@ const config = {
   appVersion: '1.0',
   environment: 'sandbox',
   machineName: 'your-machine-name'
+  timeout: 5000 // optional, default 20 min
 };
 
 const creds = {
