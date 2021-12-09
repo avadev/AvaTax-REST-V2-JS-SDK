@@ -34,7 +34,6 @@ export default {
         latitude: 42.144481999999996,
         longitude: -88.320204
       },
-      ,
       {
         addressType: 'StreetOrResidentialAddress',
         line1: '1510 Foster Cir',
