@@ -76,7 +76,6 @@ describe('Address resolve Tests', () => {
             expect(res.validatedAddresses[0]).toBeDefined();
             expect(res.validatedAddresses[0].latitude).toBeDefined();
             expect(res.validatedAddresses[0].latitude).toEqual(42.144481999999996);
-            expect(res.taxAuthorities[0].code).toEqual(true);
             expect(res.coordinates).toBeDefined();
             expect(res.coordinates.longitude).toBeDefined();
             expect(res.coordinates.longitude).toEqual(-88.320204);
