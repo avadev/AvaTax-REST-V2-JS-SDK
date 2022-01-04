@@ -10,11 +10,8 @@
     "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "ecmaVersion": 9,
+    "sourceType": "module"
   },
   "rules": {
     "quotes": [2, "single", {

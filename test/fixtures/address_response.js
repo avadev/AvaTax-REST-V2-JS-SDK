@@ -19,8 +19,8 @@ export default {
         region: 'IL',
         country: 'US',
         postalCode: '60102-6659',
-        latitude: 42.1444819999999969878987,
-        longitude: -867678687688.320204
+        latitude: 43.144481,
+        longitude: -86.390206
       },
       {
         addressType: 'StreetOrResidentialAddress',
@@ -43,8 +43,8 @@ export default {
         region: 'IL',
         country: 'US',
         postalCode: '60102-6659',
-        latitude: 938745837485739745398475,
-        longitude: 320204
+        latitude: 49.144481887,
+        longitude: -89.390206
       }
     ],
     coordinates: { latitude: 42.144481999999996, longitude: -88.320204 },
