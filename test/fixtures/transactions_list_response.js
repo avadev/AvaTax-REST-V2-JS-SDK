@@ -48,7 +48,7 @@ export default {
       modifiedDate: '2015-11-06T21:56:48.15',
       modifiedUserId: 54057,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 125678099,
@@ -134,11 +134,11 @@ export default {
           modifiedDate: '2015-11-06T21:56:48.15',
           modifiedUserId: 54057,
           summary: [],
-          parameters: {}
-        }
+          parameters: {},
+        },
       ],
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 126363940,
@@ -181,7 +181,7 @@ export default {
       modifiedDate: '2016-02-04T00:24:01.68',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 151309481,
@@ -224,7 +224,7 @@ export default {
       modifiedDate: '2016-02-03T23:55:30.627',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 151309501,
@@ -267,7 +267,7 @@ export default {
       modifiedDate: '2016-02-03T23:56:05.16',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 266024356,
@@ -310,7 +310,7 @@ export default {
       modifiedDate: '2017-01-10T19:00:20.087',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 266025861,
@@ -353,7 +353,7 @@ export default {
       modifiedDate: '2017-01-10T19:07:58.243',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 266026050,
@@ -396,7 +396,7 @@ export default {
       modifiedDate: '2017-01-10T19:08:27.927',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 269646071,
@@ -439,7 +439,7 @@ export default {
       modifiedDate: '2017-01-24T03:13:04.57',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 269647088,
@@ -482,7 +482,7 @@ export default {
       modifiedDate: '2017-01-24T03:31:54.497',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
+      parameters: {},
     },
     {
       id: 269647802,
@@ -525,7 +525,7 @@ export default {
       modifiedDate: '2017-01-24T03:43:31.9',
       modifiedUserId: 54111,
       summary: [],
-      parameters: {}
-    }
-  ]
+      parameters: {},
+    },
+  ],
 };

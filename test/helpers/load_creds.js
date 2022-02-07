@@ -18,13 +18,13 @@ import fs from 'fs';
  *    unit tests via Nock but the integration tests will not pass without valid creds.
  */
 
-export default function() {
+export default function () {
   // set default client values obj
   const defaultCreds = {
     appName: 'myapp',
     appVersion: '1.0',
     environment: 'sandbox',
-    machineName: 'mbp'
+    machineName: 'mbp',
   };
 
   // look for env creds first, this is primarily used for travis-ci job
@@ -33,8 +33,8 @@ export default function() {
       ...defaultCreds,
       ...{
         username: process.env.SANDBOX_USERNAME,
-        password: process.env.SANDBOX_PASSWORD
-      }
+        password: process.env.SANDBOX_PASSWORD,
+      },
     };
   } else if (fs.existsSync('local_creds.json')) {
     // check for local development creds
@@ -46,8 +46,8 @@ export default function() {
       ...defaultCreds,
       ...{
         username: 'mock-user@avalara.com',
-        password: 'mocked-password'
-      }
+        password: 'mocked-password',
+      },
     };
   }
 }

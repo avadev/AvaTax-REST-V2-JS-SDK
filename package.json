@@ -13,7 +13,7 @@
     "build-win": "babel lib -d .build/lib && babel index.js --out-file .build/index.js && copy package.json .build && copy README.md .build",
     "test": "jest",
     "lint": "eslint lib/**/*.js test/**/*.js --cache",
-    "format": "prettier --single-quote --write ./test/**/*.js ./lib/*.js ./lib/**/*.js",
+    "format": "prettier --write ./test/**/*.js ./lib/*.js ./lib/**/*.js",
     "publish": "npm publish ./.build"
   },
   "keywords": [

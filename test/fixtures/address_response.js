@@ -6,7 +6,7 @@ export default {
     city: 'Illinois',
     region: 'IL',
     country: 'US',
-    postalCode: '60102'
+    postalCode: '60102',
   },
   validatedAddresses: [
     {
@@ -19,7 +19,7 @@ export default {
       country: 'US',
       postalCode: '60102-6659',
       latitude: 43.144481,
-      longitude: -86.390206
+      longitude: -86.390206,
     },
     {
       addressType: 'StreetOrResidentialAddress',
@@ -31,7 +31,7 @@ export default {
       country: 'US',
       postalCode: '60102-6659',
       latitude: 42.144481999999996,
-      longitude: -88.320204
+      longitude: -88.320204,
     },
     {
       addressType: 'StreetOrResidentialAddress',
@@ -43,8 +43,8 @@ export default {
       country: 'US',
       postalCode: '60102-6659',
       latitude: 49.144481887,
-      longitude: -89.390206
-    }
+      longitude: -89.390206,
+    },
   ],
   coordinates: { latitude: 42.144481999999996, longitude: -88.320204 },
   resolutionQuality: 'Intersection',
@@ -54,25 +54,25 @@ export default {
       jurisdictionName: 'ILLINOIS',
       jurisdictionType: 'State',
       signatureCode: 'AQAT',
-      code: true
+      code: true,
     },
     {
       avalaraId: '1000474138945798379385',
       jurisdictionName: 'ALGONQUIN',
       jurisdictionType: 'City',
-      signatureCode: 'ARXO'
+      signatureCode: 'ARXO',
     },
     {
       avalaraId: '10009921',
       jurisdictionName: 'KANE',
       jurisdictionType: 'County',
-      signatureCode: 'ARXJ'
+      signatureCode: 'ARXJ',
     },
     {
       avalaraId: '2001010419',
       jurisdictionName: 'REGIONAL TRANSPORT. AUTHORITY (RTA)',
       jurisdictionType: 'Special',
-      signatureCode: 'ARXL'
-    }
-  ]
+      signatureCode: 'ARXL',
+    },
+  ],
 };

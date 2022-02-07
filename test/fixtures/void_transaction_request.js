@@ -3,5 +3,5 @@
  * file: test/fixtures/void_transaction_request.js
  */
 export default {
-  code: 'docVoided'
+  code: 'docVoided',
 };

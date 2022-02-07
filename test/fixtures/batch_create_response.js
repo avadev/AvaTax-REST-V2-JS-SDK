@@ -25,7 +25,7 @@ export default {
       name: 'Input',
       contentLength: 1312,
       contentType: 'text/csv',
-      fileExtension: 'CSV'
-    }
-  ]
+      fileExtension: 'CSV',
+    },
+  ],
 };

@@ -16,5 +16,5 @@ export default {
   roundingLevelId: 'Line',
   isTest: true,
   taxDependencyLevelId: 0,
-  inProgress: false
+  inProgress: false,
 };

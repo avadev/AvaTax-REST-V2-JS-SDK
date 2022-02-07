@@ -117,7 +117,7 @@ export default {
           taxableUnits: 90,
           nonTaxableUnits: 0,
           exemptUnits: 0,
-          unitOfBasis: 'PerCurrencyUnit'
+          unitOfBasis: 'PerCurrencyUnit',
         },
         {
           id: 1911636545,
@@ -157,7 +157,7 @@ export default {
           taxableUnits: 90,
           nonTaxableUnits: 0,
           exemptUnits: 0,
-          unitOfBasis: 'PerCurrencyUnit'
+          unitOfBasis: 'PerCurrencyUnit',
         },
         {
           id: 1911636546,
@@ -197,7 +197,7 @@ export default {
           taxableUnits: 90,
           nonTaxableUnits: 0,
           exemptUnits: 0,
-          unitOfBasis: 'PerCurrencyUnit'
+          unitOfBasis: 'PerCurrencyUnit',
         },
         {
           id: 1911636547,
@@ -237,37 +237,37 @@ export default {
           taxableUnits: 90,
           nonTaxableUnits: 0,
           exemptUnits: 0,
-          unitOfBasis: 'PerCurrencyUnit'
-        }
+          unitOfBasis: 'PerCurrencyUnit',
+        },
       ],
       lineLocationTypes: [
         {
           documentLineLocationTypeId: 589536700,
           documentLineId: 1052896065,
           documentAddressId: 742647614,
-          locationTypeCode: 'PointOfOrderOrigin'
+          locationTypeCode: 'PointOfOrderOrigin',
         },
         {
           documentLineLocationTypeId: 589536699,
           documentLineId: 1052896065,
           documentAddressId: 742647614,
-          locationTypeCode: 'PointOfOrderAcceptance'
+          locationTypeCode: 'PointOfOrderAcceptance',
         },
         {
           documentLineLocationTypeId: 589536698,
           documentLineId: 1052896065,
           documentAddressId: 742647614,
-          locationTypeCode: 'ShipTo'
+          locationTypeCode: 'ShipTo',
         },
         {
           documentLineLocationTypeId: 589536697,
           documentLineId: 1052896065,
           documentAddressId: 742647614,
-          locationTypeCode: 'ShipFrom'
-        }
+          locationTypeCode: 'ShipFrom',
+        },
       ],
-      parameters: {}
-    }
+      parameters: {},
+    },
   ],
   addresses: [
     {
@@ -283,34 +283,34 @@ export default {
       country: 'US',
       taxRegionId: 2127863,
       latitude: '33.657808',
-      longitude: '-117.968489'
-    }
+      longitude: '-117.968489',
+    },
   ],
   locationTypes: [
     {
       documentLocationTypeId: 360274,
       documentId: 289451438,
       documentAddressId: 742647614,
-      locationTypeCode: 'PointOfOrderOrigin'
+      locationTypeCode: 'PointOfOrderOrigin',
     },
     {
       documentLocationTypeId: 360273,
       documentId: 289451438,
       documentAddressId: 742647614,
-      locationTypeCode: 'PointOfOrderAcceptance'
+      locationTypeCode: 'PointOfOrderAcceptance',
     },
     {
       documentLocationTypeId: 360272,
       documentId: 289451438,
       documentAddressId: 742647614,
-      locationTypeCode: 'ShipTo'
+      locationTypeCode: 'ShipTo',
     },
     {
       documentLocationTypeId: 360271,
       documentId: 289451438,
       documentAddressId: 742647614,
-      locationTypeCode: 'ShipFrom'
-    }
+      locationTypeCode: 'ShipFrom',
+    },
   ],
   summary: [
     {
@@ -329,7 +329,7 @@ export default {
       tax: 5.4,
       taxCalculated: 5.4,
       nonTaxable: 0,
-      exemption: 0
+      exemption: 0,
     },
     {
       country: 'US',
@@ -347,7 +347,7 @@ export default {
       tax: 0.23,
       taxCalculated: 0.23,
       nonTaxable: 0,
-      exemption: 0
+      exemption: 0,
     },
     {
       country: 'US',
@@ -365,7 +365,7 @@ export default {
       tax: 0.9,
       taxCalculated: 0.9,
       nonTaxable: 0,
-      exemption: 0
+      exemption: 0,
     },
     {
       country: 'US',
@@ -383,8 +383,8 @@ export default {
       tax: 0.45,
       taxCalculated: 0.45,
       nonTaxable: 0,
-      exemption: 0
-    }
+      exemption: 0,
+    },
   ],
-  parameters: {}
+  parameters: {},
 };

@@ -12,5 +12,5 @@ export default {
   serverduration: '00:00:00.0468711',
   'transfer-encoding': 'chunked',
   'content-disposition':
-    'attachment; filename=TransactionImportSingleDocumentIncorrectZip.xls.Error.CSV'
+    'attachment; filename=TransactionImportSingleDocumentIncorrectZip.xls.Error.CSV',
 };
