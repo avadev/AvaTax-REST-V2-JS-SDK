@@ -74,9 +74,7 @@ describe('Company Unit Tests', () => {
 
   describe('Listing companies for account', () => {
     beforeEach(() => {
-      nock(baseUrl)
-        .get(`/api/v2/companies`)
-        .reply(200, companiesListResponse);
+      nock(baseUrl).get(`/api/v2/companies`).reply(200, companiesListResponse);
     });
 
     it('should return list of companies', () => {
