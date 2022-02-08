@@ -1,14 +1,22 @@
+os: 'linux'
+git:
+  autocrlf: input
 language: node_js
 node_js:
-- '6'
+  - '14'
 notifications:
   email:
     on_success: never
     on_failure: never
 jobs:
   include:
-    - stage: "Tests"
-      name: Lint Test
-      script: npm run lint
+    - stage: 'Build'
+      name: Format
+      script: npm run format:check
+    - script: npm run lint
+      name: Lint
     - script: npm run build
-      name: Build Test
+      name: Build
+    - stage: 'Tests'
+      name: 'Unit Tests'
+      script: npm test:unit'

@@ -12,8 +12,10 @@
     "build": "rm -rf ./.build && babel lib -d .build/lib && babel index.js --out-file .build/index.js && cp package.json ./.build && cp README.md ./.build",
     "build-win": "babel lib -d .build/lib && babel index.js --out-file .build/index.js && copy package.json .build && copy README.md .build",
     "test": "jest",
+    "test:unit": "jest -t '^((?!([Ii]ntegration|resolve) [Tt]est).)*$'",
     "lint": "eslint lib/**/*.js test/**/*.js --cache",
     "format": "prettier --write ./test/**/*.js ./test/**/*.spec.js ./lib/*.js ./lib/**/*.js",
+    "format:check": "prettier --check ./test/**/*.js ./test/**/*.spec.js ./lib/*.js ./lib/**/*.js",
     "publish": "npm publish ./.build"
   },
   "keywords": [
