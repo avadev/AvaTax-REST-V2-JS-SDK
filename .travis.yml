@@ -10,13 +10,12 @@ notifications:
     on_failure: never
 jobs:
   include:
-    - stage: 'Build'
+    - stage: 'Build and Test'
       name: Format
       script: npm run format:check
     - script: npm run lint
       name: Lint
     - script: npm run build
       name: Build
-    - stage: 'Tests'
+    - script: npm run test:unit'
       name: 'Unit Tests'
-      script: npm test:unit'
