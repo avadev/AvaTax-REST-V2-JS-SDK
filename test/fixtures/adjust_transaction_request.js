@@ -17,8 +17,8 @@ export default {
         city: 'Irvine',
         region: 'CA',
         country: 'US',
-        postalCode: '92615'
-      }
+        postalCode: '92615',
+      },
     },
     lines: [
       {
@@ -27,11 +27,11 @@ export default {
         amount: 90,
         taxCode: 'PS081282',
         itemCode: 'Y0001',
-        description: 'Yarn'
-      }
+        description: 'Yarn',
+      },
     ],
     commit: true,
     currencyCode: 'USD',
-    description: 'Yarn'
-  }
+    description: 'Yarn',
+  },
 };

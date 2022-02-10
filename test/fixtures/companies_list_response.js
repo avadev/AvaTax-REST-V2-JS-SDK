@@ -29,7 +29,7 @@ export default {
       createdDate: '2015-11-06T21:46:33.153',
       createdUserId: 54057,
       modifiedDate: '2015-11-06T21:47:48.147',
-      modifiedUserId: 54057
-    }
-  ]
+      modifiedUserId: 54057,
+    },
+  ],
 };

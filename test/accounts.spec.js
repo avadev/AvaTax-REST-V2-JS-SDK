@@ -14,19 +14,16 @@ describe('Avatax Accounts', () => {
   const client = new Avatax(loadCreds());
 
   describe('Getting accounts by id', () => {
-
     beforeEach(() => {
       nock(baseUrl)
         .get(`/api/v2/accounts/${account}`)
         .reply(200, accountResponse);
     });
-    
+
     it('should return account by id', () => {
-      return client.getAccount({ id: account })
-        .then(res => {
-          expect(res).toEqual(accountResponse);
-        });
+      return client.getAccount({ id: account }).then(res => {
+        expect(res).toEqual(accountResponse);
+      });
     });
   });
 });
-

@@ -17,73 +17,75 @@ let id = 5321678;
 const baseUrl = 'https://sandbox-rest.avatax.com';
 
 describe('Batch Full Integration Tests', () => {
-    const clientCreds = loadCreds();
-    const client = new Avatax(clientCreds).withSecurity(clientCreds);
+  const clientCreds = loadCreds();
+  const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    describe('Create Batch', () => {
-
-        it('should create a new batch', () => {
-            return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
-                
-                expect(res[0]).toBeDefined();
-                expect(res[0].status).toEqual("Waiting");
-                expect(res[0].type).toEqual("TransactionImport");
-                expect(res[0].companyId).toEqual(companyId);
-            });
+  describe('Create Batch', () => {
+    it('should create a new batch', () => {
+      return client
+        .createBatches({ companyId, model: batchCreateRequest })
+        .then(res => {
+          expect(res[0]).toBeDefined();
+          expect(res[0].status).toEqual('Waiting');
+          expect(res[0].type).toEqual('TransactionImport');
+          expect(res[0].companyId).toEqual(companyId);
         });
     });
+  });
 
-    describe('Download Batch', () => {
-
-        it.skip('should download the specified batch', () =>{
-            return client.downloadBatch({companyId, batchId, id}).then(res => {
-                expect(res).toBeDefined();
-                expect(res.headers.get("transfer-encoding")).toEqual("chunked");
-            });
-        });
+  describe('Download Batch', () => {
+    it.skip('should download the specified batch', () => {
+      return client.downloadBatch({ companyId, batchId, id }).then(res => {
+        expect(res).toBeDefined();
+        expect(res.headers.get('transfer-encoding')).toEqual('chunked');
+      });
     });
+  });
 });
-
 
 /*nock unit tests for creating and downloading a batch*/
 describe('Batch Unit Tests', () => {
-    const clientCreds = loadCreds();
-    const client = new Avatax(clientCreds).withSecurity(clientCreds);
+  const clientCreds = loadCreds();
+  const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    afterEach(() => {
-        nock.cleanAll();
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
+  /*Unit test for creating a new batch*/
+  describe('Creating new batches', () => {
+    beforeEach(() => {
+      nock(baseUrl)
+        .post(`/api/v2/companies/${companyId}/batches`, batchCreateRequest)
+        .reply(201, batchCreateResponse);
     });
 
-    /*Unit test for creating a new batch*/
-    describe('Creating new batches', () => {
-       beforeEach(() => {
-           nock(baseUrl)
-               .post(`/api/v2/companies/${companyId}/batches`, batchCreateRequest)
-               .reply(201, batchCreateResponse);
-       });
-
-       it('should create a new batchNock', () =>{
-           return client.createBatches({companyId, model: batchCreateRequest})
-               .then(actualResponse => {
-                   expect(actualResponse).toEqual(batchCreateResponse);
-               });
-       });
-    });
-
-    /* top passes, this does not */
-    /*Unit test for downloading a batch*/
-    describe('Downloading a batch', () => {
-        beforeEach(() => {
-            nock(baseUrl)
-                .get(`/api/v2/companies/${companyId}/batches/${batchId}/files/${id}/attachment`)
-                .reply(201, batchDownloadResponse);
-        });
-
-        it('should download the specified batchNock', () =>{
-            return client.downloadBatch({companyId, batchId, id})
-                .then(actualResponse => {
-                    expect(actualResponse).toEqual(batchDownloadResponse);
-                });
+    it('should create a new batchNock', () => {
+      return client
+        .createBatches({ companyId, model: batchCreateRequest })
+        .then(actualResponse => {
+          expect(actualResponse).toEqual(batchCreateResponse);
         });
     });
+  });
+
+  /* top passes, this does not */
+  /*Unit test for downloading a batch*/
+  describe('Downloading a batch', () => {
+    beforeEach(() => {
+      nock(baseUrl)
+        .get(
+          `/api/v2/companies/${companyId}/batches/${batchId}/files/${id}/attachment`,
+        )
+        .reply(201, batchDownloadResponse);
+    });
+
+    it('should download the specified batchNock', () => {
+      return client
+        .downloadBatch({ companyId, batchId, id })
+        .then(actualResponse => {
+          expect(actualResponse).toEqual(batchDownloadResponse);
+        });
+    });
+  });
 });

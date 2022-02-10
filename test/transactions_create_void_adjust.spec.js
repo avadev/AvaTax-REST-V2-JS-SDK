@@ -22,8 +22,6 @@ const baseUrl = 'https://sandbox-rest.avatax.com';
 describe('Transaction Full Integration Tests', () => {
   const clientCreds = loadCreds();
   const client = new Avatax(clientCreds).withSecurity(clientCreds);
-  
-  
 
   describe('Create Transaction', () => {
     it('should create a new transaction', () => {
@@ -56,7 +54,7 @@ describe('Transaction Full Integration Tests', () => {
           .adjustTransaction({
             companyCode,
             transactionCode,
-            model: adjustTransactionRequest
+            model: adjustTransactionRequest,
           })
           .then(res => {
             expect(res).toBeDefined();
@@ -76,7 +74,7 @@ describe('Transaction Full Integration Tests', () => {
           .voidTransaction({
             companyCode,
             transactionCode,
-            model: voidTransactionRequest
+            model: voidTransactionRequest,
           })
           .then(res => {
             expect(res.totalAmount).toBeGreaterThanOrEqual(0);
@@ -112,17 +110,17 @@ describe('Transactions Unit Tests', () => {
   });
 
   /*Case for adjusting existing transaction
-    *
-    * Need to grab transactionCode from newly created transaction above
-    * transactionCode = actualResponse.code;
-    * EDIT - its hard coded in so we can cheat a little
-    * */
+   *
+   * Need to grab transactionCode from newly created transaction above
+   * transactionCode = actualResponse.code;
+   * EDIT - its hard coded in so we can cheat a little
+   * */
   describe('Adjusting existing transactions', () => {
     beforeEach(() => {
       nock(baseUrl)
         .post(
           `/api/v2/companies/${companyCode}/transactions/${transactionCode}/adjust`,
-          adjustTransactionRequest
+          adjustTransactionRequest,
         )
         .reply(200, adjustTransactionResponse);
     });
@@ -132,7 +130,7 @@ describe('Transactions Unit Tests', () => {
         .adjustTransaction({
           companyCode,
           transactionCode,
-          model: adjustTransactionRequest
+          model: adjustTransactionRequest,
         })
         .then(actualResponse => {
           expect(actualResponse).toEqual(adjustTransactionResponse);
@@ -141,15 +139,15 @@ describe('Transactions Unit Tests', () => {
   });
 
   /* Code for voiding an existing transaction
-     *
-     * Use same transactionCode from before
-     * */
+   *
+   * Use same transactionCode from before
+   * */
   describe('Voiding existing transactions', () => {
     beforeEach(() => {
       nock(baseUrl)
         .post(
           `/api/v2/companies/${companyCode}/transactions/${transactionCode}/void`,
-          voidTransactionRequest
+          voidTransactionRequest,
         )
         .reply(200, voidTransactionResponse);
     });
@@ -159,7 +157,7 @@ describe('Transactions Unit Tests', () => {
         .voidTransaction({
           companyCode,
           transactionCode,
-          model: voidTransactionRequest
+          model: voidTransactionRequest,
         })
         .then(actualResponse => {
           expect(actualResponse).toEqual(voidTransactionResponse);

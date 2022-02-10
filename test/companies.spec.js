@@ -4,7 +4,6 @@
  */
 
 import Avatax from '../lib/AvaTaxClient';
-import { v4 } from 'node-uuid';
 import moment from 'moment';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
@@ -31,7 +30,7 @@ describe('Company Integration Tests', () => {
         title: 'Owner',
         email: 'bob@example.org',
         phoneNumber: '714 555-2121',
-        mobileNumber: '714 555-1212'
+        mobileNumber: '714 555-1212',
       };
 
       return client.companyInitialize({ model: request }).then(res => {

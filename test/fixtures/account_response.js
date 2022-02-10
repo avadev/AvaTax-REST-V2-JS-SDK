@@ -12,5 +12,5 @@ export default {
   createdDate: '2015-11-05T22:11:17.593',
   createdUserId: 46103,
   modifiedDate: '2017-01-10T18:55:36.193',
-  modifiedUserId: 54057
+  modifiedUserId: 54057,
 };
