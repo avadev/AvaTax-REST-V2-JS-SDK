@@ -50,40 +50,40 @@ describe('Transaction Full Integration Tests', () => {
         });
     });
 
-    describe('Adjust transaction', () => {
-      it('should adjust the newly created transaction', () => {
-        return client
-          .adjustTransaction({
-            companyCode,
-            transactionCode,
-            model: adjustTransactionRequest
-          })
-          .then(res => {
-            expect(res).toBeDefined();
-            // TODO: set travis-ci avatax account nexus config
-            // expect(res.totalTax).toEqual(6.98);
-            expect(res.adjustmentReason).toBeDefined();
-            expect(res.adjustmentDescription).toBeDefined();
-            // TODO: set travis-ci avatax account nexus config
-            // expect(res.totalAmount).toEqual(90);
-          });
-      });
-    });
+    // describe('Adjust transaction', () => {
+    //   it('should adjust the newly created transaction', () => {
+    //     return client
+    //       .adjustTransaction({
+    //         companyCode,
+    //         transactionCode,
+    //         model: adjustTransactionRequest
+    //       })
+    //       .then(res => {
+    //         expect(res).toBeDefined();
+    //         // TODO: set travis-ci avatax account nexus config
+    //         // expect(res.totalTax).toEqual(6.98);
+    //         expect(res.adjustmentReason).toBeDefined();
+    //         expect(res.adjustmentDescription).toBeDefined();
+    //         // TODO: set travis-ci avatax account nexus config
+    //         // expect(res.totalAmount).toEqual(90);
+    //       });
+    //   });
+    // });
 
-    describe('Void transaction', () => {
-      it('should void the created and adjusted transaction', () => {
-        return client
-          .voidTransaction({
-            companyCode,
-            transactionCode,
-            model: voidTransactionRequest
-          })
-          .then(res => {
-            expect(res.totalAmount).toBeGreaterThanOrEqual(0);
-            expect(res.status).toEqual('Cancelled');
-          });
-      });
-    });
+    // describe('Void transaction', () => {
+    //   it('should void the created and adjusted transaction', () => {
+    //     return client
+    //       .voidTransaction({
+    //         companyCode,
+    //         transactionCode,
+    //         model: voidTransactionRequest
+    //       })
+    //       .then(res => {
+    //         expect(res.totalAmount).toBeGreaterThanOrEqual(0);
+    //         expect(res.status).toEqual('Cancelled');
+    //       });
+    //   });
+    // });
   });
 });
 

@@ -23,7 +23,7 @@
   "author": "Justin Soliz, Genevieve Conty",
   "license": "Apache-2.0",
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -34,7 +34,6 @@
     "jest": "^18.1.0",
     "moment": "^2.20.1",
     "nock": "^9.0.2",
-    "node-uuid": "^1.4.8",
     "prettier": "^1.4.4"
   }
 }

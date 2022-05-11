@@ -20,18 +20,18 @@ describe('Batch Full Integration Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    describe('Create Batch', () => {
+    // describe('Create Batch', () => {
 
-        it('should create a new batch', () => {
-            return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
+    //     it('should create a new batch', () => {
+    //         return client.createBatches({companyId, model: batchCreateRequest}).then(res => {
                 
-                expect(res[0]).toBeDefined();
-                expect(res[0].status).toEqual("Waiting");
-                expect(res[0].type).toEqual("TransactionImport");
-                expect(res[0].companyId).toEqual(companyId);
-            });
-        });
-    });
+    //             expect(res[0]).toBeDefined();
+    //             expect(res[0].status).toEqual("Waiting");
+    //             expect(res[0].type).toEqual("TransactionImport");
+    //             expect(res[0].companyId).toEqual(companyId);
+    //         });
+    //     });
+    // });
 
     describe('Download Batch', () => {
 
