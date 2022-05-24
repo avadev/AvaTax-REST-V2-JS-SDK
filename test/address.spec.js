@@ -2,6 +2,7 @@
 import Avatax from '../lib/AvaTaxClient';
 import nock from 'nock';
 import resolveAddressResponse from './fixtures/address_response';
+import loadCreds from './helpers/load_creds';
 
 const baseUrl = 'https://api.dev.avalara.io';
 const username = '';
@@ -10,14 +11,12 @@ const appName = 'myapp';
 const appVersion = '1.0';
 const environment = 'dev';
 const machineName = 'mbp';
+const clientCreds = loadCreds();
+const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
 describe('Address integration test', () => {
-   
-    const client = new Avatax({ appName, appVersion, environment, machineName })
-    .withSecurity({ username, password });
 
     it('should resolve address', () => {
-
         const address = {
             line1: '1510 Foster Circle',
             line2: 'Algonquin',
@@ -54,9 +53,6 @@ describe('Address resolve Tests', () => {
         nock(baseUrl).get(`/api/v2/addresses/resolve?line1=1510%20Foster%20Circle&line2=Algonquin&city=Illinois&region=IL&postalCode=60102&country=US&textCase=mixed`)
           .reply(200, resolveAddressResponse);
       })
-
-    const client = new Avatax({ appName, appVersion, environment, machineName })
-    .withSecurity({ username, password });
 
     it('should resolve address', () => {
 

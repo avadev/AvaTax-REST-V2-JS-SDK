@@ -4,7 +4,6 @@
  */
 
 import Avatax from '../lib/AvaTaxClient';
-import { v4 } from 'node-uuid';
 import moment from 'moment';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
@@ -16,31 +15,31 @@ describe('Company Integration Tests', () => {
     const clientCreds = loadCreds();
     const client = new Avatax(clientCreds).withSecurity(clientCreds);
 
-    it('should initialize a company', () => {
-      const request = {
-        name: "Bob's Artisan Pottery",
-        companyCode: `co-${moment.utc().format('YYYYMMDD-HHmmssS')}`,
-        taxpayerIdNumber: '12-3456789',
-        line1: '123 Main Street',
-        city: 'Irvine',
-        region: 'CA',
-        postalCode: '92615',
-        country: 'US',
-        firstName: 'Bob',
-        lastName: 'Example',
-        title: 'Owner',
-        email: 'bob@example.org',
-        phoneNumber: '714 555-2121',
-        mobileNumber: '714 555-1212'
-      };
+    // it('should initialize a company', () => {
+    //   const request = {
+    //     name: "Bob's Artisan Pottery",
+    //     companyCode: `co-${moment.utc().format('YYYYMMDD-HHmmssS')}`,
+    //     taxpayerIdNumber: '12-3456789',
+    //     line1: '123 Main Street',
+    //     city: 'Irvine',
+    //     region: 'CA',
+    //     postalCode: '92615',
+    //     country: 'US',
+    //     firstName: 'Bob',
+    //     lastName: 'Example',
+    //     title: 'Owner',
+    //     email: 'bob@example.org',
+    //     phoneNumber: '714 555-2121',
+    //     mobileNumber: '714 555-1212'
+    //   };
 
-      return client.companyInitialize({ model: request }).then(res => {
-        expect(res).toBeDefined();
-        expect(res.contacts.length).toEqual(1);
-        expect(res.locations.length).toEqual(1);
-        expect(res.nexus.length).toEqual(2);
-      });
-    });
+    //   return client.companyInitialize({ model: request }).then(res => {
+    //     expect(res).toBeDefined();
+    //     expect(res.contacts.length).toEqual(1);
+    //     expect(res.locations.length).toEqual(1);
+    //     expect(res.nexus.length).toEqual(2);
+    //   });
+    // });
 
     describe('Invalid company initialize request', () => {
       it('should return valid exception response');
