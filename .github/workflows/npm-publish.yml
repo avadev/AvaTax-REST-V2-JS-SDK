@@ -1,0 +1,22 @@
+name: Publish package to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-npm:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish ./.build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
