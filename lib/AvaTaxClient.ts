@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author     Justin Soliz <justin.soliz@avalara.com>
- * @author     Ted Spence <ted.spence@avalara.com>
+ * @author     Jonathan Wenger <jonathan.wenger@avalara.com>
+ * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
  * @version    22.6.0
@@ -60,6 +60,8 @@ export default class AvaTaxClient {
     this.timeout = timeout;  
   }
 
+
+
   /**
    * Configure this client to use the specified username/password security settings
    *
@@ -68,7 +70,7 @@ export default class AvaTaxClient {
    * @param  {number}             accountId       The account ID of your avatax account
    * @param  {string}          licenseKey      The license key of your avatax account
    * @param  {string}          bearerToken     The OAuth 2.0 token provided by Avalara Identity
-   * @return AvaTaxClient
+   * @return {AvaTaxClient}
    */
   withSecurity({ username, password, accountId, licenseKey, bearerToken }: { username?: string, password?: string, accountId?: string, licenseKey?: string, bearerToken?: string}) {
     if (username != null && password != null) {
