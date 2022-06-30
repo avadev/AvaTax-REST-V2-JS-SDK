@@ -1,6 +1,6 @@
 {
   "name": "ava-types",
-  "version": "22.6.28",
+  "version": "22.6.1",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "types": "index.d.ts",

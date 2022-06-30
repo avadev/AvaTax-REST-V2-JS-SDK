@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.6.0
+ * @version    22.6.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -59,8 +59,6 @@ export default class AvaTaxClient {
     }  
     this.timeout = timeout;  
   }
-
-
 
   /**
    * Configure this client to use the specified username/password security settings
@@ -196,7 +194,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -234,7 +232,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -284,7 +282,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -322,7 +320,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -355,7 +353,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -390,7 +388,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -429,7 +427,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -456,7 +454,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -484,7 +482,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -533,7 +531,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -573,7 +571,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -628,7 +626,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -662,7 +660,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -688,7 +686,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -713,7 +711,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -738,7 +736,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -763,7 +761,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -789,7 +787,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -819,7 +817,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -848,7 +846,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -877,7 +875,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -915,7 +913,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -946,7 +944,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -986,7 +984,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -1033,7 +1031,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1078,7 +1076,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1116,7 +1114,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -1146,7 +1144,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1189,7 +1187,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1248,7 +1246,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1303,7 +1301,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1348,7 +1346,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1396,7 +1394,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1450,7 +1448,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1503,7 +1501,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1545,7 +1543,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -1593,7 +1591,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1642,7 +1640,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1677,7 +1675,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1721,7 +1719,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1766,7 +1764,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -1809,7 +1807,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1855,7 +1853,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1911,7 +1909,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -1948,7 +1946,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -1992,7 +1990,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2038,7 +2036,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2079,7 +2077,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -2123,7 +2121,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -2173,7 +2171,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2214,7 +2212,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2253,7 +2251,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2285,7 +2283,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2324,7 +2322,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2363,7 +2361,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2391,7 +2389,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -2425,7 +2423,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -2457,7 +2455,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2492,7 +2490,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2535,7 +2533,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2574,7 +2572,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2609,7 +2607,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2650,7 +2648,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2684,7 +2682,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2730,7 +2728,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2762,7 +2760,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2791,7 +2789,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2845,7 +2843,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -2885,7 +2883,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -2924,7 +2922,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -2960,7 +2958,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -3004,7 +3002,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3035,7 +3033,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3064,7 +3062,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -3095,7 +3093,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3135,7 +3133,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3176,7 +3174,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3210,7 +3208,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -3254,7 +3252,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3295,7 +3293,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -3345,7 +3343,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3390,7 +3388,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -3432,7 +3430,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3475,7 +3473,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3519,7 +3517,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3571,7 +3569,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3617,7 +3615,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3673,7 +3671,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3718,7 +3716,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -3760,7 +3758,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3802,7 +3800,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -3832,7 +3830,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -3862,7 +3860,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -3892,7 +3890,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3930,7 +3928,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -3970,7 +3968,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4001,7 +3999,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -4039,7 +4037,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4073,7 +4071,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4105,7 +4103,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4142,7 +4140,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4182,7 +4180,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4220,7 +4218,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4258,7 +4256,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4292,7 +4290,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4325,7 +4323,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4358,7 +4356,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4391,7 +4389,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4425,7 +4423,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4464,7 +4462,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4509,7 +4507,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4541,7 +4539,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4576,7 +4574,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4612,7 +4610,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4645,7 +4643,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4682,7 +4680,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4734,7 +4732,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4776,7 +4774,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4831,7 +4829,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4865,7 +4863,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4897,7 +4895,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4931,7 +4929,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -4981,7 +4979,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5016,7 +5014,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5052,7 +5050,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5090,7 +5088,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5125,7 +5123,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5158,7 +5156,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5191,7 +5189,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5224,7 +5222,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5257,7 +5255,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5290,7 +5288,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5323,7 +5321,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5356,7 +5354,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5389,7 +5387,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5422,7 +5420,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5455,7 +5453,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5489,7 +5487,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5540,7 +5538,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5574,7 +5572,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5603,7 +5601,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5635,7 +5633,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5675,7 +5673,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5712,7 +5710,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5758,7 +5756,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5792,7 +5790,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5828,7 +5826,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5862,7 +5860,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5897,7 +5895,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5930,7 +5928,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5964,7 +5962,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -5998,7 +5996,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6033,7 +6031,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6065,7 +6063,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6098,7 +6096,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6133,7 +6131,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6166,7 +6164,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6206,7 +6204,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6236,7 +6234,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6269,7 +6267,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6302,7 +6300,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6337,7 +6335,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6372,7 +6370,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6405,7 +6403,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6438,7 +6436,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6473,7 +6471,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6507,7 +6505,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6540,7 +6538,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -6573,7 +6571,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -6606,7 +6604,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6649,7 +6647,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6694,7 +6692,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6731,7 +6729,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -6762,7 +6760,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -6793,7 +6791,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -6821,7 +6819,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -6858,7 +6856,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -6886,7 +6884,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -6914,7 +6912,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -6942,7 +6940,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -6972,7 +6970,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7000,7 +6998,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -7028,7 +7026,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -7056,7 +7054,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -7093,7 +7091,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7133,7 +7131,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7171,7 +7169,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7204,7 +7202,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7239,7 +7237,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7276,7 +7274,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7312,7 +7310,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7352,7 +7350,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7389,7 +7387,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7421,7 +7419,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7454,7 +7452,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -7497,7 +7495,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7534,7 +7532,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7568,7 +7566,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7604,7 +7602,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7636,7 +7634,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7667,7 +7665,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -7712,7 +7710,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7750,7 +7748,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7784,7 +7782,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7820,7 +7818,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7858,7 +7856,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7897,7 +7895,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7939,7 +7937,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -7985,7 +7983,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8030,7 +8028,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8077,7 +8075,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8136,7 +8134,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8184,7 +8182,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8234,7 +8232,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8267,7 +8265,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -8307,7 +8305,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -8348,7 +8346,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -8385,7 +8383,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -8422,7 +8420,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -8456,7 +8454,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -8485,7 +8483,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -8519,7 +8517,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8566,7 +8564,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8612,7 +8610,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8642,7 +8640,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -8682,7 +8680,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -8711,7 +8709,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -8740,7 +8738,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -8776,7 +8774,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -8817,7 +8815,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8853,7 +8851,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8900,7 +8898,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -8950,7 +8948,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9000,7 +8998,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9032,7 +9030,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -9069,7 +9067,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -9100,7 +9098,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9151,7 +9149,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9202,7 +9200,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9246,7 +9244,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9317,7 +9315,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9369,7 +9367,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9429,7 +9427,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9494,7 +9492,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9571,7 +9569,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9613,7 +9611,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9660,7 +9658,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9707,7 +9705,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9746,7 +9744,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9789,7 +9787,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -9828,7 +9826,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -9863,7 +9861,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -9897,7 +9895,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -9936,7 +9934,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -9979,7 +9977,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10014,7 +10012,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10063,7 +10061,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10113,7 +10111,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10159,7 +10157,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10207,7 +10205,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10255,7 +10253,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -10292,7 +10290,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -10321,7 +10319,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10350,7 +10348,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10378,7 +10376,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -10406,7 +10404,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -10447,7 +10445,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId });
   }
@@ -10482,7 +10480,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10528,7 +10526,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -10571,7 +10569,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10603,7 +10601,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -10635,7 +10633,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10676,7 +10674,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10709,7 +10707,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10741,7 +10739,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -10779,7 +10777,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -10811,7 +10809,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -10849,7 +10847,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -10881,7 +10879,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -10920,7 +10918,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -10957,7 +10955,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -10998,7 +10996,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11032,7 +11030,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11080,7 +11078,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -11126,7 +11124,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11169,7 +11167,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -11207,7 +11205,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -11245,7 +11243,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11296,7 +11294,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11346,7 +11344,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11389,7 +11387,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -11420,7 +11418,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11462,7 +11460,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11503,7 +11501,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11536,7 +11534,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -11565,7 +11563,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -11598,7 +11596,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11644,7 +11642,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11689,7 +11687,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11725,7 +11723,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -11776,7 +11774,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -11837,7 +11835,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11907,7 +11905,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -11964,7 +11962,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12013,7 +12011,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12054,7 +12052,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12095,7 +12093,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -12136,7 +12134,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12190,7 +12188,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12243,7 +12241,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12285,7 +12283,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -12336,7 +12334,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12400,7 +12398,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12452,7 +12450,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12505,7 +12503,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12540,7 +12538,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12604,7 +12602,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12666,7 +12664,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12730,7 +12728,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12801,7 +12799,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12849,7 +12847,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -12909,7 +12907,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12951,7 +12949,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -12998,7 +12996,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13068,7 +13066,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13132,7 +13130,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13208,7 +13206,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13270,7 +13268,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13326,7 +13324,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -13379,7 +13377,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
   }
@@ -13440,7 +13438,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13503,7 +13501,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13534,7 +13532,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13564,7 +13562,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -13595,7 +13593,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13639,7 +13637,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13682,7 +13680,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13716,7 +13714,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -13746,7 +13744,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -13778,7 +13776,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13811,7 +13809,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13845,7 +13843,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -13882,7 +13880,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
@@ -13916,7 +13914,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
   }
@@ -13953,7 +13951,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -13996,7 +13994,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -14046,7 +14044,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -14097,7 +14095,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -14130,7 +14128,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
@@ -14161,7 +14159,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -14191,7 +14189,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
@@ -14233,7 +14231,7 @@ export default class AvaTaxClient {
       this.appNM +
       '; ' +
       this.appVer +
-      '; JavascriptSdk; 22.6.0; ' +
+      '; JavascriptSdk; 22.6.1; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }

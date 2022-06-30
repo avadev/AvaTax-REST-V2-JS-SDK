@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author     Justin Soliz <justin.soliz@avalara.com>
- * @author     Ted Spence <ted.spence@avalara.com>
+ * @author     Jonathan Wenger <jonathan.wenger@avalara.com>
+ * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.6.0
+ * @version    22.6.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -180,11 +180,13 @@ export * from './CreateECommerceTokenInputModel';
 export * from './ECommerceTokenOutputModel';
 export * from './RefreshECommerceTokenInputModel';
 export * from './ErrorTransactionOutputModel';
+export * from './CappedFetchResult<T>';
 export * from './ErrorTransactionModelBase';
 export * from './DeleteErrorTransactionsRequestModel';
 export * from './DeleteErrorTransactionResponseModel';
 export * from './DeleteErrorTransactionsResponseModel';
 export * from './ErrorCodeOutputModel';
+export * from './CappedFetchResult<T>';
 export * from './CompanyReturnSettingModel';
 export * from './FilingCalendarModel';
 export * from './QueryRequestModel';
