@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci
-      - run: npm run build
+      - run: npm run build-tsc
       - uses: actions/setup-node@v2
         with:
           node-version: 16
