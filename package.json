@@ -31,7 +31,7 @@
         "lib/models.d.ts"
       ],
       "enums": [
-        "lib/models.d.ts"
+        "lib/enums.d.ts"
       ]
     }
   },
