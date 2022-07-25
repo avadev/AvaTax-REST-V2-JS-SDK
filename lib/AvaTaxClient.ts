@@ -19,11 +19,19 @@ import { createBasicAuthHeader } from './utils/basic_auth';
 import { withTimeout } from './utils/withTimeout';
 import * as Models from './models/index';
 import * as Enums from './enums/index';
+import * as https from 'https';
 
 class AvalaraError extends Error {
   code: string;
   target: string;
   details: string
+}
+
+interface HttpOptions {
+  method: string;
+  headers: NodeJS.Dict<string>;
+  body: string;
+  agent?: https.Agent
 }
 
 export default class AvaTaxClient {
@@ -33,6 +41,7 @@ export default class AvaTaxClient {
   public baseUrl: string;
   public timeout: number;
   public auth: string;
+  public httpAgent: https.Agent;
   private apiVersion: string = '22.6.1';
   /**
    * Construct a new AvaTaxClient 
@@ -43,11 +52,13 @@ export default class AvaTaxClient {
    * @param {string} machineName  Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
    * @param {string} environment  Indicates which server to use; acceptable values are "sandbox" or "production", or the full URL of your AvaTax instance.
    * @param {number} timeout      Specify the timeout for AvaTax requests; default value 20 minutes.
+   * @param {https.Agent} httpAgent    Specify a custom https agent to use when making http requests.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000 }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, httpAgent }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
+    this.httpAgent = httpAgent;
     this.baseUrl = 'https://rest.avatax.com';
     if (environment == 'sandbox') {
       this.baseUrl = 'https://sandbox-rest.avatax.com';
@@ -96,14 +107,18 @@ export default class AvaTaxClient {
       Authorization: this.auth,
       'X-Avalara-Client': clientId
     };    
-    for (let [key, value] of mapHeader) {
-      reqHeaders[key] = value;
-    }
-    return withTimeout(this.timeout, fetch(url, {
+    const options: HttpOptions = {
       method: verb,
       headers: reqHeaders,
       body: payload == null ? null : JSON.stringify(payload)
-    })).then((res: Response) => {
+    };
+    for (let [key, value] of mapHeader) {
+      reqHeaders[key] = value;
+    }
+    if (this.httpAgent) {
+      options.agent = this.httpAgent;
+    }
+    return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
 	    const contentType = res.headers.get('content-type');
       const contentLength = res.headers.get('content-length');
       if (contentType === 'application/vnd.ms-excel' || contentType === 'text/csv') {
