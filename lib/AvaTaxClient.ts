@@ -30,7 +30,7 @@ class AvalaraError extends Error {
 interface HttpOptions {
   method: string;
   headers: NodeJS.Dict<string>;
-  body: string;
+  body: string | null;
   agent?: https.Agent
 }
 
@@ -52,13 +52,13 @@ export default class AvaTaxClient {
    * @param {string} machineName  Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
    * @param {string} environment  Indicates which server to use; acceptable values are "sandbox" or "production", or the full URL of your AvaTax instance.
    * @param {number} timeout      Specify the timeout for AvaTax requests; default value 20 minutes.
-   * @param {https.Agent} httpAgent    Specify a custom https agent to use when making http requests.
+   * @param {https.Agent} customHttpAgent    Specify a custom https agent to use when making http requests.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, httpAgent }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
-    this.httpAgent = httpAgent;
+    this.httpAgent = customHttpAgent;
     this.baseUrl = 'https://rest.avatax.com';
     if (environment == 'sandbox') {
       this.baseUrl = 'https://sandbox-rest.avatax.com';
