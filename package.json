@@ -14,7 +14,7 @@
     "test": "jest",
     "lint": "eslint lib/**/*.js test/**/*.js --cache",
     "format": "prettier --single-quote --write ./test/**/*.js ./lib/*.js ./lib/**/*.js",
-    "publish": "npm publish ./.build"
+    "npm-publish": "npm publish ./.build"
   },
   "keywords": [
     "avalara",
