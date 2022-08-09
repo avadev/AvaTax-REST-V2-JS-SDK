@@ -10,16 +10,16 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.6.1
+ * @version    22.7.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
+import * as https from 'https';
 import fetch, { Response } from 'node-fetch';
 import { createBasicAuthHeader } from './utils/basic_auth';
 import { withTimeout } from './utils/withTimeout';
 import * as Models from './models/index';
 import * as Enums from './enums/index';
-import * as https from 'https';
 
 class AvalaraError extends Error {
   code: string;
@@ -42,7 +42,7 @@ export default class AvaTaxClient {
   public timeout: number;
   public auth: string;
   public httpAgent: https.Agent;
-  private apiVersion: string = '22.6.1';
+  private apiVersion: string = '22.7.0';
   /**
    * Construct a new AvaTaxClient 
    * 
@@ -52,13 +52,11 @@ export default class AvaTaxClient {
    * @param {string} machineName  Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
    * @param {string} environment  Indicates which server to use; acceptable values are "sandbox" or "production", or the full URL of your AvaTax instance.
    * @param {number} timeout      Specify the timeout for AvaTax requests; default value 20 minutes.
-   * @param {https.Agent} customHttpAgent    Specify a custom https agent to use when making http requests.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000 }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
-    this.httpAgent = customHttpAgent;
     this.baseUrl = 'https://rest.avatax.com';
     if (environment == 'sandbox') {
       this.baseUrl = 'https://sandbox-rest.avatax.com';
@@ -77,9 +75,10 @@ export default class AvaTaxClient {
    *
    * @param  {string}          username        The username for your AvaTax user account
    * @param  {string}          password        The password for your AvaTax user account
-   * @param  {number}             accountId       The account ID of your avatax account
+   * @param  {number}          accountId       The account ID of your avatax account
    * @param  {string}          licenseKey      The license key of your avatax account
    * @param  {string}          bearerToken     The OAuth 2.0 token provided by Avalara Identity
+   * @param  {https.Agent}     customHttpAgent Specify a custom https agent to use when making http requests.
    * @return {AvaTaxClient}
    */
   withSecurity({ username, password, accountId, licenseKey, bearerToken }: { username?: string, password?: string, accountId?: string, licenseKey?: string, bearerToken?: string}) {
@@ -2364,14 +2363,19 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id The unique identifier of the company
+     * @param {Enums.POABusinessUnit} businessUnit The company's business unit (See POABusinessUnit::* for a list of allowable values)
+     * @param {Enums.POASubscriptionType} subscriptionType The company's subscription type (See POASubscriptionType::* for a list of allowable values)
      * @param {Models.FundingInitiateModel} model The funding initialization request
    * @return {Models.FundingStatusModel}
    */
   
-  createFundingRequest({ id, model }: { id: number, model: Models.FundingInitiateModel }): Promise<Models.FundingStatusModel> {
+  createFundingRequest({ id, businessUnit, subscriptionType, model }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType, model: Models.FundingInitiateModel }): Promise<Models.FundingStatusModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/funding/setup`,
-      parameters: {}
+      parameters: {
+        businessUnit: businessUnit,
+        subscriptionType: subscriptionType
+      }
     });
 	 var strClientId =
       this.appNM +
@@ -4754,8 +4758,10 @@ export default class AvaTaxClient {
   }
 
   /**
-   * List jurisdictions based on the TaxType, TaxSubType and RateType provided
-   * Returns a list of all Avalara-supported taxing jurisdictions filtered by TaxType, TaxSubType and RateType.
+   * List jurisdictions based on the provided taxTypeId, taxSubTypeId, country, and rateTypeId
+   * Returns a list of all Avalara-supported taxing jurisdictions filtered by taxTypeId, taxSubTypeId, country, and rateTypeId.
+     *  
+     * You can optionally pass region as a query parameter to retrieve jurisdictions that are under that region.
      *  
      * This API allows you to examine all Avalara-supported jurisdictions. You can filter your search by supplying
      * SQL-like query for fetching only the ones you concerned about. For example: effectiveDate > '2016-01-01'
@@ -4768,6 +4774,7 @@ export default class AvaTaxClient {
      * @param {string} taxTypeId The taxtype for which you want to retrieve the jurisdiction information
      * @param {string} taxSubTypeId The taxsubtype for which you want to retrieve the jurisdiction information
      * @param {string} rateTypeId The ratetype for which you want to retrieve the jurisdiction information
+     * @param {string} region The region for which you want to retrieve the jurisdiction information
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, country, state, jurisdictionCode, longName, taxTypeId, taxSubTypeId, taxTypeGroupId, rateTypeId
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4775,15 +4782,45 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, region: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
         rateTypeId: rateTypeId,
+        region: region,
         $filter: filter,
         $top: top,
         $skip: skip,
         $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
+   * List jurisdiction types based on the provided taxTypeId, taxSubTypeId, country, and rateTypeId
+   * Returns a list of all applicable jurisdiction types based on country, taxTypeId, taxSubTypeId, and rateTypeId
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} country The country for which you want to retrieve the jurisdiction information
+     * @param {string} taxTypeId The taxtype for which you want to retrieve the jurisdiction information
+     * @param {string} taxSubTypeId The taxsubtype for which you want to retrieve the jurisdiction information
+     * @param {string} rateTypeId The ratetype for which you want to retrieve the jurisdiction information
+   * @return {string[]}
+   */
+  
+  listJurisdictionTypesByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string }): Promise<string[]> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/jurisdictionTypes/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
+      parameters: {
+        rateTypeId: rateTypeId
       }
     });
 	 var strClientId =
@@ -7135,13 +7172,18 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id The unique ID number of this funding request
+     * @param {Enums.POABusinessUnit} businessUnit The company's business unit (See POABusinessUnit::* for a list of allowable values)
+     * @param {Enums.POASubscriptionType} subscriptionType The company's subscription type (See POASubscriptionType::* for a list of allowable values)
    * @return {Models.FundingStatusModel}
    */
   
-  activateFundingRequest({ id }: { id: number }): Promise<Models.FundingStatusModel> {
+  activateFundingRequest({ id, businessUnit, subscriptionType }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType }): Promise<Models.FundingStatusModel> {
     var path = this.buildUrl({
       url: `/api/v2/fundingrequests/${id}/widget`,
-      parameters: {}
+      parameters: {
+        businessUnit: businessUnit,
+        subscriptionType: subscriptionType
+      }
     });
 	 var strClientId =
       this.appNM +
@@ -7173,13 +7215,18 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id The unique ID number of this funding request
+     * @param {Enums.POABusinessUnit} businessUnit The company's business unit (See POABusinessUnit::* for a list of allowable values)
+     * @param {Enums.POASubscriptionType} subscriptionType The company's subscription type (See POASubscriptionType::* for a list of allowable values)
    * @return {Models.FundingStatusModel}
    */
   
-  fundingRequestStatus({ id }: { id: number }): Promise<Models.FundingStatusModel> {
+  fundingRequestStatus({ id, businessUnit, subscriptionType }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType }): Promise<Models.FundingStatusModel> {
     var path = this.buildUrl({
       url: `/api/v2/fundingrequests/${id}`,
-      parameters: {}
+      parameters: {
+        businessUnit: businessUnit,
+        subscriptionType: subscriptionType
+      }
     });
 	 var strClientId =
       this.appNM +

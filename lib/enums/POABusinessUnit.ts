@@ -18,9 +18,8 @@
 * @export
 * @enum {string}
 */
- export enum CommentType {
-        Internal = 1,
-        Customer = 2,
-        POAAttachment = 3,
-        NoticeVoucher = 4,
+ export enum POABusinessUnit {
+        Returns = 0,
+        Lodging = 1,
+        Telecom = 2,
 }
