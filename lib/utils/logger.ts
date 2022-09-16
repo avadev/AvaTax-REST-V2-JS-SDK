@@ -97,7 +97,8 @@ export default class Logger implements BaseLogger {
             typeof logger.debug === "function" && 
             typeof logger.info === "function" &&
             typeof logger.warn === "function" &&
-            typeof logger.error === "function" 
+            typeof logger.error === "function" &&
+            typeof logger.log === "function"
         );
     }
 
