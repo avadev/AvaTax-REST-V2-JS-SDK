@@ -20,6 +20,7 @@ import { createBasicAuthHeader } from './utils/basic_auth';
 import { withTimeout } from './utils/withTimeout';
 import * as Models from './models/index';
 import * as Enums from './enums/index';
+import Logger, { LogLevel, LogOptions, RequestLogger } from './utils/logger';
 
 class AvalaraError extends Error {
   code: string;
@@ -42,6 +43,7 @@ export default class AvaTaxClient {
   public timeout: number;
   public auth: string;
   public httpAgent: https.Agent;
+  private logger: Logger;
   private apiVersion: string = '22.7.0';
   /**
    * Construct a new AvaTaxClient 
@@ -52,8 +54,10 @@ export default class AvaTaxClient {
    * @param {string} machineName  Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
    * @param {string} environment  Indicates which server to use; acceptable values are "sandbox" or "production", or the full URL of your AvaTax instance.
    * @param {number} timeout      Specify the timeout for AvaTax requests; default value 20 minutes.
+   * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000 }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, logOptions = { logEnabled: true, logLevel: LogLevel.Error } } : 
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, logOptions: LogOptions }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
@@ -68,6 +72,7 @@ export default class AvaTaxClient {
       this.baseUrl = environment;      
     }  
     this.timeout = timeout;  
+    this.logger = new Logger(logOptions);
   }
 
   /**
@@ -117,9 +122,20 @@ export default class AvaTaxClient {
     if (this.httpAgent) {
       options.agent = this.httpAgent;
     }
+    const startTime = Date.now();
+    // Instantiate a logger for this request, use the correlation id passed in by the consumer if it exists,
+    // Otherwise requestLogger will generate a UUID and append it to the request header 'x-correlation-id'
+    const requestLogger = new RequestLogger(this.logger, options.headers);
+    const urlAndMethodMessage = `REST ${options.method && options.method.toUpperCase()} call to ${url}`;
+    requestLogger.info(`Initiate ${urlAndMethodMessage}`);
+    requestLogger.info(`Request Headers for ${urlAndMethodMessage}: ${JSON.stringify(options.headers)}`);
+    requestLogger.debug(`Request Body for ${urlAndMethodMessage}: ${JSON.stringify(options.body)}`);
     return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
 	    const contentType = res.headers.get('content-type');
       const contentLength = res.headers.get('content-length');
+      requestLogger.info(`Response Headers for ${urlAndMethodMessage}: ${JSON.stringify([...res.headers])}`);
+      requestLogger.info(`Elapsed time for ${urlAndMethodMessage}: ${Date.now() - startTime} ms`);
+      
       if (contentType === 'application/vnd.ms-excel' || contentType === 'text/csv') {
         return res;
       }
@@ -133,6 +149,7 @@ export default class AvaTaxClient {
         let ex = new AvalaraError('The server returned the response is in an unexpected format');
         ex.code = 'FormatException';
         ex.details = error;
+        requestLogger.error(`Error occurred parsing json response for ${urlAndMethodMessage}: ${JSON.stringify(ex)}`)
         throw ex;
       }).then(json => {
         // handle error
@@ -141,8 +158,11 @@ export default class AvaTaxClient {
           ex.code = json.error.code;
           ex.target = json.error.target;
           ex.details = json.error.details;
+          requestLogger.error(`Error occurred parsing json response for ${urlAndMethodMessage}: ${JSON.stringify(ex)}`)
           throw ex;
         } else {
+          requestLogger.debug(`Response Body for ${urlAndMethodMessage}: ${JSON.stringify(json)}`);
+          requestLogger.info(`Completed ${urlAndMethodMessage}`);
           return json;
         }
       });      
@@ -169,8 +189,6 @@ export default class AvaTaxClient {
     }
     return this.baseUrl + url;
   }
-
-
 
   /**
    * Reset this account's license key
