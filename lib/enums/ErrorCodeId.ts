@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.7.0
+ * @version    22.9.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -314,6 +314,7 @@
         InvalidRestrictionType = 1733,
         InvalidParameter = 1734,
         InvalidSystemCode = 1735,
+        NoItemsForClassification = 1736,
         UnsupportedFileFormat = 1800,
         UnsupportedOutputFileType = 1801,
         TaxProfileNotProvided = 1900,
@@ -377,4 +378,5 @@
         InvalidTaxTypeCode = 2809,
         ContentAccessDenied = 2810,
         ContentNotFound = 2811,
+        RegistrationNumberNotFound = 2812,
 }

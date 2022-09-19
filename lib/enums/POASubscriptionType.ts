@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.7.0
+ * @version    22.9.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -25,4 +25,6 @@
         AvaLodging = 3,
         MRSComplianceManager = 4,
         AMRA = 5,
+        MRSPremium = 6,
+        MRSPremier = 7,
 }

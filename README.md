@@ -1,5 +1,5 @@
-# AvaTax Rest V2 Node.js SDK
-AvaTax v2 SDK for languages using node.js
+# ava-typescript Rest V2 Node.js SDK
+ava-typescript v2 SDK for languages using node.js
 
 [![Version](https://img.shields.io/npm/v/avatax.svg?style=plastic)](https://www.npmjs.org/package/avatax)
 [![Build Status](https://api.travis-ci.org/avadev/AvaTax-REST-V2-JRE-SDK.svg?branch=master&style=plastic)](https://travis-ci.org/avadev/AvaTax-REST-V2-JS-SDK)
@@ -10,10 +10,10 @@ AvaTax v2 SDK for languages using node.js
 Install the package with: 
 ``` bash
 # using npm 
-npm install avatax
+npm install ava-typescript
 
 # using yarn
-yarn add avatax
+yarn add ava-typescript
 ```
 
 ## Usage
@@ -22,10 +22,10 @@ yarn add avatax
 ``` js
 
 // es5 import
-var Avatax = require('avatax');
+var Avatax = require('ava-typescript');
 
 // es6/7 import
-// import Avatax from 'avatax';
+// import Avatax from 'ava-typescript';
 
 // resolve configuration and credentials
 const config = {

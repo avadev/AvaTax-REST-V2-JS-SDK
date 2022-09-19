@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.7.0
+ * @version    22.9.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -41,8 +41,8 @@ export default class AvaTaxClient {
   public baseUrl: string;
   public timeout: number;
   public auth: string;
-  public httpAgent: https.Agent;
-  private apiVersion: string = '22.7.0';
+  public customHttpAgent: https.Agent;
+  private apiVersion: string = '22.9.0';
   /**
    * Construct a new AvaTaxClient 
    * 
@@ -52,11 +52,13 @@ export default class AvaTaxClient {
    * @param {string} machineName  Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
    * @param {string} environment  Indicates which server to use; acceptable values are "sandbox" or "production", or the full URL of your AvaTax instance.
    * @param {number} timeout      Specify the timeout for AvaTax requests; default value 20 minutes.
+   * @param {https.Agent} customHttpAgent      Specify the http agent which will be used to make http requests to the Avatax APIs.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000 }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
+    this.customHttpAgent = customHttpAgent;
     this.baseUrl = 'https://rest.avatax.com';
     if (environment == 'sandbox') {
       this.baseUrl = 'https://sandbox-rest.avatax.com';
@@ -78,7 +80,6 @@ export default class AvaTaxClient {
    * @param  {number}          accountId       The account ID of your avatax account
    * @param  {string}          licenseKey      The license key of your avatax account
    * @param  {string}          bearerToken     The OAuth 2.0 token provided by Avalara Identity
-   * @param  {https.Agent}     customHttpAgent Specify a custom https agent to use when making http requests.
    * @return {AvaTaxClient}
    */
   withSecurity({ username, password, accountId, licenseKey, bearerToken }: { username?: string, password?: string, accountId?: string, licenseKey?: string, bearerToken?: string}) {
@@ -106,16 +107,16 @@ export default class AvaTaxClient {
       Authorization: this.auth,
       'X-Avalara-Client': clientId
     };    
+    for (let [key, value] of mapHeader) {
+      reqHeaders[key] = value;
+    }
     const options: HttpOptions = {
       method: verb,
       headers: reqHeaders,
       body: payload == null ? null : JSON.stringify(payload)
     };
-    for (let [key, value] of mapHeader) {
-      reqHeaders[key] = value;
-    }
-    if (this.httpAgent) {
-      options.agent = this.httpAgent;
+    if (this.customHttpAgent) {
+      options.agent = this.customHttpAgent;
     }
     return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
 	    const contentType = res.headers.get('content-type');
