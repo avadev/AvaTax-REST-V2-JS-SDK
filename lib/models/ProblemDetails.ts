@@ -18,29 +18,39 @@ import * as Enums from '../enums/index';
 import * as Models from './index';
 
 /**
- * Frequency Available object
+ * 
  * @export
- * @interface FrequencyAvailableModel
+ * @interface ProblemDetails
  */
- export interface FrequencyAvailableModel {
+ export interface ProblemDetails {
     /**
      * @type {string}
-     * @memberof FrequencyAvailableModel
+     * @memberof ProblemDetails
      */
-   frequencyCode: string;
+   type: string;
     /**
      * @type {string}
-     * @memberof FrequencyAvailableModel
+     * @memberof ProblemDetails
      */
-   frequencyName: string;
+   title: string;
+    /**
+     * @type {number}
+     * @memberof ProblemDetails
+     */
+   status?: number;
     /**
      * @type {string}
-     * @memberof FrequencyAvailableModel
+     * @memberof ProblemDetails
      */
-   reason: string;
+   detail: string;
     /**
-     * @type {Models.AvailableCycleModel[]}
-     * @memberof FrequencyAvailableModel
+     * @type {string}
+     * @memberof ProblemDetails
      */
-   availableCycles: Models.AvailableCycleModel[];
+   instance: string;
+    /**
+     * @type {object}
+     * @memberof ProblemDetails
+     */
+   extensions: object;
  }
