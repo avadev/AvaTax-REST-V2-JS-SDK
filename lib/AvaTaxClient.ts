@@ -20,15 +20,16 @@ import { createBasicAuthHeader } from './utils/basic_auth';
 import { withTimeout } from './utils/withTimeout';
 import * as Models from './models/index';
 import * as Enums from './enums/index';
-import Logger, { LogLevel, LogOptions, RequestLogger } from './utils/logger';
+import Logger, { LogLevel, LogOptions } from './utils/logger';
+import LogObject from './utils/logObject';
 
-class AvalaraError extends Error {
+export class AvalaraError extends Error {
   code: string;
   target: string;
   details: string
 }
 
-interface HttpOptions {
+export interface HttpOptions {
   method: string;
   headers: NodeJS.Dict<string>;
   body: string | null;
@@ -123,26 +124,32 @@ export default class AvaTaxClient {
     if (this.customHttpAgent) {
       options.agent = this.customHttpAgent;
     }
-    const startTime = Date.now();
-    // Instantiate a logger for this request, use the correlation id passed in by the consumer if it exists,
-    // Otherwise requestLogger will generate a UUID and append it to the request header 'x-correlation-id'
-    const requestLogger = new RequestLogger(this.logger, options.headers);
-    const urlAndMethodMessage = `REST ${options.method && options.method.toUpperCase()} call to ${url}`;
-    requestLogger.info(`Initiate ${urlAndMethodMessage}`);
-    requestLogger.info(`Request Headers for ${urlAndMethodMessage}: ${JSON.stringify(options.headers)}`);
-    requestLogger.debug(`Request Body for ${urlAndMethodMessage}: ${JSON.stringify(options.body)}`);
+    const logObject = new LogObject(this.logger.logRequestAndResponseInfo);
+    logObject.populateRequestInfo(url, options, payload);
     return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
-	    const contentType = res.headers.get('content-type');
+	    logObject.populateElapsedTime();
+      const contentType = res.headers.get('content-type');
       const contentLength = res.headers.get('content-length');
-      requestLogger.info(`Response Headers for ${urlAndMethodMessage}: ${JSON.stringify([...res.headers])}`);
-      requestLogger.info(`Elapsed time for ${urlAndMethodMessage}: ${Date.now() - startTime} ms`);
       
       if (contentType === 'application/vnd.ms-excel' || contentType === 'text/csv') {
+        res.text().then((txt: string) => {
+          logObject.populateResponseInfo(res, txt);
+        }).catch((error) => {
+          let ex = new AvalaraError('The server returned the response is in an unexpected format');
+          ex.code = 'FormatException';
+          ex.details = error;
+          logObject.populateErrorInfo(res, ex);
+          throw ex;
+        }).finally(() => {
+          this.createLogEntry(logObject);
+        });
         return res;
       }
 
       if (contentType && contentType.includes('application/json')) {
         if ((contentLength === 0 && Math.trunc(res.status / 100) === 2) || res.status === 204){
+          logObject.populateResponseInfo(res, null);
+          this.createLogEntry(logObject);
           return null;
         }
       }
@@ -150,7 +157,7 @@ export default class AvaTaxClient {
         let ex = new AvalaraError('The server returned the response is in an unexpected format');
         ex.code = 'FormatException';
         ex.details = error;
-        requestLogger.error(`Error occurred parsing json response for ${urlAndMethodMessage}: ${JSON.stringify(ex)}`)
+        logObject.populateErrorInfo(res, ex);
         throw ex;
       }).then(json => {
         // handle error
@@ -159,13 +166,14 @@ export default class AvaTaxClient {
           ex.code = json.error.code;
           ex.target = json.error.target;
           ex.details = json.error.details;
-          requestLogger.error(`Error occurred parsing json response for ${urlAndMethodMessage}: ${JSON.stringify(ex)}`)
+          logObject.populateErrorInfo(res, ex);
           throw ex;
         } else {
-          requestLogger.debug(`Response Body for ${urlAndMethodMessage}: ${JSON.stringify(json)}`);
-          requestLogger.info(`Completed ${urlAndMethodMessage}`);
+          logObject.populateResponseInfo(res, json);
           return json;
         }
+      }).finally(() => {
+        this.createLogEntry(logObject);
       });      
     });      
   }
@@ -189,6 +197,14 @@ export default class AvaTaxClient {
       url = url + '?' + qs;
     }
     return this.baseUrl + url;
+  }
+
+  createLogEntry(logObject: LogObject) {
+    if (logObject.getStatusCode() <= 299) {
+      this.logger.info(logObject.toString());
+    } else {
+      this.logger.error(logObject.toString());
+    }
   }
 
   /**
