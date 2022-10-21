@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.9.0
+ * @version    22.10.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -43,9 +43,9 @@ export default class AvaTaxClient {
   public baseUrl: string;
   public timeout: number;
   public auth: string;
-  private logger: Logger;
   public customHttpAgent: https.Agent;
-  private apiVersion: string = '22.9.0';
+  private apiVersion: string = '22.10.0';
+  private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
    * 
@@ -58,7 +58,7 @@ export default class AvaTaxClient {
    * @param {https.Agent} customHttpAgent      Specify the http agent which will be used to make http requests to the Avatax APIs.
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: true, logLevel: LogLevel.Error } } : 
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false } } : 
     { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent: https.Agent, logOptions: LogOptions }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
@@ -199,6 +199,11 @@ export default class AvaTaxClient {
     return this.baseUrl + url;
   }
 
+/**
+   * Create an entry for an HTTP Request/Response in the logger.
+   *
+   * @param   {LogObject}  logObject            The instance of the logObject for a specific API invocation (HTTP Request)
+   */
   createLogEntry(logObject: LogObject) {
     if (logObject.getStatusCode() <= 299) {
       this.logger.info(logObject.toString());
@@ -206,6 +211,8 @@ export default class AvaTaxClient {
       this.logger.error(logObject.toString());
     }
   }
+
+
 
   /**
    * Reset this account's license key
@@ -10778,6 +10785,41 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Create Avalara-supported subscription (ServiceTypes)
+   * For Registrar Use Only
+     * This API is for use by Avalara Registrar administrative users only.
+     *  
+     * Create one service/subscription object.
+     *  
+     * Returns the newly created Avalara-supported subscription (service) type.
+     * This API is intended to be useful for adding new Avalara-supported subscription type (service type).
+     * You may always contact Avalara's sales department for information on available products or services.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {Models.SubscriptionTypeModel} model The subscription type object you wish to create.
+   * @return {Models.SubscriptionTypeModel}
+   */
+  
+  createServiceTypes({ model }: { model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/servicetypes`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+  }
+
+  /**
    * Create a new subscription
    * This API is for use by Avalara Registrar administrative users only.
      *  
@@ -10881,6 +10923,38 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Delete a single Subscription (ServiceTypes) object
+   * For Registrar Use Only
+     * This API is for use by Avalara Registrar administrative users only.
+     *  
+     * Marks the Subscription (ServiceTypes) object identified by this URL as deleted.
+     * This API is useful for deleting an existing Avalara-supported subscription type (service type).
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} id The unique ID number of the Subscription object you wish to delete.
+   * @return {Models.ErrorDetail[]}
+   */
+  
+  deleteServiceType({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+    var path = this.buildUrl({
+      url: `/api/v2/servicetypes/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+  }
+
+  /**
    * Delete a single subscription
    * # For Registrar Use Only
      * This API is for use by Avalara Registrar administrative users only.
@@ -10910,6 +10984,48 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+  }
+
+  /**
+   * Retrieve the full list of Avalara-supported subscription (ServiceTypes)
+   * For Registrar Use Only
+     * This API is for use by Avalara Registrar administrative users only.
+     *  
+     * Returns the full list of Avalara-supported subscription types.
+     * This API is intended to be useful for identifying which features you have added to your account.
+     * You may always contact Avalara's sales department for information on available products or services.
+     * You cannot change your subscriptions/service directly through the API.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {object}
+   */
+  
+  listServiceTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+    var path = this.buildUrl({
+      url: `/api/v2/servicetypes/servicetypes`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
   }
 
   /**
@@ -11010,6 +11126,40 @@ export default class AvaTaxClient {
   updateNotification({ id, model }: { id: number, model: Models.NotificationModel }): Promise<Models.NotificationModel> {
     var path = this.buildUrl({
       url: `/api/v2/notifications/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+  }
+
+  /**
+   * Update existing Avalara-supported subscription (ServiceTypes)
+   * For Registrar Use Only
+     * This API is for use by Avalara Registrar administrative users only.
+     *  
+     * Returns the updated Avalara-supported service types.
+     * This API is intended to be useful for updating an existing subscription(service) type detail.
+     * You may always contact Avalara's sales department for information on available products or services.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} id The unique ID number of the existing subscription type object to replace.
+     * @param {Models.SubscriptionTypeModel} model The subscription type object to update.
+   * @return {Models.SubscriptionTypeModel}
+   */
+  
+  updateServiceType({ id, model }: { id: number, model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/servicetypes/${id}`,
       parameters: {}
     });
 	 var strClientId =
@@ -14332,6 +14482,112 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
+   * Fetches a previously stored age verification response.
+   * The request must meet the following criteria in order to be evaluated:
+     * * *firstName*, *lastName*, and *address* are required fields.
+     * * One of the following sets of attributes are required for the *address*:
+     *  * *line1, city, region*
+     *  * *line1, postalCode*
+     * 
+     * * Optionally, the request may use the following parameters:
+     * * A *DOB* (Date of Birth) field. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+     * * Beyond the required *address* fields above, a *country* field is permitted
+     *  * The valid values for this attribute are [*US, USA*]
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {Models.AgeVerifyRequest} model Information about the individual whose age is being verified.
+   * @return {Models.AgeVerifyResult}
+   */
+  
+  findAgeVerification({ model }: { model: Models.AgeVerifyRequest }): Promise<Models.AgeVerifyResult> {
+    var path = this.buildUrl({
+      url: `/api/v2/ageverification/store/identity/find`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+  }
+
+  /**
+   * Stores an age verification response for the account.
+   * The request field must meet the following criteria in order to be evaluated:
+     * * *firstName*, *lastName*, and *address* are required fields.
+     * * One of the following sets of attributes are required for the *address*:
+     *  * *line1, city, region*
+     *  * *line1, postalCode*
+     * 
+     * * Optionally, request field may use the following parameters:
+     * * A *DOB* (Date of Birth) field. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+     * * Beyond the required *address* fields above, a *country* field is permitted
+     *  * The valid values for this attribute are [*US, USA*]
+     * 
+     * 
+     * The response field must meet the following criteria in order to be evaluated:
+     * * *isOfAge*, *failureCodes* are required fields
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {Models.StoreAgeVerifyRequest} model Information about the individual whose age has been verified and the corresponding age verification response.
+   * @return {}
+   */
+  
+  storeAgeVerification({ model }: { model: Models.StoreAgeVerifyRequest }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/ageverification/store/identity`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+  }
+
+  /**
+   * Conditionally performs an age verification check. If a record matching the request is found in the internal store, the associated response is returned. Otherwise, an age verification check is performed and the response is stored if the individual is determined to be of age.
+   * The request must meet the following criteria in order to be evaluated:
+     * * *firstName*, *lastName*, and *address* are required fields.
+     * * One of the following sets of attributes are required for the *address*:
+     *  * *line1, city, region*
+     *  * *line1, postalCode*
+     * 
+     * * Optionally, the request may use the following parameters:
+     * * A *DOB* (Date of Birth) field. The value should be ISO-8601 compliant (e.g. 2020-07-21).
+     * * Beyond the required *address* fields above, a *country* field is permitted
+     *  * The valid values for this attribute are [*US, USA*]
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {string} simulatedFailureCode (Optional) The failure code included in the simulated response of the endpoint. Note that this endpoint is only available in Sandbox for testing purposes.
+     * @param {Models.AgeVerifyRequest} model Information about the individual whose age is being verified.
+   * @return {Models.StoreIfVerifiedResult}
+   */
+  
+  storeIfVerified({ simulatedFailureCode, model }: { simulatedFailureCode: string, model: Models.AgeVerifyRequest }): Promise<Models.StoreIfVerifiedResult> {
+    var path = this.buildUrl({
+      url: `/api/v2/ageverification/store/identity/storeIfVerified`,
+      parameters: {
+        simulatedFailureCode: simulatedFailureCode
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
   }
 
   /**

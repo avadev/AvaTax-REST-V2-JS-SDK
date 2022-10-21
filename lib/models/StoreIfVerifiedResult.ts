@@ -18,24 +18,29 @@ import * as Enums from '../enums/index';
 import * as Models from './index';
 
 /**
- * Replace an existing transaction recorded in AvaTax with a new one.
+ * The Result of a call to the /ageVerification/store/identity/storeIfVerified endpoint.
  * @export
- * @interface AdjustTransactionModel
+ * @interface StoreIfVerifiedResult
  */
- export interface AdjustTransactionModel {
+ export interface StoreIfVerifiedResult {
     /**
-     * @type {Enums.AdjustmentReason}
-     * @memberof AdjustTransactionModel
+     * @type {boolean}
+     * @memberof StoreIfVerifiedResult
      */
-   adjustmentReason: Enums.AdjustmentReason;
+   isOfAge?: boolean;
+    /**
+     * @type {Enums.AgeVerifyFailureCode[]}
+     * @memberof StoreIfVerifiedResult
+     */
+   failureCodes: Enums.AgeVerifyFailureCode[];
+    /**
+     * @type {boolean}
+     * @memberof StoreIfVerifiedResult
+     */
+   fromStore?: boolean;
     /**
      * @type {string}
-     * @memberof AdjustTransactionModel
+     * @memberof StoreIfVerifiedResult
      */
-   adjustmentDescription: string;
-    /**
-     * @type {Models.CreateTransactionModel}
-     * @memberof AdjustTransactionModel
-     */
-   newTransaction: Models.CreateTransactionModel;
+   createdUtc: string;
  }
