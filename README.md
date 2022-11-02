@@ -27,13 +27,19 @@ var Avatax = require('avatax');
 // es6/7 import
 // import Avatax from 'avatax';
 
-// resolve configuration and credentials
+// resolve configuration, credentials and logOptions
 const config = {
   appName: 'your-app',
   appVersion: '1.0',
   environment: 'sandbox',
   machineName: 'your-machine-name'
-  timeout: 5000 // optional, default 20 min
+  timeout: 5000, // optional, default 20 min
+  logOptions: {
+    logEnabled: true, // toggle logging on or off, by default its off.
+    logLevel: 3, // logLevel that will be used, Options are LogLevel.Error (0), LogLevel.Warn (1), LogLevel.Info (2), LogLevel.Debug (3)
+    logRequestAndResponseInfo: true, // Toggle logging of the request and response bodies on and off.
+    logger: myCustomLogger // (OPTIONAL) Custom logger can be passed in that implements the BaseLogger interface (e.g. debug, info, warn, error, and log functions) Otherwise console.log/error etc will be used by default.
+  }
 };
 
 const creds = {
@@ -101,10 +107,16 @@ return client.resolveAddress(address)
 ```
 ## Release Notes
 
-In the JS-SDK 21.2.1 release, the SDK can now return big integers from API responses.
-Big integers in JavaScript are displayed in responses by appending an 'n' to the end of an integer literal. For example, 618368842515476464 -> 618368842515476464n.
-Numbers are presented as before. For example, 8456123 -> 8456123.
-For more information, refer to the following Mozilla documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+Please see the [Github releases](https://github.com/avadev/AvaTax-REST-V2-JS-SDK/releases) for in-depth release notes.
+
+## Typescript support
+As of version 22.11.0, Typescript support is included in the SDK. Models and Enums included in addition to typing for all of the API methods and parameters. The team welcomes any feedback on this feature.
+
+Models and Enums can be imported into Typescript projects as follows:
+```typescript
+import { AddressResolutionModel } from 'avatax/models';
+import { AddressCategoryId } from 'avatax/enums';
+```
 
 ## SDK Development
 
@@ -140,4 +152,3 @@ https://github.com/avadev/AvaTax-REST-V2-JS-SDK/blob/master/test/helpers/load_cr
 # assuming a tag of v17.5.2 and a remote of 'upstream'
 git push upstream v17.5.2
 ```
-

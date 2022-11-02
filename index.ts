@@ -4,5 +4,6 @@
  */
 
 import client from './lib/AvaTaxClient';
-module.exports = client;
+export default client;
+module.exports = exports["default"];
 
