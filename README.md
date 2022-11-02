@@ -112,6 +112,12 @@ Please see the [Github releases](https://github.com/avadev/AvaTax-REST-V2-JS-SDK
 ## Typescript support
 As of version 22.11.0, Typescript support is included in the SDK. Models and Enums included in addition to typing for all of the API methods and parameters. The team welcomes any feedback on this feature.
 
+Models and Enums can be imported into Typescript projects as follows:
+```typescript
+import { AddressResolutionModel } from 'avatax/models';
+import { AddressCategoryId } from 'avatax/enums';
+```
+
 ## SDK Development
 
 ### Adding integration test credentials
