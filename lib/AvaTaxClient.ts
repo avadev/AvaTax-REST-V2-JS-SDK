@@ -11029,6 +11029,47 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve the full list of Avalara-supported subscription (ServiceTypes)
+   * For Registrar Use Only
+     * This API is for use by Avalara Registrar administrative users only.
+     *  
+     * Returns the full list of Avalara-supported subscription types.
+     * This API is intended to be useful for identifying which features you have added to your account.
+     * You may always contact Avalara's sales department for information on available products or services.
+     * You cannot change your subscriptions/service directly through the API.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param string filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param int top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param int skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param string orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return FetchResult
+   */
+  listServiceTypes({ filter, top, skip, orderBy } = {}) {
+    var path = this.buildUrl({
+      url: `/api/v2/servicetypes/servicetypes`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; 22.10.0; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
    * Reset a user's password programmatically
    * # For Registrar Use Only
      * This API is for use by Avalara Registrar administrative users only.
