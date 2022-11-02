@@ -32,17 +32,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   message: string;
+   message?: string;
     /**
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   successMessages: string;
+   successMessages?: string;
     /**
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   failureMessages: string;
+   failureMessages?: string;
     /**
      * @type {Enums.FailureCodes[]}
      * @memberof ShippingVerifyResult

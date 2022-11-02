@@ -39,17 +39,17 @@ as a state, country, or local government entity.
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   tag: string;
+   tag?: string;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {Date}
      * @memberof ExposureZoneModel
@@ -64,10 +64,10 @@ as a state, country, or local government entity.
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   country: string;
+   country?: string;
  }

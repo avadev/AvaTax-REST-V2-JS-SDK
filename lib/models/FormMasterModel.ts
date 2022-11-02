@@ -37,22 +37,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   legacyReturnName: string;
+   legacyReturnName?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   taxFormName: string;
+   taxFormName?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -62,22 +62,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   authorityName: string;
+   authorityName?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   shortCode: string;
+   shortCode?: string;
     /**
      * @type {number}
      * @memberof FormMasterModel
@@ -202,7 +202,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   grossIncludesTax: string;
+   grossIncludesTax?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -222,12 +222,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   requiredEfileTrigger: string;
+   requiredEfileTrigger?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   requiredEftTrigger: string;
+   requiredEftTrigger?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -242,17 +242,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewed: string;
+   peerReviewed?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewedId: string;
+   peerReviewedId?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewedDate: string;
+   peerReviewedDate?: string;
     /**
      * @type {number}
      * @memberof FormMasterModel
@@ -277,107 +277,107 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressMailTo: string;
+   dorAddressMailTo?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddress1: string;
+   dorAddress1?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddress2: string;
+   dorAddress2?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressCity: string;
+   dorAddressCity?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressRegion: string;
+   dorAddressRegion?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressPostalCode: string;
+   dorAddressPostalCode?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressCountry: string;
+   dorAddressCountry?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressMailTo: string;
+   zeroAddressMailTo?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddress1: string;
+   zeroAddress1?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddress2: string;
+   zeroAddress2?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressCity: string;
+   zeroAddressCity?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressRegion: string;
+   zeroAddressRegion?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressPostalCode: string;
+   zeroAddressPostalCode?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressCountry: string;
+   zeroAddressCountry?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressMailTo: string;
+   amendedAddressMailTo?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddress1: string;
+   amendedAddress1?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddress2: string;
+   amendedAddress2?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressCity: string;
+   amendedAddressCity?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressRegion: string;
+   amendedAddressRegion?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressPostalCode: string;
+   amendedAddressPostalCode?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressCountry: string;
+   amendedAddressCountry?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -392,7 +392,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   prepaymentFrequency: string;
+   prepaymentFrequency?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -402,12 +402,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   listingSortOrder: string;
+   listingSortOrder?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorWebsite: string;
+   dorWebsite?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -427,12 +427,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   roundingPrecision: string;
+   roundingPrecision?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   inconsistencyTolerance: string;
+   inconsistencyTolerance?: string;
     /**
      * @type {Date}
      * @memberof FormMasterModel
@@ -462,7 +462,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   reportLevel: string;
+   reportLevel?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -472,27 +472,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   stackAggregationOption: string;
+   stackAggregationOption?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   sstBehavior: string;
+   sstBehavior?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   nonSstBehavior: string;
+   nonSstBehavior?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorPhoneNumber: string;
+   dorPhoneNumber?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   averageCheckClearDays: string;
+   averageCheckClearDays?: string;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
@@ -507,22 +507,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   bulkAccountInstructionLink: string;
+   bulkAccountInstructionLink?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   registrationIdFormat: string;
+   registrationIdFormat?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   thresholdTrigger: string;
+   thresholdTrigger?: string;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   transactionSortingOption: string;
+   transactionSortingOption?: string;
     /**
      * @type {number}
      * @memberof FormMasterModel
@@ -532,5 +532,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof FormMasterModel
      */
-   aliasForFormMasterId: string;
+   aliasForFormMasterId?: string;
  }

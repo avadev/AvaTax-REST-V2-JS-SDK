@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NexusParameterDetailModel
      */
-   unit: string;
+   unit?: string;
     /**
      * @type {number}
      * @memberof NexusParameterDetailModel

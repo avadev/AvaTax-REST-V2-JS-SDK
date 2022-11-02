@@ -34,5 +34,5 @@ please call the `ListCertificateExemptionReasons` API.
      * @type {string}
      * @memberof ExemptionReasonModel
      */
-   name: string;
+   name?: string;
  }

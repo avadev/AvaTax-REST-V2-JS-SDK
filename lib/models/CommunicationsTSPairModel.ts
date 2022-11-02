@@ -37,17 +37,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   TransactionType: string;
+   TransactionType?: string;
     /**
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   ServiceType: string;
+   ServiceType?: string;
     /**
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string[]}
      * @memberof CommunicationsTSPairModel

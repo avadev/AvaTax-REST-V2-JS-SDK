@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {Models.ItemTaxCodeModel[]}
      * @memberof ItemTaxCodeRecommendationsOutputModel
@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   url: string;
+   url?: string;
  }

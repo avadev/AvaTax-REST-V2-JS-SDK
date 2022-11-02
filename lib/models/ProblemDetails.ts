@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ProblemDetails
      */
-   type: string;
+   type?: string;
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   title: string;
+   title?: string;
     /**
      * @type {number}
      * @memberof ProblemDetails
@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ProblemDetails
      */
-   detail: string;
+   detail?: string;
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   instance: string;
+   instance?: string;
     /**
      * @type {object}
      * @memberof ProblemDetails

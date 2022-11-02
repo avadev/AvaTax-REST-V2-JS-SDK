@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmAccountName: string;
+   firmAccountName?: string;
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   clientAccountName: string;
+   clientAccountName?: string;
     /**
      * @type {Date}
      * @memberof FirmClientLinkageOutputModel
@@ -82,10 +82,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmContactName: string;
+   firmContactName?: string;
     /**
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmContactEmail: string;
+   firmContactEmail?: string;
  }

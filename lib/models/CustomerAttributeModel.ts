@@ -33,12 +33,12 @@ be linked to multiple customer attributes and vice versa.
      * @type {string}
      * @memberof CustomerAttributeModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof CustomerAttributeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof CustomerAttributeModel

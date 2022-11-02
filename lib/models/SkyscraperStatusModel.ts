@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string[]}
      * @memberof SkyscraperStatusModel
@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {Enums.ScraperType}
      * @memberof SkyscraperStatusModel
@@ -52,12 +52,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   expectedResponseTime: string;
+   expectedResponseTime?: string;
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {Models.requiredFilingCalendarDataFieldModel[]}
      * @memberof SkyscraperStatusModel

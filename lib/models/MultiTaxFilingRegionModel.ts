@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiTaxFilingRegionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof MultiTaxFilingRegionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {boolean}
      * @memberof MultiTaxFilingRegionModel

@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   jurisCode: string;
+   jurisCode?: string;
     /**
      * @type {number}
      * @memberof DenormalizedJurisModel
@@ -52,12 +52,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   jurisName: string;
+   jurisName?: string;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   stateAssignedCode: string;
+   stateAssignedCode?: string;
     /**
      * @type {number}
      * @memberof DenormalizedJurisModel
@@ -67,22 +67,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   state: string;
+   state?: string;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   county: string;
+   county?: string;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {boolean}
      * @memberof DenormalizedJurisModel

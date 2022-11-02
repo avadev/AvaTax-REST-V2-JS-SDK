@@ -39,17 +39,17 @@ calculate tax.
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   taxTypeGroup: string;
+   taxTypeGroup?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   nexusTaxTypeGroup: string;
+   nexusTaxTypeGroup?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {Enums.TextCase}
      * @memberof DeclareNexusByAddressModel
@@ -59,32 +59,32 @@ calculate tax.
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {number}
      * @memberof DeclareNexusByAddressModel

@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   ruleId: string;
+   ruleId?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleModel
@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleModel
@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   executionPosition: string;
+   executionPosition?: string;
  }

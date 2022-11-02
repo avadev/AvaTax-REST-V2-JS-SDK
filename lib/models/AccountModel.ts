@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AccountModel
      */
-   crmid: string;
+   crmid?: string;
     /**
      * @type {string}
      * @memberof AccountModel

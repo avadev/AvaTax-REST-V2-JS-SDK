@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ExemptionStatusModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {Models.CertificateModel}
      * @memberof ExemptionStatusModel

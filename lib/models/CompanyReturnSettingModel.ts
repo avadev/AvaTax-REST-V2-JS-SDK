@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyReturnSettingModel
      */
-   filingQuestionCode: string;
+   filingQuestionCode?: string;
     /**
      * @type {string}
      * @memberof CompanyReturnSettingModel
      */
-   value: string;
+   value?: string;
     /**
      * @type {Date}
      * @memberof CompanyReturnSettingModel

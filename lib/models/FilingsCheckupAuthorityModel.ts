@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   locationCode: string;
+   locationCode?: string;
     /**
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxAuthorityName: string;
+   taxAuthorityName?: string;
     /**
      * @type {number}
      * @memberof FilingsCheckupAuthorityModel
@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {Models.FilingsCheckupSuggestedFormModel[]}
      * @memberof FilingsCheckupAuthorityModel

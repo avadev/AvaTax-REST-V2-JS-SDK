@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   customerDataValidatorScript: string;
+   customerDataValidatorScript?: string;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
@@ -42,27 +42,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   createdBy: string;
+   createdBy?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   createdOn: string;
+   createdOn?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   modifiedBy: string;
+   modifiedBy?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   modifiedOn: string;
+   modifiedOn?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   approvedBy: string;
+   approvedBy?: string;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
@@ -82,7 +82,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   customerDataSchema: string;
+   customerDataSchema?: string;
     /**
      * @type {number}
      * @memberof AdvancedRuleFullDetailsModel
@@ -97,7 +97,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   ruleId: string;
+   ruleId?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
@@ -107,7 +107,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
@@ -117,5 +117,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   executionPosition: string;
+   executionPosition?: string;
  }

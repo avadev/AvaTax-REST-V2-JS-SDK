@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleEditOptionModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {boolean}
      * @memberof CycleEditOptionModel

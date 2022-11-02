@@ -49,7 +49,7 @@ affect you, or a potential issue with your company's tax profile.
      * @type {string}
      * @memberof NotificationModel
      */
-   referenceObject: string;
+   referenceObject?: string;
     /**
      * @type {number}
      * @memberof NotificationModel
@@ -64,12 +64,12 @@ affect you, or a potential issue with your company's tax profile.
      * @type {string}
      * @memberof NotificationModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   topic: string;
+   topic?: string;
     /**
      * @type {string}
      * @memberof NotificationModel
@@ -84,12 +84,12 @@ affect you, or a potential issue with your company's tax profile.
      * @type {string}
      * @memberof NotificationModel
      */
-   actionName: string;
+   actionName?: string;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   actionLink: string;
+   actionLink?: string;
     /**
      * @type {Date}
      * @memberof NotificationModel

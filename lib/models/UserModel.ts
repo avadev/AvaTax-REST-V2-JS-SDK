@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof UserModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {Enums.SecurityRoleId}
      * @memberof UserModel
@@ -92,12 +92,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof UserModel
      */
-   subjectId: string;
+   subjectId?: string;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   migratedDate: string;
+   migratedDate?: string;
     /**
      * @type {boolean}
      * @memberof UserModel

@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   lineNumber: string;
+   lineNumber?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -47,17 +47,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -92,12 +92,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   certificateId: string;
+   certificateId?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   exemptNo: string;
+   exemptNo?: string;
     /**
      * @type {boolean}
      * @memberof TransactionLineModel
@@ -112,7 +112,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -127,12 +127,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   ref1: string;
+   ref1?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   ref2: string;
+   ref2?: string;
     /**
      * @type {Date}
      * @memberof TransactionLineModel
@@ -142,7 +142,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   revAccount: string;
+   revAccount?: string;
     /**
      * @type {Enums.Sourcing}
      * @memberof TransactionLineModel
@@ -167,7 +167,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -182,7 +182,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   taxEngine: string;
+   taxEngine?: string;
     /**
      * @type {Enums.TaxOverrideType}
      * @memberof TransactionLineModel
@@ -192,7 +192,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -202,7 +202,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   taxOverrideReason: string;
+   taxOverrideReason?: string;
     /**
      * @type {boolean}
      * @memberof TransactionLineModel
@@ -217,7 +217,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   merchantSellerIdentifier: string;
+   merchantSellerIdentifier?: string;
     /**
      * @type {Enums.MarketplaceLiabilityType}
      * @memberof TransactionLineModel
@@ -227,12 +227,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   originationDocumentId: string;
+   originationDocumentId?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   originationSite: string;
+   originationSite?: string;
     /**
      * @type {Models.TransactionLineDetailModel[]}
      * @memberof TransactionLineModel
@@ -262,7 +262,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -272,7 +272,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   vatCode: string;
+   vatCode?: string;
     /**
      * @type {number}
      * @memberof TransactionLineModel
@@ -292,10 +292,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof TransactionLineModel
      */
-   summary: string;
+   summary?: string;
  }

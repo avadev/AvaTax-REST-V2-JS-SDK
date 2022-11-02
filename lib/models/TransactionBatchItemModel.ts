@@ -28,7 +28,7 @@ Only one child transaction model should contain data.
      * @type {string}
      * @memberof TransactionBatchItemModel
      */
-   memo: string;
+   memo?: string;
     /**
      * @type {Models.CreateTransactionModel}
      * @memberof TransactionBatchItemModel

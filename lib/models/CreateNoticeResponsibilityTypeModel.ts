@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateNoticeResponsibilityTypeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof CreateNoticeResponsibilityTypeModel

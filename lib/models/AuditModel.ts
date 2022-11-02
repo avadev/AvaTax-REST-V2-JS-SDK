@@ -46,42 +46,42 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   ipAddress: string;
+   ipAddress?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   machineName: string;
+   machineName?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   clientName: string;
+   clientName?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   clientVersion: string;
+   clientVersion?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   adapterName: string;
+   adapterName?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   adapterVersion: string;
+   adapterVersion?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   serverName: string;
+   serverName?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   serverVersion: string;
+   serverVersion?: string;
     /**
      * @type {number}
      * @memberof AuditModel
@@ -106,27 +106,27 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   serviceName: string;
+   serviceName?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   operation: string;
+   operation?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   referenceCode: string;
+   referenceCode?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   errorMessage: string;
+   errorMessage?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   auditMessage: string;
+   auditMessage?: string;
     /**
      * @type {number}
      * @memberof AuditModel
@@ -141,7 +141,7 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   referenceAuthorization: string;
+   referenceAuthorization?: string;
     /**
      * @type {boolean}
      * @memberof AuditModel
@@ -156,12 +156,12 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   databaseCallDuration: string;
+   databaseCallDuration?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   remoteCallDuration: string;
+   remoteCallDuration?: string;
     /**
      * @type {Models.AuditEvent[]}
      * @memberof AuditModel
@@ -171,12 +171,12 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   requestUrl: string;
+   requestUrl?: string;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   requestBody: string;
+   requestBody?: string;
     /**
      * @type {number}
      * @memberof AuditModel
@@ -186,7 +186,7 @@ fields to determine root cause for the error.
      * @type {string}
      * @memberof AuditModel
      */
-   responseBody: string;
+   responseBody?: string;
     /**
      * @type {Models.AuditModel[]}
      * @memberof AuditModel

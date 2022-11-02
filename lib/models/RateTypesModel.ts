@@ -32,10 +32,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof RateTypesModel
      */
-   rateType: string;
+   rateType?: string;
     /**
      * @type {string}
      * @memberof RateTypesModel
      */
-   description: string;
+   description?: string;
  }

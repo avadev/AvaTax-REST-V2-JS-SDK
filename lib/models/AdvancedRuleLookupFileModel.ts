@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   lookupFileId: string;
+   lookupFileId?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   id: string;
+   id?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
@@ -67,10 +67,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   createdDate: string;
+   createdDate?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   modifiedDate: string;
+   modifiedDate?: string;
  }

@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   registrationId: string;
+   registrationId?: string;
     /**
      * @type {Enums.FilingStatusId}
      * @memberof MultiTaxFilingReturnModel
@@ -57,17 +57,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   formName: string;
+   formName?: string;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   formCode: string;
+   formCode?: string;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
@@ -97,7 +97,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   type: string;
+   type?: string;
     /**
      * @type {Models.FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingReturnModel

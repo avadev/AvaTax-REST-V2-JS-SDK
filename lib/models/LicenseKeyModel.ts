@@ -32,10 +32,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof LicenseKeyModel
      */
-   privateLicenseKey: string;
+   privateLicenseKey?: string;
     /**
      * @type {string}
      * @memberof LicenseKeyModel
      */
-   httpRequestHeader: string;
+   httpRequestHeader?: string;
  }

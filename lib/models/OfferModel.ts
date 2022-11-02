@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof OfferModel
      */
-   id: string;
+   id?: string;
     /**
      * @type {string}
      * @memberof OfferModel
      */
-   offerMessage: string;
+   offerMessage?: string;
  }

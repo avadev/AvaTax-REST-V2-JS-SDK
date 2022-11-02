@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   rockName: string;
+   rockName?: string;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   stateAssignedCode: string;
+   stateAssignedCode?: string;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   signatureCode: string;
+   signatureCode?: string;
     /**
      * @type {Date}
      * @memberof TaxRegionJurisdictionModel

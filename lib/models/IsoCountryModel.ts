@@ -27,17 +27,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof IsoCountryModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof IsoCountryModel
      */
-   alpha3Code: string;
+   alpha3Code?: string;
     /**
      * @type {string}
      * @memberof IsoCountryModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {boolean}
      * @memberof IsoCountryModel

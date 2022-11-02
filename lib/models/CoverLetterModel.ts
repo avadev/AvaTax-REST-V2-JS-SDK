@@ -39,17 +39,17 @@ certificates directly; this cover letter explains why the invitation was sent.
      * @type {string}
      * @memberof CoverLetterModel
      */
-   title: string;
+   title?: string;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   subject: string;
+   subject?: string;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {Date}
      * @memberof CoverLetterModel
@@ -74,7 +74,7 @@ certificates directly; this cover letter explains why the invitation was sent.
      * @type {string}
      * @memberof CoverLetterModel
      */
-   templateFilename: string;
+   templateFilename?: string;
     /**
      * @type {number}
      * @memberof CoverLetterModel

@@ -32,10 +32,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof LocationSettingModel
      */
-   questionName: string;
+   questionName?: string;
     /**
      * @type {string}
      * @memberof LocationSettingModel
      */
-   value: string;
+   value?: string;
  }

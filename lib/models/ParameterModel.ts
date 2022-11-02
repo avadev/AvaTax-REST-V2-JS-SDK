@@ -32,22 +32,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof ParameterModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   dataType: string;
+   dataType?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   helpText: string;
+   helpText?: string;
     /**
      * @type {string[]}
      * @memberof ParameterModel
@@ -57,27 +57,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof ParameterModel
      */
-   prompt: string;
+   prompt?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   regularExpression: string;
+   regularExpression?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   label: string;
+   label?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   helpUrl: string;
+   helpUrl?: string;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   attributeType: string;
+   attributeType?: string;
     /**
      * @type {string[]}
      * @memberof ParameterModel
@@ -87,7 +87,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ParameterModel
      */
-   measurementType: string;
+   measurementType?: string;
     /**
      * @type {boolean}
      * @memberof ParameterModel

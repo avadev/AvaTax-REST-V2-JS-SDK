@@ -50,7 +50,7 @@ log onto the administrative website for the product you purchased.
      * @type {string}
      * @memberof CertificateModel
      */
-   filename: string;
+   filename?: string;
     /**
      * @type {boolean}
      * @memberof CertificateModel
@@ -80,7 +80,7 @@ log onto the administrative website for the product you purchased.
      * @type {string}
      * @memberof CertificateModel
      */
-   exemptionNumber: string;
+   exemptionNumber?: string;
     /**
      * @type {Models.ExemptionReasonModel}
      * @memberof CertificateModel
@@ -95,7 +95,7 @@ log onto the administrative website for the product you purchased.
      * @type {string}
      * @memberof CertificateModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {Date}
      * @memberof CertificateModel
@@ -110,12 +110,12 @@ log onto the administrative website for the product you purchased.
      * @type {string}
      * @memberof CertificateModel
      */
-   taxNumberType: string;
+   taxNumberType?: string;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   businessNumberType: string;
+   businessNumberType?: string;
     /**
      * @type {number}
      * @memberof CertificateModel
@@ -150,12 +150,12 @@ log onto the administrative website for the product you purchased.
      * @type {string}
      * @memberof CertificateModel
      */
-   ecmsStatus: string;
+   ecmsStatus?: string;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   pdf: string;
+   pdf?: string;
     /**
      * @type {string[]}
      * @memberof CertificateModel

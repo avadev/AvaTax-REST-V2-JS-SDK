@@ -37,7 +37,7 @@ classification.  Many of these objects have child objects underneath them; these
      * @type {string}
      * @memberof HsCodeModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {number}
      * @memberof HsCodeModel
@@ -57,12 +57,12 @@ classification.  Many of these objects have child objects underneath them; these
      * @type {string}
      * @memberof HsCodeModel
      */
-   system: string;
+   system?: string;
     /**
      * @type {string}
      * @memberof HsCodeModel
      */
-   destinationCountry: string;
+   destinationCountry?: string;
     /**
      * @type {Date}
      * @memberof HsCodeModel

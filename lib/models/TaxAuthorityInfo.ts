@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxAuthorityInfo
      */
-   avalaraId: string;
+   avalaraId?: string;
     /**
      * @type {string}
      * @memberof TaxAuthorityInfo
@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxAuthorityInfo
      */
-   signatureCode: string;
+   signatureCode?: string;
  }

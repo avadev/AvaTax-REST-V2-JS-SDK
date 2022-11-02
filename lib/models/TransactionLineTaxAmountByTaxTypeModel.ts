@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineTaxAmountByTaxTypeModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {number}
      * @memberof TransactionLineTaxAmountByTaxTypeModel

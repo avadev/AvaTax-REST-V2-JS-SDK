@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   nexusTaxTypeGroupId: string;
+   nexusTaxTypeGroupId?: string;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof NexusTaxTypeGroupModel
@@ -47,12 +47,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   subscriptionDescription: string;
+   subscriptionDescription?: string;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   tabName: string;
+   tabName?: string;
     /**
      * @type {boolean}
      * @memberof NexusTaxTypeGroupModel

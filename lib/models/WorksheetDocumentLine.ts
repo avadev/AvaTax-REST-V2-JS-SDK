@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof WorksheetDocumentLine
      */
-   lineNo: string;
+   lineNo?: string;
     /**
      * @type {number}
      * @memberof WorksheetDocumentLine
@@ -62,10 +62,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof WorksheetDocumentLine
      */
-   resultCode: string;
+   resultCode?: string;
     /**
      * @type {string}
      * @memberof WorksheetDocumentLine
      */
-   transactionId: string;
+   transactionId?: string;
  }

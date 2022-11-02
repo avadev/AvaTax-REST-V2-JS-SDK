@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {Date}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel

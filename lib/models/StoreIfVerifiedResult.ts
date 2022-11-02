@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof StoreIfVerifiedResult
      */
-   createdUtc: string;
+   createdUtc?: string;
  }

@@ -27,17 +27,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof EntityUseCodeModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof EntityUseCodeModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof EntityUseCodeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string[]}
      * @memberof EntityUseCodeModel

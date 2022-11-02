@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineLocationTypeModel
      */
-   locationTypeCode: string;
+   locationTypeCode?: string;
  }

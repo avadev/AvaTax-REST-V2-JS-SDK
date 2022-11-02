@@ -32,10 +32,10 @@ For more information about custom fields, see the [Avalara Help Center article a
      * @type {string}
      * @memberof CustomFieldModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof CustomFieldModel
      */
-   value: string;
+   value?: string;
  }

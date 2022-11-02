@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchModel
      */
-   batchAgent: string;
+   batchAgent?: string;
     /**
      * @type {string}
      * @memberof BatchModel
      */
-   options: string;
+   options?: string;
     /**
      * @type {number}
      * @memberof BatchModel

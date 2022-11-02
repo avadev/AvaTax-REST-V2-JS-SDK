@@ -27,37 +27,37 @@ import * as Models from './index';
      * @type {string}
      * @memberof AddressInfo
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {number}
      * @memberof AddressInfo

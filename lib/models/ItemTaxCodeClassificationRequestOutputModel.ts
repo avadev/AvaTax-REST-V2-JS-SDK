@@ -37,17 +37,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   request: string;
+   request?: string;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   requestType: string;
+   requestType?: string;
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestOutputModel

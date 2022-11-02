@@ -44,7 +44,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleProductDetailModel
      */
-   productCode: string;
+   productCode?: string;
     /**
      * @type {Date}
      * @memberof TaxRuleProductDetailModel

@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModel
      */
-   registrationId: string;
+   registrationId?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModel
@@ -92,7 +92,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModel
      */
-   formName: string;
+   formName?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModel
@@ -102,12 +102,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModel
      */
-   formCode: string;
+   formCode?: string;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModel
@@ -287,7 +287,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModel
      */
-   type: string;
+   type?: string;
     /**
      * @type {Models.FilingAttachmentModel[]}
      * @memberof FilingReturnModel

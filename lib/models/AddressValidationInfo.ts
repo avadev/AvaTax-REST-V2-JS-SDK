@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {Enums.TextCase}
      * @memberof AddressValidationInfo
@@ -37,32 +37,32 @@ import * as Models from './index';
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof AddressValidationInfo
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {number}
      * @memberof AddressValidationInfo

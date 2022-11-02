@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof requiredFilingCalendarDataFieldModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof requiredFilingCalendarDataFieldModel
      */
-   description: string;
+   description?: string;
  }

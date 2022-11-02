@@ -37,12 +37,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof AuditEvent
      */
-   correlationId: string;
+   correlationId?: string;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   avalaraUid: string;
+   avalaraUid?: string;
     /**
      * @type {number}
      * @memberof AuditEvent
@@ -57,15 +57,15 @@ import * as Models from './index';
      * @type {string}
      * @memberof AuditEvent
      */
-   source: string;
+   source?: string;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   summary: string;
+   summary?: string;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   details: string;
+   details?: string;
  }

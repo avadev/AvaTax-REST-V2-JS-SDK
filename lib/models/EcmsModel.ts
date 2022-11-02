@@ -42,27 +42,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsModel
      */
-   customerName: string;
+   customerName?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address1: string;
+   address1?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address2: string;
+   address2?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address3: string;
+   address3?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
@@ -72,7 +72,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
@@ -87,7 +87,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsModel
      */
-   documentRefNo: string;
+   documentRefNo?: string;
     /**
      * @type {number}
      * @memberof EcmsModel
@@ -97,17 +97,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsModel
      */
-   businessTypeOtherDescription: string;
+   businessTypeOtherDescription?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   exemptReasonId: string;
+   exemptReasonId?: string;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   exemptReasonOtherDescription: string;
+   exemptReasonOtherDescription?: string;
     /**
      * @type {Date}
      * @memberof EcmsModel
@@ -162,7 +162,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsModel
      */
-   avaCertId: string;
+   avaCertId?: string;
     /**
      * @type {Enums.ExemptCertReviewStatusId}
      * @memberof EcmsModel

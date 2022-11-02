@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof SubscriptionModel
      */
-   subscriptionDescription: string;
+   subscriptionDescription?: string;
     /**
      * @type {Date}
      * @memberof SubscriptionModel

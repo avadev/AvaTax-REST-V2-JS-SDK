@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchVoidTransactionModel
      */
-   documentType: string;
+   documentType?: string;
     /**
      * @type {Enums.VoidReasonCode}
      * @memberof BatchVoidTransactionModel

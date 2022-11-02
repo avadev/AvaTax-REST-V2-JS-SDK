@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   comment: string;
+   comment?: string;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   commentUserName: string;
+   commentUserName?: string;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
@@ -67,12 +67,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   commentLink: string;
+   commentLink?: string;
     /**
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   taxNoticeFileName: string;
+   taxNoticeFileName?: string;
     /**
      * @type {number}
      * @memberof NoticeCommentModel

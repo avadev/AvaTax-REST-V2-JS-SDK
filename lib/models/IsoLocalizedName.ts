@@ -28,15 +28,15 @@ as a country or a region.
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   languageAlpha2Code: string;
+   languageAlpha2Code?: string;
     /**
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   languageAlpha3Code: string;
+   languageAlpha3Code?: string;
     /**
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   name: string;
+   name?: string;
  }

@@ -57,17 +57,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceTaxRateModel
      */
-   rateTypeId: string;
+   rateTypeId?: string;
     /**
      * @type {string}
      * @memberof ComplianceTaxRateModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {string}
      * @memberof ComplianceTaxRateModel
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {number}
      * @memberof ComplianceTaxRateModel

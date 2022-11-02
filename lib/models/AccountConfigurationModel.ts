@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AccountConfigurationModel
      */
-   value: string;
+   value?: string;
     /**
      * @type {Date}
      * @memberof AccountConfigurationModel

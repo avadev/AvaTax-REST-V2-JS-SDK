@@ -27,15 +27,15 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineParameterModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof TransactionLineParameterModel
      */
-   value: string;
+   value?: string;
     /**
      * @type {string}
      * @memberof TransactionLineParameterModel
      */
-   unit: string;
+   unit?: string;
  }

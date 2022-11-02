@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof InvoiceMessageModel
      */
-   content: string;
+   content?: string;
     /**
      * @type {string[]}
      * @memberof InvoiceMessageModel

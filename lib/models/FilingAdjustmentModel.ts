@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingAdjustmentModel
      */
-   reason: string;
+   reason?: string;
     /**
      * @type {Date}
      * @memberof FilingAdjustmentModel

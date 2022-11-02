@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {number}
      * @memberof TransactionModel
@@ -62,42 +62,42 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   batchCode: string;
+   batchCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   exchangeRateCurrencyCode: string;
+   exchangeRateCurrencyCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerVendorCode: string;
+   customerVendorCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerCode: string;
+   customerCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   exemptNo: string;
+   exemptNo?: string;
     /**
      * @type {boolean}
      * @memberof TransactionModel
@@ -107,27 +107,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   locationCode: string;
+   locationCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   reportingLocationCode: string;
+   reportingLocationCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   purchaseOrderNo: string;
+   purchaseOrderNo?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   referenceCode: string;
+   referenceCode?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   salespersonCode: string;
+   salespersonCode?: string;
     /**
      * @type {Enums.TaxOverrideType}
      * @memberof TransactionModel
@@ -142,7 +142,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   taxOverrideReason: string;
+   taxOverrideReason?: string;
     /**
      * @type {number}
      * @memberof TransactionModel
@@ -182,7 +182,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   adjustmentDescription: string;
+   adjustmentDescription?: string;
     /**
      * @type {boolean}
      * @memberof TransactionModel
@@ -192,12 +192,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {number}
      * @memberof TransactionModel
@@ -207,7 +207,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   softwareVersion: string;
+   softwareVersion?: string;
     /**
      * @type {number}
      * @memberof TransactionModel
@@ -237,17 +237,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   email: string;
+   email?: string;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {Date}
      * @memberof TransactionModel
@@ -312,7 +312,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionModel
      */
-   customerSupplierName: string;
+   customerSupplierName?: string;
     /**
      * @type {number}
      * @memberof TransactionModel

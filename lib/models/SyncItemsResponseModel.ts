@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof SyncItemsResponseModel
      */
-   status: string;
+   status?: string;
  }

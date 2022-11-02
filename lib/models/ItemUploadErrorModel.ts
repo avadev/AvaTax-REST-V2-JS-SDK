@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemUploadErrorModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {string[]}
      * @memberof ItemUploadErrorModel

@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof PowerOfAttorneyCheckModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof PowerOfAttorneyCheckModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {boolean}
      * @memberof PowerOfAttorneyCheckModel

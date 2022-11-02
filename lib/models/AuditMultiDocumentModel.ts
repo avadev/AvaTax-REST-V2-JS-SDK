@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AuditMultiDocumentModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {Enums.DocumentType}
      * @memberof AuditMultiDocumentModel

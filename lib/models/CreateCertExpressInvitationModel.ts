@@ -31,12 +31,12 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {string}
      * @memberof CreateCertExpressInvitationModel
      */
-   recipient: string;
+   recipient?: string;
     /**
      * @type {string}
      * @memberof CreateCertExpressInvitationModel
      */
-   coverLetterTitle: string;
+   coverLetterTitle?: string;
     /**
      * @type {number[]}
      * @memberof CreateCertExpressInvitationModel

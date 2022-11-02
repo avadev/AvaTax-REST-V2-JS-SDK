@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeRootCauseModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof NoticeRootCauseModel

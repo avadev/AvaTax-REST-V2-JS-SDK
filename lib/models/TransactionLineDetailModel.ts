@@ -47,22 +47,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   countyFIPS: string;
+   countyFIPS?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   stateFIPS: string;
+   stateFIPS?: string;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
@@ -82,12 +82,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   jurisCode: string;
+   jurisCode?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   jurisName: string;
+   jurisName?: string;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
@@ -97,12 +97,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   signatureCode: string;
+   signatureCode?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   stateAssignedNo: string;
+   stateAssignedNo?: string;
     /**
      * @type {Enums.JurisTypeId}
      * @memberof TransactionLineDetailModel
@@ -147,7 +147,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   serCode: string;
+   serCode?: string;
     /**
      * @type {Enums.Sourcing}
      * @memberof TransactionLineDetailModel
@@ -167,22 +167,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxType: string;
+   taxType?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxSubTypeId: string;
+   taxSubTypeId?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxTypeGroupId: string;
+   taxTypeGroupId?: string;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
@@ -212,7 +212,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   rateTypeCode: string;
+   rateTypeCode?: string;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
@@ -232,7 +232,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   unitOfBasis: string;
+   unitOfBasis?: string;
     /**
      * @type {boolean}
      * @memberof TransactionLineDetailModel
@@ -277,5 +277,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   avtUserBIN: string;
+   avtUserBIN?: string;
  }

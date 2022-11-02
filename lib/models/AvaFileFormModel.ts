@@ -32,17 +32,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   returnName: string;
+   returnName?: string;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   formName: string;
+   formName?: string;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {Date}
      * @memberof AvaFileFormModel
@@ -57,12 +57,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {Enums.FormTypeId}
      * @memberof AvaFileFormModel

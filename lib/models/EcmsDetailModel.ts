@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   idNo: string;
+   idNo?: string;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   idType: string;
+   idType?: string;
     /**
      * @type {number}
      * @memberof EcmsDetailModel

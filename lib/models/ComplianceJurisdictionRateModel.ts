@@ -32,22 +32,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   jurisdictionTypeId: string;
+   jurisdictionTypeId?: string;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionRateModel
@@ -57,12 +57,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   rateTypeId: string;
+   rateTypeId?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {Date}
      * @memberof ComplianceJurisdictionRateModel
@@ -77,7 +77,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   stateAssignedCode: string;
+   stateAssignedCode?: string;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionRateModel

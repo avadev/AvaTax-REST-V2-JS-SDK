@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   taxTypeGroup: string;
+   taxTypeGroup?: string;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof TaxTypeGroupModel
@@ -47,12 +47,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   subscriptionDescription: string;
+   subscriptionDescription?: string;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   tabName: string;
+   tabName?: string;
     /**
      * @type {boolean}
      * @memberof TaxTypeGroupModel

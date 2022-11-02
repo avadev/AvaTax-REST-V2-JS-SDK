@@ -42,77 +42,77 @@ import * as Models from './index';
      * @type {string}
      * @memberof ContactModel
      */
-   firstName: string;
+   firstName?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   middleName: string;
+   middleName?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   lastName: string;
+   lastName?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   title: string;
+   title?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   email: string;
+   email?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   phone: string;
+   phone?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   mobile: string;
+   mobile?: string;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   fax: string;
+   fax?: string;
     /**
      * @type {Date}
      * @memberof ContactModel

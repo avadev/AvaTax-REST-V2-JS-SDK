@@ -36,17 +36,17 @@ object as the value for the `AvaTax.LC.PreferredProgram` parameter in your trans
      * @type {string}
      * @memberof PreferredProgramModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof PreferredProgramModel
      */
-   originCountry: string;
+   originCountry?: string;
     /**
      * @type {string}
      * @memberof PreferredProgramModel
      */
-   destinationCountry: string;
+   destinationCountry?: string;
     /**
      * @type {Date}
      * @memberof PreferredProgramModel

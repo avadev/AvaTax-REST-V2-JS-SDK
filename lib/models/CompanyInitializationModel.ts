@@ -32,17 +32,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   vatRegistrationId: string;
+   vatRegistrationId?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   taxpayerIdNumber: string;
+   taxpayerIdNumber?: string;
     /**
      * @type {boolean}
      * @memberof CompanyInitializationModel
@@ -57,12 +57,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
@@ -97,7 +97,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   title: string;
+   title?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
@@ -112,12 +112,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   mobileNumber: string;
+   mobileNumber?: string;
     /**
      * @type {string}
      * @memberof CompanyInitializationModel
      */
-   faxNumber: string;
+   faxNumber?: string;
     /**
      * @type {number}
      * @memberof CompanyInitializationModel

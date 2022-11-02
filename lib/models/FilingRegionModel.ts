@@ -37,12 +37,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingRegionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FilingRegionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof FilingRegionModel

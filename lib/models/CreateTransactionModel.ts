@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {Models.LineItemModel[]}
      * @memberof CreateTransactionModel
@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {Date}
      * @memberof CreateTransactionModel
@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   salespersonCode: string;
+   salespersonCode?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
@@ -62,12 +62,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {number}
      * @memberof CreateTransactionModel
@@ -77,12 +77,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   purchaseOrderNo: string;
+   purchaseOrderNo?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   exemptionNo: string;
+   exemptionNo?: string;
     /**
      * @type {Models.AddressesModel}
      * @memberof CreateTransactionModel
@@ -102,12 +102,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   referenceCode: string;
+   referenceCode?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   reportingLocationCode: string;
+   reportingLocationCode?: string;
     /**
      * @type {boolean}
      * @memberof CreateTransactionModel
@@ -117,7 +117,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   batchCode: string;
+   batchCode?: string;
     /**
      * @type {Models.TaxOverrideModel}
      * @memberof CreateTransactionModel
@@ -127,7 +127,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {Enums.ServiceMode}
      * @memberof CreateTransactionModel
@@ -147,17 +147,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   exchangeRateCurrencyCode: string;
+   exchangeRateCurrencyCode?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   posLaneCode: string;
+   posLaneCode?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {boolean}
      * @memberof CreateTransactionModel
@@ -167,12 +167,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   email: string;
+   email?: string;
     /**
      * @type {Enums.TaxDebugLevel}
      * @memberof CreateTransactionModel
@@ -182,7 +182,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateTransactionModel
      */
-   customerSupplierName: string;
+   customerSupplierName?: string;
     /**
      * @type {number}
      * @memberof CreateTransactionModel

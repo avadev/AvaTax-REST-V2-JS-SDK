@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof JurisdictionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof JurisdictionModel
@@ -67,37 +67,37 @@ import * as Models from './index';
      * @type {string}
      * @memberof JurisdictionModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   county: string;
+   county?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   shortName: string;
+   shortName?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   stateFips: string;
+   stateFips?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   countyFips: string;
+   countyFips?: string;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   placeFips: string;
+   placeFips?: string;
     /**
      * @type {number}
      * @memberof JurisdictionModel

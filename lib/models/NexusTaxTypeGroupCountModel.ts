@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NexusTaxTypeGroupCountModel
      */
-   nexusTaxTypeGroup: string;
+   nexusTaxTypeGroup?: string;
     /**
      * @type {number}
      * @memberof NexusTaxTypeGroupCountModel

@@ -47,17 +47,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   cycleName: string;
+   cycleName?: string;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   frequencyName: string;
+   frequencyName?: string;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   filingFrequencyCode: string;
+   filingFrequencyCode?: string;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof CycleAddOptionModel
@@ -67,7 +67,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   cycleUnavailableReason: string;
+   cycleUnavailableReason?: string;
     /**
      * @type {string[]}
      * @memberof CycleAddOptionModel

@@ -27,22 +27,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof IsoRegionModel
      */
-   countryCode: string;
+   countryCode?: string;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   classification: string;
+   classification?: string;
     /**
      * @type {boolean}
      * @memberof IsoRegionModel

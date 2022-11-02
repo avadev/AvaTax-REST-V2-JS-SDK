@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   firstName: string;
+   firstName?: string;
     /**
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   lastName: string;
+   lastName?: string;
     /**
      * @type {object}
      * @memberof AgeVerifyRequest
@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   DOB: string;
+   DOB?: string;
  }

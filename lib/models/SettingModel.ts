@@ -56,7 +56,7 @@ To define your own values, please choose a `set` name that begins with `X-` to i
      * @type {string}
      * @memberof SettingModel
      */
-   value: string;
+   value?: string;
     /**
      * @type {Date}
      * @memberof SettingModel

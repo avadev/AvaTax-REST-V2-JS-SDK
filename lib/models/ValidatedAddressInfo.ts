@@ -27,42 +27,42 @@ import * as Models from './index';
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   addressType: string;
+   addressType?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {number}
      * @memberof ValidatedAddressInfo

@@ -33,12 +33,12 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   returnName: string;
+   returnName?: string;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof FilingRequestDataModel
@@ -48,7 +48,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   registrationId: string;
+   registrationId?: string;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
@@ -68,7 +68,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   locationCode: string;
+   locationCode?: string;
     /**
      * @type {Date}
      * @memberof FilingRequestDataModel
@@ -88,12 +88,12 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
@@ -103,7 +103,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   taxAuthorityName: string;
+   taxAuthorityName?: string;
     /**
      * @type {Models.FilingAnswerModel[]}
      * @memberof FilingRequestDataModel

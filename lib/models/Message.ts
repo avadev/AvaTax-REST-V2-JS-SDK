@@ -27,35 +27,35 @@ import * as Models from './index';
      * @type {string}
      * @memberof Message
      */
-   details: string;
+   details?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   helpLink: string;
+   helpLink?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   refersTo: string;
+   refersTo?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   severity: string;
+   severity?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   source: string;
+   source?: string;
     /**
      * @type {string}
      * @memberof Message
      */
-   summary: string;
+   summary?: string;
  }

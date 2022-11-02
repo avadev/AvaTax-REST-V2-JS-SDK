@@ -32,42 +32,42 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   stateAssignedCode: string;
+   stateAssignedCode?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   jurisdictionTypeId: string;
+   jurisdictionTypeId?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   county: string;
+   county?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   taxRegionName: string;
+   taxRegionName?: string;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionModel

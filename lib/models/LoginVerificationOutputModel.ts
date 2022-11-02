@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof LoginVerificationOutputModel
      */
-   operationStatus: string;
+   operationStatus?: string;
     /**
      * @type {string}
      * @memberof LoginVerificationOutputModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {boolean}
      * @memberof LoginVerificationOutputModel

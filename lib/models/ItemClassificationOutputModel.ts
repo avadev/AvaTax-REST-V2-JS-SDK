@@ -42,10 +42,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemClassificationOutputModel
      */
-   productCode: string;
+   productCode?: string;
     /**
      * @type {string}
      * @memberof ItemClassificationOutputModel
      */
-   systemCode: string;
+   systemCode?: string;
  }

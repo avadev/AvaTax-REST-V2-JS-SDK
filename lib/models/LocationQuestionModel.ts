@@ -42,17 +42,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   regularExpression: string;
+   regularExpression?: string;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   exampleValue: string;
+   exampleValue?: string;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionName: string;
+   jurisdictionName?: string;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof LocationQuestionModel
@@ -62,17 +62,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionCountry: string;
+   jurisdictionCountry?: string;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionRegion: string;
+   jurisdictionRegion?: string;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   helpText: string;
+   helpText?: string;
     /**
      * @type {number}
      * @memberof LocationQuestionModel
@@ -87,12 +87,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   dataType: string;
+   dataType?: string;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   staticOptions: string;
+   staticOptions?: string;
     /**
      * @type {boolean}
      * @memberof LocationQuestionModel

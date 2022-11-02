@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof PoNumberModel
      */
-   poNumber: string;
+   poNumber?: string;
  }

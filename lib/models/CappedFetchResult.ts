@@ -42,10 +42,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof CappedFetchResult<T>
      */
-   "@nextLink": string;
+   "@nextLink"?: string;
     /**
      * @type {string}
      * @memberof CappedFetchResult<T>
      */
-   pageKey: string;
+   pageKey?: string;
  }

@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleCustomerDataSchemaModel
      */
-   ruleId: string;
+   ruleId?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleCustomerDataSchemaModel
      */
-   customerDataSchema: string;
+   customerDataSchema?: string;
  }

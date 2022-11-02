@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchAdjustTransactionModel
      */
-   documentType: string;
+   documentType?: string;
     /**
      * @type {Enums.AdjustmentReason}
      * @memberof BatchAdjustTransactionModel
@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchAdjustTransactionModel
      */
-   adjustmentDescription: string;
+   adjustmentDescription?: string;
     /**
      * @type {Models.CreateTransactionModel}
      * @memberof BatchAdjustTransactionModel

@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NewAccountModel
      */
-   accountDetailsEmailedTo: string;
+   accountDetailsEmailedTo?: string;
     /**
      * @type {Date}
      * @memberof NewAccountModel
@@ -47,15 +47,15 @@ import * as Models from './index';
      * @type {string}
      * @memberof NewAccountModel
      */
-   limitations: string;
+   limitations?: string;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   licenseKey: string;
+   licenseKey?: string;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   paymentUrl: string;
+   paymentUrl?: string;
  }

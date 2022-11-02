@@ -67,10 +67,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   governmentAgency: string;
+   governmentAgency?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   complianceMessage: string;
+   complianceMessage?: string;
  }

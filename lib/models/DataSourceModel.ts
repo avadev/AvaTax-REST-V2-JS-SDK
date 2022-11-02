@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof DataSourceModel
      */
-   instance: string;
+   instance?: string;
     /**
      * @type {boolean}
      * @memberof DataSourceModel
@@ -97,10 +97,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof DataSourceModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof DataSourceModel
      */
-   externalState: string;
+   externalState?: string;
  }

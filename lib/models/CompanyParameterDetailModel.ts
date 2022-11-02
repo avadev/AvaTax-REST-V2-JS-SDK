@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyParameterDetailModel
      */
-   unit: string;
+   unit?: string;
  }

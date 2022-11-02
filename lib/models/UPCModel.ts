@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof UPCModel
      */
-   legacyTaxCode: string;
+   legacyTaxCode?: string;
     /**
      * @type {string}
      * @memberof UPCModel

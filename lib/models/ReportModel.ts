@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportModel
      */
-   reportType: string;
+   reportType?: string;
     /**
      * @type {Models.ReportParametersModel}
      * @memberof ReportModel
@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {number}
      * @memberof ReportModel
@@ -62,12 +62,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportModel
      */
-   format: string;
+   format?: string;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   file: string;
+   file?: string;
     /**
      * @type {Date}
      * @memberof ReportModel
@@ -82,7 +82,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportModel
      */
-   createdUser: string;
+   createdUser?: string;
     /**
      * @type {Date}
      * @memberof ReportModel

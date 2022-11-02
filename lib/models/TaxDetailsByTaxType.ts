@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxDetailsByTaxType
      */
-   taxType: string;
+   taxType?: string;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxType

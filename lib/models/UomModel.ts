@@ -34,17 +34,17 @@ such as meters, feet, inches, and miles.
      * @type {string}
      * @memberof UomModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   shortDesc: string;
+   shortDesc?: string;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof UomModel
@@ -54,17 +54,17 @@ such as meters, feet, inches, and miles.
      * @type {string}
      * @memberof UomModel
      */
-   measurementTypeCode: string;
+   measurementTypeCode?: string;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   siUOM: string;
+   siUOM?: string;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   measurementTypeDescription: string;
+   measurementTypeDescription?: string;
     /**
      * @type {boolean}
      * @memberof UomModel

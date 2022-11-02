@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof PostalCodeModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof PostalCodeModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof PostalCodeModel
@@ -52,5 +52,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof PostalCodeModel
      */
-   postalCode: string;
+   postalCode?: string;
  }

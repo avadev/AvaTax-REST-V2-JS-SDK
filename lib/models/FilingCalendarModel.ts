@@ -38,22 +38,22 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   returnName: string;
+   returnName?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   formCountry: string;
+   formCountry?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   formRegion: string;
+   formRegion?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
@@ -63,7 +63,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   locationCode: string;
+   locationCode?: string;
     /**
      * @type {Enums.OutletTypeId}
      * @memberof FilingCalendarModel
@@ -73,7 +73,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   paymentCurrency: string;
+   paymentCurrency?: string;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof FilingCalendarModel
@@ -88,92 +88,92 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   stateRegistrationId: string;
+   stateRegistrationId?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   localRegistrationId: string;
+   localRegistrationId?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   employerIdentificationNumber: string;
+   employerIdentificationNumber?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressLine1: string;
+   mailingAddressLine1?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressLine2: string;
+   mailingAddressLine2?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressCity: string;
+   mailingAddressCity?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressRegion: string;
+   mailingAddressRegion?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressPostalCode: string;
+   mailingAddressPostalCode?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressCountry: string;
+   mailingAddressCountry?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   phone: string;
+   phone?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   customerFilingInstructions: string;
+   customerFilingInstructions?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   legalEntityName: string;
+   legalEntityName?: string;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
@@ -193,12 +193,12 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   eFileUsername: string;
+   eFileUsername?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   eFilePassword: string;
+   eFilePassword?: string;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
@@ -228,62 +228,62 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   internalNotes: string;
+   internalNotes?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   alSignOn: string;
+   alSignOn?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   alAccessCode: string;
+   alAccessCode?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   meBusinessCode: string;
+   meBusinessCode?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   iaBen: string;
+   iaBen?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   ctReg: string;
+   ctReg?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other1Name: string;
+   other1Name?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other1Value: string;
+   other1Value?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other2Name: string;
+   other2Name?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other2Value: string;
+   other2Value?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other3Name: string;
+   other3Name?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other3Value: string;
+   other3Value?: string;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
@@ -293,12 +293,12 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxAuthorityName: string;
+   taxAuthorityName?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxAuthorityType: string;
+   taxAuthorityType?: string;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
@@ -323,12 +323,12 @@ Only used if you subscribe to Avalara Returns.
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   bulkAccountId: string;
+   bulkAccountId?: string;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   siteCode: string;
+   siteCode?: string;
     /**
      * @type {Enums.BulkAccountValidationStatus}
      * @memberof FilingCalendarModel

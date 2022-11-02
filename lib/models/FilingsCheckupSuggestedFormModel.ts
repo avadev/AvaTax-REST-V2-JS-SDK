@@ -32,20 +32,20 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   returnName: string;
+   returnName?: string;
  }

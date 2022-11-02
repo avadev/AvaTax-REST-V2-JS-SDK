@@ -42,37 +42,37 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   postalCode: string;
+   postalCode?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {number}
      * @memberof TransactionAddressModel
@@ -82,12 +82,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   latitude: string;
+   latitude?: string;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   longitude: string;
+   longitude?: string;
     /**
      * @type {Models.JurisdictionModel[]}
      * @memberof TransactionAddressModel

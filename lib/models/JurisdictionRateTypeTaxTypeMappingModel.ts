@@ -32,47 +32,47 @@ import * as Models from './index';
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   state: string;
+   state?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   jurisdictionType: string;
+   jurisdictionType?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   jurisdictionCode: string;
+   jurisdictionCode?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   longName: string;
+   longName?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxSubTypeId: string;
+   taxSubTypeId?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxTypeGroupId: string;
+   taxTypeGroupId?: string;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   rateTypeId: string;
+   rateTypeId?: string;
     /**
      * @type {Date}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel

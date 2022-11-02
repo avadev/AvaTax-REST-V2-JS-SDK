@@ -27,25 +27,25 @@ import * as Models from './index';
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   summary: string;
+   summary?: string;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   details: string;
+   details?: string;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   refersTo: string;
+   refersTo?: string;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   severity: string;
+   severity?: string;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   source: string;
+   source?: string;
  }

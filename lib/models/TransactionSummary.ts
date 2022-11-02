@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionSummary
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   region: string;
+   region?: string;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof TransactionSummary
@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionSummary
      */
-   jurisCode: string;
+   jurisCode?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   jurisName: string;
+   jurisName?: string;
     /**
      * @type {number}
      * @memberof TransactionSummary
@@ -57,27 +57,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionSummary
      */
-   stateAssignedNo: string;
+   stateAssignedNo?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxType: string;
+   taxType?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxSubType: string;
+   taxSubType?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxGroup: string;
+   taxGroup?: string;
     /**
      * @type {Enums.RateType}
      * @memberof TransactionSummary
@@ -87,7 +87,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionSummary
      */
-   rateTypeCode: string;
+   rateTypeCode?: string;
     /**
      * @type {number}
      * @memberof TransactionSummary

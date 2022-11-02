@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AccountMigrationStatusModel
      */
-   accountName: string;
+   accountName?: string;
     /**
      * @type {Date}
      * @memberof AccountMigrationStatusModel

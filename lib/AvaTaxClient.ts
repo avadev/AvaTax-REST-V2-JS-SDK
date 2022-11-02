@@ -434,7 +434,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountModel}
    */
   
-  getAccount({ id, include }: { id: number, include: string }): Promise<Models.AccountModel> {
+  getAccount({ id, include }: { id: number, include?: string }): Promise<Models.AccountModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}`,
       parameters: {
@@ -573,7 +573,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryAccounts({ include, filter, top, skip, orderBy }: { include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryAccounts({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/accounts`,
       parameters: {
@@ -665,7 +665,7 @@ export default class AvaTaxClient {
    * @return {Models.AddressResolutionModel}
    */
   
-  resolveAddress({ line1, line2, line3, city, region, postalCode, country, textCase }: { line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, country: string, textCase?: Enums.TextCase }): Promise<Models.AddressResolutionModel> {
+  resolveAddress({ line1, line2, line3, city, region, postalCode, country, textCase }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country?: string, textCase?: Enums.TextCase }): Promise<Models.AddressResolutionModel> {
     var path = this.buildUrl({
       url: `/api/v2/addresses/resolve`,
       parameters: {
@@ -956,7 +956,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryAvaFileForms({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms`,
       parameters: {
@@ -1288,7 +1288,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listBatchesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listBatchesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches`,
       parameters: {
@@ -1343,7 +1343,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryBatches({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryBatches({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/batches`,
       parameters: {
@@ -1440,7 +1440,7 @@ export default class AvaTaxClient {
    * @return {Models.CertExpressInvitationModel}
    */
   
-  getCertExpressInvitation({ companyId, customerCode, id, include }: { companyId: number, customerCode: string, id: number, include: string }): Promise<Models.CertExpressInvitationModel> {
+  getCertExpressInvitation({ companyId, customerCode, id, include }: { companyId: number, customerCode: string, id: number, include?: string }): Promise<Models.CertExpressInvitationModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certexpressinvites/${id}`,
       parameters: {
@@ -1490,7 +1490,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCertExpressInvitations({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCertExpressInvitations({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certexpressinvites`,
       parameters: {
@@ -1686,7 +1686,7 @@ export default class AvaTaxClient {
    * @return {Models.CertificateModel}
    */
   
-  getCertificate({ companyId, id, include }: { companyId: number, id: number, include: string }): Promise<Models.CertificateModel> {
+  getCertificate({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<Models.CertificateModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}`,
       parameters: {
@@ -1899,7 +1899,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCustomersForCertificate({ companyId, id, include }: { companyId: number, id: number, include: string }): Promise<object> {
+  listCustomersForCertificate({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers`,
       parameters: {
@@ -1951,7 +1951,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryCertificates({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryCertificates({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates`,
       parameters: {
@@ -2541,7 +2541,7 @@ export default class AvaTaxClient {
    * @return {Models.FundingConfigurationModel[]}
    */
   
-  fundingConfigurationsByCompanyAndCurrency({ companyId, currency }: { companyId: number, currency: string }): Promise<Models.FundingConfigurationModel[]> {
+  fundingConfigurationsByCompanyAndCurrency({ companyId, currency }: { companyId: number, currency?: string }): Promise<Models.FundingConfigurationModel[]> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/funding/configurations`,
       parameters: {
@@ -2584,7 +2584,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyModel}
    */
   
-  getCompany({ id, include }: { id: number, include: string }): Promise<Models.CompanyModel> {
+  getCompany({ id, include }: { id: number, include?: string }): Promise<Models.CompanyModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}`,
       parameters: {
@@ -2776,7 +2776,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCompanyParameterDetails({ companyId, filter, top, skip, orderBy }: { companyId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCompanyParameterDetails({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters`,
       parameters: {
@@ -2890,7 +2890,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryCompanies({ include, filter, top, skip, orderBy }: { include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryCompanies({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies`,
       parameters: {
@@ -3046,7 +3046,7 @@ export default class AvaTaxClient {
    * @return {Models.ComplianceJurisdictionRateModel}
    */
   
-  queryTaxAuthorityJurisdictionRates({ taxAuthorityId, effectiveDate, endDate, filter, include, top, skip, orderBy }: { taxAuthorityId?: number, effectiveDate?: Date, endDate?: Date, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<Models.ComplianceJurisdictionRateModel> {
+  queryTaxAuthorityJurisdictionRates({ taxAuthorityId, effectiveDate, endDate, filter, include, top, skip, orderBy }: { taxAuthorityId?: number, effectiveDate?: Date, endDate?: Date, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<Models.ComplianceJurisdictionRateModel> {
     var path = this.buildUrl({
       url: `/api/v2/compliance/taxauthorityjurisdictionrates`,
       parameters: {
@@ -3181,7 +3181,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listContactsByCompany({ companyId, filter, top, skip, orderBy }: { companyId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listContactsByCompany({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts`,
       parameters: {
@@ -3222,7 +3222,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryContacts({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryContacts({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/contacts`,
       parameters: {
@@ -3394,7 +3394,7 @@ export default class AvaTaxClient {
    * @return {Models.CustomerModel}
    */
   
-  getCustomer({ companyId, customerCode, include }: { companyId: number, customerCode: string, include: string }): Promise<Models.CustomerModel> {
+  getCustomer({ companyId, customerCode, include }: { companyId: number, customerCode: string, include?: string }): Promise<Models.CustomerModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}`,
       parameters: {
@@ -3616,7 +3616,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCertificatesForCustomer({ companyId, customerCode, include, filter, top, skip, orderBy }: { companyId: number, customerCode: string, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCertificatesForCustomer({ companyId, customerCode, include, filter, top, skip, orderBy }: { companyId: number, customerCode: string, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates`,
       parameters: {
@@ -3718,7 +3718,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryCustomers({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryCustomers({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers`,
       parameters: {
@@ -3976,7 +3976,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listDataSources({ companyId, filter, top, skip, orderBy }: { companyId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listDataSources({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources`,
       parameters: {
@@ -4016,7 +4016,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryDataSources({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryDataSources({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/datasources`,
       parameters: {
@@ -4119,7 +4119,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  getLoginVerifierByForm({ form, filter, top, skip, orderBy }: { form: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  getLoginVerifierByForm({ form, filter, top, skip, orderBy }: { form: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingcalendars/loginverifiers/${form}`,
       parameters: {
@@ -4151,7 +4151,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listAllMarketplaceLocations({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listAllMarketplaceLocations({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/listallmarketplacelocations`,
       parameters: {
@@ -4188,7 +4188,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listAvaFileForms({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/avafileforms`,
       parameters: {
@@ -4227,7 +4227,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCertificateAttributes({ companyid, filter, top, skip, orderBy }: { companyid?: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCertificateAttributes({ companyid, filter, top, skip, orderBy }: { companyid?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateattributes`,
       parameters: {
@@ -4266,7 +4266,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCertificateExemptReasons({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCertificateExemptReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateexemptreasons`,
       parameters: {
@@ -4304,7 +4304,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCertificateExposureZones({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCertificateExposureZones({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateexposurezones`,
       parameters: {
@@ -4338,7 +4338,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listClassificationParametersUsage({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listClassificationParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/classification/parametersusage`,
       parameters: {
@@ -4371,7 +4371,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCommunicationsServiceTypes({ id, filter, top, skip, orderBy }: { id: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCommunicationsServiceTypes({ id, filter, top, skip, orderBy }: { id: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/transactiontypes/${id}/servicetypes`,
       parameters: {
@@ -4404,7 +4404,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCommunicationsTransactionTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCommunicationsTransactionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/transactiontypes`,
       parameters: {
@@ -4437,7 +4437,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCommunicationsTSPairs({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCommunicationsTSPairs({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/tspairs`,
       parameters: {
@@ -4471,7 +4471,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCountries({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCountries({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries`,
       parameters: {
@@ -4510,7 +4510,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCoverLetters({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCoverLetters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/coverletters`,
       parameters: {
@@ -4555,7 +4555,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCrossBorderCodes({ country, hsCode, filter, top, skip, orderBy }: { country: string, hsCode: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCrossBorderCodes({ country, hsCode, filter, top, skip, orderBy }: { country: string, hsCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/crossborder/${country}/${hsCode}`,
       parameters: {
@@ -4622,7 +4622,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listCurrencies({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listCurrencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/currencies`,
       parameters: {
@@ -4658,7 +4658,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listEntityUseCodes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listEntityUseCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/entityusecodes`,
       parameters: {
@@ -4691,7 +4691,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listFilingFrequencies({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listFilingFrequencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingfrequencies`,
       parameters: {
@@ -4728,7 +4728,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listJurisdictions({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listJurisdictions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions`,
       parameters: {
@@ -4773,7 +4773,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listJurisdictionsByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, country: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listJurisdictionsByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictionsnearaddress`,
       parameters: {
@@ -4824,7 +4824,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, region: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, region?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -4901,7 +4901,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listLocationQuestionsByAddress({ line1, line2, line3, city, region, postalCode, country, latitude, longitude, filter, top, skip, orderBy }: { line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, country: string, latitude?: number, longitude?: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listLocationQuestionsByAddress({ line1, line2, line3, city, region, postalCode, country, latitude, longitude, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country?: string, latitude?: number, longitude?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/locationquestions`,
       parameters: {
@@ -4944,7 +4944,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listLoginVerifiers({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listLoginVerifiers({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingcalendars/loginverifiers`,
       parameters: {
@@ -4976,7 +4976,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listMarketplaceLocations({ marketplaceId, top, skip, orderBy }: { marketplaceId: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listMarketplaceLocations({ marketplaceId, top, skip, orderBy }: { marketplaceId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/marketplacelocations`,
       parameters: {
@@ -5010,7 +5010,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexus({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexus({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus`,
       parameters: {
@@ -5053,7 +5053,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, country: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/byaddress`,
       parameters: {
@@ -5095,7 +5095,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByCountry({ country, filter, top, skip, orderBy }: { country: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/${country}`,
       parameters: {
@@ -5131,7 +5131,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByCountryAndRegion({ country, region, filter, top, skip, orderBy }: { country: string, region: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByCountryAndRegion({ country, region, filter, top, skip, orderBy }: { country: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/${country}/${region}`,
       parameters: {
@@ -5204,7 +5204,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByTaxTypeGroup({ taxTypeGroup, filter, top, skip, orderBy }: { taxTypeGroup: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByTaxTypeGroup({ taxTypeGroup, filter, top, skip, orderBy }: { taxTypeGroup: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/bytaxtypegroup/${taxTypeGroup}`,
       parameters: {
@@ -5237,7 +5237,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusTaxTypeGroups({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexustaxtypegroups`,
       parameters: {
@@ -5270,7 +5270,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeCustomerFundingOptions({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeCustomerFundingOptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticecustomerfundingoptions`,
       parameters: {
@@ -5303,7 +5303,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeCustomerTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeCustomerTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticecustomertypes`,
       parameters: {
@@ -5336,7 +5336,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeFilingtypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeFilingtypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticefilingtypes`,
       parameters: {
@@ -5369,7 +5369,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticePriorities({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticePriorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticepriorities`,
       parameters: {
@@ -5402,7 +5402,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeReasons({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticereasons`,
       parameters: {
@@ -5435,7 +5435,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeResponsibilities({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeResponsibilities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticeresponsibilities`,
       parameters: {
@@ -5468,7 +5468,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeRootCauses({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeRootCauses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticerootcauses`,
       parameters: {
@@ -5501,7 +5501,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeStatuses({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeStatuses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticestatuses`,
       parameters: {
@@ -5534,7 +5534,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNoticeTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNoticeTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticetypes`,
       parameters: {
@@ -5568,7 +5568,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listParameters({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listParameters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parameters`,
       parameters: {
@@ -5619,7 +5619,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listParametersByItem({ companyCode, itemCode, filter, top, skip, orderBy }: { companyCode: string, itemCode: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listParametersByItem({ companyCode, itemCode, filter, top, skip, orderBy }: { companyCode: string, itemCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parameters/byitem/${companyCode}/${itemCode}`,
       parameters: {
@@ -5653,7 +5653,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listParametersUsage({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parametersusage`,
       parameters: {
@@ -5714,7 +5714,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listPostalCodes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listPostalCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/postalcodes`,
       parameters: {
@@ -5754,7 +5754,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listPreferredPrograms({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listPreferredPrograms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/preferredprograms`,
       parameters: {
@@ -5790,7 +5790,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listProductClassificationSystems({ filter, top, skip, orderBy, countryCode }: { filter: string, top?: number, skip?: number, orderBy: string, countryCode: string }): Promise<object> {
+  listProductClassificationSystems({ filter, top, skip, orderBy, countryCode }: { filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/productclassificationsystems`,
       parameters: {
@@ -5836,7 +5836,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listProductClassificationSystemsByCompany({ companyCode, filter, top, skip, orderBy, countryCode }: { companyCode: string, filter: string, top?: number, skip?: number, orderBy: string, countryCode: string }): Promise<object> {
+  listProductClassificationSystemsByCompany({ companyCode, filter, top, skip, orderBy, countryCode }: { companyCode: string, filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/productclassificationsystems/bycompany/${companyCode}`,
       parameters: {
@@ -5871,7 +5871,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listRateTypesByCountry({ country, filter, top, skip, orderBy }: { country: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listRateTypesByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/ratetypes`,
       parameters: {
@@ -5907,7 +5907,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listRateTypesByCountryTaxTypeTaxSubType({ country, taxTypeId, taxSubTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listRateTypesByCountryTaxTypeTaxSubType({ country, taxTypeId, taxSubTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}/ratetypes`,
       parameters: {
@@ -5941,7 +5941,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listRegions({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listRegions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/regions`,
       parameters: {
@@ -5976,7 +5976,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listRegionsByCountry({ country, filter, top, skip, orderBy }: { country: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listRegionsByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/regions`,
       parameters: {
@@ -6009,7 +6009,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listResourceFileTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listResourceFileTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/resourcefiletypes`,
       parameters: {
@@ -6043,7 +6043,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listReturnsParametersUsage({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listReturnsParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/returns/parametersusage`,
       parameters: {
@@ -6077,7 +6077,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listSecurityRoles({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listSecurityRoles({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/securityroles`,
       parameters: {
@@ -6112,7 +6112,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listSubscriptionTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listSubscriptionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/subscriptiontypes`,
       parameters: {
@@ -6144,7 +6144,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTags({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTags({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/tags`,
       parameters: {
@@ -6177,7 +6177,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxAuthorities({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxAuthorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthorities`,
       parameters: {
@@ -6212,7 +6212,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxAuthorityForms({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxAuthorityForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthorityforms`,
       parameters: {
@@ -6245,7 +6245,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxAuthorityTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxAuthorityTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthoritytypes`,
       parameters: {
@@ -6285,7 +6285,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxCodes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxcodes`,
       parameters: {
@@ -6348,7 +6348,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxForms({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxforms`,
       parameters: {
@@ -6381,7 +6381,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxSubTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxSubTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes`,
       parameters: {
@@ -6416,7 +6416,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/countries/${country}/taxtypes/${taxTypeId}`,
       parameters: {
@@ -6451,7 +6451,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxSubTypesByJurisdictionAndRegion({ jurisdictionCode, region, filter, top, skip, orderBy }: { jurisdictionCode: string, region: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxSubTypesByJurisdictionAndRegion({ jurisdictionCode, region, filter, top, skip, orderBy }: { jurisdictionCode: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/${jurisdictionCode}/${region}`,
       parameters: {
@@ -6484,7 +6484,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxTypeGroups({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxtypegroups`,
       parameters: {
@@ -6517,7 +6517,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy }: { country: string, companyId: number, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy }: { country: string, companyId: number, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxtypes/countries/${country}`,
       parameters: {
@@ -6552,7 +6552,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listUnitOfBasisByCountryAndTaxTypeAndTaxSubTypeAndRateType({ country, taxTypeId, taxSubTypeId, rateTypeId, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listUnitOfBasisByCountryAndTaxTypeAndTaxSubTypeAndRateType({ country, taxTypeId, taxSubTypeId, rateTypeId, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/unitofbasis/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -6586,7 +6586,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listUnitOfMeasurement({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listUnitOfMeasurement({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/unitofmeasurements`,
       parameters: {
@@ -6727,7 +6727,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listDistanceThresholds({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listDistanceThresholds({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds`,
       parameters: {
@@ -6772,7 +6772,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryDistanceThresholds({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryDistanceThresholds({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/distancethresholds`,
       parameters: {
@@ -7054,7 +7054,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listFirmClientLinkage({ filter }: { filter: string }): Promise<object> {
+  listFirmClientLinkage({ filter }: { filter?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/firmclientlinkages`,
       parameters: {
@@ -7800,7 +7800,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  getClassificationStatus({ companyId, includeClassificationDetails, filter, top, skip, orderBy }: { companyId: number, includeClassificationDetails?: boolean, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  getClassificationStatus({ companyId, includeClassificationDetails, filter, top, skip, orderBy }: { companyId: number, includeClassificationDetails?: boolean, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode`,
       parameters: {
@@ -7842,7 +7842,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemModel}
    */
   
-  getItem({ companyId, id, include }: { companyId: number, id: number, include: string }): Promise<Models.ItemModel> {
+  getItem({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<Models.ItemModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${id}`,
       parameters: {
@@ -7948,7 +7948,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  getItemTags({ companyId, itemId, filter, top, skip }: { companyId: number, itemId: number, filter: string, top?: number, skip?: number }): Promise<object> {
+  getItemTags({ companyId, itemId, filter, top, skip }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {
@@ -8028,7 +8028,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  getTaxCodeRecommendations({ companyId, requestId, filter, top, skip, orderBy }: { companyId: number, requestId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  getTaxCodeRecommendations({ companyId, requestId, filter, top, skip, orderBy }: { companyId: number, requestId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode/${requestId}/recommendations`,
       parameters: {
@@ -8075,7 +8075,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listImportRestrictions({ companyId, itemCode, countryOfImport, top, skip, orderBy }: { companyId: number, itemCode: string, countryOfImport: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listImportRestrictions({ companyId, itemCode, countryOfImport, top, skip, orderBy }: { companyId: number, itemCode: string, countryOfImport: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemCode}/restrictions/import/${countryOfImport}`,
       parameters: {
@@ -8119,7 +8119,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listItemClassifications({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listItemClassifications({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {
@@ -8166,7 +8166,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listItemParameters({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listItemParameters({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {
@@ -8223,7 +8223,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string, tagName: string }): Promise<object> {
+  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {
@@ -8272,7 +8272,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryItems({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryItems({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/items`,
       parameters: {
@@ -8322,7 +8322,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryItemsByTag({ companyId, tag, filter, include, top, skip, orderBy }: { companyId: number, tag: string, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryItemsByTag({ companyId, tag, filter, include, top, skip, orderBy }: { companyId: number, tag: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/bytags/${tag}`,
       parameters: {
@@ -8654,7 +8654,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listJurisdictionOverridesByAccount({ accountId, filter, include, top, skip, orderBy }: { accountId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listJurisdictionOverridesByAccount({ accountId, filter, include, top, skip, orderBy }: { accountId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides`,
       parameters: {
@@ -8700,7 +8700,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryJurisdictionOverrides({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryJurisdictionOverrides({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/jurisdictionoverrides`,
       parameters: {
@@ -8909,7 +8909,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationModel}
    */
   
-  getLocation({ companyId, id, include }: { companyId: number, id: number, include: string }): Promise<Models.LocationModel> {
+  getLocation({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<Models.LocationModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${id}`,
       parameters: {
@@ -8989,7 +8989,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listLocationParameters({ companyId, locationId, filter, top, skip, orderBy }: { companyId: number, locationId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listLocationParameters({ companyId, locationId, filter, top, skip, orderBy }: { companyId: number, locationId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters`,
       parameters: {
@@ -9038,7 +9038,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listLocationsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listLocationsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations`,
       parameters: {
@@ -9088,7 +9088,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryLocations({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryLocations({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/locations`,
       parameters: {
@@ -9243,7 +9243,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  adjustMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include: string, model: Models.AdjustMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  adjustMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model: Models.AdjustMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}/adjust`,
       parameters: {
@@ -9409,7 +9409,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  createMultiDocumentTransaction({ include, model }: { include: string, model: Models.CreateMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  createMultiDocumentTransaction({ include, model }: { include?: string, model: Models.CreateMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument`,
       parameters: {
@@ -9461,7 +9461,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  getMultiDocumentTransactionByCodeAndType({ code, type, include }: { code: string, type: Enums.DocumentType, include: string }): Promise<Models.MultiDocumentModel> {
+  getMultiDocumentTransactionByCodeAndType({ code, type, include }: { code: string, type: Enums.DocumentType, include?: string }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}`,
       parameters: {
@@ -9521,7 +9521,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  getMultiDocumentTransactionById({ id, include }: { id: number, include: string }): Promise<Models.MultiDocumentModel> {
+  getMultiDocumentTransactionById({ id, include }: { id: number, include?: string }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${id}`,
       parameters: {
@@ -9582,7 +9582,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listMultiDocumentTransactions({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listMultiDocumentTransactions({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument`,
       parameters: {
@@ -9663,7 +9663,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  refundMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include: string, model: Models.RefundTransactionModel }): Promise<Models.MultiDocumentModel> {
+  refundMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model: Models.RefundTransactionModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}/refund`,
       parameters: {
@@ -10028,7 +10028,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusModel}
    */
   
-  getNexus({ companyId, id, include }: { companyId: number, id: number, include: string }): Promise<Models.NexusModel> {
+  getNexus({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<Models.NexusModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${id}`,
       parameters: {
@@ -10071,7 +10071,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusByTaxFormModel}
    */
   
-  getNexusByFormCode({ companyId, formCode, include }: { companyId: number, formCode: string, include: string }): Promise<Models.NexusByTaxFormModel> {
+  getNexusByFormCode({ companyId, formCode, include }: { companyId: number, formCode: string, include?: string }): Promise<Models.NexusByTaxFormModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/byform/${formCode}`,
       parameters: {
@@ -10151,7 +10151,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus`,
       parameters: {
@@ -10201,7 +10201,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusByCompanyAndTaxTypeGroup({ companyId, taxTypeGroup, filter, include, top, skip, orderBy }: { companyId: number, taxTypeGroup: string, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusByCompanyAndTaxTypeGroup({ companyId, taxTypeGroup, filter, include, top, skip, orderBy }: { companyId: number, taxTypeGroup: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/byTaxTypeGroup/${taxTypeGroup}`,
       parameters: {
@@ -10248,7 +10248,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNexusParameters({ companyId, nexusId, filter, top, skip, orderBy }: { companyId: number, nexusId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNexusParameters({ companyId, nexusId, filter, top, skip, orderBy }: { companyId: number, nexusId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters`,
       parameters: {
@@ -10295,7 +10295,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryNexus({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryNexus({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/nexus`,
       parameters: {
@@ -10617,7 +10617,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listNotifications({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listNotifications({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/notifications`,
       parameters: {
@@ -11009,7 +11009,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listServiceTypes({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listServiceTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/servicetypes/servicetypes`,
       parameters: {
@@ -11358,7 +11358,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listReports({ companyId, pageKey, skip, top }: { companyId?: number, pageKey: string, skip?: number, top?: number }): Promise<object> {
+  listReports({ companyId, pageKey, skip, top }: { companyId?: number, pageKey?: string, skip?: number, top?: number }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/reports`,
       parameters: {
@@ -11527,7 +11527,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listSettingsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listSettingsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings`,
       parameters: {
@@ -11577,7 +11577,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  querySettings({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  querySettings({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/settings`,
       parameters: {
@@ -11694,7 +11694,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listSubscriptionsByAccount({ accountId, filter, top, skip, orderBy }: { accountId: number, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listSubscriptionsByAccount({ accountId, filter, top, skip, orderBy }: { accountId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions`,
       parameters: {
@@ -11735,7 +11735,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  querySubscriptions({ filter, top, skip, orderBy }: { filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  querySubscriptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/subscriptions`,
       parameters: {
@@ -11875,7 +11875,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxCodesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxCodesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes`,
       parameters: {
@@ -11920,7 +11920,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryTaxCodes({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryTaxCodes({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/taxcodes`,
       parameters: {
@@ -12142,7 +12142,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadTaxRatesByZipCode({ date, region }: { date: Date, region: string }): Promise<object> {
+  downloadTaxRatesByZipCode({ date, region }: { date: Date, region?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/taxratesbyzipcode/download/${date}`,
       parameters: {
@@ -12193,7 +12193,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxRateModel}
    */
   
-  taxRatesByAddress({ line1, line2, line3, city, region, postalCode, country }: { line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, country: string }): Promise<Models.TaxRateModel> {
+  taxRatesByAddress({ line1, line2, line3, city, region, postalCode, country }: { line1: string, line2?: string, line3?: string, city?: string, region: string, postalCode: string, country: string }): Promise<Models.TaxRateModel> {
     var path = this.buildUrl({
       url: `/api/v2/taxrates/byaddress`,
       parameters: {
@@ -12421,7 +12421,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxRules({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTaxRules({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules`,
       parameters: {
@@ -12474,7 +12474,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryTaxRules({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryTaxRules({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/taxrules`,
       parameters: {
@@ -12571,7 +12571,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  addLines({ include, model }: { include: string, model: Models.AddTransactionLineModel }): Promise<Models.TransactionModel> {
+  addLines({ include, model }: { include?: string, model: Models.AddTransactionLineModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/transactions/lines/add`,
       parameters: {
@@ -12634,7 +12634,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  adjustTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.AdjustTransactionModel }): Promise<Models.TransactionModel> {
+  adjustTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.AdjustTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/adjust`,
       parameters: {
@@ -12838,7 +12838,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  changeTransactionCode({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.ChangeTransactionCodeModel }): Promise<Models.TransactionModel> {
+  changeTransactionCode({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.ChangeTransactionCodeModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/changecode`,
       parameters: {
@@ -12900,7 +12900,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  commitTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.CommitTransactionModel }): Promise<Models.TransactionModel> {
+  commitTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.CommitTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/commit`,
       parameters: {
@@ -12965,7 +12965,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  createOrAdjustTransaction({ include, model }: { include: string, model: Models.CreateOrAdjustTransactionModel }): Promise<Models.TransactionModel> {
+  createOrAdjustTransaction({ include, model }: { include?: string, model: Models.CreateOrAdjustTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/createoradjust`,
       parameters: {
@@ -13036,7 +13036,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  createTransaction({ include, model }: { include: string, model: Models.CreateTransactionModel }): Promise<Models.TransactionModel> {
+  createTransaction({ include, model }: { include?: string, model: Models.CreateTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/create`,
       parameters: {
@@ -13084,7 +13084,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  deleteLines({ include, model }: { include: string, model: Models.RemoveTransactionLineModel }): Promise<Models.TransactionModel> {
+  deleteLines({ include, model }: { include?: string, model: Models.RemoveTransactionLineModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/transactions/lines/delete`,
       parameters: {
@@ -13143,7 +13143,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  getTransactionByCode({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string }): Promise<Models.TransactionModel> {
+  getTransactionByCode({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}`,
       parameters: {
@@ -13186,7 +13186,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  getTransactionByCodeAndType({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType: Enums.DocumentType, include: string }): Promise<Models.TransactionModel> {
+  getTransactionByCodeAndType({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType: Enums.DocumentType, include?: string }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/types/${documentType}`,
       parameters: {
@@ -13233,7 +13233,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  getTransactionById({ id, include }: { id: number, include: string }): Promise<Models.TransactionModel> {
+  getTransactionById({ id, include }: { id: number, include?: string }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/${id}`,
       parameters: {
@@ -13298,7 +13298,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTransactionsByCompany({ companyCode, dataSourceId, include, filter, top, skip, orderBy }: { companyCode: string, dataSourceId?: number, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listTransactionsByCompany({ companyCode, dataSourceId, include, filter, top, skip, orderBy }: { companyCode: string, dataSourceId?: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions`,
       parameters: {
@@ -13366,7 +13366,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  lockTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.LockTransactionModel }): Promise<Models.TransactionModel> {
+  lockTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.LockTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/lock`,
       parameters: {
@@ -13441,7 +13441,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  refundTransaction({ companyCode, transactionCode, include, documentType, useTaxDateOverride, model }: { companyCode: string, transactionCode: string, include: string, documentType?: Enums.DocumentType, useTaxDateOverride?: boolean, model: Models.RefundTransactionModel }): Promise<Models.TransactionModel> {
+  refundTransaction({ companyCode, transactionCode, include, documentType, useTaxDateOverride, model }: { companyCode: string, transactionCode: string, include?: string, documentType?: Enums.DocumentType, useTaxDateOverride?: boolean, model: Models.RefundTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/refund`,
       parameters: {
@@ -13504,7 +13504,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  settleTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.SettleTransactionModel }): Promise<Models.TransactionModel> {
+  settleTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.SettleTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/settle`,
       parameters: {
@@ -13560,7 +13560,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  uncommitTransaction({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string }): Promise<Models.TransactionModel> {
+  uncommitTransaction({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/uncommit`,
       parameters: {
@@ -13613,7 +13613,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  unvoidTransaction({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string }): Promise<Models.TransactionModel> {
+  unvoidTransaction({ companyCode, transactionCode, documentType, include }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/unvoid`,
       parameters: {
@@ -13674,7 +13674,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  verifyTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.VerifyTransactionModel }): Promise<Models.TransactionModel> {
+  verifyTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.VerifyTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/verify`,
       parameters: {
@@ -13737,7 +13737,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  voidTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include: string, model: Models.VoidTransactionModel }): Promise<Models.TransactionModel> {
+  voidTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.VoidTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/void`,
       parameters: {
@@ -13870,7 +13870,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listUPCsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listUPCsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs`,
       parameters: {
@@ -13913,7 +13913,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryUPCs({ filter, include, top, skip, orderBy }: { filter: string, include: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryUPCs({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/upcs`,
       parameters: {
@@ -14188,7 +14188,7 @@ export default class AvaTaxClient {
    * @return {Models.UserModel}
    */
   
-  getUser({ id, accountId, include }: { id: number, accountId: number, include: string }): Promise<Models.UserModel> {
+  getUser({ id, accountId, include }: { id: number, accountId: number, include?: string }): Promise<Models.UserModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users/${id}`,
       parameters: {
@@ -14277,7 +14277,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listUsersByAccount({ accountId, include, filter, top, skip, orderBy }: { accountId: number, include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  listUsersByAccount({ accountId, include, filter, top, skip, orderBy }: { accountId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users`,
       parameters: {
@@ -14328,7 +14328,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  queryUsers({ include, filter, top, skip, orderBy }: { include: string, filter: string, top?: number, skip?: number, orderBy: string }): Promise<object> {
+  queryUsers({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/users`,
       parameters: {
@@ -14574,7 +14574,7 @@ export default class AvaTaxClient {
    * @return {Models.StoreIfVerifiedResult}
    */
   
-  storeIfVerified({ simulatedFailureCode, model }: { simulatedFailureCode: string, model: Models.AgeVerifyRequest }): Promise<Models.StoreIfVerifiedResult> {
+  storeIfVerified({ simulatedFailureCode, model }: { simulatedFailureCode?: string, model: Models.AgeVerifyRequest }): Promise<Models.StoreIfVerifiedResult> {
     var path = this.buildUrl({
       url: `/api/v2/ageverification/store/identity/storeIfVerified`,
       parameters: {
@@ -14613,7 +14613,7 @@ export default class AvaTaxClient {
    * @return {Models.AgeVerifyResult}
    */
   
-  verifyAge({ simulatedFailureCode, model }: { simulatedFailureCode: string, model: Models.AgeVerifyRequest }): Promise<Models.AgeVerifyResult> {
+  verifyAge({ simulatedFailureCode, model }: { simulatedFailureCode?: string, model: Models.AgeVerifyRequest }): Promise<Models.AgeVerifyResult> {
     var path = this.buildUrl({
       url: `/api/v2/ageverification/verify`,
       parameters: {
@@ -14643,7 +14643,7 @@ export default class AvaTaxClient {
    * @return {}
    */
   
-  deregisterShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType: string, api_version: string, x_avalara_version: string }): Promise<null> {
+  deregisterShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType?: string, api_version?: string, x_avalara_version?: string }): Promise<null> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/shipment/registration`,
       parameters: {
@@ -14678,7 +14678,7 @@ export default class AvaTaxClient {
    * @return {}
    */
   
-  registerShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType: string, api_version: string, x_avalara_version: string }): Promise<null> {
+  registerShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType?: string, api_version?: string, x_avalara_version?: string }): Promise<null> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/shipment/registration`,
       parameters: {
@@ -14713,7 +14713,7 @@ export default class AvaTaxClient {
    * @return {Models.ShippingVerifyResult}
    */
   
-  registerShipmentIfCompliant({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType: string, api_version: string, x_avalara_version: string }): Promise<Models.ShippingVerifyResult> {
+  registerShipmentIfCompliant({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType?: string, api_version?: string, x_avalara_version?: string }): Promise<Models.ShippingVerifyResult> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/shipment/registerIfCompliant`,
       parameters: {
@@ -14763,7 +14763,7 @@ export default class AvaTaxClient {
    * @return {Models.ShippingVerifyResult}
    */
   
-  verifyShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType: string, api_version: string, x_avalara_version: string }): Promise<Models.ShippingVerifyResult> {
+  verifyShipment({ companyCode, transactionCode, documentType, api_version= "", x_avalara_version= "" }: { companyCode: string, transactionCode: string, documentType?: string, api_version?: string, x_avalara_version?: string }): Promise<Models.ShippingVerifyResult> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/shipment/verify`,
       parameters: {

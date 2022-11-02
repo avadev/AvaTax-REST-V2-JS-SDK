@@ -33,17 +33,17 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   connectorId: string;
+   connectorId?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   campaign: string;
+   campaign?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   leadSource: string;
+   leadSource?: string;
     /**
      * @type {Date}
      * @memberof NewAccountRequestModel
@@ -63,12 +63,12 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   website: string;
+   website?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   paymentMethodId: string;
+   paymentMethodId?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
@@ -83,12 +83,12 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   title: string;
+   title?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   phoneNumber: string;
+   phoneNumber?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
@@ -98,17 +98,17 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   username: string;
+   username?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   userPassword: string;
+   userPassword?: string;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   welcomeEmail: string;
+   welcomeEmail?: string;
     /**
      * @type {Models.CompanyAddress}
      * @memberof NewAccountRequestModel
@@ -118,7 +118,7 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {string[]}
      * @memberof NewAccountRequestModel
@@ -148,5 +148,5 @@ Contains information about the account requested and the rate plan selected.
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   taxPayerIdNumber: string;
+   taxPayerIdNumber?: string;
  }

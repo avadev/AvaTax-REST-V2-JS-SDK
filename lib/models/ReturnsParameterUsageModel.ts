@@ -37,42 +37,42 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   productCode: string;
+   productCode?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   attributeType: string;
+   attributeType?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   dataType: string;
+   dataType?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   helpText: string;
+   helpText?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   label: string;
+   label?: string;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   helpUrl: string;
+   helpUrl?: string;
     /**
      * @type {string[]}
      * @memberof ReturnsParameterUsageModel
@@ -82,5 +82,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   measurementType: string;
+   measurementType?: string;
  }

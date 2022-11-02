@@ -41,12 +41,12 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   recipient: string;
+   recipient?: string;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   customerCode: string;
+   customerCode?: string;
     /**
      * @type {Models.CustomerModel}
      * @memberof CertExpressInvitationModel
@@ -61,7 +61,7 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   emailStatus: string;
+   emailStatus?: string;
     /**
      * @type {boolean}
      * @memberof CertExpressInvitationModel
@@ -86,7 +86,7 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {Date}
      * @memberof CertExpressInvitationModel
@@ -96,5 +96,5 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   requestLink: string;
+   requestLink?: string;
  }

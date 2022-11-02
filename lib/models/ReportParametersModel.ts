@@ -37,32 +37,32 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportParametersModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   state: string;
+   state?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   dateFilter: string;
+   dateFilter?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   docType: string;
+   docType?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   dateFormat: string;
+   dateFormat?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {number}
      * @memberof ReportParametersModel
@@ -82,12 +82,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportParametersModel
      */
-   merchantSellerId: string;
+   merchantSellerId?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   documentStatus: string;
+   documentStatus?: string;
     /**
      * @type {boolean}
      * @memberof ReportParametersModel
@@ -97,25 +97,25 @@ import * as Models from './index';
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxGroup: string;
+   taxGroup?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   customerVendorCode: string;
+   customerVendorCode?: string;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxSubType: string;
+   taxSubType?: string;
  }

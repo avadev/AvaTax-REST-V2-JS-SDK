@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NexusByTaxFormModel
      */
-   formCode: string;
+   formCode?: string;
     /**
      * @type {number}
      * @memberof NexusByTaxFormModel

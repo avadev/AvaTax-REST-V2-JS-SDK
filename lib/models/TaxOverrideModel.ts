@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxOverrideModel
      */
-   reason: string;
+   reason?: string;
     /**
      * @type {Models.TransactionLineTaxAmountByTaxTypeModel[]}
      * @memberof TaxOverrideModel

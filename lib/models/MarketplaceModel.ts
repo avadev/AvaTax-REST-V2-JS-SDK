@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof MarketplaceModel
      */
-   marketplaceId: string;
+   marketplaceId?: string;
     /**
      * @type {string}
      * @memberof MarketplaceModel
      */
-   marketplace: string;
+   marketplace?: string;
  }

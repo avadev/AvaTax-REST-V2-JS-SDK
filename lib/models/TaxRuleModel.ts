@@ -50,17 +50,17 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   stateFIPS: string;
+   stateFIPS?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   jurisName: string;
+   jurisName?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
@@ -80,12 +80,12 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {Enums.MatchingTaxType}
      * @memberof TaxRuleModel
@@ -95,7 +95,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxTypeCode: string;
+   taxTypeCode?: string;
     /**
      * @type {Models.TaxRuleProductDetailModel[]}
      * @memberof TaxRuleModel
@@ -110,7 +110,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   rateTypeCode: string;
+   rateTypeCode?: string;
     /**
      * @type {Enums.TaxRuleTypeId}
      * @memberof TaxRuleModel
@@ -140,7 +140,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   options: string;
+   options?: string;
     /**
      * @type {Date}
      * @memberof TaxRuleModel
@@ -155,12 +155,12 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   countyFIPS: string;
+   countyFIPS?: string;
     /**
      * @type {boolean}
      * @memberof TaxRuleModel
@@ -175,7 +175,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {Enums.Sourcing}
      * @memberof TaxRuleModel
@@ -185,22 +185,22 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxTypeGroup: string;
+   taxTypeGroup?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxSubType: string;
+   taxSubType?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   nonPassthroughExpression: string;
+   nonPassthroughExpression?: string;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {number}
      * @memberof TaxRuleModel
@@ -235,5 +235,5 @@ the value you send is appropriate for the type of tax rule.
      * @type {string}
      * @memberof TaxRuleModel
      */
-   unitOfBasis: string;
+   unitOfBasis?: string;
  }

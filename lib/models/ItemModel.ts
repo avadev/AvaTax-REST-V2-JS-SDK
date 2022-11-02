@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof ItemModel
@@ -57,12 +57,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemModel
      */
-   itemGroup: string;
+   itemGroup?: string;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {Date}
      * @memberof ItemModel
@@ -87,12 +87,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemModel
      */
-   source: string;
+   source?: string;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   upc: string;
+   upc?: string;
     /**
      * @type {Models.ClassificationModel[]}
      * @memberof ItemModel

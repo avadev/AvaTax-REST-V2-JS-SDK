@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof MrsCompanyModel
      */
-   companyName: string;
+   companyName?: string;
     /**
      * @type {number}
      * @memberof MrsCompanyModel
@@ -42,17 +42,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof MrsCompanyModel
      */
-   accountName: string;
+   accountName?: string;
     /**
      * @type {string}
      * @memberof MrsCompanyModel
      */
-   tin: string;
+   tin?: string;
     /**
      * @type {string}
      * @memberof MrsCompanyModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {Date}
      * @memberof MrsCompanyModel

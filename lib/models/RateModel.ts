@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof RateModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof RateModel

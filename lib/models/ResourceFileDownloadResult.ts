@@ -37,10 +37,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   filename: string;
+   filename?: string;
     /**
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   contentType: string;
+   contentType?: string;
  }

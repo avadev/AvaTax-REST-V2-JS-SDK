@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleSafeOptionResultModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {boolean}
      * @memberof CycleSafeOptionResultModel

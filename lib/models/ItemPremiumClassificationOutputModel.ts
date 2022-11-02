@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   id: string;
+   id?: string;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {number}
      * @memberof ItemPremiumClassificationOutputModel
@@ -42,17 +42,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   systemCode: string;
+   systemCode?: string;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   justification: string;
+   justification?: string;
     /**
      * @type {Date}
      * @memberof ItemPremiumClassificationOutputModel

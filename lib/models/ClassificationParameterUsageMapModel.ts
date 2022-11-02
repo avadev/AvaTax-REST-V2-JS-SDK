@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   taxTypeGroupId: string;
+   taxTypeGroupId?: string;
     /**
      * @type {Enums.Visibility}
      * @memberof ClassificationParameterUsageMapModel
@@ -47,32 +47,32 @@ import * as Models from './index';
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   attributeType: string;
+   attributeType?: string;
     /**
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   dataType: string;
+   dataType?: string;
     /**
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   helpText: string;
+   helpText?: string;
     /**
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   label: string;
+   label?: string;
     /**
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   helpUrl: string;
+   helpUrl?: string;
     /**
      * @type {string[]}
      * @memberof ClassificationParameterUsageMapModel
@@ -82,5 +82,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof ClassificationParameterUsageMapModel
      */
-   measurementType: string;
+   measurementType?: string;
  }

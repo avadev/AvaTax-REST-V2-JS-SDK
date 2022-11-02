@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleExpireModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {Models.CycleExpireOptionModel[]}
      * @memberof CycleExpireModel

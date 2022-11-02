@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
      */
-   customerCode: string;
+   customerCode?: string;
     /**
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {boolean}
      * @memberof CustomerSupplierCountryParamModel

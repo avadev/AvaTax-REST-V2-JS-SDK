@@ -32,17 +32,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   systemCode: string;
+   systemCode?: string;
     /**
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   customsValue: string;
+   customsValue?: string;
     /**
      * @type {Models.ProductSystemCountryModel[]}
      * @memberof ProductClassificationSystemModel

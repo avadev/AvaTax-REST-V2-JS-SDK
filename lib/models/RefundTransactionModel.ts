@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof RefundTransactionModel
      */
-   refundTransactionCode: string;
+   refundTransactionCode?: string;
     /**
      * @type {Date}
      * @memberof RefundTransactionModel
@@ -52,5 +52,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof RefundTransactionModel
      */
-   referenceCode: string;
+   referenceCode?: string;
  }

@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   noticeNumber: string;
+   noticeNumber?: string;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
@@ -92,12 +92,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   fileName: string;
+   fileName?: string;
     /**
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   paymentMethod: string;
+   paymentMethod?: string;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel

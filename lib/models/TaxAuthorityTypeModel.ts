@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxAuthorityTypeModel
      */
-   taxAuthorityGroup: string;
+   taxAuthorityGroup?: string;
  }

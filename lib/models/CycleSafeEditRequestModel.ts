@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleSafeEditRequestModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {number}
      * @memberof CycleSafeEditRequestModel

@@ -47,10 +47,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   taxTypeId: string;
+   taxTypeId?: string;
     /**
      * @type {string}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   rateTypeId: string;
+   rateTypeId?: string;
  }

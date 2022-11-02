@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyAddress
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof CompanyAddress
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof CompanyAddress

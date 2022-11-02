@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string[]}
      * @memberof DeterminationFactorModel
@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   createdBy: string;
+   createdBy?: string;
  }

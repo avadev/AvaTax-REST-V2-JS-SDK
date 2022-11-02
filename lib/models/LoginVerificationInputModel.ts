@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof LoginVerificationInputModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {string}
      * @memberof LoginVerificationInputModel

@@ -48,12 +48,12 @@ A tax code can have specific rules for specific jurisdictions that change the ta
      * @type {string}
      * @memberof TaxCodeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   parentTaxCode: string;
+   parentTaxCode?: string;
     /**
      * @type {boolean}
      * @memberof TaxCodeModel
@@ -68,7 +68,7 @@ A tax code can have specific rules for specific jurisdictions that change the ta
      * @type {string}
      * @memberof TaxCodeModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {boolean}
      * @memberof TaxCodeModel

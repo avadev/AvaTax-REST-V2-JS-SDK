@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemTaxCodeModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof ItemTaxCodeModel
      */
-   description: string;
+   description?: string;
  }

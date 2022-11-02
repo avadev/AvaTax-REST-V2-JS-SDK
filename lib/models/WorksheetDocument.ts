@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof WorksheetDocument
      */
-   docCode: string;
+   docCode?: string;
     /**
      * @type {Date}
      * @memberof WorksheetDocument
@@ -62,10 +62,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof WorksheetDocument
      */
-   resultCode: string;
+   resultCode?: string;
     /**
      * @type {string}
      * @memberof WorksheetDocument
      */
-   transactionId: string;
+   transactionId?: string;
  }

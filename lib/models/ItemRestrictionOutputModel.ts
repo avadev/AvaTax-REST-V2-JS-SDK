@@ -27,32 +27,32 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   id: string;
+   id?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfImport: string;
+   countryOfImport?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfExport: string;
+   countryOfExport?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfManufacture: string;
+   countryOfManufacture?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {number}
      * @memberof ItemRestrictionOutputModel
@@ -62,22 +62,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   restrictionType: string;
+   restrictionType?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   regulation: string;
+   regulation?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   governmentAgency: string;
+   governmentAgency?: string;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   complianceMessage: string;
+   complianceMessage?: string;
     /**
      * @type {Date}
      * @memberof ItemRestrictionOutputModel

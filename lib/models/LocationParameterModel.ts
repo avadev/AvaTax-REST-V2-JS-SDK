@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof LocationParameterModel
      */
-   unit: string;
+   unit?: string;
     /**
      * @type {string}
      * @memberof LocationParameterModel

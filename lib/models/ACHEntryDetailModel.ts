@@ -32,27 +32,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   companyName: string;
+   companyName?: string;
     /**
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   state: string;
+   state?: string;
     /**
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   stateRegion: string;
+   stateRegion?: string;
     /**
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   individualId: string;
+   individualId?: string;
     /**
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   individualName: string;
+   individualName?: string;
     /**
      * @type {number}
      * @memberof ACHEntryDetailModel
@@ -62,5 +62,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof ACHEntryDetailModel
      */
-   traceNumber: string;
+   traceNumber?: string;
  }

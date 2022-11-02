@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyModel
      */
-   sstPid: string;
+   sstPid?: string;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {string}
      * @memberof CompanyModel
@@ -72,7 +72,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyModel
      */
-   taxpayerIdNumber: string;
+   taxpayerIdNumber?: string;
     /**
      * @type {boolean}
      * @memberof CompanyModel
@@ -102,7 +102,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyModel
      */
-   baseCurrencyCode: string;
+   baseCurrencyCode?: string;
     /**
      * @type {Enums.RoundingLevelId}
      * @memberof CompanyModel
@@ -132,7 +132,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {Date}
      * @memberof CompanyModel
@@ -207,12 +207,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CompanyModel
      */
-   mossId: string;
+   mossId?: string;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   mossCountry: string;
+   mossCountry?: string;
     /**
      * @type {Models.CompanyParameterDetailModel[]}
      * @memberof CompanyModel

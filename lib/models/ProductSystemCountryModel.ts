@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ProductSystemCountryModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {Date}
      * @memberof ProductSystemCountryModel

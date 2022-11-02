@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleExecutionModel
      */
-   ruleExecutionId: string;
+   ruleExecutionId?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleExecutionModel
@@ -67,10 +67,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdvancedRuleExecutionModel
      */
-   customerData: string;
+   customerData?: string;
     /**
      * @type {string}
      * @memberof AdvancedRuleExecutionModel
      */
-   customerDataId: string;
+   customerDataId?: string;
  }

@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   state: string;
+   state?: string;
     /**
      * @type {Enums.ReportDateFilter}
      * @memberof ExportDocumentLineModel
@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {number}
      * @memberof ExportDocumentLineModel
@@ -82,7 +82,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   merchantSellerIdentifier: string;
+   merchantSellerIdentifier?: string;
     /**
      * @type {Enums.DocumentStatus}
      * @memberof ExportDocumentLineModel
@@ -97,27 +97,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxGroup: string;
+   taxGroup?: string;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   customerVendorCode: string;
+   customerVendorCode?: string;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxSubType: string;
+   taxSubType?: string;
     /**
      * @type {Enums.ReportSource}
      * @memberof ExportDocumentLineModel

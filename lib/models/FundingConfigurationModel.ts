@@ -32,12 +32,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   systemType: string;
+   systemType?: string;
     /**
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   currency: string;
+   currency?: string;
     /**
      * @type {boolean}
      * @memberof FundingConfigurationModel
@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   fundingMethod: string;
+   fundingMethod?: string;
     /**
      * @type {Date}
      * @memberof FundingConfigurationModel

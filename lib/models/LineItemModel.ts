@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   number: string;
+   number?: string;
     /**
      * @type {number}
      * @memberof LineItemModel
@@ -47,27 +47,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   exemptionCode: string;
+   exemptionCode?: string;
     /**
      * @type {boolean}
      * @memberof LineItemModel
@@ -82,27 +82,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   revenueAccount: string;
+   revenueAccount?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   ref1: string;
+   ref1?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   ref2: string;
+   ref2?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {Models.TaxOverrideModel}
      * @memberof LineItemModel
@@ -122,7 +122,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {number}
      * @memberof LineItemModel
@@ -132,7 +132,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   merchantSellerIdentifier: string;
+   merchantSellerIdentifier?: string;
     /**
      * @type {Enums.MarketplaceLiabilityType}
      * @memberof LineItemModel
@@ -142,20 +142,20 @@ import * as Models from './index';
      * @type {string}
      * @memberof LineItemModel
      */
-   originationDocumentId: string;
+   originationDocumentId?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   originationSite: string;
+   originationSite?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   summary: string;
+   summary?: string;
  }

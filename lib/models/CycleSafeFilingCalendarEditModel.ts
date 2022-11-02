@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   fieldName: string;
+   fieldName?: string;
     /**
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   destination: string;
+   destination?: string;
     /**
      * @type {number}
      * @memberof CycleSafeFilingCalendarEditModel
@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   questionCode: string;
+   questionCode?: string;
     /**
      * @type {object}
      * @memberof CycleSafeFilingCalendarEditModel

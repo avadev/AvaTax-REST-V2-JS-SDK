@@ -44,7 +44,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {Date}
      * @memberof NoticeModel
@@ -69,12 +69,12 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -94,27 +94,27 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   ticketReferenceNo: string;
+   ticketReferenceNo?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   ticketReferenceUrl: string;
+   ticketReferenceUrl?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   salesForceCase: string;
+   salesForceCase?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   salesForceCaseUrl: string;
+   salesForceCaseUrl?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   taxPeriod: string;
+   taxPeriod?: string;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -124,7 +124,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   reason: string;
+   reason?: string;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -134,7 +134,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   type: string;
+   type?: string;
     /**
      * @type {Enums.FundingOption}
      * @memberof NoticeModel
@@ -149,7 +149,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   customerComment: string;
+   customerComment?: string;
     /**
      * @type {boolean}
      * @memberof NoticeModel
@@ -174,7 +174,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   createdByUserName: string;
+   createdByUserName?: string;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -184,7 +184,7 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -204,22 +204,22 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   taxFormCode: string;
+   taxFormCode?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   documentReference: string;
+   documentReference?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   jurisdictionName: string;
+   jurisdictionName?: string;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   jurisdictionType: string;
+   jurisdictionType?: string;
     /**
      * @type {Models.NoticeCommentModel[]}
      * @memberof NoticeModel
@@ -264,5 +264,5 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   registrationId: string;
+   registrationId?: string;
  }

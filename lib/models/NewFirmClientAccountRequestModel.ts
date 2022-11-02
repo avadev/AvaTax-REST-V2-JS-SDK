@@ -42,12 +42,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   title: string;
+   title?: string;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   phoneNumber: string;
+   phoneNumber?: string;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {Models.CompanyAddress}
      * @memberof NewFirmClientAccountRequestModel
@@ -67,7 +67,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   taxPayerIdNumber: string;
+   taxPayerIdNumber?: string;
     /**
      * @type {string[]}
      * @memberof NewFirmClientAccountRequestModel

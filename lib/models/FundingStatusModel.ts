@@ -37,37 +37,37 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingStatusModel
      */
-   companyID: string;
+   companyID?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   domain: string;
+   domain?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   recipient: string;
+   recipient?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   sender: string;
+   sender?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   documentKey: string;
+   documentKey?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   documentType: string;
+   documentType?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   documentName: string;
+   documentName?: string;
     /**
      * @type {Models.FundingESignMethodReturn}
      * @memberof FundingStatusModel
@@ -77,12 +77,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingStatusModel
      */
-   status: string;
+   status?: string;
     /**
      * @type {string}
      * @memberof FundingStatusModel
      */
-   errorMessage: string;
+   errorMessage?: string;
     /**
      * @type {Date}
      * @memberof FundingStatusModel

@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchFileModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof BatchFileModel
@@ -52,17 +52,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof BatchFileModel
      */
-   contentType: string;
+   contentType?: string;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   fileExtension: string;
+   fileExtension?: string;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   filePath: string;
+   filePath?: string;
     /**
      * @type {number}
      * @memberof BatchFileModel

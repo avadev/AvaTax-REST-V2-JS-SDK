@@ -42,7 +42,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof MultiDocumentModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {Enums.DocumentType}
      * @memberof MultiDocumentModel

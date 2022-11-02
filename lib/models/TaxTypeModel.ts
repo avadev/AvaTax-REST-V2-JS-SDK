@@ -32,10 +32,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxTypeModel
      */
-   taxType: string;
+   taxType?: string;
     /**
      * @type {string}
      * @memberof TaxTypeModel
      */
-   description: string;
+   description?: string;
  }

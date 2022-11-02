@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ResourceFileUploadResultModel
      */
-   message: string;
+   message?: string;
     /**
      * @type {number}
      * @memberof ResourceFileUploadResultModel

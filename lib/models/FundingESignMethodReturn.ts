@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingESignMethodReturn
      */
-   method: string;
+   method?: string;
     /**
      * @type {boolean}
      * @memberof FundingESignMethodReturn
@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof FundingESignMethodReturn
      */
-   javaScript: string;
+   javaScript?: string;
  }

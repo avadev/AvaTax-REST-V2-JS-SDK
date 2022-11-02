@@ -27,15 +27,15 @@ import * as Models from './index';
      * @type {string}
      * @memberof RateTypeModel
      */
-   id: string;
+   id?: string;
     /**
      * @type {string}
      * @memberof RateTypeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof RateTypeModel
      */
-   country: string;
+   country?: string;
  }

@@ -27,17 +27,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   reportingLocationCode: string;
+   reportingLocationCode?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   number: string;
+   number?: string;
     /**
      * @type {number}
      * @memberof MultiDocumentLineItemModel
@@ -57,27 +57,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   itemCode: string;
+   itemCode?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   exemptionCode: string;
+   exemptionCode?: string;
     /**
      * @type {boolean}
      * @memberof MultiDocumentLineItemModel
@@ -92,27 +92,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   revenueAccount: string;
+   revenueAccount?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   ref1: string;
+   ref1?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   ref2: string;
+   ref2?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {Models.TaxOverrideModel}
      * @memberof MultiDocumentLineItemModel
@@ -132,7 +132,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   hsCode: string;
+   hsCode?: string;
     /**
      * @type {number}
      * @memberof MultiDocumentLineItemModel
@@ -142,7 +142,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   merchantSellerIdentifier: string;
+   merchantSellerIdentifier?: string;
     /**
      * @type {Enums.MarketplaceLiabilityType}
      * @memberof MultiDocumentLineItemModel
@@ -152,20 +152,20 @@ import * as Models from './index';
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   originationDocumentId: string;
+   originationDocumentId?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   originationSite: string;
+   originationSite?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   summary: string;
+   summary?: string;
  }

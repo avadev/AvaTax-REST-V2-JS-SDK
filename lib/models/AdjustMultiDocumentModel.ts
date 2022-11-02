@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof AdjustMultiDocumentModel
      */
-   adjustDescription: string;
+   adjustDescription?: string;
     /**
      * @type {Models.CreateMultiDocumentModel}
      * @memberof AdjustMultiDocumentModel

@@ -43,7 +43,7 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {string}
      * @memberof LocationModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {Enums.AddressTypeId}
      * @memberof LocationModel
@@ -68,27 +68,27 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {string}
      * @memberof LocationModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   line3: string;
+   line3?: string;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   county: string;
+   county?: string;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof LocationModel
@@ -113,12 +113,12 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {string}
      * @memberof LocationModel
      */
-   dbaName: string;
+   dbaName?: string;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   outletName: string;
+   outletName?: string;
     /**
      * @type {Date}
      * @memberof LocationModel

@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CreateOrAdjustTransactionModel
      */
-   adjustmentDescription: string;
+   adjustmentDescription?: string;
     /**
      * @type {Models.CreateTransactionModel}
      * @memberof CreateOrAdjustTransactionModel

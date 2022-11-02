@@ -27,27 +27,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   errorCode: string;
+   errorCode?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   errorMessage: string;
+   errorMessage?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   avataxErrorJson: string;
+   avataxErrorJson?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   avataxCreateTransactionJson: string;
+   avataxCreateTransactionJson?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   datasource: string;
+   datasource?: string;
     /**
      * @type {Date}
      * @memberof ErrorTransactionOutputModel
@@ -67,17 +67,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   datasourceSource: string;
+   datasourceSource?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   shipToCountry: string;
+   shipToCountry?: string;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   shipToRegion: string;
+   shipToRegion?: string;
     /**
      * @type {Enums.DocumentType}
      * @memberof ErrorTransactionOutputModel

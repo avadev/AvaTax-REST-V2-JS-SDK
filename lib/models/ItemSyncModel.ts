@@ -37,10 +37,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemSyncModel
      */
-   itemGroup: string;
+   itemGroup?: string;
     /**
      * @type {string}
      * @memberof ItemSyncModel
      */
-   taxCode: string;
+   taxCode?: string;
  }

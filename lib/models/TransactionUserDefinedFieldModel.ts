@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {string}
      * @memberof TransactionUserDefinedFieldModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof TransactionUserDefinedFieldModel
      */
-   value: string;
+   value?: string;
  }

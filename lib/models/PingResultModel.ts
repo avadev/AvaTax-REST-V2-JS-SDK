@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof PingResultModel
      */
-   version: string;
+   version?: string;
     /**
      * @type {boolean}
      * @memberof PingResultModel
@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof PingResultModel
      */
-   authenticatedUserName: string;
+   authenticatedUserName?: string;
     /**
      * @type {number}
      * @memberof PingResultModel
@@ -62,5 +62,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof PingResultModel
      */
-   crmid: string;
+   crmid?: string;
  }

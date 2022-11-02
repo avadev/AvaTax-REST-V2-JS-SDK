@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ResourceFileUploadRequestModel
      */
-   username: string;
+   username?: string;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ResourceFileUploadRequestModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel

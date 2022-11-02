@@ -57,12 +57,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModelBasic
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof FilingReturnModelBasic
      */
-   region: string;
+   region?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModelBasic
@@ -102,7 +102,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModelBasic
      */
-   formName: string;
+   formName?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModelBasic
@@ -112,12 +112,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof FilingReturnModelBasic
      */
-   formCode: string;
+   formCode?: string;
     /**
      * @type {string}
      * @memberof FilingReturnModelBasic
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof FilingReturnModelBasic

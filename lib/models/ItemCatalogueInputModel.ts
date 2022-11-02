@@ -37,27 +37,27 @@ import * as Models from './index';
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   summary: string;
+   summary?: string;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   taxCode: string;
+   taxCode?: string;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   upc: string;
+   upc?: string;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   itemGroup: string;
+   itemGroup?: string;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   category: string;
+   category?: string;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel

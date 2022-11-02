@@ -32,7 +32,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {Models.MultiDocumentLineItemModel[]}
      * @memberof CreateMultiDocumentModel
@@ -52,7 +52,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   companyCode: string;
+   companyCode?: string;
     /**
      * @type {Date}
      * @memberof CreateMultiDocumentModel
@@ -62,7 +62,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   salespersonCode: string;
+   salespersonCode?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
@@ -72,12 +72,12 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   customerUsageType: string;
+   customerUsageType?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   entityUseCode: string;
+   entityUseCode?: string;
     /**
      * @type {number}
      * @memberof CreateMultiDocumentModel
@@ -87,12 +87,12 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   purchaseOrderNo: string;
+   purchaseOrderNo?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   exemptionNo: string;
+   exemptionNo?: string;
     /**
      * @type {Models.AddressesModel}
      * @memberof CreateMultiDocumentModel
@@ -112,12 +112,12 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   referenceCode: string;
+   referenceCode?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   reportingLocationCode: string;
+   reportingLocationCode?: string;
     /**
      * @type {boolean}
      * @memberof CreateMultiDocumentModel
@@ -127,7 +127,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   batchCode: string;
+   batchCode?: string;
     /**
      * @type {Models.TaxOverrideModel}
      * @memberof CreateMultiDocumentModel
@@ -137,7 +137,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   currencyCode: string;
+   currencyCode?: string;
     /**
      * @type {Enums.ServiceMode}
      * @memberof CreateMultiDocumentModel
@@ -157,17 +157,17 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   exchangeRateCurrencyCode: string;
+   exchangeRateCurrencyCode?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   posLaneCode: string;
+   posLaneCode?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   businessIdentificationNo: string;
+   businessIdentificationNo?: string;
     /**
      * @type {boolean}
      * @memberof CreateMultiDocumentModel
@@ -177,12 +177,12 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   email: string;
+   email?: string;
     /**
      * @type {Enums.TaxDebugLevel}
      * @memberof CreateMultiDocumentModel
@@ -192,7 +192,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   customerSupplierName: string;
+   customerSupplierName?: string;
     /**
      * @type {number}
      * @memberof CreateMultiDocumentModel

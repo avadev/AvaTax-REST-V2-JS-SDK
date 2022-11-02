@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ErrorCodeOutputModel
      */
-   errorCode: string;
+   errorCode?: string;
     /**
      * @type {number}
      * @memberof ErrorCodeOutputModel

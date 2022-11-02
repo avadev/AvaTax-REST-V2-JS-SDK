@@ -32,42 +32,42 @@ import * as Models from './index';
      * @type {string}
      * @memberof TaxRegionModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   county: string;
+   county?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   serCode: string;
+   serCode?: string;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   signatureCode: string;
+   signatureCode?: string;
     /**
      * @type {Date}
      * @memberof TaxRegionModel

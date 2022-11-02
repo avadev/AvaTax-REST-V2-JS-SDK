@@ -27,17 +27,17 @@ import * as Models from './index';
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   frequencyCode: string;
+   frequencyCode?: string;
     /**
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   frequencyName: string;
+   frequencyName?: string;
     /**
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   reason: string;
+   reason?: string;
     /**
      * @type {Models.AvailableCycleModel[]}
      * @memberof FrequencyAvailableModel

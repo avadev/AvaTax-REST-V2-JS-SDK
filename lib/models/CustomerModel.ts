@@ -42,7 +42,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   alternateId: string;
+   alternateId?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   attnName: string;
+   attnName?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   line2: string;
+   line2?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
@@ -77,22 +77,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   phoneNumber: string;
+   phoneNumber?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   faxNumber: string;
+   faxNumber?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   emailAddress: string;
+   emailAddress?: string;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   contactName: string;
+   contactName?: string;
     /**
      * @type {Date}
      * @memberof CustomerModel
@@ -117,7 +117,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {boolean}
      * @memberof CustomerModel
@@ -132,7 +132,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof CustomerModel
      */
-   taxpayerIdNumber: string;
+   taxpayerIdNumber?: string;
     /**
      * @type {Models.CertificateModel[]}
      * @memberof CustomerModel

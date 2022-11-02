@@ -53,7 +53,7 @@ Free trial accounts are only available on the Sandbox environment.
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   campaign: string;
+   campaign?: string;
     /**
      * @type {Models.CompanyAddress}
      * @memberof FreeTrialRequestModel
@@ -63,7 +63,7 @@ Free trial accounts are only available on the Sandbox environment.
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   website: string;
+   website?: string;
     /**
      * @type {boolean}
      * @memberof FreeTrialRequestModel

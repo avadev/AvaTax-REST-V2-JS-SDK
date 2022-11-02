@@ -37,32 +37,32 @@ import * as Models from './index';
      * @type {string}
      * @memberof ErrorDetail
      */
-   message: string;
+   message?: string;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   description: string;
+   description?: string;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   faultCode: string;
+   faultCode?: string;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   faultSubCode: string;
+   faultSubCode?: string;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   helpLink: string;
+   helpLink?: string;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   refersTo: string;
+   refersTo?: string;
     /**
      * @type {Enums.SeverityLevel}
      * @memberof ErrorDetail

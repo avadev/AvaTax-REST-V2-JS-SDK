@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof QueryRequestModel
      */
-   filter: string;
+   filter?: string;
     /**
      * @type {string}
      * @memberof QueryRequestModel
      */
-   include: string;
+   include?: string;
     /**
      * @type {number}
      * @memberof QueryRequestModel
@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {string}
      * @memberof QueryRequestModel
      */
-   sortBy: string;
+   sortBy?: string;
  }

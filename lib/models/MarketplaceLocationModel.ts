@@ -27,22 +27,22 @@ import * as Models from './index';
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   region: string;
+   region?: string;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   marketplaceId: string;
+   marketplaceId?: string;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   marketplace: string;
+   marketplace?: string;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel

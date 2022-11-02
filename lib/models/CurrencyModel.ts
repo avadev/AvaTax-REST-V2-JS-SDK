@@ -27,12 +27,12 @@ import * as Models from './index';
      * @type {string}
      * @memberof CurrencyModel
      */
-   code: string;
+   code?: string;
     /**
      * @type {string}
      * @memberof CurrencyModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {number}
      * @memberof CurrencyModel

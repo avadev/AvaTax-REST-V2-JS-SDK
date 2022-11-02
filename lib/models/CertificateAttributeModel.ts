@@ -34,12 +34,12 @@ attributes can be obtained by calling the `ListCertificateAttributes` API.
      * @type {string}
      * @memberof CertificateAttributeModel
      */
-   name: string;
+   name?: string;
     /**
      * @type {string}
      * @memberof CertificateAttributeModel
      */
-   description: string;
+   description?: string;
     /**
      * @type {boolean}
      * @memberof CertificateAttributeModel

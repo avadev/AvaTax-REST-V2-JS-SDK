@@ -45,12 +45,12 @@ this override object will be assigned to the list of jurisdictions designated in
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   line1: string;
+   line1?: string;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   city: string;
+   city?: string;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
@@ -60,7 +60,7 @@ this override object will be assigned to the list of jurisdictions designated in
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   country: string;
+   country?: string;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel

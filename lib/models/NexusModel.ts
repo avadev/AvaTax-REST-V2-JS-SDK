@@ -88,17 +88,17 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {string}
      * @memberof NexusModel
      */
-   shortName: string;
+   shortName?: string;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   signatureCode: string;
+   signatureCode?: string;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   stateAssignedNo: string;
+   stateAssignedNo?: string;
     /**
      * @type {Enums.NexusTypeId}
      * @memberof NexusModel
@@ -128,7 +128,7 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {string}
      * @memberof NexusModel
      */
-   taxId: string;
+   taxId?: string;
     /**
      * @type {boolean}
      * @memberof NexusModel
@@ -163,12 +163,12 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {string}
      * @memberof NexusModel
      */
-   taxTypeGroup: string;
+   taxTypeGroup?: string;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   nexusTaxTypeGroup: string;
+   nexusTaxTypeGroup?: string;
     /**
      * @type {number}
      * @memberof NexusModel
@@ -183,7 +183,7 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {string}
      * @memberof NexusModel
      */
-   taxName: string;
+   taxName?: string;
     /**
      * @type {Models.NexusParameterDetailModel[]}
      * @memberof NexusModel
