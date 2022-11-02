@@ -36,7 +36,7 @@ const config = {
   timeout: 5000, // optional, default 20 min
   logOptions: {
     logEnabled: true, // toggle logging on or off, by default its off.
-    logLevel: LogLevel.Info, // logLevel that will be used, Options are LogLevel.Error, LogLevel.Warn, LogLevel.Info, LogLevel.Debug
+    logLevel: 3, // logLevel that will be used, Options are LogLevel.Error (0), LogLevel.Warn (1), LogLevel.Info (2), LogLevel.Debug (3)
     logRequestAndResponseInfo: true, // Toggle logging of the request and response bodies on and off.
     logger: myCustomLogger // (OPTIONAL) Custom logger can be passed in that implements the BaseLogger interface (e.g. debug, info, warn, error, and log functions) Otherwise console.log/error etc will be used by default.
   }
@@ -108,6 +108,9 @@ return client.resolveAddress(address)
 ## Release Notes
 
 Please see the [Github releases](https://github.com/avadev/AvaTax-REST-V2-JS-SDK/releases) for in-depth release notes.
+
+## Typescript support
+As of version 22.11.0, Typescript support is included in the SDK. Models and Enums included in addition to typing for all of the API methods and parameters. The team welcomes any feedback on this feature.
 
 ## SDK Development
 
