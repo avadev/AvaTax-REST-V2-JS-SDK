@@ -1,5 +1,5 @@
-# ava-typescript Rest V2 Node.js SDK
-ava-typescript v2 SDK for languages using node.js
+# AvaTax Rest V2 Node.js SDK
+AvaTax v2 SDK for languages using node.js
 
 [![Version](https://img.shields.io/npm/v/avatax.svg?style=plastic)](https://www.npmjs.org/package/avatax)
 [![Build Status](https://api.travis-ci.org/avadev/AvaTax-REST-V2-JRE-SDK.svg?branch=master&style=plastic)](https://travis-ci.org/avadev/AvaTax-REST-V2-JS-SDK)
@@ -10,10 +10,10 @@ ava-typescript v2 SDK for languages using node.js
 Install the package with: 
 ``` bash
 # using npm 
-npm install ava-typescript
+npm install avatax
 
 # using yarn
-yarn add ava-typescript
+yarn add avatax
 ```
 
 ## Usage
@@ -22,18 +22,24 @@ yarn add ava-typescript
 ``` js
 
 // es5 import
-var Avatax = require('ava-typescript');
+var Avatax = require('avatax');
 
 // es6/7 import
-// import Avatax from 'ava-typescript';
+// import Avatax from 'avatax';
 
-// resolve configuration and credentials
+// resolve configuration, credentials and logOptions
 const config = {
   appName: 'your-app',
   appVersion: '1.0',
   environment: 'sandbox',
   machineName: 'your-machine-name'
-  timeout: 5000 // optional, default 20 min
+  timeout: 5000, // optional, default 20 min
+  logOptions: {
+    logEnabled: true, // toggle logging on or off, by default its off.
+    logLevel: LogLevel.Info, // logLevel that will be used, Options are LogLevel.Error, LogLevel.Warn, LogLevel.Info, LogLevel.Debug
+    logRequestAndResponseInfo: true, // Toggle logging of the request and response bodies on and off.
+    logger: myCustomLogger // (OPTIONAL) Custom logger can be passed in that implements the BaseLogger interface (e.g. debug, info, warn, error, and log functions) Otherwise console.log/error etc will be used by default.
+  }
 };
 
 const creds = {
@@ -101,10 +107,7 @@ return client.resolveAddress(address)
 ```
 ## Release Notes
 
-In the JS-SDK 21.2.1 release, the SDK can now return big integers from API responses.
-Big integers in JavaScript are displayed in responses by appending an 'n' to the end of an integer literal. For example, 618368842515476464 -> 618368842515476464n.
-Numbers are presented as before. For example, 8456123 -> 8456123.
-For more information, refer to the following Mozilla documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+Please see the [Github releases](https://github.com/avadev/AvaTax-REST-V2-JS-SDK/releases) for in-depth release notes.
 
 ## SDK Development
 
@@ -140,4 +143,3 @@ https://github.com/avadev/AvaTax-REST-V2-JS-SDK/blob/master/test/helpers/load_cr
 # assuming a tag of v17.5.2 and a remote of 'upstream'
 git push upstream v17.5.2
 ```
-

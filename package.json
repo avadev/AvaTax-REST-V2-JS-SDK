@@ -1,5 +1,5 @@
 {
-  "name": "ava-typescript",
+  "name": "avatax",
   "version": "22.10.0",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
