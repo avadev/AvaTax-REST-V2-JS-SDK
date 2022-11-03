@@ -212,8 +212,6 @@ export default class AvaTaxClient {
     }
   }
 
-
-
   /**
    * Reset this account's license key
    * Resets the existing license key for this account to a new key.
