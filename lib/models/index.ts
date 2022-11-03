@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.10.0
+ * @version    22.11.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -46,7 +46,7 @@ export * from './AdvancedRuleCustomerDataSchemaModel';
 export * from './ContactModel';
 export * from './ClassificationModel';
 export * from './ItemParameterModel';
-export * from './ItemTagDetailModel';
+export * from './ItemTagDetailInputModel';
 export * from './ItemModel';
 export * from './LocationSettingModel';
 export * from './LocationParameterModel';
@@ -246,6 +246,7 @@ export * from './ItemCatalogueInputModel';
 export * from './ItemCatalogueOutputModel';
 export * from './ItemRestrictionOutputModel';
 export * from './ItemRestrictionInputModel';
+export * from './ItemTagDetailOutputModel';
 export * from './ItemTaxCodeClassificationRequestInputModel';
 export * from './ItemTaxCodeClassificationRequestOutputModel';
 export * from './ClassificationDetailsModel';
@@ -312,6 +313,14 @@ export * from './AddTransactionLineModel';
 export * from './RemoveTransactionLineModel';
 export * from './DeterminationFactorModel';
 export * from './InspectResponseModel';
+export * from './VarianceUnit';
+export * from './VarianceDetail';
+export * from './VarianceLine';
+export * from './VarianceRequestModel';
+export * from './HsCode';
+export * from './VarianceResponseLine';
+export * from './VarianceResponseEntity';
+export * from './VarianceResponseModel';
 export * from './CompanyUserDefinedFieldModel';
 export * from './UserEntitlementModel';
 export * from './PingResultModel';

@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.10.0
+ * @version    22.11.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -260,6 +260,7 @@
         TooManyTransactions = 1301,
         OnlyTaxDateOverrideIsAllowed = 1302,
         TransactionAlreadyExists = 1303,
+        MultiDocumentTransactionAlreadyExists = 1304,
         DateMismatch = 1305,
         InvalidDocumentStatusForVerify = 1306,
         TotalAmountMismatch = 1307,
