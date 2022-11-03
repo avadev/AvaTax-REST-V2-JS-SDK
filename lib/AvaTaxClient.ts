@@ -58,8 +58,8 @@ export default class AvaTaxClient {
    * @param {https.Agent} customHttpAgent      Specify the http agent which will be used to make http requests to the Avatax APIs.
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false } } : 
-    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent: https.Agent, logOptions: LogOptions }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions } : 
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
@@ -75,7 +75,7 @@ export default class AvaTaxClient {
       this.baseUrl = environment;      
     }  
     this.timeout = timeout;  
-    this.logger = new Logger(logOptions);
+    this.logger = new Logger(logOptions || { logEnabled: false });
   }
 
   /**
