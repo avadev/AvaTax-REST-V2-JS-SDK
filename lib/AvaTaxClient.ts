@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.10.0
+ * @version    22.11.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -44,7 +44,7 @@ export default class AvaTaxClient {
   public timeout: number;
   public auth: string;
   public customHttpAgent: https.Agent;
-  private apiVersion: string = '22.10.0';
+  private apiVersion: string = '22.11.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -1377,8 +1377,8 @@ export default class AvaTaxClient {
      * your company so that they can be used for tax exemptions.
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
-     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption 
-     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption 
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
      * certificate storage for this company, call `RequestCertificateSetup`.
      * 
      * ### Security Policies
@@ -1422,8 +1422,8 @@ export default class AvaTaxClient {
      * your company so that they can be used for tax exemptions.
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
-     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption 
-     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption 
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
      * certificate storage for this company, call `RequestCertificateSetup`.
      * 
      * ### Security Policies
@@ -1470,8 +1470,8 @@ export default class AvaTaxClient {
      * your company so that they can be used for tax exemptions.
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
-     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption 
-     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption 
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
      * certificate storage for this company, call `RequestCertificateSetup`.
      * 
      * ### Security Policies
@@ -7511,11 +7511,11 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items
      * @param {number} itemId The ID of the item as defined by the company that owns this tag.
-     * @param {Models.ItemTagDetailModel[]} model Tags you wish to associate with the Item
-   * @return {Models.ItemTagDetailModel[]}
+     * @param {Models.ItemTagDetailInputModel[]} model Tags you wish to associate with the Item
+   * @return {Models.ItemTagDetailOutputModel[]}
    */
   
-  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model: Models.ItemTagDetailModel[] }): Promise<Models.ItemTagDetailModel[]> {
+  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model: Models.ItemTagDetailInputModel[] }): Promise<Models.ItemTagDetailOutputModel[]> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {}
@@ -11029,47 +11029,6 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Retrieve the full list of Avalara-supported subscription (ServiceTypes)
-   * For Registrar Use Only
-     * This API is for use by Avalara Registrar administrative users only.
-     *  
-     * Returns the full list of Avalara-supported subscription types.
-     * This API is intended to be useful for identifying which features you have added to your account.
-     * You may always contact Avalara's sales department for information on available products or services.
-     * You cannot change your subscriptions/service directly through the API.
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param string filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-     * @param int top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param int skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param string orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return FetchResult
-   */
-  listServiceTypes({ filter, top, skip, orderBy } = {}) {
-    var path = this.buildUrl({
-      url: `/api/v2/servicetypes/servicetypes`,
-      parameters: {
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; 22.10.0; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
-  }
-
-  /**
    * Reset a user's password programmatically
    * # For Registrar Use Only
      * This API is for use by Avalara Registrar administrative users only.
@@ -13142,6 +13101,33 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Fetches the Variance data generated for all the transactions done by Company.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} companyCode 
+   * @return {Models.VarianceResponseModel}
+   */
+  
+  getAllVarianceReportByCompanyCode({ companyCode }: { companyCode: string }): Promise<Models.VarianceResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyCode}/AllVariance`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
    * Retrieve a single transaction by code
    * Get the current transaction identified by this company code, transaction code, and document type.
      *  
@@ -13280,6 +13266,34 @@ export default class AvaTaxClient {
       parameters: {
         $include: include
       }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
+   * Fetches the Variance data generated for particular Company by transaction ID
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} companyCode 
+     * @param {string} transactionId 
+   * @return {Models.VarianceResponseModel}
+   */
+  
+  getVarianceReportByCompanyCodeByTransactionId({ companyCode, transactionId }: { companyCode: string, transactionId: string }): Promise<Models.VarianceResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyCode}/transactions/${transactionId}/variance`,
+      parameters: {}
     });
 	 var strClientId =
       this.appNM +
@@ -13669,6 +13683,34 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+  }
+
+  /**
+   * Generates the Variance report which will capture the difference between "Tax Calculated by Avalara" Vs "Actual Tax" paid at custom clearance at line / header level.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} companyCode 
+     * @param {Models.VarianceRequestModel[]} model 
+   * @return {Models.VarianceResponseModel}
+   */
+  
+  varianceReport({ companyCode, model }: { companyCode: string, model: Models.VarianceRequestModel[] }): Promise<Models.VarianceResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyCode}/variance`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
   }
 
   /**
