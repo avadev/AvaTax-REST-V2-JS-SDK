@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.11.0
+ * @version    23.1.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -29,8 +29,8 @@ import * as Models from './index';
      */
    total?: number;
     /**
-     * @type {Models.ItemUploadErrorModel[]}
+     * @type {Models.ItemCatalogueResultModel[]}
      * @memberof ItemCatalogueOutputModel
      */
-   failed: Models.ItemUploadErrorModel[];
+   result: Models.ItemCatalogueResultModel[];
  }

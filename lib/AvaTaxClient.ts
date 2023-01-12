@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.11.0
+ * @version    23.1.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -44,7 +44,7 @@ export default class AvaTaxClient {
   public timeout: number;
   public auth: string;
   public customHttpAgent: https.Agent;
-  private apiVersion: string = '22.11.0';
+  private apiVersion: string = '23.1.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -58,8 +58,8 @@ export default class AvaTaxClient {
    * @param {https.Agent} customHttpAgent      Specify the http agent which will be used to make http requests to the Avatax APIs.
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions } : 
-    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false } } : 
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent: https.Agent, logOptions: LogOptions }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
@@ -75,7 +75,7 @@ export default class AvaTaxClient {
       this.baseUrl = environment;      
     }  
     this.timeout = timeout;  
-    this.logger = new Logger(logOptions || { logEnabled: false });
+    this.logger = new Logger(logOptions);
   }
 
   /**
@@ -4815,16 +4815,16 @@ export default class AvaTaxClient {
      * @param {string} country The country for which you want to retrieve the jurisdiction information
      * @param {string} taxTypeId The taxtype for which you want to retrieve the jurisdiction information
      * @param {string} taxSubTypeId The taxsubtype for which you want to retrieve the jurisdiction information
-     * @param {string} rateTypeId The ratetype for which you want to retrieve the jurisdiction information
+     * @param {number} rateTypeId The ratetype for which you want to retrieve the jurisdiction information
      * @param {string} region The region for which you want to retrieve the jurisdiction information
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, country, state, jurisdictionCode, longName, taxTypeId, taxSubTypeId, taxTypeGroupId, rateTypeId
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, country, state, jurisdictionCode, longName, taxTypeId, taxSubTypeId, taxTypeGroupId, rateTypeId, stateFips
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
    * @return {object}
    */
   
-  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, region?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, region?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -5996,6 +5996,44 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve the list of applicable Regions by country tax type, tax sub type, rate type, Nexus Tax type group for given JurisdictionTypeId
+   * Returns a list of all ISO 3166 region codes for a specific country code, and their US English friendly names.
+     * This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a region
+     * within the country for a shipping addresses.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId Id of the company the user wish to fetch details
+     * @param {string} country The country for which you want to retrieve the regions information
+     * @param {string} taxTypeId The taxtype for which you want to retrieve the regions information
+     * @param {string} taxSubTypeId The taxsubtype for which you want to retrieve the regions
+     * @param {number} rateTypeId The ratetype for which you want to retrieve the regions information
+     * @param {string} jurisdictionTypeId The JurisdictionTypeId for which you want to retrieve the regions information, this is a three character string - CNT, STA, CTY, CIT, or STJ
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {object}
+   */
+  
+  listRegionsByCountryAndTaxTypeAndTaxSubTypeAndRateType({ companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, top, skip, orderBy }: { companyId: number, country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, jurisdictionTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/companies/${companyId}/countries/${country}/regions/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}/rateTypeId/${rateTypeId}/jurisdictionTypeId/${jurisdictionTypeId}`,
+      parameters: {
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+  }
+
+  /**
    * Retrieve the full list of Avalara-supported resource file types
    * Returns the full list of Avalara-supported resource file types
      * This API is intended to be useful to identify all the different resource file types.
@@ -6409,6 +6447,7 @@ export default class AvaTaxClient {
    * 
      * @param {string} country The country to examine for taxsubtype
      * @param {string} taxTypeId The taxType for the country to examine for taxsubtype
+     * @param {number} companyId Id of the company the user wish to fetch the applicable tax sub types
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -6416,10 +6455,11 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, companyId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/countries/${country}/taxtypes/${taxTypeId}`,
       parameters: {
+        companyId: companyId,
         $filter: filter,
         $top: top,
         $skip: skip,
@@ -7566,11 +7606,11 @@ export default class AvaTaxClient {
    * Delete a single item
    * Deletes the item object at this URL.
      *  
-     * Items are a way of separating your tax calculation process from your tax configuration details. 
+     * Items are a way of separating your tax calculation process from your tax configuration details.
      * Use this endpoint to delete an existing item with item code.
      *  
      * Deleting an item will also delete the parameters, classifications, and product categories associated with that item.
-     * 
+     *  
      * NOTE: If your item code contains any of these characters /, +, ? or a space, please use the following encoding before making a request:
      * * Replace '/' with '\_-ava2f-\_' For example: 'Item/Code' becomes 'Item_-ava2f-_Code'
      * * Replace '+' with '\_-ava2b-\_' For example: 'Item+Code' becomes 'Item_-ava2b-_Code'
@@ -8200,12 +8240,13 @@ export default class AvaTaxClient {
      * Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
      *  
      * You may specify Tag Name in the `tagName` query parameter if you want to filter items on the basis of tagName
-     * 
+     *  
      * You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
      *  
      * * Parameters
      * * Classifications
      * * Tags
+     * * Properties
      * 
      * ### Security Policies
      * 
@@ -8214,7 +8255,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags, properties
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -8264,7 +8305,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags, properties
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -8314,7 +8355,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, upc, classifications, parameters, tags, properties
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -8349,6 +8390,8 @@ export default class AvaTaxClient {
      * Items are a way of separating your tax calculation process from your tax configuration details. Use this endpoint to create
      * a new or update an existing item. This can be used to sync the items with Avalara. For example, an accounting software
      * system can use this to sync all their items from an ERP with Avalara.
+     *  
+     * Parameters and Classifications can be added with the Item.
      * 
      * ### Security Policies
      * 
@@ -13381,7 +13424,7 @@ export default class AvaTaxClient {
      * This API is mainly used for connector developers to simulate what happens when the Returns product locks a document.
      * After this API call succeeds, the document will be locked and can't be voided or adjusted.
      *  
-     * This API is only available to customers in Sandbox with AvaTaxPro subscription. On production servers, this API is available by invitation only.
+     * On Sandbox, this API is only available to customers who have both an AvaTaxPro and a Managed Returns subscription. On Production, this API is only available internally for the Avalara Returns team.
      *  
      * If you have more than one document with the same `code`, specify the `documentType` parameter to choose between them.
      *  

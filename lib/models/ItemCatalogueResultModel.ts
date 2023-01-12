@@ -18,29 +18,29 @@ import * as Enums from '../enums/index';
 import * as Models from './index';
 
 /**
- * Represents a code describing the intended use for a product that may affect its taxability
+ * 
  * @export
- * @interface EntityUseCodeModel
+ * @interface ItemCatalogueResultModel
  */
- export interface EntityUseCodeModel {
+ export interface ItemCatalogueResultModel {
+    /**
+     * @type {number}
+     * @memberof ItemCatalogueResultModel
+     */
+   itemId?: number;
     /**
      * @type {string}
-     * @memberof EntityUseCodeModel
+     * @memberof ItemCatalogueResultModel
      */
-   code?: string;
+   itemCode?: string;
     /**
-     * @type {string}
-     * @memberof EntityUseCodeModel
+     * @type {Enums.ItemCatalogueResultEvent}
+     * @memberof ItemCatalogueResultModel
      */
-   name?: string;
-    /**
-     * @type {string}
-     * @memberof EntityUseCodeModel
-     */
-   description?: string;
+   itemEvent?: Enums.ItemCatalogueResultEvent;
     /**
      * @type {string[]}
-     * @memberof EntityUseCodeModel
+     * @memberof ItemCatalogueResultModel
      */
-   validCountries: string[];
+   errors: string[];
  }
