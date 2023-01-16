@@ -18,15 +18,9 @@
 * @export
 * @enum {string}
 */
- export enum FormTypeId {
-        SalesAndUse = 0,
-        Sales = 1,
-        SellersUse = 2,
-        Lodging = 3,
-        SalesAndLodging = 4,
-        ConsumerUse = 5,
-        ResortAndRental = 6,
-        TouristAndRental = 7,
-        Prepayment = 8,
-        PrepaymentAllowed = 9,
+ export enum ItemCatalogueResultEvent {
+        ItemCreated = 0,
+        ItemUpdated = 1,
+        ItemDeleted = 2,
+        Error = 3,
 }

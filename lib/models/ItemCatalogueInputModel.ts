@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    22.11.0
+ * @version    23.1.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -23,6 +23,11 @@ import * as Models from './index';
  * @interface ItemCatalogueInputModel
  */
  export interface ItemCatalogueInputModel {
+    /**
+     * @type {number}
+     * @memberof ItemCatalogueInputModel
+     */
+   itemId?: number;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
@@ -68,4 +73,14 @@ import * as Models from './index';
      * @memberof ItemCatalogueInputModel
      */
    properties: object;
+    /**
+     * @type {Models.ClassificationModel[]}
+     * @memberof ItemCatalogueInputModel
+     */
+   classifications: Models.ClassificationModel[];
+    /**
+     * @type {Models.ItemParameterModel[]}
+     * @memberof ItemCatalogueInputModel
+     */
+   parameters: Models.ItemParameterModel[];
  }
