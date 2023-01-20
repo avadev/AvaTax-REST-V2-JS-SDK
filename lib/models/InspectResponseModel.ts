@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {Models.DeterminationFactorModel[]}
      * @memberof InspectResponseModel
      */
-   determinationFactors: Models.DeterminationFactorModel[];
+   determinationFactors?: Models.DeterminationFactorModel[];
  }

@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {Models.Message[]}
      * @memberof WorksheetDocumentLine
      */
-   messages: Models.Message[];
+   messages?: Models.Message[];
     /**
      * @type {string}
      * @memberof WorksheetDocumentLine

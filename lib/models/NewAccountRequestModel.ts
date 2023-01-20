@@ -123,7 +123,7 @@ Contains information about the account requested and the rate plan selected.
      * @type {string[]}
      * @memberof NewAccountRequestModel
      */
-   properties: string[];
+   properties?: string[];
     /**
      * @type {boolean}
      * @memberof NewAccountRequestModel
@@ -138,7 +138,7 @@ Contains information about the account requested and the rate plan selected.
      * @type {object}
      * @memberof NewAccountRequestModel
      */
-   marketingContext: object;
+   marketingContext?: object;
     /**
      * @type {Enums.AccountTypeId}
      * @memberof NewAccountRequestModel

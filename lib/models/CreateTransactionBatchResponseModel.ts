@@ -92,5 +92,5 @@ import * as Models from './index';
      * @type {Models.BatchFileModel[]}
      * @memberof CreateTransactionBatchResponseModel
      */
-   files: Models.BatchFileModel[];
+   files?: Models.BatchFileModel[];
  }

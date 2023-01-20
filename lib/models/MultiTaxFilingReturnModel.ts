@@ -102,22 +102,22 @@ import * as Models from './index';
      * @type {Models.FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   returnTaxSummary: Models.FilingsTaxSummaryModel;
+   returnTaxSummary?: Models.FilingsTaxSummaryModel;
     /**
      * @type {Models.FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   returnTaxDetails: Models.FilingsTaxDetailsModel[];
+   returnTaxDetails?: Models.FilingsTaxDetailsModel[];
     /**
      * @type {Models.FilingReturnCreditModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   excludedCarryOverCredits: Models.FilingReturnCreditModel;
+   excludedCarryOverCredits?: Models.FilingReturnCreditModel;
     /**
      * @type {Models.FilingReturnCreditModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   appliedCarryOverCredits: Models.FilingReturnCreditModel;
+   appliedCarryOverCredits?: Models.FilingReturnCreditModel;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
@@ -127,7 +127,7 @@ import * as Models from './index';
      * @type {Models.FilingAdjustmentModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   adjustments: Models.FilingAdjustmentModel[];
+   adjustments?: Models.FilingAdjustmentModel[];
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
@@ -137,7 +137,7 @@ import * as Models from './index';
      * @type {Models.FilingAugmentationModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   augmentations: Models.FilingAugmentationModel[];
+   augmentations?: Models.FilingAugmentationModel[];
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
@@ -147,10 +147,10 @@ import * as Models from './index';
      * @type {Models.FilingPaymentModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   payments: Models.FilingPaymentModel[];
+   payments?: Models.FilingPaymentModel[];
     /**
      * @type {Models.FilingAttachmentModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   attachments: Models.FilingAttachmentModel[];
+   attachments?: Models.FilingAttachmentModel[];
  }

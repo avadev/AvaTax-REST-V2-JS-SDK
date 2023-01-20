@@ -37,10 +37,10 @@ import * as Models from './index';
      * @type {Models.NexusModel[]}
      * @memberof NexusByTaxFormModel
      */
-   nexusDefinitions: Models.NexusModel[];
+   nexusDefinitions?: Models.NexusModel[];
     /**
      * @type {Models.NexusModel[]}
      * @memberof NexusByTaxFormModel
      */
-   companyNexus: Models.NexusModel[];
+   companyNexus?: Models.NexusModel[];
  }

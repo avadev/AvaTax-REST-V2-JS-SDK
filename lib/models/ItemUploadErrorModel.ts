@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ItemUploadErrorModel
      */
-   errors: string[];
+   errors?: string[];
  }

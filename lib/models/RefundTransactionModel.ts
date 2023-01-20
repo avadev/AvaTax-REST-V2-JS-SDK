@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof RefundTransactionModel
      */
-   refundLines: string[];
+   refundLines?: string[];
     /**
      * @type {string}
      * @memberof RefundTransactionModel

@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Enums.AgeVerifyFailureCode[]}
      * @memberof AgeVerifyResult
      */
-   failureCodes: Enums.AgeVerifyFailureCode[];
+   failureCodes?: Enums.AgeVerifyFailureCode[];
  }

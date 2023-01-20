@@ -77,5 +77,5 @@ import * as Models from './index';
      * @type {Models.ComplianceAggregatedTaxRateModel[]}
      * @memberof ComplianceJurisdictionModel
      */
-   rates: Models.ComplianceAggregatedTaxRateModel[];
+   rates?: Models.ComplianceAggregatedTaxRateModel[];
  }

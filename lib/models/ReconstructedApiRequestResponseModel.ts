@@ -31,5 +31,5 @@ that was originally used to create this transaction.
      * @type {Models.CreateTransactionModel}
      * @memberof ReconstructedApiRequestResponseModel
      */
-   request: Models.CreateTransactionModel;
+   request?: Models.CreateTransactionModel;
  }

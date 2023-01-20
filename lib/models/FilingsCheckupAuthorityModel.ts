@@ -62,5 +62,5 @@ import * as Models from './index';
      * @type {Models.FilingsCheckupSuggestedFormModel[]}
      * @memberof FilingsCheckupAuthorityModel
      */
-   suggestedForms: Models.FilingsCheckupSuggestedFormModel[];
+   suggestedForms?: Models.FilingsCheckupSuggestedFormModel[];
  }

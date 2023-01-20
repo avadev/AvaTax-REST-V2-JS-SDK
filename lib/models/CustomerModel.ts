@@ -137,25 +137,25 @@ import * as Models from './index';
      * @type {Models.CertificateModel[]}
      * @memberof CustomerModel
      */
-   certificates: Models.CertificateModel[];
+   certificates?: Models.CertificateModel[];
     /**
      * @type {Models.CustomFieldModel[]}
      * @memberof CustomerModel
      */
-   customFields: Models.CustomFieldModel[];
+   customFields?: Models.CustomFieldModel[];
     /**
      * @type {Models.ExposureZoneModel[]}
      * @memberof CustomerModel
      */
-   exposureZones: Models.ExposureZoneModel[];
+   exposureZones?: Models.ExposureZoneModel[];
     /**
      * @type {Models.CustomerModel[]}
      * @memberof CustomerModel
      */
-   shipTos: Models.CustomerModel[];
+   shipTos?: Models.CustomerModel[];
     /**
      * @type {Models.CustomerAttributeModel[]}
      * @memberof CustomerModel
      */
-   attributes: Models.CustomerAttributeModel[];
+   attributes?: Models.CustomerAttributeModel[];
  }

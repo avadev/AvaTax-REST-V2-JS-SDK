@@ -267,47 +267,47 @@ import * as Models from './index';
      * @type {Models.TransactionLineModel[]}
      * @memberof TransactionModel
      */
-   lines: Models.TransactionLineModel[];
+   lines?: Models.TransactionLineModel[];
     /**
      * @type {Models.TransactionAddressModel[]}
      * @memberof TransactionModel
      */
-   addresses: Models.TransactionAddressModel[];
+   addresses?: Models.TransactionAddressModel[];
     /**
      * @type {Models.TransactionLocationTypeModel[]}
      * @memberof TransactionModel
      */
-   locationTypes: Models.TransactionLocationTypeModel[];
+   locationTypes?: Models.TransactionLocationTypeModel[];
     /**
      * @type {Models.TransactionSummary[]}
      * @memberof TransactionModel
      */
-   summary: Models.TransactionSummary[];
+   summary?: Models.TransactionSummary[];
     /**
      * @type {Models.TaxDetailsByTaxType[]}
      * @memberof TransactionModel
      */
-   taxDetailsByTaxType: Models.TaxDetailsByTaxType[];
+   taxDetailsByTaxType?: Models.TaxDetailsByTaxType[];
     /**
      * @type {Models.TransactionParameterModel[]}
      * @memberof TransactionModel
      */
-   parameters: Models.TransactionParameterModel[];
+   parameters?: Models.TransactionParameterModel[];
     /**
      * @type {Models.TransactionUserDefinedFieldModel[]}
      * @memberof TransactionModel
      */
-   userDefinedFields: Models.TransactionUserDefinedFieldModel[];
+   userDefinedFields?: Models.TransactionUserDefinedFieldModel[];
     /**
      * @type {Models.AvaTaxMessage[]}
      * @memberof TransactionModel
      */
-   messages: Models.AvaTaxMessage[];
+   messages?: Models.AvaTaxMessage[];
     /**
      * @type {Models.InvoiceMessageModel[]}
      * @memberof TransactionModel
      */
-   invoiceMessages: Models.InvoiceMessageModel[];
+   invoiceMessages?: Models.InvoiceMessageModel[];
     /**
      * @type {string}
      * @memberof TransactionModel

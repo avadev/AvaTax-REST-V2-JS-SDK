@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {Models.ItemTaxCodeModel[]}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   recommendations: Models.ItemTaxCodeModel[];
+   recommendations?: Models.ItemTaxCodeModel[];
     /**
      * @type {string}
      * @memberof ItemTaxCodeRecommendationsOutputModel

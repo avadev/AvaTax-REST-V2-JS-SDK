@@ -72,7 +72,7 @@ import * as Models from './index';
      * @type {Models.FundingESignMethodReturn}
      * @memberof FundingStatusModel
      */
-   methodReturn: Models.FundingESignMethodReturn;
+   methodReturn?: Models.FundingESignMethodReturn;
     /**
      * @type {string}
      * @memberof FundingStatusModel

@@ -51,12 +51,12 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {Models.CustomerModel}
      * @memberof CertExpressInvitationModel
      */
-   customer: Models.CustomerModel;
+   customer?: Models.CustomerModel;
     /**
      * @type {Models.CoverLetterModel}
      * @memberof CertExpressInvitationModel
      */
-   coverLetter: Models.CoverLetterModel;
+   coverLetter?: Models.CoverLetterModel;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
@@ -71,12 +71,12 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {number[]}
      * @memberof CertExpressInvitationModel
      */
-   exposureZones: number[];
+   exposureZones?: number[];
     /**
      * @type {number[]}
      * @memberof CertExpressInvitationModel
      */
-   exemptReasons: number[];
+   exemptReasons?: number[];
     /**
      * @type {Enums.CertificateRequestDeliveryMethod}
      * @memberof CertExpressInvitationModel

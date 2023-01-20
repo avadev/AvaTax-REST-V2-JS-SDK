@@ -72,5 +72,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof CycleAddOptionModel
      */
-   availableLocationCodes: string[];
+   availableLocationCodes?: string[];
  }

@@ -52,12 +52,12 @@ import * as Models from './index';
      * @type {Models.WorksheetDocumentLine[]}
      * @memberof WorksheetDocument
      */
-   lines: Models.WorksheetDocumentLine[];
+   lines?: Models.WorksheetDocumentLine[];
     /**
      * @type {Models.Message[]}
      * @memberof WorksheetDocument
      */
-   messages: Models.Message[];
+   messages?: Models.Message[];
     /**
      * @type {string}
      * @memberof WorksheetDocument

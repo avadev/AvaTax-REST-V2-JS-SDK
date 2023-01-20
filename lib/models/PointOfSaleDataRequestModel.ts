@@ -42,17 +42,17 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   taxCodes: string[];
+   taxCodes?: string[];
     /**
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   itemCodes: string[];
+   itemCodes?: string[];
     /**
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   locationCodes: string[];
+   locationCodes?: string[];
     /**
      * @type {boolean}
      * @memberof PointOfSaleDataRequestModel

@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {Models.FrequencyAvailableModel[]}
      * @memberof CycleSafeOptionResultModel
      */
-   frequenciesAvailable: Models.FrequencyAvailableModel[];
+   frequenciesAvailable?: Models.FrequencyAvailableModel[];
  }

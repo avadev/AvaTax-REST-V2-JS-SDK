@@ -92,5 +92,5 @@ import * as Models from './index';
      * @type {Models.ResourceFileUploadRequestModel}
      * @memberof NoticeCommentModel
      */
-   attachmentUploadRequest: Models.ResourceFileUploadRequestModel;
+   attachmentUploadRequest?: Models.ResourceFileUploadRequestModel;
  }

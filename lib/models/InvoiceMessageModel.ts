@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof InvoiceMessageModel
      */
-   lineNumbers: string[];
+   lineNumbers?: string[];
  }

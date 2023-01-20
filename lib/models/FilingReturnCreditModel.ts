@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {Models.WorksheetDocument[]}
      * @memberof FilingReturnCreditModel
      */
-   transactionDetails: Models.WorksheetDocument[];
+   transactionDetails?: Models.WorksheetDocument[];
  }

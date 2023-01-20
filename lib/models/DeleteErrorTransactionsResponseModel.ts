@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {Models.DeleteErrorTransactionResponseModel[]}
      * @memberof DeleteErrorTransactionsResponseModel
      */
-   results: Models.DeleteErrorTransactionResponseModel[];
+   results?: Models.DeleteErrorTransactionResponseModel[];
  }

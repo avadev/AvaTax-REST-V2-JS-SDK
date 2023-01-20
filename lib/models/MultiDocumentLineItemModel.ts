@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {Models.AddressesModel}
      * @memberof MultiDocumentLineItemModel
      */
-   addresses: Models.AddressesModel;
+   addresses?: Models.AddressesModel;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
@@ -117,17 +117,17 @@ import * as Models from './index';
      * @type {Models.TaxOverrideModel}
      * @memberof MultiDocumentLineItemModel
      */
-   taxOverride: Models.TaxOverrideModel;
+   taxOverride?: Models.TaxOverrideModel;
     /**
      * @type {Models.TransactionLineParameterModel[]}
      * @memberof MultiDocumentLineItemModel
      */
-   parameters: Models.TransactionLineParameterModel[];
+   parameters?: Models.TransactionLineParameterModel[];
     /**
      * @type {Models.TransactionLineUserDefinedFieldModel[]}
      * @memberof MultiDocumentLineItemModel
      */
-   userDefinedFields: Models.TransactionLineUserDefinedFieldModel[];
+   userDefinedFields?: Models.TransactionLineUserDefinedFieldModel[];
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel

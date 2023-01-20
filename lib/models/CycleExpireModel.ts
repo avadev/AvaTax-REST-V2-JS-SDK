@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {Models.CycleExpireOptionModel[]}
      * @memberof CycleExpireModel
      */
-   cycleExpirationOptions: Models.CycleExpireOptionModel[];
+   cycleExpirationOptions?: Models.CycleExpireOptionModel[];
  }

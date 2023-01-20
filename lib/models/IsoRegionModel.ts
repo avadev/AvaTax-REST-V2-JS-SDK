@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {Models.IsoLocalizedName[]}
      * @memberof IsoRegionModel
      */
-   localizedNames: Models.IsoLocalizedName[];
+   localizedNames?: Models.IsoLocalizedName[];
     /**
      * @type {boolean}
      * @memberof IsoRegionModel

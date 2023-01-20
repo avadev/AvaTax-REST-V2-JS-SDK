@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {Models.AvailableCycleModel[]}
      * @memberof FrequencyAvailableModel
      */
-   availableCycles: Models.AvailableCycleModel[];
+   availableCycles?: Models.AvailableCycleModel[];
  }

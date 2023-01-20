@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.NexusTaxTypeGroupCountModel[]}
      * @memberof NexusSummaryModel
      */
-   nexusSummary: Models.NexusTaxTypeGroupCountModel[];
+   nexusSummary?: Models.NexusTaxTypeGroupCountModel[];
  }

@@ -108,5 +108,5 @@ Only used if you subscribe to Avalara Returns.
      * @type {Models.FilingAnswerModel[]}
      * @memberof FilingRequestDataModel
      */
-   answers: Models.FilingAnswerModel[];
+   answers?: Models.FilingAnswerModel[];
  }

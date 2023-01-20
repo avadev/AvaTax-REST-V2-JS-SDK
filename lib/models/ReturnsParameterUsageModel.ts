@@ -77,7 +77,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ReturnsParameterUsageModel
      */
-   values: string[];
+   values?: string[];
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel

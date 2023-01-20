@@ -157,52 +157,52 @@ import * as Models from './index';
      * @type {Models.ContactModel[]}
      * @memberof CompanyModel
      */
-   contacts: Models.ContactModel[];
+   contacts?: Models.ContactModel[];
     /**
      * @type {Models.ItemModel[]}
      * @memberof CompanyModel
      */
-   items: Models.ItemModel[];
+   items?: Models.ItemModel[];
     /**
      * @type {Models.LocationModel[]}
      * @memberof CompanyModel
      */
-   locations: Models.LocationModel[];
+   locations?: Models.LocationModel[];
     /**
      * @type {Models.NexusModel[]}
      * @memberof CompanyModel
      */
-   nexus: Models.NexusModel[];
+   nexus?: Models.NexusModel[];
     /**
      * @type {Models.SettingModel[]}
      * @memberof CompanyModel
      */
-   settings: Models.SettingModel[];
+   settings?: Models.SettingModel[];
     /**
      * @type {Models.TaxCodeModel[]}
      * @memberof CompanyModel
      */
-   taxCodes: Models.TaxCodeModel[];
+   taxCodes?: Models.TaxCodeModel[];
     /**
      * @type {Models.TaxRuleModel[]}
      * @memberof CompanyModel
      */
-   taxRules: Models.TaxRuleModel[];
+   taxRules?: Models.TaxRuleModel[];
     /**
      * @type {Models.UPCModel[]}
      * @memberof CompanyModel
      */
-   upcs: Models.UPCModel[];
+   upcs?: Models.UPCModel[];
     /**
      * @type {Models.CompanyModel[]}
      * @memberof CompanyModel
      */
-   nonReportingChildCompanies: Models.CompanyModel[];
+   nonReportingChildCompanies?: Models.CompanyModel[];
     /**
      * @type {Models.EcmsModel[]}
      * @memberof CompanyModel
      */
-   exemptCerts: Models.EcmsModel[];
+   exemptCerts?: Models.EcmsModel[];
     /**
      * @type {string}
      * @memberof CompanyModel
@@ -217,10 +217,10 @@ import * as Models from './index';
      * @type {Models.CompanyParameterDetailModel[]}
      * @memberof CompanyModel
      */
-   parameters: Models.CompanyParameterDetailModel[];
+   parameters?: Models.CompanyParameterDetailModel[];
     /**
      * @type {Models.CustomerSupplierModel[]}
      * @memberof CompanyModel
      */
-   supplierandcustomers: Models.CustomerSupplierModel[];
+   supplierandcustomers?: Models.CustomerSupplierModel[];
  }

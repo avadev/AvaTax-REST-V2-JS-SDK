@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof LinkCustomersModel
      */
-   customers: string[];
+   customers?: string[];
  }

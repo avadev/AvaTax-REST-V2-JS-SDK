@@ -97,20 +97,20 @@ import * as Models from './index';
      * @type {Models.ClassificationModel[]}
      * @memberof ItemModel
      */
-   classifications: Models.ClassificationModel[];
+   classifications?: Models.ClassificationModel[];
     /**
      * @type {Models.ItemParameterModel[]}
      * @memberof ItemModel
      */
-   parameters: Models.ItemParameterModel[];
+   parameters?: Models.ItemParameterModel[];
     /**
      * @type {Models.ItemTagDetailInputModel[]}
      * @memberof ItemModel
      */
-   tags: Models.ItemTagDetailInputModel[];
+   tags?: Models.ItemTagDetailInputModel[];
     /**
      * @type {object}
      * @memberof ItemModel
      */
-   properties: object;
+   properties?: object;
  }

@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {Models.ReconstructedMultiDocumentModel}
      * @memberof AuditMultiDocumentModel
      */
-   reconstructed: Models.ReconstructedMultiDocumentModel;
+   reconstructed?: Models.ReconstructedMultiDocumentModel;
     /**
      * @type {string}
      * @memberof AuditMultiDocumentModel
@@ -57,5 +57,5 @@ import * as Models from './index';
      * @type {Models.OriginalApiRequestResponseModel}
      * @memberof AuditMultiDocumentModel
      */
-   original: Models.OriginalApiRequestResponseModel;
+   original?: Models.OriginalApiRequestResponseModel;
  }

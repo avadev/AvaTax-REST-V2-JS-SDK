@@ -72,5 +72,5 @@ import * as Models from './index';
      * @type {Models.EcmsDetailTaxCodeModel[]}
      * @memberof EcmsDetailModel
      */
-   taxCodes: Models.EcmsDetailTaxCodeModel[];
+   taxCodes?: Models.EcmsDetailTaxCodeModel[];
  }

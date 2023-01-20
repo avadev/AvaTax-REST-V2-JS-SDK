@@ -30,10 +30,10 @@ according to the geocoding that corresponds to this address.
      * @type {Models.DeclareNexusByAddressModel}
      * @memberof NexusByAddressModel
      */
-   address: Models.DeclareNexusByAddressModel;
+   address?: Models.DeclareNexusByAddressModel;
     /**
      * @type {Models.NexusModel[]}
      * @memberof NexusByAddressModel
      */
-   declaredNexus: Models.NexusModel[];
+   declaredNexus?: Models.NexusModel[];
  }

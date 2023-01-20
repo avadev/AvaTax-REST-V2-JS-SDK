@@ -172,5 +172,5 @@ import * as Models from './index';
      * @type {Models.EcmsDetailModel[]}
      * @memberof EcmsModel
      */
-   details: Models.EcmsDetailModel[];
+   details?: Models.EcmsDetailModel[];
  }

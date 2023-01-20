@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {Models.ReportParametersModel}
      * @memberof ReportModel
      */
-   parameters: Models.ReportParametersModel;
+   parameters?: Models.ReportParametersModel;
     /**
      * @type {string}
      * @memberof ReportModel

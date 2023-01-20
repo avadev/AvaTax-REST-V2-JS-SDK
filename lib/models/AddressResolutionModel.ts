@@ -27,17 +27,17 @@ import * as Models from './index';
      * @type {Models.AddressInfo}
      * @memberof AddressResolutionModel
      */
-   address: Models.AddressInfo;
+   address?: Models.AddressInfo;
     /**
      * @type {Models.ValidatedAddressInfo[]}
      * @memberof AddressResolutionModel
      */
-   validatedAddresses: Models.ValidatedAddressInfo[];
+   validatedAddresses?: Models.ValidatedAddressInfo[];
     /**
      * @type {Models.CoordinateInfo}
      * @memberof AddressResolutionModel
      */
-   coordinates: Models.CoordinateInfo;
+   coordinates?: Models.CoordinateInfo;
     /**
      * @type {Enums.ResolutionQuality}
      * @memberof AddressResolutionModel
@@ -47,10 +47,10 @@ import * as Models from './index';
      * @type {Models.TaxAuthorityInfo[]}
      * @memberof AddressResolutionModel
      */
-   taxAuthorities: Models.TaxAuthorityInfo[];
+   taxAuthorities?: Models.TaxAuthorityInfo[];
     /**
      * @type {Models.AvaTaxMessage[]}
      * @memberof AddressResolutionModel
      */
-   messages: Models.AvaTaxMessage[];
+   messages?: Models.AvaTaxMessage[];
  }

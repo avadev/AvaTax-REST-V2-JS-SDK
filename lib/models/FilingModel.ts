@@ -72,5 +72,5 @@ import * as Models from './index';
      * @type {Models.FilingRegionModel[]}
      * @memberof FilingModel
      */
-   filingRegions: Models.FilingRegionModel[];
+   filingRegions?: Models.FilingRegionModel[];
  }

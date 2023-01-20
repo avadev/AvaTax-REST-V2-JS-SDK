@@ -28,5 +28,5 @@ This list is used when creating tax codes and tax rules.
      * @type {object}
      * @memberof TaxCodeTypesModel
      */
-   types: object;
+   types?: object;
  }

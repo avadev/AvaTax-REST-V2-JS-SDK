@@ -100,7 +100,7 @@ the value you send is appropriate for the type of tax rule.
      * @type {Models.TaxRuleProductDetailModel[]}
      * @memberof TaxRuleModel
      */
-   taxRuleProductDetail: Models.TaxRuleProductDetailModel[];
+   taxRuleProductDetail?: Models.TaxRuleProductDetailModel[];
     /**
      * @type {Enums.RateType}
      * @memberof TaxRuleModel

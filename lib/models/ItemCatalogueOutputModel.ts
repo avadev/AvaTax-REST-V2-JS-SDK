@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.ItemCatalogueResultModel[]}
      * @memberof ItemCatalogueOutputModel
      */
-   result: Models.ItemCatalogueResultModel[];
+   result?: Models.ItemCatalogueResultModel[];
  }

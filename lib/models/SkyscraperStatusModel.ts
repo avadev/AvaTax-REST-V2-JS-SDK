@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof SkyscraperStatusModel
      */
-   taxFormCodes: string[];
+   taxFormCodes?: string[];
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
@@ -62,5 +62,5 @@ import * as Models from './index';
      * @type {Models.requiredFilingCalendarDataFieldModel[]}
      * @memberof SkyscraperStatusModel
      */
-   requiredFilingCalendarDataFields: Models.requiredFilingCalendarDataFieldModel[];
+   requiredFilingCalendarDataFields?: Models.requiredFilingCalendarDataFieldModel[];
  }

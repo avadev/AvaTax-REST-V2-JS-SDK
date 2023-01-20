@@ -92,7 +92,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ParameterUsageModel
      */
-   values: string[];
+   values?: string[];
     /**
      * @type {string}
      * @memberof ParameterUsageModel

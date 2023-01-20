@@ -82,12 +82,12 @@ import * as Models from './index';
      * @type {Models.SubscriptionModel[]}
      * @memberof AccountModel
      */
-   subscriptions: Models.SubscriptionModel[];
+   subscriptions?: Models.SubscriptionModel[];
     /**
      * @type {Models.UserModel[]}
      * @memberof AccountModel
      */
-   users: Models.UserModel[];
+   users?: Models.UserModel[];
     /**
      * @type {boolean}
      * @memberof AccountModel

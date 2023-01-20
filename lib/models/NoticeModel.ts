@@ -224,22 +224,22 @@ they are called "Notices".
      * @type {Models.NoticeCommentModel[]}
      * @memberof NoticeModel
      */
-   comments: Models.NoticeCommentModel[];
+   comments?: Models.NoticeCommentModel[];
     /**
      * @type {Models.NoticeFinanceModel[]}
      * @memberof NoticeModel
      */
-   finances: Models.NoticeFinanceModel[];
+   finances?: Models.NoticeFinanceModel[];
     /**
      * @type {Models.NoticeResponsibilityDetailModel[]}
      * @memberof NoticeModel
      */
-   responsibility: Models.NoticeResponsibilityDetailModel[];
+   responsibility?: Models.NoticeResponsibilityDetailModel[];
     /**
      * @type {Models.NoticeRootCauseDetailModel[]}
      * @memberof NoticeModel
      */
-   rootCause: Models.NoticeRootCauseDetailModel[];
+   rootCause?: Models.NoticeRootCauseDetailModel[];
     /**
      * @type {Date}
      * @memberof NoticeModel

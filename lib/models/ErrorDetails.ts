@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {object}
      * @memberof ErrorDetails
      */
-   error: object;
+   error?: object;
  }

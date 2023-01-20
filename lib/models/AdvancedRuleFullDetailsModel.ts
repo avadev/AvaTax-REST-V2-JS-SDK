@@ -92,7 +92,7 @@ import * as Models from './index';
      * @type {number[]}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   accountsVisibleFor: number[];
+   accountsVisibleFor?: number[];
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
