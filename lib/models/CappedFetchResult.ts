@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {object[]}
      * @memberof CappedFetchResult<T>
      */
-   value: object[];
+   value?: object[];
     /**
      * @type {string}
      * @memberof CappedFetchResult<T>

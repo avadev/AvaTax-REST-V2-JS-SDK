@@ -27,7 +27,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof UserEntitlementModel
      */
-   permissions: string[];
+   permissions?: string[];
     /**
      * @type {Enums.CompanyAccessLevel}
      * @memberof UserEntitlementModel
@@ -37,5 +37,5 @@ import * as Models from './index';
      * @type {number[]}
      * @memberof UserEntitlementModel
      */
-   companies: number[];
+   companies?: number[];
  }

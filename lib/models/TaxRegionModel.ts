@@ -92,5 +92,5 @@ import * as Models from './index';
      * @type {Models.DenormalizedJurisModel[]}
      * @memberof TaxRegionModel
      */
-   jurisdictions: Models.DenormalizedJurisModel[];
+   jurisdictions?: Models.DenormalizedJurisModel[];
  }

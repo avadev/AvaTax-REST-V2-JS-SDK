@@ -188,7 +188,7 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {Models.NexusParameterDetailModel[]}
      * @memberof NexusModel
      */
-   parameters: Models.NexusParameterDetailModel[];
+   parameters?: Models.NexusParameterDetailModel[];
     /**
      * @type {boolean}
      * @memberof NexusModel

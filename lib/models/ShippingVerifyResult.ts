@@ -47,15 +47,15 @@ import * as Models from './index';
      * @type {Enums.FailureCodes[]}
      * @memberof ShippingVerifyResult
      */
-   failureCodes: Enums.FailureCodes[];
+   failureCodes?: Enums.FailureCodes[];
     /**
      * @type {string[]}
      * @memberof ShippingVerifyResult
      */
-   warningCodes: string[];
+   warningCodes?: string[];
     /**
      * @type {object[]}
      * @memberof ShippingVerifyResult
      */
-   lines: object[];
+   lines?: object[];
  }

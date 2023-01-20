@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.VarianceResponseEntity[]}
      * @memberof VarianceResponseModel
      */
-   varianceResponses: Models.VarianceResponseEntity[];
+   varianceResponses?: Models.VarianceResponseEntity[];
  }

@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ItemCatalogueResultModel
      */
-   errors: string[];
+   errors?: string[];
  }

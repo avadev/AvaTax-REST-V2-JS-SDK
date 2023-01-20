@@ -37,7 +37,7 @@ import * as Models from './index';
      * @type {object}
      * @memberof AgeVerifyRequest
      */
-   address: object;
+   address?: object;
     /**
      * @type {string}
      * @memberof AgeVerifyRequest

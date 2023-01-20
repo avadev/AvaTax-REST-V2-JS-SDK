@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {Models.CreateTransactionModel}
      * @memberof OriginalApiRequestResponseModel
      */
-   request: Models.CreateTransactionModel;
+   request?: Models.CreateTransactionModel;
     /**
      * @type {Models.TransactionModel}
      * @memberof OriginalApiRequestResponseModel
      */
-   response: Models.TransactionModel;
+   response?: Models.TransactionModel;
  }

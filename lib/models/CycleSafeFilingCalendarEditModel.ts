@@ -47,10 +47,10 @@ import * as Models from './index';
      * @type {object}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   oldValue: object;
+   oldValue?: object;
     /**
      * @type {object}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   newValue: object;
+   newValue?: object;
  }

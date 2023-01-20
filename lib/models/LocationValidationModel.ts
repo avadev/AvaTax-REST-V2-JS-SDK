@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.LocationQuestionModel[]}
      * @memberof LocationValidationModel
      */
-   requiredSettings: Models.LocationQuestionModel[];
+   requiredSettings?: Models.LocationQuestionModel[];
  }

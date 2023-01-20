@@ -87,17 +87,17 @@ import * as Models from './index';
      * @type {Models.AddressesModel}
      * @memberof CreateTransactionModel
      */
-   addresses: Models.AddressesModel;
+   addresses?: Models.AddressesModel;
     /**
      * @type {Models.TransactionParameterModel[]}
      * @memberof CreateTransactionModel
      */
-   parameters: Models.TransactionParameterModel[];
+   parameters?: Models.TransactionParameterModel[];
     /**
      * @type {Models.TransactionUserDefinedFieldModel[]}
      * @memberof CreateTransactionModel
      */
-   userDefinedFields: Models.TransactionUserDefinedFieldModel[];
+   userDefinedFields?: Models.TransactionUserDefinedFieldModel[];
     /**
      * @type {string}
      * @memberof CreateTransactionModel
@@ -122,7 +122,7 @@ import * as Models from './index';
      * @type {Models.TaxOverrideModel}
      * @memberof CreateTransactionModel
      */
-   taxOverride: Models.TaxOverrideModel;
+   taxOverride?: Models.TaxOverrideModel;
     /**
      * @type {string}
      * @memberof CreateTransactionModel

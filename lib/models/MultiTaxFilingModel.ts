@@ -52,15 +52,15 @@ import * as Models from './index';
      * @type {Models.FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingModel
      */
-   taxSummary: Models.FilingsTaxSummaryModel;
+   taxSummary?: Models.FilingsTaxSummaryModel;
     /**
      * @type {Models.FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingModel
      */
-   taxDetails: Models.FilingsTaxDetailsModel[];
+   taxDetails?: Models.FilingsTaxDetailsModel[];
     /**
      * @type {Models.MultiTaxFilingRegionModel[]}
      * @memberof MultiTaxFilingModel
      */
-   filingRegions: Models.MultiTaxFilingRegionModel[];
+   filingRegions?: Models.MultiTaxFilingRegionModel[];
  }

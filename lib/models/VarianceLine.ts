@@ -47,30 +47,30 @@ import * as Models from './index';
      * @type {Models.VarianceUnit}
      * @memberof VarianceLine
      */
-   amount: Models.VarianceUnit;
+   amount?: Models.VarianceUnit;
     /**
      * @type {Models.VarianceUnit}
      * @memberof VarianceLine
      */
-   taxableAmount: Models.VarianceUnit;
+   taxableAmount?: Models.VarianceUnit;
     /**
      * @type {Models.VarianceUnit}
      * @memberof VarianceLine
      */
-   dutyPaid: Models.VarianceUnit;
+   dutyPaid?: Models.VarianceUnit;
     /**
      * @type {Models.VarianceUnit}
      * @memberof VarianceLine
      */
-   taxPaid: Models.VarianceUnit;
+   taxPaid?: Models.VarianceUnit;
     /**
      * @type {Models.VarianceUnit}
      * @memberof VarianceLine
      */
-   totalTaxPaid: Models.VarianceUnit;
+   totalTaxPaid?: Models.VarianceUnit;
     /**
      * @type {Models.VarianceDetail[]}
      * @memberof VarianceLine
      */
-   details: Models.VarianceDetail[];
+   details?: Models.VarianceDetail[];
  }

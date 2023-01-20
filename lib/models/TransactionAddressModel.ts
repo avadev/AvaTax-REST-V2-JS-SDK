@@ -92,5 +92,5 @@ import * as Models from './index';
      * @type {Models.JurisdictionModel[]}
      * @memberof TransactionAddressModel
      */
-   jurisdictions: Models.JurisdictionModel[];
+   jurisdictions?: Models.JurisdictionModel[];
  }

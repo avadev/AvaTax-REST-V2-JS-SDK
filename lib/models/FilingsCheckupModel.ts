@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {Models.FilingsCheckupAuthorityModel[]}
      * @memberof FilingsCheckupModel
      */
-   authorities: Models.FilingsCheckupAuthorityModel[];
+   authorities?: Models.FilingsCheckupAuthorityModel[];
  }

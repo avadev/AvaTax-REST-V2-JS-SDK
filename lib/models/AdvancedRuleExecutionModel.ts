@@ -62,7 +62,7 @@ import * as Models from './index';
      * @type {Models.AdvancedRuleModel}
      * @memberof AdvancedRuleExecutionModel
      */
-   rule: Models.AdvancedRuleModel;
+   rule?: Models.AdvancedRuleModel;
     /**
      * @type {string}
      * @memberof AdvancedRuleExecutionModel

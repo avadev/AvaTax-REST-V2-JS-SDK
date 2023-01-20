@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.CertificateModel}
      * @memberof ExemptionStatusModel
      */
-   certificate: Models.CertificateModel;
+   certificate?: Models.CertificateModel;
  }

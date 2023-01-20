@@ -187,7 +187,7 @@ import * as Models from './index';
      * @type {Models.FilingAttachmentModel[]}
      * @memberof FilingReturnModelBasic
      */
-   attachments: Models.FilingAttachmentModel[];
+   attachments?: Models.FilingAttachmentModel[];
     /**
      * @type {Date}
      * @memberof FilingReturnModelBasic

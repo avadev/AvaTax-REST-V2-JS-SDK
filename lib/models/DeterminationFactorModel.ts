@@ -37,12 +37,12 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof DeterminationFactorModel
      */
-   ids: string[];
+   ids?: string[];
     /**
      * @type {string[]}
      * @memberof DeterminationFactorModel
      */
-   names: string[];
+   names?: string[];
     /**
      * @type {string}
      * @memberof DeterminationFactorModel

@@ -72,5 +72,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof NewFirmClientAccountRequestModel
      */
-   properties: string[];
+   properties?: string[];
  }

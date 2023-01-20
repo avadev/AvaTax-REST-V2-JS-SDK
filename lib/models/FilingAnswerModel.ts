@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {object}
      * @memberof FilingAnswerModel
      */
-   answer: object;
+   answer?: object;
  }

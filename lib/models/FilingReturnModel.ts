@@ -247,7 +247,7 @@ import * as Models from './index';
      * @type {Models.FilingAdjustmentModel[]}
      * @memberof FilingReturnModel
      */
-   adjustments: Models.FilingAdjustmentModel[];
+   adjustments?: Models.FilingAdjustmentModel[];
     /**
      * @type {number}
      * @memberof FilingReturnModel
@@ -257,7 +257,7 @@ import * as Models from './index';
      * @type {Models.FilingAugmentationModel[]}
      * @memberof FilingReturnModel
      */
-   augmentations: Models.FilingAugmentationModel[];
+   augmentations?: Models.FilingAugmentationModel[];
     /**
      * @type {number}
      * @memberof FilingReturnModel
@@ -267,7 +267,7 @@ import * as Models from './index';
      * @type {Models.FilingPaymentModel[]}
      * @memberof FilingReturnModel
      */
-   payments: Models.FilingPaymentModel[];
+   payments?: Models.FilingPaymentModel[];
     /**
      * @type {Enums.AccrualType}
      * @memberof FilingReturnModel
@@ -292,17 +292,17 @@ import * as Models from './index';
      * @type {Models.FilingAttachmentModel[]}
      * @memberof FilingReturnModel
      */
-   attachments: Models.FilingAttachmentModel[];
+   attachments?: Models.FilingAttachmentModel[];
     /**
      * @type {Models.FilingReturnCreditModel}
      * @memberof FilingReturnModel
      */
-   excludedCarryOverCredits: Models.FilingReturnCreditModel;
+   excludedCarryOverCredits?: Models.FilingReturnCreditModel;
     /**
      * @type {Models.FilingReturnCreditModel}
      * @memberof FilingReturnModel
      */
-   appliedCarryOverCredits: Models.FilingReturnCreditModel;
+   appliedCarryOverCredits?: Models.FilingReturnCreditModel;
     /**
      * @type {Date}
      * @memberof FilingReturnModel

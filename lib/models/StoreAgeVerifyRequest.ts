@@ -27,10 +27,10 @@ import * as Models from './index';
      * @type {Models.AgeVerifyRequest}
      * @memberof StoreAgeVerifyRequest
      */
-   request: Models.AgeVerifyRequest;
+   request?: Models.AgeVerifyRequest;
     /**
      * @type {Models.AgeVerifyResult}
      * @memberof StoreAgeVerifyRequest
      */
-   response: Models.AgeVerifyResult;
+   response?: Models.AgeVerifyResult;
  }

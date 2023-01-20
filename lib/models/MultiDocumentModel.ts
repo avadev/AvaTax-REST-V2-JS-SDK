@@ -72,5 +72,5 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {Models.TransactionModel[]}
      * @memberof MultiDocumentModel
      */
-   documents: Models.TransactionModel[];
+   documents?: Models.TransactionModel[];
  }

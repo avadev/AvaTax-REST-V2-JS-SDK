@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.CertExpressInvitationModel}
      * @memberof CertExpressInvitationStatusModel
      */
-   invitation: Models.CertExpressInvitationModel;
+   invitation?: Models.CertExpressInvitationModel;
  }

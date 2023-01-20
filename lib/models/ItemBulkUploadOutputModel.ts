@@ -32,5 +32,5 @@ import * as Models from './index';
      * @type {Models.ItemUploadErrorModel[]}
      * @memberof ItemBulkUploadOutputModel
      */
-   failed: Models.ItemUploadErrorModel[];
+   failed?: Models.ItemUploadErrorModel[];
  }

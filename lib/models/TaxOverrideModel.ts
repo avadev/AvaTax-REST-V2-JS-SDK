@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {Models.TransactionLineTaxAmountByTaxTypeModel[]}
      * @memberof TaxOverrideModel
      */
-   taxAmountByTaxTypes: Models.TransactionLineTaxAmountByTaxTypeModel[];
+   taxAmountByTaxTypes?: Models.TransactionLineTaxAmountByTaxTypeModel[];
  }

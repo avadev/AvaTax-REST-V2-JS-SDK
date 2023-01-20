@@ -47,5 +47,5 @@ import * as Models from './index';
      * @type {Models.ProductSystemCountryModel[]}
      * @memberof ProductClassificationSystemModel
      */
-   countries: Models.ProductSystemCountryModel[];
+   countries?: Models.ProductSystemCountryModel[];
  }

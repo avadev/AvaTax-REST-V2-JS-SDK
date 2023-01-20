@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {number[]}
      * @memberof ItemTaxCodeClassificationRequestInputModel
      */
-   itemIds: number[];
+   itemIds?: number[];
     /**
      * @type {string[]}
      * @memberof ItemTaxCodeClassificationRequestInputModel

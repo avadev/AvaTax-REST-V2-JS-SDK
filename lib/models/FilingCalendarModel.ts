@@ -223,7 +223,7 @@ Only used if you subscribe to Avalara Returns.
      * @type {string[]}
      * @memberof FilingCalendarModel
      */
-   taxTypes: string[];
+   taxTypes?: string[];
     /**
      * @type {string}
      * @memberof FilingCalendarModel
@@ -338,5 +338,5 @@ Only used if you subscribe to Avalara Returns.
      * @type {Models.CompanyReturnSettingModel[]}
      * @memberof FilingCalendarModel
      */
-   settings: Models.CompanyReturnSettingModel[];
+   settings?: Models.CompanyReturnSettingModel[];
  }

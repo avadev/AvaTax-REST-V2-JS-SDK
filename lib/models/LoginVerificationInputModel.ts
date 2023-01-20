@@ -57,7 +57,7 @@ import * as Models from './index';
      * @type {object}
      * @memberof LoginVerificationInputModel
      */
-   additionalOptions: object;
+   additionalOptions?: object;
     /**
      * @type {number}
      * @memberof LoginVerificationInputModel

@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {Models.HsCode}
      * @memberof VarianceResponseLine
      */
-   hsCodeVariance: Models.HsCode;
+   hsCodeVariance?: Models.HsCode;
     /**
      * @type {string}
      * @memberof VarianceResponseLine
@@ -62,5 +62,5 @@ import * as Models from './index';
      * @type {Models.VarianceDetail[]}
      * @memberof VarianceResponseLine
      */
-   unMappedDetails: Models.VarianceDetail[];
+   unMappedDetails?: Models.VarianceDetail[];
  }

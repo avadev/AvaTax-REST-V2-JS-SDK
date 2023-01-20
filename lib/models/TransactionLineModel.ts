@@ -237,27 +237,27 @@ import * as Models from './index';
      * @type {Models.TransactionLineDetailModel[]}
      * @memberof TransactionLineModel
      */
-   details: Models.TransactionLineDetailModel[];
+   details?: Models.TransactionLineDetailModel[];
     /**
      * @type {Models.TransactionLineDetailModel[]}
      * @memberof TransactionLineModel
      */
-   nonPassthroughDetails: Models.TransactionLineDetailModel[];
+   nonPassthroughDetails?: Models.TransactionLineDetailModel[];
     /**
      * @type {Models.TransactionLineLocationTypeModel[]}
      * @memberof TransactionLineModel
      */
-   lineLocationTypes: Models.TransactionLineLocationTypeModel[];
+   lineLocationTypes?: Models.TransactionLineLocationTypeModel[];
     /**
      * @type {Models.TransactionLineParameterModel[]}
      * @memberof TransactionLineModel
      */
-   parameters: Models.TransactionLineParameterModel[];
+   parameters?: Models.TransactionLineParameterModel[];
     /**
      * @type {Models.TransactionLineUserDefinedFieldModel[]}
      * @memberof TransactionLineModel
      */
-   userDefinedFields: Models.TransactionLineUserDefinedFieldModel[];
+   userDefinedFields?: Models.TransactionLineUserDefinedFieldModel[];
     /**
      * @type {string}
      * @memberof TransactionLineModel
@@ -282,7 +282,7 @@ import * as Models from './index';
      * @type {Models.TransactionLineTaxAmountByTaxTypeModel[]}
      * @memberof TransactionLineModel
      */
-   taxAmountByTaxTypes: Models.TransactionLineTaxAmountByTaxTypeModel[];
+   taxAmountByTaxTypes?: Models.TransactionLineTaxAmountByTaxTypeModel[];
     /**
      * @type {Enums.DeemedSellerType}
      * @memberof TransactionLineModel

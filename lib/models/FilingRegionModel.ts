@@ -122,12 +122,12 @@ import * as Models from './index';
      * @type {Models.FilingReturnModel[]}
      * @memberof FilingRegionModel
      */
-   returns: Models.FilingReturnModel[];
+   returns?: Models.FilingReturnModel[];
     /**
      * @type {Models.FilingsCheckupSuggestedFormModel[]}
      * @memberof FilingRegionModel
      */
-   suggestReturns: Models.FilingsCheckupSuggestedFormModel[];
+   suggestReturns?: Models.FilingsCheckupSuggestedFormModel[];
     /**
      * @type {Date}
      * @memberof FilingRegionModel

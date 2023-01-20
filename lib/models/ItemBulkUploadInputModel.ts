@@ -27,5 +27,5 @@ import * as Models from './index';
      * @type {Models.ItemModel[]}
      * @memberof ItemBulkUploadInputModel
      */
-   items: Models.ItemModel[];
+   items?: Models.ItemModel[];
  }

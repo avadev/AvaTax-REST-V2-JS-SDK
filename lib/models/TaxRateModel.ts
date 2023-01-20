@@ -43,5 +43,5 @@ contact Avalara to upgrade to AvaTax!
      * @type {Models.RateModel[]}
      * @memberof TaxRateModel
      */
-   rates: Models.RateModel[];
+   rates?: Models.RateModel[];
  }

@@ -52,5 +52,5 @@ import * as Models from './index';
      * @type {Models.TaxDetailsByTaxSubType[]}
      * @memberof TaxDetailsByTaxType
      */
-   taxSubTypeDetails: Models.TaxDetailsByTaxSubType[];
+   taxSubTypeDetails?: Models.TaxDetailsByTaxSubType[];
  }

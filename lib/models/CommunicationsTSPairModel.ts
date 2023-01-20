@@ -52,5 +52,5 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof CommunicationsTSPairModel
      */
-   requiredParameters: string[];
+   requiredParameters?: string[];
  }

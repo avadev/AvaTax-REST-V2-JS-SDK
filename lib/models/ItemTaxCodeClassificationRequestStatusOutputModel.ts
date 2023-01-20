@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {Models.ClassificationDetailsModel}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   classificationDetails: Models.ClassificationDetailsModel;
+   classificationDetails?: Models.ClassificationDetailsModel;
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel

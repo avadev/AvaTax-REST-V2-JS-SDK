@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {Models.ReconstructedApiRequestResponseModel}
      * @memberof AuditTransactionModel
      */
-   reconstructed: Models.ReconstructedApiRequestResponseModel;
+   reconstructed?: Models.ReconstructedApiRequestResponseModel;
     /**
      * @type {Date}
      * @memberof AuditTransactionModel
@@ -52,5 +52,5 @@ import * as Models from './index';
      * @type {Models.OriginalApiRequestResponseModel}
      * @memberof AuditTransactionModel
      */
-   original: Models.OriginalApiRequestResponseModel;
+   original?: Models.OriginalApiRequestResponseModel;
  }

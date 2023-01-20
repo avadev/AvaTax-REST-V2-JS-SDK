@@ -52,7 +52,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ParameterModel
      */
-   serviceTypes: string[];
+   serviceTypes?: string[];
     /**
      * @type {string}
      * @memberof ParameterModel
@@ -82,7 +82,7 @@ import * as Models from './index';
      * @type {string[]}
      * @memberof ParameterModel
      */
-   values: string[];
+   values?: string[];
     /**
      * @type {string}
      * @memberof ParameterModel

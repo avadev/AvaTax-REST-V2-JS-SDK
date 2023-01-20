@@ -33,20 +33,20 @@ Only one child transaction model should contain data.
      * @type {Models.CreateTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   createTransactionModel: Models.CreateTransactionModel;
+   createTransactionModel?: Models.CreateTransactionModel;
     /**
      * @type {Models.BatchAdjustTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   adjustTransactionModel: Models.BatchAdjustTransactionModel;
+   adjustTransactionModel?: Models.BatchAdjustTransactionModel;
     /**
      * @type {Models.CreateOrAdjustTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   createOrAdjustTransactionModel: Models.CreateOrAdjustTransactionModel;
+   createOrAdjustTransactionModel?: Models.CreateOrAdjustTransactionModel;
     /**
      * @type {Models.BatchVoidTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   voidTransactionModel: Models.BatchVoidTransactionModel;
+   voidTransactionModel?: Models.BatchVoidTransactionModel;
  }

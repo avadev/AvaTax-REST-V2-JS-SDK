@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {Enums.AgeVerifyFailureCode[]}
      * @memberof StoreIfVerifiedResult
      */
-   failureCodes: Enums.AgeVerifyFailureCode[];
+   failureCodes?: Enums.AgeVerifyFailureCode[];
     /**
      * @type {boolean}
      * @memberof StoreIfVerifiedResult

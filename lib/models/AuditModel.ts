@@ -166,7 +166,7 @@ fields to determine root cause for the error.
      * @type {Models.AuditEvent[]}
      * @memberof AuditModel
      */
-   events: Models.AuditEvent[];
+   events?: Models.AuditEvent[];
     /**
      * @type {string}
      * @memberof AuditModel
@@ -191,5 +191,5 @@ fields to determine root cause for the error.
      * @type {Models.AuditModel[]}
      * @memberof AuditModel
      */
-   remoteCalls: Models.AuditModel[];
+   remoteCalls?: Models.AuditModel[];
  }

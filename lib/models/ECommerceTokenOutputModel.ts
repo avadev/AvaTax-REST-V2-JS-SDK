@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {number[]}
      * @memberof ECommerceTokenOutputModel
      */
-   clientIds: number[];
+   clientIds?: number[];
     /**
      * @type {Date}
      * @memberof ECommerceTokenOutputModel

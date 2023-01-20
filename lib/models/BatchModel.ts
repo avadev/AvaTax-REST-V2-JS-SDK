@@ -107,5 +107,5 @@ import * as Models from './index';
      * @type {Models.BatchFileModel[]}
      * @memberof BatchModel
      */
-   files: Models.BatchFileModel[];
+   files?: Models.BatchFileModel[];
  }

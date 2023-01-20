@@ -41,40 +41,40 @@ If you provide either latitude or longitude information but not both, we will be
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   singleLocation: Models.AddressLocationInfo;
+   singleLocation?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   shipFrom: Models.AddressLocationInfo;
+   shipFrom?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   shipTo: Models.AddressLocationInfo;
+   shipTo?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   pointOfOrderOrigin: Models.AddressLocationInfo;
+   pointOfOrderOrigin?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   pointOfOrderAcceptance: Models.AddressLocationInfo;
+   pointOfOrderAcceptance?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   goodsPlaceOrServiceRendered: Models.AddressLocationInfo;
+   goodsPlaceOrServiceRendered?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   import: Models.AddressLocationInfo;
+   import?: Models.AddressLocationInfo;
     /**
      * @type {Models.AddressLocationInfo}
      * @memberof AddressesModel
      */
-   billTo: Models.AddressLocationInfo;
+   billTo?: Models.AddressLocationInfo;
  }

@@ -47,7 +47,7 @@ import * as Models from './index';
      * @type {Models.IsoLocalizedName[]}
      * @memberof IsoCountryModel
      */
-   localizedNames: Models.IsoLocalizedName[];
+   localizedNames?: Models.IsoLocalizedName[];
     /**
      * @type {boolean}
      * @memberof IsoCountryModel

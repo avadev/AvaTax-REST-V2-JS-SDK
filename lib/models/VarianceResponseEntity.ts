@@ -77,10 +77,10 @@ import * as Models from './index';
      * @type {Models.VarianceDetail[]}
      * @memberof VarianceResponseEntity
      */
-   unMappedDetails: Models.VarianceDetail[];
+   unMappedDetails?: Models.VarianceDetail[];
     /**
      * @type {Models.VarianceResponseLine[]}
      * @memberof VarianceResponseEntity
      */
-   varianceLines: Models.VarianceResponseLine[];
+   varianceLines?: Models.VarianceResponseLine[];
  }

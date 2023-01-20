@@ -41,12 +41,12 @@ certificates entered will be recorded and automatically linked to their customer
      * @type {number[]}
      * @memberof CreateCertExpressInvitationModel
      */
-   exposureZones: number[];
+   exposureZones?: number[];
     /**
      * @type {number[]}
      * @memberof CreateCertExpressInvitationModel
      */
-   exemptReasons: number[];
+   exemptReasons?: number[];
     /**
      * @type {Enums.CertificateRequestDeliveryMethod}
      * @memberof CreateCertExpressInvitationModel

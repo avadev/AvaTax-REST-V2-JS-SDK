@@ -97,17 +97,17 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {Models.AddressesModel}
      * @memberof CreateMultiDocumentModel
      */
-   addresses: Models.AddressesModel;
+   addresses?: Models.AddressesModel;
     /**
      * @type {Models.TransactionParameterModel[]}
      * @memberof CreateMultiDocumentModel
      */
-   parameters: Models.TransactionParameterModel[];
+   parameters?: Models.TransactionParameterModel[];
     /**
      * @type {Models.TransactionUserDefinedFieldModel[]}
      * @memberof CreateMultiDocumentModel
      */
-   userDefinedFields: Models.TransactionUserDefinedFieldModel[];
+   userDefinedFields?: Models.TransactionUserDefinedFieldModel[];
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
@@ -132,7 +132,7 @@ document.  This separation of documents allows each seller to file their taxes s
      * @type {Models.TaxOverrideModel}
      * @memberof CreateMultiDocumentModel
      */
-   taxOverride: Models.TaxOverrideModel;
+   taxOverride?: Models.TaxOverrideModel;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel

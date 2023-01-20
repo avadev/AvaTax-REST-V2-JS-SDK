@@ -57,5 +57,5 @@ import * as Models from './index';
      * @type {Models.ResourceFileDownloadResult}
      * @memberof PowerOfAttorneyCheckModel
      */
-   availablePoa: Models.ResourceFileDownloadResult;
+   availablePoa?: Models.ResourceFileDownloadResult;
  }

@@ -42,5 +42,5 @@ import * as Models from './index';
      * @type {Models.CycleSafeFilingCalendarEditModel[]}
      * @memberof CycleSafeEditRequestModel
      */
-   edits: Models.CycleSafeFilingCalendarEditModel[];
+   edits?: Models.CycleSafeFilingCalendarEditModel[];
  }

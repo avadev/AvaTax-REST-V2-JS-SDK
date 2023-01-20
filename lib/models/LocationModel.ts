@@ -163,10 +163,10 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {Models.LocationSettingModel[]}
      * @memberof LocationModel
      */
-   settings: Models.LocationSettingModel[];
+   settings?: Models.LocationSettingModel[];
     /**
      * @type {Models.LocationParameterModel[]}
      * @memberof LocationModel
      */
-   parameters: Models.LocationParameterModel[];
+   parameters?: Models.LocationParameterModel[];
  }

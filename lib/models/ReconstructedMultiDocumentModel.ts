@@ -28,5 +28,5 @@ a MultiDocument object.
      * @type {Models.CreateMultiDocumentModel}
      * @memberof ReconstructedMultiDocumentModel
      */
-   request: Models.CreateMultiDocumentModel;
+   request?: Models.CreateMultiDocumentModel;
  }

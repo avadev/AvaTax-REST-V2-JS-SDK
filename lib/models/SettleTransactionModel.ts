@@ -30,15 +30,15 @@ This endpoint may be used to execute any or all of these actions at once.
      * @type {Models.VerifyTransactionModel}
      * @memberof SettleTransactionModel
      */
-   verify: Models.VerifyTransactionModel;
+   verify?: Models.VerifyTransactionModel;
     /**
      * @type {Models.ChangeTransactionCodeModel}
      * @memberof SettleTransactionModel
      */
-   changeCode: Models.ChangeTransactionCodeModel;
+   changeCode?: Models.ChangeTransactionCodeModel;
     /**
      * @type {Models.CommitTransactionModel}
      * @memberof SettleTransactionModel
      */
-   commit: Models.CommitTransactionModel;
+   commit?: Models.CommitTransactionModel;
  }

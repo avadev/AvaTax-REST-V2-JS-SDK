@@ -85,7 +85,7 @@ log onto the administrative website for the product you purchased.
      * @type {Models.ExemptionReasonModel}
      * @memberof CertificateModel
      */
-   validatedExemptionReason: Models.ExemptionReasonModel;
+   validatedExemptionReason?: Models.ExemptionReasonModel;
     /**
      * @type {Models.ExemptionReasonModel}
      * @memberof CertificateModel
@@ -125,12 +125,12 @@ log onto the administrative website for the product you purchased.
      * @type {Models.CustomerModel[]}
      * @memberof CertificateModel
      */
-   customers: Models.CustomerModel[];
+   customers?: Models.CustomerModel[];
     /**
      * @type {Models.PoNumberModel[]}
      * @memberof CertificateModel
      */
-   poNumbers: Models.PoNumberModel[];
+   poNumbers?: Models.PoNumberModel[];
     /**
      * @type {Models.ExposureZoneModel}
      * @memberof CertificateModel
@@ -140,7 +140,7 @@ log onto the administrative website for the product you purchased.
      * @type {Models.CertificateAttributeModel[]}
      * @memberof CertificateModel
      */
-   attributes: Models.CertificateAttributeModel[];
+   attributes?: Models.CertificateAttributeModel[];
     /**
      * @type {number}
      * @memberof CertificateModel
@@ -160,5 +160,5 @@ log onto the administrative website for the product you purchased.
      * @type {string[]}
      * @memberof CertificateModel
      */
-   pages: string[];
+   pages?: string[];
  }

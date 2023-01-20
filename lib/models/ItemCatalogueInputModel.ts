@@ -72,15 +72,15 @@ import * as Models from './index';
      * @type {object}
      * @memberof ItemCatalogueInputModel
      */
-   properties: object;
+   properties?: object;
     /**
      * @type {Models.ClassificationModel[]}
      * @memberof ItemCatalogueInputModel
      */
-   classifications: Models.ClassificationModel[];
+   classifications?: Models.ClassificationModel[];
     /**
      * @type {Models.ItemParameterModel[]}
      * @memberof ItemCatalogueInputModel
      */
-   parameters: Models.ItemParameterModel[];
+   parameters?: Models.ItemParameterModel[];
  }

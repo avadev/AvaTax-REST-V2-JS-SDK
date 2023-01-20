@@ -32,7 +32,7 @@ import * as Models from './index';
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   bytes: string;
+   bytes?: string;
     /**
      * @type {string}
      * @memberof ResourceFileDownloadResult

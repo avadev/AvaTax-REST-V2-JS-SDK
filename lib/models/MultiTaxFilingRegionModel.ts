@@ -47,20 +47,20 @@ import * as Models from './index';
      * @type {Models.FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingRegionModel
      */
-   regionTaxSummary: Models.FilingsTaxSummaryModel;
+   regionTaxSummary?: Models.FilingsTaxSummaryModel;
     /**
      * @type {Models.FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   regionTaxDetails: Models.FilingsTaxDetailsModel[];
+   regionTaxDetails?: Models.FilingsTaxDetailsModel[];
     /**
      * @type {Models.FilingsCheckupSuggestedFormModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   suggestReturns: Models.FilingsCheckupSuggestedFormModel[];
+   suggestReturns?: Models.FilingsCheckupSuggestedFormModel[];
     /**
      * @type {Models.MultiTaxFilingReturnModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   returns: Models.MultiTaxFilingReturnModel[];
+   returns?: Models.MultiTaxFilingReturnModel[];
  }
