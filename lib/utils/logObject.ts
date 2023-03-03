@@ -1,5 +1,6 @@
 import { AvalaraError, HttpOptions } from "../AvaTaxClient";
-
+import { Response, Headers } from "node-fetch";
+ 
 export default class LogObject {
   private logRequestAndResponseInfo: boolean = false;
   private httpMethod: string;

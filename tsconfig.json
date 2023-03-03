@@ -5,6 +5,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": ".build",
     "lib": [
       "es6",
