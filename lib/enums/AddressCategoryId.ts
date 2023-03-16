@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -27,4 +28,14 @@
         SellerRemitsTax = 6,
         MarketplaceRemitsTax = 7,
         NonPhysical = 8,
+}
+
+@JsonConverter
+export class AddressCategoryIdConverter implements JsonCustomConvert<AddressCategoryId> {
+    serialize(data: AddressCategoryId) {
+        return data;
+    }
+    deserialize(enumType: string): AddressCategoryId {
+        return AddressCategoryId[enumType as keyof typeof AddressCategoryId];
+    }
 }

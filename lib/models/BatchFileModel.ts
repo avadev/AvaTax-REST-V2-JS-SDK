@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents one file in a batch upload.
  * @export
- * @interface BatchFileModel
+ * @class BatchFileModel
  */
- export interface BatchFileModel {
+ @JsonObject("BatchFileModel")
+ export class BatchFileModel {
     /**
      * @type {number}
      * @memberof BatchFileModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchFileModel
      */
-   batchId?: number;
+   @JsonProperty("batchId", Number, true)
+   batchId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   content: string;
+   @JsonProperty("content", String)
+   content: string = undefined;
     /**
      * @type {number}
      * @memberof BatchFileModel
      */
-   contentLength?: number;
+   @JsonProperty("contentLength", Number, true)
+   contentLength?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   contentType?: string;
+   @JsonProperty("contentType", String, true)
+   contentType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   fileExtension?: string;
+   @JsonProperty("fileExtension", String, true)
+   fileExtension?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchFileModel
      */
-   filePath?: string;
+   @JsonProperty("filePath", String, true)
+   filePath?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchFileModel
      */
-   errorCount?: number;
+   @JsonProperty("errorCount", Number, true)
+   errorCount?: number | undefined = undefined;
  }

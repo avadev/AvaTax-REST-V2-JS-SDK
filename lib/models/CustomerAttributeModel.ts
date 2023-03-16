@@ -10,48 +10,55 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A Customer's linked attribute denoting what features applied to the customer. A customer can
 be linked to multiple customer attributes and vice versa.
  * @export
- * @interface CustomerAttributeModel
+ * @class CustomerAttributeModel
  */
- export interface CustomerAttributeModel {
+ @JsonObject("CustomerAttributeModel")
+ export class CustomerAttributeModel {
     /**
      * @type {number}
      * @memberof CustomerAttributeModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerAttributeModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerAttributeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerAttributeModel
      */
-   isSystemCode?: boolean;
+   @JsonProperty("isSystemCode", Boolean, true)
+   isSystemCode?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerAttributeModel
      */
-   isNonDeliver?: boolean;
+   @JsonProperty("isNonDeliver", Boolean, true)
+   isNonDeliver?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerAttributeModel
      */
-   isChangeable?: boolean;
+   @JsonProperty("isChangeable", Boolean, true)
+   isChangeable?: boolean | undefined = undefined;
  }

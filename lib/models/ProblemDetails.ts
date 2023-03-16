@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface ProblemDetails
+ * @class ProblemDetails
  */
- export interface ProblemDetails {
+ @JsonObject("ProblemDetails")
+ export class ProblemDetails {
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   type?: string;
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   title?: string;
+   @JsonProperty("title", String, true)
+   title?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ProblemDetails
      */
-   status?: number;
+   @JsonProperty("status", Number, true)
+   status?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   detail?: string;
+   @JsonProperty("detail", String, true)
+   detail?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProblemDetails
      */
-   instance?: string;
+   @JsonProperty("instance", String, true)
+   instance?: string | undefined = undefined;
  }

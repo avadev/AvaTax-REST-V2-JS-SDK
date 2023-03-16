@@ -10,152 +10,184 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AddressesModel } from "./AddressesModel";
+import { TaxOverrideModel } from "./TaxOverrideModel";
+import { TransactionLineParameterModel } from "./TransactionLineParameterModel";
+import { TransactionLineUserDefinedFieldModel } from "./TransactionLineUserDefinedFieldModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents one line item in a transaction
  * @export
- * @interface LineItemModel
+ * @class LineItemModel
  */
- export interface LineItemModel {
+ @JsonObject("LineItemModel")
+ export class LineItemModel {
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   number?: string;
+   @JsonProperty("number", String, true)
+   number?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof LineItemModel
      */
-   quantity?: number;
+   @JsonProperty("quantity", Number, true)
+   quantity?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof LineItemModel
      */
-   amount: number;
+   @JsonProperty("amount", Number)
+   amount: number = undefined;
     /**
-     * @type {Models.AddressesModel}
+     * @type {AddressesModel}
      * @memberof LineItemModel
      */
-   addresses?: Models.AddressesModel;
-    /**
-     * @type {string}
-     * @memberof LineItemModel
-     */
-   taxCode?: string;
+   @JsonProperty("addresses", AddressesModel, true)
+   addresses?: AddressesModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   customerUsageType?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   entityUseCode?: string;
+   @JsonProperty("customerUsageType", String, true)
+   customerUsageType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   itemCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   exemptionCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof LineItemModel
+     */
+   @JsonProperty("exemptionCode", String, true)
+   exemptionCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LineItemModel
      */
-   discounted?: boolean;
+   @JsonProperty("discounted", Boolean, true)
+   discounted?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LineItemModel
      */
-   taxIncluded?: boolean;
+   @JsonProperty("taxIncluded", Boolean, true)
+   taxIncluded?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   revenueAccount?: string;
+   @JsonProperty("revenueAccount", String, true)
+   revenueAccount?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   ref1?: string;
+   @JsonProperty("ref1", String, true)
+   ref1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   ref2?: string;
+   @JsonProperty("ref2", String, true)
+   ref2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
-     * @type {Models.TaxOverrideModel}
+     * @type {TaxOverrideModel}
      * @memberof LineItemModel
      */
-   taxOverride?: Models.TaxOverrideModel;
+   @JsonProperty("taxOverride", TaxOverrideModel, true)
+   taxOverride?: TaxOverrideModel | undefined = undefined;
     /**
-     * @type {Models.TransactionLineParameterModel[]}
+     * @type {TransactionLineParameterModel[]}
      * @memberof LineItemModel
      */
-   parameters?: Models.TransactionLineParameterModel[];
+   @JsonProperty("parameters", [TransactionLineParameterModel], true)
+   parameters?: TransactionLineParameterModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionLineUserDefinedFieldModel[]}
+     * @type {TransactionLineUserDefinedFieldModel[]}
      * @memberof LineItemModel
      */
-   userDefinedFields?: Models.TransactionLineUserDefinedFieldModel[];
+   @JsonProperty("userDefinedFields", [TransactionLineUserDefinedFieldModel], true)
+   userDefinedFields?: TransactionLineUserDefinedFieldModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof LineItemModel
      */
-   merchantSellerId?: number;
+   @JsonProperty("merchantSellerId", Number, true)
+   merchantSellerId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   merchantSellerIdentifier?: string;
+   @JsonProperty("merchantSellerIdentifier", String, true)
+   merchantSellerIdentifier?: string | undefined = undefined;
     /**
      * @type {Enums.MarketplaceLiabilityType}
      * @memberof LineItemModel
      */
-   marketplaceLiabilityType?: Enums.MarketplaceLiabilityType;
+   @JsonProperty("marketplaceLiabilityType", Enums.MarketplaceLiabilityTypeConverter, true)
+   marketplaceLiabilityType?: Enums.MarketplaceLiabilityType | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   originationDocumentId?: string;
+   @JsonProperty("originationDocumentId", String, true)
+   originationDocumentId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   originationSite?: string;
+   @JsonProperty("originationSite", String, true)
+   originationSite?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LineItemModel
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
  }

@@ -10,12 +10,17 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ExemptionReasonModel } from "./ExemptionReasonModel";
+import { CustomerModel } from "./CustomerModel";
+import { PoNumberModel } from "./PoNumberModel";
+import { ExposureZoneModel } from "./ExposureZoneModel";
+import { CertificateAttributeModel } from "./CertificateAttributeModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A certificate is a document stored in either AvaTax Exemptions or CertCapture.  The certificate document
@@ -23,142 +28,170 @@ can contain information about a customer's eligibility for exemption from sales 
 criteria you specify when you store the certificate.  To view or manage your certificates directly, please
 log onto the administrative website for the product you purchased.
  * @export
- * @interface CertificateModel
+ * @class CertificateModel
  */
- export interface CertificateModel {
+ @JsonObject("CertificateModel")
+ export class CertificateModel {
     /**
      * @type {number}
      * @memberof CertificateModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertificateModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CertificateModel
      */
-   signedDate: Date;
+   @JsonProperty("signedDate", DateConverter)
+   signedDate: Date = undefined;
     /**
      * @type {Date}
      * @memberof CertificateModel
      */
-   expirationDate: Date;
+   @JsonProperty("expirationDate", DateConverter)
+   expirationDate: Date = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   filename?: string;
+   @JsonProperty("filename", String, true)
+   filename?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertificateModel
      */
-   documentExists?: boolean;
+   @JsonProperty("documentExists", Boolean, true)
+   documentExists?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertificateModel
      */
-   valid?: boolean;
+   @JsonProperty("valid", Boolean, true)
+   valid?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertificateModel
      */
-   verified?: boolean;
+   @JsonProperty("verified", Boolean, true)
+   verified?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertificateModel
      */
-   exemptPercentage?: number;
+   @JsonProperty("exemptPercentage", Number, true)
+   exemptPercentage?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertificateModel
      */
-   isSingleCertificate?: boolean;
+   @JsonProperty("isSingleCertificate", Boolean, true)
+   isSingleCertificate?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   exemptionNumber?: string;
+   @JsonProperty("exemptionNumber", String, true)
+   exemptionNumber?: string | undefined = undefined;
     /**
-     * @type {Models.ExemptionReasonModel}
+     * @type {ExemptionReasonModel}
      * @memberof CertificateModel
      */
-   validatedExemptionReason?: Models.ExemptionReasonModel;
+   @JsonProperty("validatedExemptionReason", ExemptionReasonModel, true)
+   validatedExemptionReason?: ExemptionReasonModel | undefined = undefined;
     /**
-     * @type {Models.ExemptionReasonModel}
+     * @type {ExemptionReasonModel}
      * @memberof CertificateModel
      */
-   exemptionReason: Models.ExemptionReasonModel;
+   @JsonProperty("exemptionReason", ExemptionReasonModel)
+   exemptionReason: ExemptionReasonModel = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CertificateModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CertificateModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   taxNumberType?: string;
+   @JsonProperty("taxNumberType", String, true)
+   taxNumberType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   businessNumberType?: string;
+   @JsonProperty("businessNumberType", String, true)
+   businessNumberType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertificateModel
      */
-   pageCount?: number;
+   @JsonProperty("pageCount", Number, true)
+   pageCount?: number | undefined = undefined;
     /**
-     * @type {Models.CustomerModel[]}
+     * @type {CustomerModel[]}
      * @memberof CertificateModel
      */
-   customers?: Models.CustomerModel[];
+   @JsonProperty("customers", [CustomerModel], true)
+   customers?: CustomerModel[] | undefined = undefined;
     /**
-     * @type {Models.PoNumberModel[]}
+     * @type {PoNumberModel[]}
      * @memberof CertificateModel
      */
-   poNumbers?: Models.PoNumberModel[];
+   @JsonProperty("poNumbers", [PoNumberModel], true)
+   poNumbers?: PoNumberModel[] | undefined = undefined;
     /**
-     * @type {Models.ExposureZoneModel}
+     * @type {ExposureZoneModel}
      * @memberof CertificateModel
      */
-   exposureZone: Models.ExposureZoneModel;
+   @JsonProperty("exposureZone", ExposureZoneModel)
+   exposureZone: ExposureZoneModel = undefined;
     /**
-     * @type {Models.CertificateAttributeModel[]}
+     * @type {CertificateAttributeModel[]}
      * @memberof CertificateModel
      */
-   attributes?: Models.CertificateAttributeModel[];
+   @JsonProperty("attributes", [CertificateAttributeModel], true)
+   attributes?: CertificateAttributeModel[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertificateModel
      */
-   ecmsId?: number;
+   @JsonProperty("ecmsId", Number, true)
+   ecmsId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   ecmsStatus?: string;
+   @JsonProperty("ecmsStatus", String, true)
+   ecmsStatus?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel
      */
-   pdf?: string;
+   @JsonProperty("pdf", String, true)
+   pdf?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof CertificateModel
      */
-   pages?: string[];
+   @JsonProperty("pages", [String], true)
+   pages?: string[] | undefined = undefined;
  }

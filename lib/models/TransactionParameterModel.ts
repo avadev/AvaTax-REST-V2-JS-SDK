@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a transaction parameter.
  * @export
- * @interface TransactionParameterModel
+ * @class TransactionParameterModel
  */
- export interface TransactionParameterModel {
+ @JsonObject("TransactionParameterModel")
+ export class TransactionParameterModel {
     /**
      * @type {string}
      * @memberof TransactionParameterModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionParameterModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionParameterModel
      */
-   unit?: string;
+   @JsonProperty("unit", String, true)
+   unit?: string | undefined = undefined;
  }

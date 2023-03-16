@@ -10,82 +10,96 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Account Linkage output model
  * @export
- * @interface FirmClientLinkageOutputModel
+ * @class FirmClientLinkageOutputModel
  */
- export interface FirmClientLinkageOutputModel {
+ @JsonObject("FirmClientLinkageOutputModel")
+ export class FirmClientLinkageOutputModel {
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmAccountId?: number;
+   @JsonProperty("firmAccountId", Number, true)
+   firmAccountId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmAccountName?: string;
+   @JsonProperty("firmAccountName", String, true)
+   firmAccountName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
      */
-   clientAccountId?: number;
+   @JsonProperty("clientAccountId", Number, true)
+   clientAccountId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   clientAccountName?: string;
+   @JsonProperty("clientAccountName", String, true)
+   clientAccountName?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FirmClientLinkageOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FirmClientLinkageOutputModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FirmClientLinkageOutputModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Enums.FirmClientLinkageStatus}
      * @memberof FirmClientLinkageOutputModel
      */
-   status?: Enums.FirmClientLinkageStatus;
+   @JsonProperty("status", Enums.FirmClientLinkageStatusConverter, true)
+   status?: Enums.FirmClientLinkageStatus | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FirmClientLinkageOutputModel
      */
-   isDeleted?: boolean;
+   @JsonProperty("isDeleted", Boolean, true)
+   isDeleted?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmContactName?: string;
+   @JsonProperty("firmContactName", String, true)
+   firmContactName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FirmClientLinkageOutputModel
      */
-   firmContactEmail?: string;
+   @JsonProperty("firmContactEmail", String, true)
+   firmContactEmail?: string | undefined = undefined;
  }

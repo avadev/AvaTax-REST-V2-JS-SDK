@@ -10,57 +10,67 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingsCheckupSuggestedFormModel } from "./FilingsCheckupSuggestedFormModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Cycle Safe Expiration results.
  * @export
- * @interface FilingsCheckupAuthorityModel
+ * @class FilingsCheckupAuthorityModel
  */
- export interface FilingsCheckupAuthorityModel {
+ @JsonObject("FilingsCheckupAuthorityModel")
+ export class FilingsCheckupAuthorityModel {
     /**
      * @type {number}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   locationCode?: string;
+   @JsonProperty("locationCode", String, true)
+   locationCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxAuthorityName?: string;
+   @JsonProperty("taxAuthorityName", String, true)
+   taxAuthorityName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxAuthorityTypeId?: number;
+   @JsonProperty("taxAuthorityTypeId", Number, true)
+   taxAuthorityTypeId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsCheckupAuthorityModel
      */
-   jurisdictionId?: number;
+   @JsonProperty("jurisdictionId", Number, true)
+   jurisdictionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsCheckupAuthorityModel
      */
-   tax?: number;
+   @JsonProperty("tax", Number, true)
+   tax?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupAuthorityModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
-     * @type {Models.FilingsCheckupSuggestedFormModel[]}
+     * @type {FilingsCheckupSuggestedFormModel[]}
      * @memberof FilingsCheckupAuthorityModel
      */
-   suggestedForms?: Models.FilingsCheckupSuggestedFormModel[];
+   @JsonProperty("suggestedForms", [FilingsCheckupSuggestedFormModel], true)
+   suggestedForms?: FilingsCheckupSuggestedFormModel[] | undefined = undefined;
  }

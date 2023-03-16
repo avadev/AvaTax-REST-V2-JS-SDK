@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a parameter associated with an item.
  * @export
- * @interface ItemParameterModel
+ * @class ItemParameterModel
  */
- export interface ItemParameterModel {
+ @JsonObject("ItemParameterModel")
+ export class ItemParameterModel {
     /**
      * @type {number}
      * @memberof ItemParameterModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemParameterModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof ItemParameterModel
      */
-   value: string;
+   @JsonProperty("value", String)
+   value: string = undefined;
     /**
      * @type {string}
      * @memberof ItemParameterModel
      */
-   unit?: string;
+   @JsonProperty("unit", String, true)
+   unit?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemParameterModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ItemParameterModel
      */
-   isNeededForCalculation?: boolean;
+   @JsonProperty("isNeededForCalculation", Boolean, true)
+   isNeededForCalculation?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ItemParameterModel
      */
-   isNeededForReturns?: boolean;
+   @JsonProperty("isNeededForReturns", Boolean, true)
+   isNeededForReturns?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ItemParameterModel
      */
-   isNeededForClassification?: boolean;
+   @JsonProperty("isNeededForClassification", Boolean, true)
+   isNeededForClassification?: boolean | undefined = undefined;
  }

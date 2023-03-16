@@ -10,82 +10,96 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a parameter associated with an item.
  * @export
- * @interface ItemRestrictionOutputModel
+ * @class ItemRestrictionOutputModel
  */
- export interface ItemRestrictionOutputModel {
+ @JsonObject("ItemRestrictionOutputModel")
+ export class ItemRestrictionOutputModel {
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   id?: string;
+   @JsonProperty("id", String, true)
+   id?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfImport?: string;
+   @JsonProperty("countryOfImport", String, true)
+   countryOfImport?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfExport?: string;
+   @JsonProperty("countryOfExport", String, true)
+   countryOfExport?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   countryOfManufacture?: string;
+   @JsonProperty("countryOfManufacture", String, true)
+   countryOfManufacture?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   itemCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemRestrictionOutputModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   restrictionType?: string;
+   @JsonProperty("restrictionType", String, true)
+   restrictionType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   regulation?: string;
+   @JsonProperty("regulation", String, true)
+   regulation?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   governmentAgency?: string;
+   @JsonProperty("governmentAgency", String, true)
+   governmentAgency?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionOutputModel
      */
-   complianceMessage?: string;
+   @JsonProperty("complianceMessage", String, true)
+   complianceMessage?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemRestrictionOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemRestrictionOutputModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
  }

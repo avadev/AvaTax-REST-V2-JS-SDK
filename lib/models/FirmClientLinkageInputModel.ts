@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Account Linkage Input model
  * @export
- * @interface FirmClientLinkageInputModel
+ * @class FirmClientLinkageInputModel
  */
- export interface FirmClientLinkageInputModel {
+ @JsonObject("FirmClientLinkageInputModel")
+ export class FirmClientLinkageInputModel {
     /**
      * @type {number}
      * @memberof FirmClientLinkageInputModel
      */
-   clientAccountId: number;
+   @JsonProperty("clientAccountId", Number)
+   clientAccountId: number = undefined;
     /**
      * @type {string}
      * @memberof FirmClientLinkageInputModel
      */
-   clientAccountName: string;
+   @JsonProperty("clientAccountName", String)
+   clientAccountName: string = undefined;
  }

@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TaxRuleProductDetailModel } from "./TaxRuleProductDetailModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax rule that changes the behavior of Avalara's tax engine for certain products and/or entity use codes
@@ -28,212 +29,254 @@ Because different types of tax rules have different behavior, some fields may ch
 the type of tax rule selected.  Please read the documentation for each field carefully and ensure that
 the value you send is appropriate for the type of tax rule.
  * @export
- * @interface TaxRuleModel
+ * @class TaxRuleModel
  */
- export interface TaxRuleModel {
+ @JsonObject("TaxRuleModel")
+ export class TaxRuleModel {
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   taxCodeId?: number;
+   @JsonProperty("taxCodeId", Number, true)
+   taxCodeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   stateFIPS?: string;
+   @JsonProperty("stateFIPS", String, true)
+   stateFIPS?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   jurisName?: string;
+   @JsonProperty("jurisName", String, true)
+   jurisName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   jurisCode: string;
+   @JsonProperty("jurisCode", String)
+   jurisCode: string = undefined;
     /**
      * @type {Enums.JurisTypeId}
      * @memberof TaxRuleModel
      */
-   jurisTypeId?: Enums.JurisTypeId;
+   @JsonProperty("jurisTypeId", Enums.JurisTypeIdConverter, true)
+   jurisTypeId?: Enums.JurisTypeId | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof TaxRuleModel
      */
-   jurisdictionTypeId?: Enums.JurisdictionType;
+   @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter, true)
+   jurisdictionTypeId?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   customerUsageType?: string;
+   @JsonProperty("customerUsageType", String, true)
+   customerUsageType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   entityUseCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {Enums.MatchingTaxType}
      * @memberof TaxRuleModel
      */
-   taxTypeId?: Enums.MatchingTaxType;
+   @JsonProperty("taxTypeId", Enums.MatchingTaxTypeConverter, true)
+   taxTypeId?: Enums.MatchingTaxType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxTypeCode?: string;
+   @JsonProperty("taxTypeCode", String, true)
+   taxTypeCode?: string | undefined = undefined;
     /**
-     * @type {Models.TaxRuleProductDetailModel[]}
+     * @type {TaxRuleProductDetailModel[]}
      * @memberof TaxRuleModel
      */
-   taxRuleProductDetail?: Models.TaxRuleProductDetailModel[];
+   @JsonProperty("taxRuleProductDetail", [TaxRuleProductDetailModel], true)
+   taxRuleProductDetail?: TaxRuleProductDetailModel[] | undefined = undefined;
     /**
      * @type {Enums.RateType}
      * @memberof TaxRuleModel
      */
-   rateTypeId?: Enums.RateType;
+   @JsonProperty("rateTypeId", Enums.RateTypeConverter, true)
+   rateTypeId?: Enums.RateType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   rateTypeCode?: string;
+   @JsonProperty("rateTypeCode", String, true)
+   rateTypeCode?: string | undefined = undefined;
     /**
      * @type {Enums.TaxRuleTypeId}
      * @memberof TaxRuleModel
      */
-   taxRuleTypeId: Enums.TaxRuleTypeId;
+   @JsonProperty("taxRuleTypeId", Enums.TaxRuleTypeIdConverter)
+   taxRuleTypeId: Enums.TaxRuleTypeId = undefined;
     /**
      * @type {boolean}
      * @memberof TaxRuleModel
      */
-   isAllJuris?: boolean;
+   @JsonProperty("isAllJuris", Boolean, true)
+   isAllJuris?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   value?: number;
+   @JsonProperty("value", Number, true)
+   value?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   cap?: number;
+   @JsonProperty("cap", Number, true)
+   cap?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   threshold?: number;
+   @JsonProperty("threshold", Number, true)
+   threshold?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   options?: string;
+   @JsonProperty("options", String, true)
+   options?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRuleModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRuleModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   countyFIPS?: string;
+   @JsonProperty("countyFIPS", String, true)
+   countyFIPS?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxRuleModel
      */
-   isSTPro?: boolean;
+   @JsonProperty("isSTPro", Boolean, true)
+   isSTPro?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {Enums.Sourcing}
      * @memberof TaxRuleModel
      */
-   sourcing?: Enums.Sourcing;
+   @JsonProperty("sourcing", Enums.SourcingConverter, true)
+   sourcing?: Enums.Sourcing | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxTypeGroup?: string;
+   @JsonProperty("taxTypeGroup", String, true)
+   taxTypeGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   taxSubType?: string;
+   @JsonProperty("taxSubType", String, true)
+   taxSubType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   nonPassthroughExpression?: string;
+   @JsonProperty("nonPassthroughExpression", String, true)
+   nonPassthroughExpression?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   currencyCode?: string;
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   preferredProgramId?: number;
+   @JsonProperty("preferredProgramId", Number, true)
+   preferredProgramId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   uomId?: number;
+   @JsonProperty("uomId", Number, true)
+   uomId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRuleModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRuleModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRuleModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRuleModel
      */
-   unitOfBasis?: string;
+   @JsonProperty("unitOfBasis", String, true)
+   unitOfBasis?: string | undefined = undefined;
  }

@@ -10,122 +10,145 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ResourceFileUploadRequestModel } from "./ResourceFileUploadRequestModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents estimated financial results from responding to a tax notice.
  * @export
- * @interface NoticeFinanceModel
+ * @class NoticeFinanceModel
  */
- export interface NoticeFinanceModel {
+ @JsonObject("NoticeFinanceModel")
+ export class NoticeFinanceModel {
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   noticeId?: number;
+   @JsonProperty("noticeId", Number, true)
+   noticeId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeFinanceModel
      */
-   noticeDate?: Date;
+   @JsonProperty("noticeDate", DateConverter, true)
+   noticeDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeFinanceModel
      */
-   dueDate?: Date;
+   @JsonProperty("dueDate", DateConverter, true)
+   dueDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   noticeNumber?: string;
+   @JsonProperty("noticeNumber", String, true)
+   noticeNumber?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   taxDue?: number;
+   @JsonProperty("taxDue", Number, true)
+   taxDue?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   penalty?: number;
+   @JsonProperty("penalty", Number, true)
+   penalty?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   interest?: number;
+   @JsonProperty("interest", Number, true)
+   interest?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   credits?: number;
+   @JsonProperty("credits", Number, true)
+   credits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   taxAbated?: number;
+   @JsonProperty("taxAbated", Number, true)
+   taxAbated?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   customerPenalty?: number;
+   @JsonProperty("customerPenalty", Number, true)
+   customerPenalty?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   customerInterest?: number;
+   @JsonProperty("customerInterest", Number, true)
+   customerInterest?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   cspFeeRefund?: number;
+   @JsonProperty("cspFeeRefund", Number, true)
+   cspFeeRefund?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   fileName?: string;
+   @JsonProperty("fileName", String, true)
+   fileName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeFinanceModel
      */
-   paymentMethod?: string;
+   @JsonProperty("paymentMethod", String, true)
+   paymentMethod?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   resourceFileId?: number;
+   @JsonProperty("resourceFileId", Number, true)
+   resourceFileId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeFinanceModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeFinanceModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeFinanceModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.ResourceFileUploadRequestModel}
+     * @type {ResourceFileUploadRequestModel}
      * @memberof NoticeFinanceModel
      */
-   attachmentUploadRequest?: Models.ResourceFileUploadRequestModel;
+   @JsonProperty("attachmentUploadRequest", ResourceFileUploadRequestModel, true)
+   attachmentUploadRequest?: ResourceFileUploadRequestModel | undefined = undefined;
  }

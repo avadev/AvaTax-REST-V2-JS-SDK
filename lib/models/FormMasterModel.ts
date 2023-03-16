@@ -10,527 +10,630 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents information about a tax form known to Avalara
  * @export
- * @interface FormMasterModel
+ * @class FormMasterModel
  */
- export interface FormMasterModel {
+ @JsonObject("FormMasterModel")
+ export class FormMasterModel {
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   formTypeId?: number;
+   @JsonProperty("formTypeId", Number, true)
+   formTypeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   legacyReturnName?: string;
+   @JsonProperty("legacyReturnName", String, true)
+   legacyReturnName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   taxFormName?: string;
+   @JsonProperty("taxFormName", String, true)
+   taxFormName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isEffective?: boolean;
+   @JsonProperty("isEffective", Boolean, true)
+   isEffective?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   authorityName?: string;
+   @JsonProperty("authorityName", String, true)
+   authorityName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   shortCode?: string;
+   @JsonProperty("shortCode", String, true)
+   shortCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   dueDay?: number;
+   @JsonProperty("dueDay", Number, true)
+   dueDay?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   delinquentDay?: number;
+   @JsonProperty("delinquentDay", Number, true)
+   delinquentDay?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   fiscalYearStartMonth?: number;
+   @JsonProperty("fiscalYearStartMonth", Number, true)
+   fiscalYearStartMonth?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasMultiFrequencies?: boolean;
+   @JsonProperty("hasMultiFrequencies", Boolean, true)
+   hasMultiFrequencies?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isPOARequired?: boolean;
+   @JsonProperty("isPOARequired", Boolean, true)
+   isPOARequired?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isRegistrationRequired?: boolean;
+   @JsonProperty("isRegistrationRequired", Boolean, true)
+   isRegistrationRequired?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasMultiRegistrationMethods?: boolean;
+   @JsonProperty("hasMultiRegistrationMethods", Boolean, true)
+   hasMultiRegistrationMethods?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasSchedules?: boolean;
+   @JsonProperty("hasSchedules", Boolean, true)
+   hasSchedules?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasMultiFilingMethods?: boolean;
+   @JsonProperty("hasMultiFilingMethods", Boolean, true)
+   hasMultiFilingMethods?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasMultiPayMethods?: boolean;
+   @JsonProperty("hasMultiPayMethods", Boolean, true)
+   hasMultiPayMethods?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isEFTRequired?: boolean;
+   @JsonProperty("isEFTRequired", Boolean, true)
+   isEFTRequired?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isFilePayMethodLinked?: boolean;
+   @JsonProperty("isFilePayMethodLinked", Boolean, true)
+   isFilePayMethodLinked?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   mailingReceivedRuleId?: number;
+   @JsonProperty("mailingReceivedRuleId", Number, true)
+   mailingReceivedRuleId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   proofOfMailingId?: number;
+   @JsonProperty("proofOfMailingId", Number, true)
+   proofOfMailingId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isNegAmountAllowed?: boolean;
+   @JsonProperty("isNegAmountAllowed", Boolean, true)
+   isNegAmountAllowed?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   allowNegativeOverallTax?: boolean;
+   @JsonProperty("allowNegativeOverallTax", Boolean, true)
+   allowNegativeOverallTax?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   isNettingRequired?: boolean;
+   @JsonProperty("isNettingRequired", Boolean, true)
+   isNettingRequired?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   roundingMethodId?: number;
+   @JsonProperty("roundingMethodId", Number, true)
+   roundingMethodId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   vendorDiscountAnnualMax?: number;
+   @JsonProperty("vendorDiscountAnnualMax", Number, true)
+   vendorDiscountAnnualMax?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   versionsRequireAuthorityApproval?: boolean;
+   @JsonProperty("versionsRequireAuthorityApproval", Boolean, true)
+   versionsRequireAuthorityApproval?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   outletReportingMethodId?: number;
+   @JsonProperty("outletReportingMethodId", Number, true)
+   outletReportingMethodId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasReportingCodes?: boolean;
+   @JsonProperty("hasReportingCodes", Boolean, true)
+   hasReportingCodes?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasPrepayments?: boolean;
+   @JsonProperty("hasPrepayments", Boolean, true)
+   hasPrepayments?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   grossIncludesInterstateSales?: boolean;
+   @JsonProperty("grossIncludesInterstateSales", Boolean, true)
+   grossIncludesInterstateSales?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   grossIncludesTax?: string;
+   @JsonProperty("grossIncludesTax", String, true)
+   grossIncludesTax?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasEfileFee?: boolean;
+   @JsonProperty("hasEfileFee", Boolean, true)
+   hasEfileFee?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasEpayFee?: boolean;
+   @JsonProperty("hasEpayFee", Boolean, true)
+   hasEpayFee?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   hasDependencies?: boolean;
+   @JsonProperty("hasDependencies", Boolean, true)
+   hasDependencies?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   requiredEfileTrigger?: string;
+   @JsonProperty("requiredEfileTrigger", String, true)
+   requiredEfileTrigger?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   requiredEftTrigger?: string;
+   @JsonProperty("requiredEftTrigger", String, true)
+   requiredEftTrigger?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   vendorDiscountEfile?: boolean;
+   @JsonProperty("vendorDiscountEfile", Boolean, true)
+   vendorDiscountEfile?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   vendorDiscountPaper?: boolean;
+   @JsonProperty("vendorDiscountPaper", Boolean, true)
+   vendorDiscountPaper?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewed?: string;
+   @JsonProperty("peerReviewed", String, true)
+   peerReviewed?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewedId?: string;
+   @JsonProperty("peerReviewedId", String, true)
+   peerReviewedId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   peerReviewedDate?: string;
+   @JsonProperty("peerReviewedDate", String, true)
+   peerReviewedDate?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FormMasterModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FormMasterModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressMailTo?: string;
+   @JsonProperty("dorAddressMailTo", String, true)
+   dorAddressMailTo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddress1?: string;
+   @JsonProperty("dorAddress1", String, true)
+   dorAddress1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddress2?: string;
+   @JsonProperty("dorAddress2", String, true)
+   dorAddress2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressCity?: string;
+   @JsonProperty("dorAddressCity", String, true)
+   dorAddressCity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressRegion?: string;
+   @JsonProperty("dorAddressRegion", String, true)
+   dorAddressRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressPostalCode?: string;
+   @JsonProperty("dorAddressPostalCode", String, true)
+   dorAddressPostalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorAddressCountry?: string;
+   @JsonProperty("dorAddressCountry", String, true)
+   dorAddressCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressMailTo?: string;
+   @JsonProperty("zeroAddressMailTo", String, true)
+   zeroAddressMailTo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddress1?: string;
+   @JsonProperty("zeroAddress1", String, true)
+   zeroAddress1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddress2?: string;
+   @JsonProperty("zeroAddress2", String, true)
+   zeroAddress2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressCity?: string;
+   @JsonProperty("zeroAddressCity", String, true)
+   zeroAddressCity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressRegion?: string;
+   @JsonProperty("zeroAddressRegion", String, true)
+   zeroAddressRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressPostalCode?: string;
+   @JsonProperty("zeroAddressPostalCode", String, true)
+   zeroAddressPostalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   zeroAddressCountry?: string;
+   @JsonProperty("zeroAddressCountry", String, true)
+   zeroAddressCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressMailTo?: string;
+   @JsonProperty("amendedAddressMailTo", String, true)
+   amendedAddressMailTo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddress1?: string;
+   @JsonProperty("amendedAddress1", String, true)
+   amendedAddress1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddress2?: string;
+   @JsonProperty("amendedAddress2", String, true)
+   amendedAddress2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressCity?: string;
+   @JsonProperty("amendedAddressCity", String, true)
+   amendedAddressCity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressRegion?: string;
+   @JsonProperty("amendedAddressRegion", String, true)
+   amendedAddressRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressPostalCode?: string;
+   @JsonProperty("amendedAddressPostalCode", String, true)
+   amendedAddressPostalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   amendedAddressCountry?: string;
+   @JsonProperty("amendedAddressCountry", String, true)
+   amendedAddressCountry?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   onlineBackFiling?: boolean;
+   @JsonProperty("onlineBackFiling", Boolean, true)
+   onlineBackFiling?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   onlineAmendedReturns?: boolean;
+   @JsonProperty("onlineAmendedReturns", Boolean, true)
+   onlineAmendedReturns?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   prepaymentFrequency?: string;
+   @JsonProperty("prepaymentFrequency", String, true)
+   prepaymentFrequency?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   outletLocationIdentifiersRequired?: boolean;
+   @JsonProperty("outletLocationIdentifiersRequired", Boolean, true)
+   outletLocationIdentifiersRequired?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   listingSortOrder?: string;
+   @JsonProperty("listingSortOrder", String, true)
+   listingSortOrder?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorWebsite?: string;
+   @JsonProperty("dorWebsite", String, true)
+   dorWebsite?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   fileForAllOutlets?: boolean;
+   @JsonProperty("fileForAllOutlets", Boolean, true)
+   fileForAllOutlets?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   paperFormsDoNotHaveDiscounts?: boolean;
+   @JsonProperty("paperFormsDoNotHaveDiscounts", Boolean, true)
+   paperFormsDoNotHaveDiscounts?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   stackAggregation?: boolean;
+   @JsonProperty("stackAggregation", Boolean, true)
+   stackAggregation?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   roundingPrecision?: string;
+   @JsonProperty("roundingPrecision", String, true)
+   roundingPrecision?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   inconsistencyTolerance?: string;
+   @JsonProperty("inconsistencyTolerance", String, true)
+   inconsistencyTolerance?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FormMasterModel
      */
-   effDate?: Date;
+   @JsonProperty("effDate", DateConverter, true)
+   effDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FormMasterModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   visibleToCustomers?: boolean;
+   @JsonProperty("visibleToCustomers", Boolean, true)
+   visibleToCustomers?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   requiresOutletSetup?: boolean;
+   @JsonProperty("requiresOutletSetup", Boolean, true)
+   requiresOutletSetup?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   achCreditAllowed?: boolean;
+   @JsonProperty("achCreditAllowed", Boolean, true)
+   achCreditAllowed?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   reportLevel?: string;
+   @JsonProperty("reportLevel", String, true)
+   reportLevel?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   postOfficeValidated?: boolean;
+   @JsonProperty("postOfficeValidated", Boolean, true)
+   postOfficeValidated?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   stackAggregationOption?: string;
+   @JsonProperty("stackAggregationOption", String, true)
+   stackAggregationOption?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   sstBehavior?: string;
+   @JsonProperty("sstBehavior", String, true)
+   sstBehavior?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   nonSstBehavior?: string;
+   @JsonProperty("nonSstBehavior", String, true)
+   nonSstBehavior?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   dorPhoneNumber?: string;
+   @JsonProperty("dorPhoneNumber", String, true)
+   dorPhoneNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   averageCheckClearDays?: string;
+   @JsonProperty("averageCheckClearDays", String, true)
+   averageCheckClearDays?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   filterZeroRatedLineDetails?: boolean;
+   @JsonProperty("filterZeroRatedLineDetails", Boolean, true)
+   filterZeroRatedLineDetails?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FormMasterModel
      */
-   allowsBulkFilingAccounts?: boolean;
+   @JsonProperty("allowsBulkFilingAccounts", Boolean, true)
+   allowsBulkFilingAccounts?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   bulkAccountInstructionLink?: string;
+   @JsonProperty("bulkAccountInstructionLink", String, true)
+   bulkAccountInstructionLink?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   registrationIdFormat?: string;
+   @JsonProperty("registrationIdFormat", String, true)
+   registrationIdFormat?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   thresholdTrigger?: string;
+   @JsonProperty("thresholdTrigger", String, true)
+   thresholdTrigger?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   transactionSortingOption?: string;
+   @JsonProperty("transactionSortingOption", String, true)
+   transactionSortingOption?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FormMasterModel
      */
-   contentReviewFrequencyId?: number;
+   @JsonProperty("contentReviewFrequencyId", Number, true)
+   contentReviewFrequencyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FormMasterModel
      */
-   aliasForFormMasterId?: string;
+   @JsonProperty("aliasForFormMasterId", String, true)
+   aliasForFormMasterId?: string | undefined = undefined;
  }

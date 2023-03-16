@@ -10,89 +10,104 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Use this object to provide an address and date range where your company does business.
 This address will be used to determine what jurisdictions you should declare nexus and
 calculate tax.
  * @export
- * @interface DeclareNexusByAddressModel
+ * @class DeclareNexusByAddressModel
  */
- export interface DeclareNexusByAddressModel {
+ @JsonObject("DeclareNexusByAddressModel")
+ export class DeclareNexusByAddressModel {
     /**
      * @type {Date}
      * @memberof DeclareNexusByAddressModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DeclareNexusByAddressModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   taxTypeGroup?: string;
+   @JsonProperty("taxTypeGroup", String, true)
+   taxTypeGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   nexusTaxTypeGroup?: string;
+   @JsonProperty("nexusTaxTypeGroup", String, true)
+   nexusTaxTypeGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {Enums.TextCase}
      * @memberof DeclareNexusByAddressModel
      */
-   textCase?: Enums.TextCase;
+   @JsonProperty("textCase", Enums.TextCaseConverter, true)
+   textCase?: Enums.TextCase | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   line3?: string;
+   @JsonProperty("line3", String, true)
+   line3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeclareNexusByAddressModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof DeclareNexusByAddressModel
      */
-   latitude?: number;
+   @JsonProperty("latitude", Number, true)
+   latitude?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof DeclareNexusByAddressModel
      */
-   longitude?: number;
+   @JsonProperty("longitude", Number, true)
+   longitude?: number | undefined = undefined;
  }

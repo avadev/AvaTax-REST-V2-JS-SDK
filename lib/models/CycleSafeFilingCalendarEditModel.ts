@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Filing Calendar Edit
  * @export
- * @interface CycleSafeFilingCalendarEditModel
+ * @class CycleSafeFilingCalendarEditModel
  */
- export interface CycleSafeFilingCalendarEditModel {
+ @JsonObject("CycleSafeFilingCalendarEditModel")
+ export class CycleSafeFilingCalendarEditModel {
     /**
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   fieldName?: string;
+   @JsonProperty("fieldName", String, true)
+   fieldName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   destination?: string;
+   @JsonProperty("destination", String, true)
+   destination?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   questionId?: number;
+   @JsonProperty("questionId", Number, true)
+   questionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   questionCode?: string;
+   @JsonProperty("questionCode", String, true)
+   questionCode?: string | undefined = undefined;
     /**
      * @type {object}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   oldValue?: object;
+   @JsonProperty("oldValue", Object, true)
+   oldValue?: object | undefined = undefined;
     /**
      * @type {object}
      * @memberof CycleSafeFilingCalendarEditModel
      */
-   newValue?: object;
+   @JsonProperty("newValue", Object, true)
+   newValue?: object | undefined = undefined;
  }

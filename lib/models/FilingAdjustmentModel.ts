@@ -10,77 +10,90 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model for return adjustments.
  * @export
- * @interface FilingAdjustmentModel
+ * @class FilingAdjustmentModel
  */
- export interface FilingAdjustmentModel {
+ @JsonObject("FilingAdjustmentModel")
+ export class FilingAdjustmentModel {
     /**
      * @type {number}
      * @memberof FilingAdjustmentModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAdjustmentModel
      */
-   filingId?: number;
+   @JsonProperty("filingId", Number, true)
+   filingId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAdjustmentModel
      */
-   amount: number;
+   @JsonProperty("amount", Number)
+   amount: number = undefined;
     /**
      * @type {Enums.AdjustmentPeriodTypeId}
      * @memberof FilingAdjustmentModel
      */
-   period: Enums.AdjustmentPeriodTypeId;
+   @JsonProperty("period", Enums.AdjustmentPeriodTypeIdConverter)
+   period: Enums.AdjustmentPeriodTypeId = undefined;
     /**
      * @type {string}
      * @memberof FilingAdjustmentModel
      */
-   type: string;
+   @JsonProperty("type", String)
+   type: string = undefined;
     /**
      * @type {boolean}
      * @memberof FilingAdjustmentModel
      */
-   isCalculated?: boolean;
+   @JsonProperty("isCalculated", Boolean, true)
+   isCalculated?: boolean | undefined = undefined;
     /**
      * @type {Enums.PaymentAccountTypeId}
      * @memberof FilingAdjustmentModel
      */
-   accountType: Enums.PaymentAccountTypeId;
+   @JsonProperty("accountType", Enums.PaymentAccountTypeIdConverter)
+   accountType: Enums.PaymentAccountTypeId = undefined;
     /**
      * @type {string}
      * @memberof FilingAdjustmentModel
      */
-   reason?: string;
+   @JsonProperty("reason", String, true)
+   reason?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingAdjustmentModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAdjustmentModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingAdjustmentModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAdjustmentModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

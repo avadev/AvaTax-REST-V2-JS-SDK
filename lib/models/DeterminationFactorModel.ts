@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * This object represents a single determination factor for a line that is being inspected through the InspectLine API.
  * @export
- * @interface DeterminationFactorModel
+ * @class DeterminationFactorModel
  */
- export interface DeterminationFactorModel {
+ @JsonObject("DeterminationFactorModel")
+ export class DeterminationFactorModel {
     /**
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof DeterminationFactorModel
      */
-   ids?: string[];
+   @JsonProperty("ids", [String], true)
+   ids?: string[] | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof DeterminationFactorModel
      */
-   names?: string[];
+   @JsonProperty("names", [String], true)
+   names?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   createdBy?: string;
+   @JsonProperty("createdBy", String, true)
+   createdBy?: string | undefined = undefined;
  }

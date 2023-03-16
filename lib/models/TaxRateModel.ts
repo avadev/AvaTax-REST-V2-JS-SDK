@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { RateModel } from "./RateModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Contains information about the general tangible personal property sales tax rates for this jurisdiction.
@@ -31,17 +32,20 @@ This rate is calculated by making assumptions about the tax calculation process.
 To upgrade to a fully-featured and accurate tax process that handles these scenarios correctly, please
 contact Avalara to upgrade to AvaTax!
  * @export
- * @interface TaxRateModel
+ * @class TaxRateModel
  */
- export interface TaxRateModel {
+ @JsonObject("TaxRateModel")
+ export class TaxRateModel {
     /**
      * @type {number}
      * @memberof TaxRateModel
      */
-   totalRate?: number;
+   @JsonProperty("totalRate", Number, true)
+   totalRate?: number | undefined = undefined;
     /**
-     * @type {Models.RateModel[]}
+     * @type {RateModel[]}
      * @memberof TaxRateModel
      */
-   rates?: Models.RateModel[];
+   @JsonProperty("rates", [RateModel], true)
+   rates?: RateModel[] | undefined = undefined;
  }

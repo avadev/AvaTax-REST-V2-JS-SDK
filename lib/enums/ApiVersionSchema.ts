@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -21,4 +22,14 @@
  export enum ApiVersionSchema {
         C_2_1 = 0,
         C_2_2 = 1,
+}
+
+@JsonConverter
+export class ApiVersionSchemaConverter implements JsonCustomConvert<ApiVersionSchema> {
+    serialize(data: ApiVersionSchema) {
+        return data;
+    }
+    deserialize(enumType: string): ApiVersionSchema {
+        return ApiVersionSchema[enumType as keyof typeof ApiVersionSchema];
+    }
 }

@@ -10,97 +10,114 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An extra property that can change the behavior of tax transactions.
  * @export
- * @interface ParameterModel
+ * @class ParameterModel
  */
- export interface ParameterModel {
+ @JsonObject("ParameterModel")
+ export class ParameterModel {
     /**
      * @type {number}
      * @memberof ParameterModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   dataType?: string;
+   @JsonProperty("dataType", String, true)
+   dataType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   helpText?: string;
+   @JsonProperty("helpText", String, true)
+   helpText?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ParameterModel
      */
-   serviceTypes?: string[];
+   @JsonProperty("serviceTypes", [String], true)
+   serviceTypes?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   prompt?: string;
+   @JsonProperty("prompt", String, true)
+   prompt?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   regularExpression?: string;
+   @JsonProperty("regularExpression", String, true)
+   regularExpression?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   label?: string;
+   @JsonProperty("label", String, true)
+   label?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   helpUrl?: string;
+   @JsonProperty("helpUrl", String, true)
+   helpUrl?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   attributeType?: string;
+   @JsonProperty("attributeType", String, true)
+   attributeType?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ParameterModel
      */
-   values?: string[];
+   @JsonProperty("values", [String], true)
+   values?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterModel
      */
-   measurementType?: string;
+   @JsonProperty("measurementType", String, true)
+   measurementType?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ParameterModel
      */
-   isNeededForCalculation?: boolean;
+   @JsonProperty("isNeededForCalculation", Boolean, true)
+   isNeededForCalculation?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ParameterModel
      */
-   isNeededForReturns?: boolean;
+   @JsonProperty("isNeededForReturns", Boolean, true)
+   isNeededForReturns?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ParameterModel
      */
-   isNeededForClassification?: boolean;
+   @JsonProperty("isNeededForClassification", Boolean, true)
+   isNeededForClassification?: boolean | undefined = undefined;
  }

@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Verify that a MultiDocument object matches the information in your accounting system.
@@ -25,32 +25,38 @@ MultiDocument object will be moved to the document status `Posted`.
             
 For more information on document status, see [DocumentStatus](https://developer.avalara.com/api-reference/avatax/rest/v2/models/enums/DocumentStatus/).
  * @export
- * @interface VerifyMultiDocumentModel
+ * @class VerifyMultiDocumentModel
  */
- export interface VerifyMultiDocumentModel {
+ @JsonObject("VerifyMultiDocumentModel")
+ export class VerifyMultiDocumentModel {
     /**
      * @type {string}
      * @memberof VerifyMultiDocumentModel
      */
-   code: string;
+   @JsonProperty("code", String)
+   code: string = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof VerifyMultiDocumentModel
      */
-   type: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter)
+   type: Enums.DocumentType = undefined;
     /**
      * @type {Date}
      * @memberof VerifyMultiDocumentModel
      */
-   verifyTransactionDate?: Date;
+   @JsonProperty("verifyTransactionDate", DateConverter, true)
+   verifyTransactionDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof VerifyMultiDocumentModel
      */
-   verifyTotalAmount?: number;
+   @JsonProperty("verifyTotalAmount", Number, true)
+   verifyTotalAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof VerifyMultiDocumentModel
      */
-   verifyTotalTax?: number;
+   @JsonProperty("verifyTotalTax", Number, true)
+   verifyTotalTax?: number | undefined = undefined;
  }

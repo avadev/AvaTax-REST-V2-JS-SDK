@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Marketplace Location Output model
  * @export
- * @interface MarketplaceLocationModel
+ * @class MarketplaceLocationModel
  */
- export interface MarketplaceLocationModel {
+ @JsonObject("MarketplaceLocationModel")
+ export class MarketplaceLocationModel {
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   marketplaceId?: string;
+   @JsonProperty("marketplaceId", String, true)
+   marketplaceId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MarketplaceLocationModel
      */
-   marketplace?: string;
+   @JsonProperty("marketplace", String, true)
+   marketplace?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   marketplaceAdoptionDate?: Date;
+   @JsonProperty("marketplaceAdoptionDate", DateConverter, true)
+   marketplaceAdoptionDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   marketplaceEndDate?: Date;
+   @JsonProperty("marketplaceEndDate", DateConverter, true)
+   marketplaceEndDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   legislativeEffectiveDate?: Date;
+   @JsonProperty("legislativeEffectiveDate", DateConverter, true)
+   legislativeEffectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   enforcementDate?: Date;
+   @JsonProperty("enforcementDate", DateConverter, true)
+   enforcementDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MarketplaceLocationModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

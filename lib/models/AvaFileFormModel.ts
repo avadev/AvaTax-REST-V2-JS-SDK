@@ -10,107 +10,126 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents information about a tax form known to Avalara
  * @export
- * @interface AvaFileFormModel
+ * @class AvaFileFormModel
  */
- export interface AvaFileFormModel {
+ @JsonObject("AvaFileFormModel")
+ export class AvaFileFormModel {
     /**
      * @type {number}
      * @memberof AvaFileFormModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   returnName?: string;
+   @JsonProperty("returnName", String, true)
+   returnName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   formName?: string;
+   @JsonProperty("formName", String, true)
+   formName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AvaFileFormModel
      */
-   effDate?: Date;
+   @JsonProperty("effDate", DateConverter, true)
+   effDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AvaFileFormModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaFileFormModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {Enums.FormTypeId}
      * @memberof AvaFileFormModel
      */
-   formTypeId?: Enums.FormTypeId;
+   @JsonProperty("formTypeId", Enums.FormTypeIdConverter, true)
+   formTypeId?: Enums.FormTypeId | undefined = undefined;
     /**
      * @type {Enums.FilingOptionTypeId}
      * @memberof AvaFileFormModel
      */
-   filingOptionTypeId?: Enums.FilingOptionTypeId;
+   @JsonProperty("filingOptionTypeId", Enums.FilingOptionTypeIdConverter, true)
+   filingOptionTypeId?: Enums.FilingOptionTypeId | undefined = undefined;
     /**
      * @type {Enums.DueDateTypeId}
      * @memberof AvaFileFormModel
      */
-   dueDateTypeId?: Enums.DueDateTypeId;
+   @JsonProperty("dueDateTypeId", Enums.DueDateTypeIdConverter, true)
+   dueDateTypeId?: Enums.DueDateTypeId | undefined = undefined;
     /**
      * @type {number}
      * @memberof AvaFileFormModel
      */
-   dueDay?: number;
+   @JsonProperty("dueDay", Number, true)
+   dueDay?: number | undefined = undefined;
     /**
      * @type {Enums.DueDateTypeId}
      * @memberof AvaFileFormModel
      */
-   efileDueDateTypeId?: Enums.DueDateTypeId;
+   @JsonProperty("efileDueDateTypeId", Enums.DueDateTypeIdConverter, true)
+   efileDueDateTypeId?: Enums.DueDateTypeId | undefined = undefined;
     /**
      * @type {number}
      * @memberof AvaFileFormModel
      */
-   efileDueDay?: number;
+   @JsonProperty("efileDueDay", Number, true)
+   efileDueDay?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AvaFileFormModel
      */
-   efileDueTime?: Date;
+   @JsonProperty("efileDueTime", DateConverter, true)
+   efileDueTime?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AvaFileFormModel
      */
-   hasVendorDiscount?: boolean;
+   @JsonProperty("hasVendorDiscount", Boolean, true)
+   hasVendorDiscount?: boolean | undefined = undefined;
     /**
      * @type {Enums.RoundingTypeId}
      * @memberof AvaFileFormModel
      */
-   roundingTypeId?: Enums.RoundingTypeId;
+   @JsonProperty("roundingTypeId", Enums.RoundingTypeIdConverter, true)
+   roundingTypeId?: Enums.RoundingTypeId | undefined = undefined;
     /**
      * @type {Enums.OutletTypeId}
      * @memberof AvaFileFormModel
      */
-   outletTypeId?: Enums.OutletTypeId;
+   @JsonProperty("outletTypeId", Enums.OutletTypeIdConverter, true)
+   outletTypeId?: Enums.OutletTypeId | undefined = undefined;
  }

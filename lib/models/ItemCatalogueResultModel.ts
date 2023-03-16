@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface ItemCatalogueResultModel
+ * @class ItemCatalogueResultModel
  */
- export interface ItemCatalogueResultModel {
+ @JsonObject("ItemCatalogueResultModel")
+ export class ItemCatalogueResultModel {
     /**
      * @type {number}
      * @memberof ItemCatalogueResultModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueResultModel
      */
-   itemCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueResultModel
      */
-   sourceEntityId?: string;
+   @JsonProperty("sourceEntityId", String, true)
+   sourceEntityId?: string | undefined = undefined;
     /**
      * @type {Enums.ItemCatalogueResultEvent}
      * @memberof ItemCatalogueResultModel
      */
-   itemEvent?: Enums.ItemCatalogueResultEvent;
+   @JsonProperty("itemEvent", Enums.ItemCatalogueResultEventConverter, true)
+   itemEvent?: Enums.ItemCatalogueResultEvent | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ItemCatalogueResultModel
      */
-   errors?: string[];
+   @JsonProperty("errors", [String], true)
+   errors?: string[] | undefined = undefined;
  }

@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The tax region jurisdiction model.
  * @export
- * @interface TaxRegionJurisdictionModel
+ * @class TaxRegionJurisdictionModel
  */
- export interface TaxRegionJurisdictionModel {
+ @JsonObject("TaxRegionJurisdictionModel")
+ export class TaxRegionJurisdictionModel {
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
      */
-   jurisdictionId?: number;
+   @JsonProperty("jurisdictionId", Number, true)
+   jurisdictionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
      */
-   taxRegionId?: number;
+   @JsonProperty("taxRegionId", Number, true)
+   taxRegionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
      */
-   jurisdictionLevelId?: number;
+   @JsonProperty("jurisdictionLevelId", Number, true)
+   jurisdictionLevelId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   rockName?: string;
+   @JsonProperty("rockName", String, true)
+   rockName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
      */
-   reportLevel?: number;
+   @JsonProperty("reportLevel", Number, true)
+   reportLevel?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   stateAssignedCode?: string;
+   @JsonProperty("stateAssignedCode", String, true)
+   stateAssignedCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxRegionJurisdictionModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionJurisdictionModel
      */
-   signatureCode?: string;
+   @JsonProperty("signatureCode", String, true)
+   signatureCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRegionJurisdictionModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRegionJurisdictionModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

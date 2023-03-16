@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Available Cycle object
  * @export
- * @interface AvailableCycleModel
+ * @class AvailableCycleModel
  */
- export interface AvailableCycleModel {
+ @JsonObject("AvailableCycleModel")
+ export class AvailableCycleModel {
     /**
      * @type {Date}
      * @memberof AvailableCycleModel
      */
-   transactionalPeriodStart?: Date;
+   @JsonProperty("transactionalPeriodStart", DateConverter, true)
+   transactionalPeriodStart?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AvailableCycleModel
      */
-   transactionalPeriodEnd?: Date;
+   @JsonProperty("transactionalPeriodEnd", DateConverter, true)
+   transactionalPeriodEnd?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AvailableCycleModel
      */
-   filingDueDate?: Date;
+   @JsonProperty("filingDueDate", DateConverter, true)
+   filingDueDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvailableCycleModel
      */
-   cycleName?: string;
+   @JsonProperty("cycleName", String, true)
+   cycleName?: string | undefined = undefined;
  }

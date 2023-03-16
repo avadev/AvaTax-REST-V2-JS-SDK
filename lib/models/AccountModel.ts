@@ -10,87 +10,104 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { SubscriptionModel } from "./SubscriptionModel";
+import { UserModel } from "./UserModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An AvaTax account.
  * @export
- * @interface AccountModel
+ * @class AccountModel
  */
- export interface AccountModel {
+ @JsonObject("AccountModel")
+ export class AccountModel {
     /**
      * @type {number}
      * @memberof AccountModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {string}
      * @memberof AccountModel
      */
-   crmid?: string;
+   @JsonProperty("crmid", String, true)
+   crmid?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AccountModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {Date}
      * @memberof AccountModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {Enums.AccountStatusId}
      * @memberof AccountModel
      */
-   accountStatusId?: Enums.AccountStatusId;
+   @JsonProperty("accountStatusId", Enums.AccountStatusIdConverter, true)
+   accountStatusId?: Enums.AccountStatusId | undefined = undefined;
     /**
      * @type {Enums.AccountTypeId}
      * @memberof AccountModel
      */
-   accountTypeId?: Enums.AccountTypeId;
+   @JsonProperty("accountTypeId", Enums.AccountTypeIdConverter, true)
+   accountTypeId?: Enums.AccountTypeId | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.SubscriptionModel[]}
+     * @type {SubscriptionModel[]}
      * @memberof AccountModel
      */
-   subscriptions?: Models.SubscriptionModel[];
+   @JsonProperty("subscriptions", [SubscriptionModel], true)
+   subscriptions?: SubscriptionModel[] | undefined = undefined;
     /**
-     * @type {Models.UserModel[]}
+     * @type {UserModel[]}
      * @memberof AccountModel
      */
-   users?: Models.UserModel[];
+   @JsonProperty("users", [UserModel], true)
+   users?: UserModel[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AccountModel
      */
-   isSamlEnabled?: boolean;
+   @JsonProperty("isSamlEnabled", Boolean, true)
+   isSamlEnabled?: boolean | undefined = undefined;
  }

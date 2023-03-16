@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a complex query request to parse using query filter guidelines from Microsoft REST standards
  * @export
- * @interface QueryRequestModel
+ * @class QueryRequestModel
  */
- export interface QueryRequestModel {
+ @JsonObject("QueryRequestModel")
+ export class QueryRequestModel {
     /**
      * @type {string}
      * @memberof QueryRequestModel
      */
-   filter?: string;
+   @JsonProperty("filter", String, true)
+   filter?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof QueryRequestModel
      */
-   include?: string;
+   @JsonProperty("include", String, true)
+   include?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof QueryRequestModel
      */
-   maxResults?: number;
+   @JsonProperty("maxResults", Number, true)
+   maxResults?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof QueryRequestModel
      */
-   startIndex?: number;
+   @JsonProperty("startIndex", Number, true)
+   startIndex?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof QueryRequestModel
      */
-   sortBy?: string;
+   @JsonProperty("sortBy", String, true)
+   sortBy?: string | undefined = undefined;
  }

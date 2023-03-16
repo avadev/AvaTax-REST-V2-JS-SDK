@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AddressLocationInfo } from "./AddressLocationInfo";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about all the addresses involved in this transaction.
@@ -34,47 +35,56 @@ we will be using only latitude and longitude and will discard line, city, region
 Please ensure that you have the correct latitude/longitude information for the addresses prior to using the API.
 If you provide either latitude or longitude information but not both, we will be using the line, city, region, country and postal code information for the addresses.
  * @export
- * @interface AddressesModel
+ * @class AddressesModel
  */
- export interface AddressesModel {
+ @JsonObject("AddressesModel")
+ export class AddressesModel {
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   singleLocation?: Models.AddressLocationInfo;
+   @JsonProperty("singleLocation", AddressLocationInfo, true)
+   singleLocation?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   shipFrom?: Models.AddressLocationInfo;
+   @JsonProperty("shipFrom", AddressLocationInfo, true)
+   shipFrom?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   shipTo?: Models.AddressLocationInfo;
+   @JsonProperty("shipTo", AddressLocationInfo, true)
+   shipTo?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   pointOfOrderOrigin?: Models.AddressLocationInfo;
+   @JsonProperty("pointOfOrderOrigin", AddressLocationInfo, true)
+   pointOfOrderOrigin?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   pointOfOrderAcceptance?: Models.AddressLocationInfo;
+   @JsonProperty("pointOfOrderAcceptance", AddressLocationInfo, true)
+   pointOfOrderAcceptance?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   goodsPlaceOrServiceRendered?: Models.AddressLocationInfo;
+   @JsonProperty("goodsPlaceOrServiceRendered", AddressLocationInfo, true)
+   goodsPlaceOrServiceRendered?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   import?: Models.AddressLocationInfo;
+   @JsonProperty("import", AddressLocationInfo, true)
+   import?: AddressLocationInfo | undefined = undefined;
     /**
-     * @type {Models.AddressLocationInfo}
+     * @type {AddressLocationInfo}
      * @memberof AddressesModel
      */
-   billTo?: Models.AddressLocationInfo;
+   @JsonProperty("billTo", AddressLocationInfo, true)
+   billTo?: AddressLocationInfo | undefined = undefined;
  }

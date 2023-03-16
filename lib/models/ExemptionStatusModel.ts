@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CertificateModel } from "./CertificateModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Indicates the customer's exemption status in a specific country and region.
  * @export
- * @interface ExemptionStatusModel
+ * @class ExemptionStatusModel
  */
- export interface ExemptionStatusModel {
+ @JsonObject("ExemptionStatusModel")
+ export class ExemptionStatusModel {
     /**
      * @type {string}
      * @memberof ExemptionStatusModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
-     * @type {Models.CertificateModel}
+     * @type {CertificateModel}
      * @memberof ExemptionStatusModel
      */
-   certificate?: Models.CertificateModel;
+   @JsonProperty("certificate", CertificateModel, true)
+   certificate?: CertificateModel | undefined = undefined;
  }

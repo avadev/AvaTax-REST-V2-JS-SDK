@@ -10,127 +10,150 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A contact person for a company.
  * @export
- * @interface ContactModel
+ * @class ContactModel
  */
- export interface ContactModel {
+ @JsonObject("ContactModel")
+ export class ContactModel {
     /**
      * @type {number}
      * @memberof ContactModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ContactModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   contactCode: string;
+   @JsonProperty("contactCode", String)
+   contactCode: string = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   firstName?: string;
+   @JsonProperty("firstName", String, true)
+   firstName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   middleName?: string;
+   @JsonProperty("middleName", String, true)
+   middleName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   lastName?: string;
+   @JsonProperty("lastName", String, true)
+   lastName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   title?: string;
+   @JsonProperty("title", String, true)
+   title?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   line3?: string;
+   @JsonProperty("line3", String, true)
+   line3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   email?: string;
+   @JsonProperty("email", String, true)
+   email?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   phone?: string;
+   @JsonProperty("phone", String, true)
+   phone?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   mobile?: string;
+   @JsonProperty("mobile", String, true)
+   mobile?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ContactModel
      */
-   fax?: string;
+   @JsonProperty("fax", String, true)
+   fax?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ContactModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ContactModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ContactModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ContactModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

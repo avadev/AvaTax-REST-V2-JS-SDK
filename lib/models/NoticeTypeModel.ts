@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Tax Notice Type Model
  * @export
- * @interface NoticeTypeModel
+ * @class NoticeTypeModel
  */
- export interface NoticeTypeModel {
+ @JsonObject("NoticeTypeModel")
+ export class NoticeTypeModel {
     /**
      * @type {number}
      * @memberof NoticeTypeModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {string}
      * @memberof NoticeTypeModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {boolean}
      * @memberof NoticeTypeModel
      */
-   activeFlag?: boolean;
+   @JsonProperty("activeFlag", Boolean, true)
+   activeFlag?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeTypeModel
      */
-   sortOrder?: number;
+   @JsonProperty("sortOrder", Number, true)
+   sortOrder?: number | undefined = undefined;
  }

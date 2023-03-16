@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model to specify lines to be removed
  * @export
- * @interface RemoveTransactionLineModel
+ * @class RemoveTransactionLineModel
  */
- export interface RemoveTransactionLineModel {
+ @JsonObject("RemoveTransactionLineModel")
+ export class RemoveTransactionLineModel {
     /**
      * @type {string}
      * @memberof RemoveTransactionLineModel
      */
-   companyCode: string;
+   @JsonProperty("companyCode", String)
+   companyCode: string = undefined;
     /**
      * @type {string}
      * @memberof RemoveTransactionLineModel
      */
-   transactionCode: string;
+   @JsonProperty("transactionCode", String)
+   transactionCode: string = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof RemoveTransactionLineModel
      */
-   documentType?: Enums.DocumentType;
+   @JsonProperty("documentType", Enums.DocumentTypeConverter, true)
+   documentType?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof RemoveTransactionLineModel
      */
-   lines: string[];
+   @JsonProperty("lines", [String])
+   lines: string[] = undefined;
     /**
      * @type {boolean}
      * @memberof RemoveTransactionLineModel
      */
-   renumber?: boolean;
+   @JsonProperty("renumber", Boolean, true)
+   renumber?: boolean | undefined = undefined;
  }

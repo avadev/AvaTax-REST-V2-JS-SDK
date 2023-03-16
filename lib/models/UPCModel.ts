@@ -10,82 +10,96 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * One Universal Product Code object as defined for your company.
  * @export
- * @interface UPCModel
+ * @class UPCModel
  */
- export interface UPCModel {
+ @JsonObject("UPCModel")
+ export class UPCModel {
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof UPCModel
      */
-   upc: string;
+   @JsonProperty("upc", String)
+   upc: string = undefined;
     /**
      * @type {string}
      * @memberof UPCModel
      */
-   legacyTaxCode?: string;
+   @JsonProperty("legacyTaxCode", String, true)
+   legacyTaxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UPCModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {Date}
      * @memberof UPCModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof UPCModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   usage?: number;
+   @JsonProperty("usage", Number, true)
+   usage?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   isSystem?: number;
+   @JsonProperty("isSystem", Number, true)
+   isSystem?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof UPCModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof UPCModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof UPCModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

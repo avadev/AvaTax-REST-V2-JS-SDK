@@ -10,52 +10,61 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ResourceFileDownloadResult } from "./ResourceFileDownloadResult";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Response when checking if a company has a POA on file with Avalara
  * @export
- * @interface PowerOfAttorneyCheckModel
+ * @class PowerOfAttorneyCheckModel
  */
- export interface PowerOfAttorneyCheckModel {
+ @JsonObject("PowerOfAttorneyCheckModel")
+ export class PowerOfAttorneyCheckModel {
     /**
      * @type {number}
      * @memberof PowerOfAttorneyCheckModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof PowerOfAttorneyCheckModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof PowerOfAttorneyCheckModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof PowerOfAttorneyCheckModel
      */
-   activePoa?: boolean;
+   @JsonProperty("activePoa", Boolean, true)
+   activePoa?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof PowerOfAttorneyCheckModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof PowerOfAttorneyCheckModel
      */
-   expirationDate?: Date;
+   @JsonProperty("expirationDate", DateConverter, true)
+   expirationDate?: Date | undefined = undefined;
     /**
-     * @type {Models.ResourceFileDownloadResult}
+     * @type {ResourceFileDownloadResult}
      * @memberof PowerOfAttorneyCheckModel
      */
-   availablePoa?: Models.ResourceFileDownloadResult;
+   @JsonProperty("availablePoa", ResourceFileDownloadResult, true)
+   availablePoa?: ResourceFileDownloadResult | undefined = undefined;
  }

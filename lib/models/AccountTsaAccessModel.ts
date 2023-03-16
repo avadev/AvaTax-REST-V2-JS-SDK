@@ -10,38 +10,43 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Descibes a record of an account granting TSA accounts write access.
 See AVT-25316
  * @export
- * @interface AccountTsaAccessModel
+ * @class AccountTsaAccessModel
  */
- export interface AccountTsaAccessModel {
+ @JsonObject("AccountTsaAccessModel")
+ export class AccountTsaAccessModel {
     /**
      * @type {number}
      * @memberof AccountTsaAccessModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountTsaAccessModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountTsaAccessModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountTsaAccessModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

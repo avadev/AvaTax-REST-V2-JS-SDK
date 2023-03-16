@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The resource model returned by the ECommerceTokenController's endpoints.
  * @export
- * @interface ECommerceTokenOutputModel
+ * @class ECommerceTokenOutputModel
  */
- export interface ECommerceTokenOutputModel {
+ @JsonObject("ECommerceTokenOutputModel")
+ export class ECommerceTokenOutputModel {
     /**
      * @type {string}
      * @memberof ECommerceTokenOutputModel
      */
-   token: string;
+   @JsonProperty("token", String)
+   token: string = undefined;
     /**
      * @type {number[]}
      * @memberof ECommerceTokenOutputModel
      */
-   clientIds?: number[];
+   @JsonProperty("clientIds", [Number], true)
+   clientIds?: number[] | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ECommerceTokenOutputModel
      */
-   createdDate: Date;
+   @JsonProperty("createdDate", DateConverter)
+   createdDate: Date = undefined;
     /**
      * @type {Date}
      * @memberof ECommerceTokenOutputModel
      */
-   expirationDate: Date;
+   @JsonProperty("expirationDate", DateConverter)
+   expirationDate: Date = undefined;
  }

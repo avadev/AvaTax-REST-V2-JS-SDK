@@ -10,82 +10,96 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a Jurisdiction with applicable TaxType, TaxSubType and RateType.
  * @export
- * @interface JurisdictionRateTypeTaxTypeMappingModel
+ * @class JurisdictionRateTypeTaxTypeMappingModel
  */
- export interface JurisdictionRateTypeTaxTypeMappingModel {
+ @JsonObject("JurisdictionRateTypeTaxTypeMappingModel")
+ export class JurisdictionRateTypeTaxTypeMappingModel {
     /**
      * @type {number}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   state?: string;
+   @JsonProperty("state", String, true)
+   state?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   jurisdictionType?: string;
+   @JsonProperty("jurisdictionType", String, true)
+   jurisdictionType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   jurisdictionCode?: string;
+   @JsonProperty("jurisdictionCode", String, true)
+   jurisdictionCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   longName?: string;
+   @JsonProperty("longName", String, true)
+   longName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxSubTypeId?: string;
+   @JsonProperty("taxSubTypeId", String, true)
+   taxSubTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   taxTypeGroupId?: string;
+   @JsonProperty("taxTypeGroupId", String, true)
+   taxTypeGroupId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   rateTypeId?: string;
+   @JsonProperty("rateTypeId", String, true)
+   rateTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   stateFips?: string;
+   @JsonProperty("stateFips", String, true)
+   stateFips?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionRateTypeTaxTypeMappingModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

@@ -10,52 +10,61 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { IsoLocalizedName } from "./IsoLocalizedName";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a region, province, or state within a country
  * @export
- * @interface IsoRegionModel
+ * @class IsoRegionModel
  */
- export interface IsoRegionModel {
+ @JsonObject("IsoRegionModel")
+ export class IsoRegionModel {
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   countryCode?: string;
+   @JsonProperty("countryCode", String, true)
+   countryCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof IsoRegionModel
      */
-   classification?: string;
+   @JsonProperty("classification", String, true)
+   classification?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof IsoRegionModel
      */
-   streamlinedSalesTax?: boolean;
+   @JsonProperty("streamlinedSalesTax", Boolean, true)
+   streamlinedSalesTax?: boolean | undefined = undefined;
     /**
-     * @type {Models.IsoLocalizedName[]}
+     * @type {IsoLocalizedName[]}
      * @memberof IsoRegionModel
      */
-   localizedNames?: Models.IsoLocalizedName[];
+   @JsonProperty("localizedNames", [IsoLocalizedName], true)
+   localizedNames?: IsoLocalizedName[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof IsoRegionModel
      */
-   isRegionTaxable?: boolean;
+   @JsonProperty("isRegionTaxable", Boolean, true)
+   isRegionTaxable?: boolean | undefined = undefined;
  }

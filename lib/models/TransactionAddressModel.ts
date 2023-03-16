@@ -10,87 +10,103 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JurisdictionModel } from "./JurisdictionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An address used within this transaction.
  * @export
- * @interface TransactionAddressModel
+ * @class TransactionAddressModel
  */
- export interface TransactionAddressModel {
+ @JsonObject("TransactionAddressModel")
+ export class TransactionAddressModel {
     /**
      * @type {number}
      * @memberof TransactionAddressModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionAddressModel
      */
-   transactionId?: number;
+   @JsonProperty("transactionId", Number, true)
+   transactionId?: number | undefined = undefined;
     /**
      * @type {Enums.BoundaryLevel}
      * @memberof TransactionAddressModel
      */
-   boundaryLevel?: Enums.BoundaryLevel;
+   @JsonProperty("boundaryLevel", Enums.BoundaryLevelConverter, true)
+   boundaryLevel?: Enums.BoundaryLevel | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   line3?: string;
+   @JsonProperty("line3", String, true)
+   line3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionAddressModel
      */
-   taxRegionId?: number;
+   @JsonProperty("taxRegionId", Number, true)
+   taxRegionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   latitude?: string;
+   @JsonProperty("latitude", String, true)
+   latitude?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionAddressModel
      */
-   longitude?: string;
+   @JsonProperty("longitude", String, true)
+   longitude?: string | undefined = undefined;
     /**
-     * @type {Models.JurisdictionModel[]}
+     * @type {JurisdictionModel[]}
      * @memberof TransactionAddressModel
      */
-   jurisdictions?: Models.JurisdictionModel[];
+   @JsonProperty("jurisdictions", [JurisdictionModel], true)
+   jurisdictions?: JurisdictionModel[] | undefined = undefined;
  }

@@ -10,87 +10,102 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a listing of all tax calculation data for filings and for accruing to future filings.
  * @export
- * @interface FilingsTaxSummaryModel
+ * @class FilingsTaxSummaryModel
  */
- export interface FilingsTaxSummaryModel {
+ @JsonObject("FilingsTaxSummaryModel")
+ export class FilingsTaxSummaryModel {
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   salesAmount?: number;
+   @JsonProperty("salesAmount", Number, true)
+   salesAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   taxableAmount?: number;
+   @JsonProperty("taxableAmount", Number, true)
+   taxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   nonTaxableAmount?: number;
+   @JsonProperty("nonTaxableAmount", Number, true)
+   nonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   taxAmount?: number;
+   @JsonProperty("taxAmount", Number, true)
+   taxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   remittanceAmount?: number;
+   @JsonProperty("remittanceAmount", Number, true)
+   remittanceAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   collectAmount?: number;
+   @JsonProperty("collectAmount", Number, true)
+   collectAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   salesAccrualAmount?: number;
+   @JsonProperty("salesAccrualAmount", Number, true)
+   salesAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   taxableAccrualAmount?: number;
+   @JsonProperty("taxableAccrualAmount", Number, true)
+   taxableAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   nonTaxableAccrualAmount?: number;
+   @JsonProperty("nonTaxableAccrualAmount", Number, true)
+   nonTaxableAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   taxAccrualAmount?: number;
+   @JsonProperty("taxAccrualAmount", Number, true)
+   taxAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   reportableSalesAmount?: number;
+   @JsonProperty("reportableSalesAmount", Number, true)
+   reportableSalesAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   reportableNonTaxableAmount?: number;
+   @JsonProperty("reportableNonTaxableAmount", Number, true)
+   reportableNonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   reportableTaxableAmount?: number;
+   @JsonProperty("reportableTaxableAmount", Number, true)
+   reportableTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxSummaryModel
      */
-   reportableTaxAmount?: number;
+   @JsonProperty("reportableTaxAmount", Number, true)
+   reportableTaxAmount?: number | undefined = undefined;
  }

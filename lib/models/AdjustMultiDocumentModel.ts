@@ -10,32 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CreateMultiDocumentModel } from "./CreateMultiDocumentModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Replace an existing MultiDocument transaction recorded in AvaTax with a new one.
  * @export
- * @interface AdjustMultiDocumentModel
+ * @class AdjustMultiDocumentModel
  */
- export interface AdjustMultiDocumentModel {
+ @JsonObject("AdjustMultiDocumentModel")
+ export class AdjustMultiDocumentModel {
     /**
      * @type {Enums.AdjustmentReason}
      * @memberof AdjustMultiDocumentModel
      */
-   adjustmentReason: Enums.AdjustmentReason;
+   @JsonProperty("adjustmentReason", Enums.AdjustmentReasonConverter)
+   adjustmentReason: Enums.AdjustmentReason = undefined;
     /**
      * @type {string}
      * @memberof AdjustMultiDocumentModel
      */
-   adjustDescription?: string;
+   @JsonProperty("adjustDescription", String, true)
+   adjustDescription?: string | undefined = undefined;
     /**
-     * @type {Models.CreateMultiDocumentModel}
+     * @type {CreateMultiDocumentModel}
      * @memberof AdjustMultiDocumentModel
      */
-   newTransaction: Models.CreateMultiDocumentModel;
+   @JsonProperty("newTransaction", CreateMultiDocumentModel)
+   newTransaction: CreateMultiDocumentModel = undefined;
  }

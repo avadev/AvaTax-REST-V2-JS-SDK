@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -21,4 +22,14 @@
  export enum RoundingLevelId {
         Line = 0,
         Document = 1,
+}
+
+@JsonConverter
+export class RoundingLevelIdConverter implements JsonCustomConvert<RoundingLevelId> {
+    serialize(data: RoundingLevelId) {
+        return data;
+    }
+    deserialize(enumType: string): RoundingLevelId {
+        return RoundingLevelId[enumType as keyof typeof RoundingLevelId];
+    }
 }

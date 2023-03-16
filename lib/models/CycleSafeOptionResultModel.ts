@@ -10,42 +10,49 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FrequencyAvailableModel } from "./FrequencyAvailableModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * CycleSafe Option Result
  * @export
- * @interface CycleSafeOptionResultModel
+ * @class CycleSafeOptionResultModel
  */
- export interface CycleSafeOptionResultModel {
+ @JsonObject("CycleSafeOptionResultModel")
+ export class CycleSafeOptionResultModel {
     /**
      * @type {string}
      * @memberof CycleSafeOptionResultModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CycleSafeOptionResultModel
      */
-   mustCloneFilingCalendar?: boolean;
+   @JsonProperty("mustCloneFilingCalendar", Boolean, true)
+   mustCloneFilingCalendar?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleSafeOptionResultModel
      */
-   clonedCalendarEffDate?: Date;
+   @JsonProperty("clonedCalendarEffDate", DateConverter, true)
+   clonedCalendarEffDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleSafeOptionResultModel
      */
-   expiredCalendarEndDate?: Date;
+   @JsonProperty("expiredCalendarEndDate", DateConverter, true)
+   expiredCalendarEndDate?: Date | undefined = undefined;
     /**
-     * @type {Models.FrequencyAvailableModel[]}
+     * @type {FrequencyAvailableModel[]}
      * @memberof CycleSafeOptionResultModel
      */
-   frequenciesAvailable?: Models.FrequencyAvailableModel[];
+   @JsonProperty("frequenciesAvailable", [FrequencyAvailableModel], true)
+   frequenciesAvailable?: FrequencyAvailableModel[] | undefined = undefined;
  }

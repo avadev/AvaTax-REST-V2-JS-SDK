@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An edit to be made on a filing calendar.
  * @export
- * @interface FilingCalendarEditModel
+ * @class FilingCalendarEditModel
  */
- export interface FilingCalendarEditModel {
+ @JsonObject("FilingCalendarEditModel")
+ export class FilingCalendarEditModel {
     /**
      * @type {string}
      * @memberof FilingCalendarEditModel
      */
-   fieldName: string;
+   @JsonProperty("fieldName", String)
+   fieldName: string = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarEditModel
      */
-   questionId: number;
+   @JsonProperty("questionId", Number)
+   questionId: number = undefined;
     /**
      * @type {object}
      * @memberof FilingCalendarEditModel
      */
-   oldValue: object;
+   @JsonProperty("oldValue", Object, true)
+   oldValue?: object | undefined = undefined;
     /**
      * @type {object}
      * @memberof FilingCalendarEditModel
      */
-   newValue: object;
+   @JsonProperty("newValue", Object, true)
+   newValue?: object | undefined = undefined;
  }

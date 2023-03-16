@@ -10,82 +10,97 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ReportParametersModel } from "./ReportParametersModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model for displaying report task metadata
  * @export
- * @interface ReportModel
+ * @class ReportModel
  */
- export interface ReportModel {
+ @JsonObject("ReportModel")
+ export class ReportModel {
     /**
      * @type {number}
      * @memberof ReportModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   reportType?: string;
+   @JsonProperty("reportType", String, true)
+   reportType?: string | undefined = undefined;
     /**
-     * @type {Models.ReportParametersModel}
+     * @type {ReportParametersModel}
      * @memberof ReportModel
      */
-   parameters?: Models.ReportParametersModel;
+   @JsonProperty("parameters", ReportParametersModel, true)
+   parameters?: ReportParametersModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportModel
      */
-   size?: number;
+   @JsonProperty("size", Number, true)
+   size?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   format?: string;
+   @JsonProperty("format", String, true)
+   format?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   file?: string;
+   @JsonProperty("file", String, true)
+   file?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ReportModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportModel
      */
-   createdUser?: string;
+   @JsonProperty("createdUser", String, true)
+   createdUser?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ReportModel
      */
-   completedDate?: Date;
+   @JsonProperty("completedDate", DateConverter, true)
+   completedDate?: Date | undefined = undefined;
  }

@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Status of an Avalara Managed Returns funding configuration for a company
  * @export
- * @interface FundingConfigurationModel
+ * @class FundingConfigurationModel
  */
- export interface FundingConfigurationModel {
+ @JsonObject("FundingConfigurationModel")
+ export class FundingConfigurationModel {
     /**
      * @type {number}
      * @memberof FundingConfigurationModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   systemType?: string;
+   @JsonProperty("systemType", String, true)
+   systemType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   currency?: string;
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FundingConfigurationModel
      */
-   isFundingSetup?: boolean;
+   @JsonProperty("isFundingSetup", Boolean, true)
+   isFundingSetup?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof FundingConfigurationModel
      */
-   fundingMethod?: string;
+   @JsonProperty("fundingMethod", String, true)
+   fundingMethod?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FundingConfigurationModel
      */
-   lastUpdated?: Date;
+   @JsonProperty("lastUpdated", DateConverter, true)
+   lastUpdated?: Date | undefined = undefined;
  }

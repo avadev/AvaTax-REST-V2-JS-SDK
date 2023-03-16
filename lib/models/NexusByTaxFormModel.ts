@@ -10,37 +10,43 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { NexusModel } from "./NexusModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Identifies all nexus that match a particular tax form
  * @export
- * @interface NexusByTaxFormModel
+ * @class NexusByTaxFormModel
  */
- export interface NexusByTaxFormModel {
+ @JsonObject("NexusByTaxFormModel")
+ export class NexusByTaxFormModel {
     /**
      * @type {string}
      * @memberof NexusByTaxFormModel
      */
-   formCode?: string;
+   @JsonProperty("formCode", String, true)
+   formCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusByTaxFormModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
-     * @type {Models.NexusModel[]}
+     * @type {NexusModel[]}
      * @memberof NexusByTaxFormModel
      */
-   nexusDefinitions?: Models.NexusModel[];
+   @JsonProperty("nexusDefinitions", [NexusModel], true)
+   nexusDefinitions?: NexusModel[] | undefined = undefined;
     /**
-     * @type {Models.NexusModel[]}
+     * @type {NexusModel[]}
      * @memberof NexusByTaxFormModel
      */
-   companyNexus?: Models.NexusModel[];
+   @JsonProperty("companyNexus", [NexusModel], true)
+   companyNexus?: NexusModel[] | undefined = undefined;
  }

@@ -10,272 +10,324 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An individual tax detail element.  Represents the amount of tax calculated for a particular jurisdiction, for a particular line in an invoice.
  * @export
- * @interface TransactionLineDetailModel
+ * @class TransactionLineDetailModel
  */
- export interface TransactionLineDetailModel {
+ @JsonObject("TransactionLineDetailModel")
+ export class TransactionLineDetailModel {
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   transactionLineId?: number;
+   @JsonProperty("transactionLineId", Number, true)
+   transactionLineId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   transactionId?: number;
+   @JsonProperty("transactionId", Number, true)
+   transactionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   addressId?: number;
+   @JsonProperty("addressId", Number, true)
+   addressId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   countyFIPS?: string;
+   @JsonProperty("countyFIPS", String, true)
+   countyFIPS?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   stateFIPS?: string;
+   @JsonProperty("stateFIPS", String, true)
+   stateFIPS?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   exemptAmount?: number;
+   @JsonProperty("exemptAmount", Number, true)
+   exemptAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   exemptReasonId?: number;
+   @JsonProperty("exemptReasonId", Number, true)
+   exemptReasonId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionLineDetailModel
      */
-   inState?: boolean;
+   @JsonProperty("inState", Boolean, true)
+   inState?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   jurisCode?: string;
+   @JsonProperty("jurisCode", String, true)
+   jurisCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   jurisName?: string;
+   @JsonProperty("jurisName", String, true)
+   jurisName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   jurisdictionId?: number;
+   @JsonProperty("jurisdictionId", Number, true)
+   jurisdictionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   signatureCode?: string;
+   @JsonProperty("signatureCode", String, true)
+   signatureCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   stateAssignedNo?: string;
+   @JsonProperty("stateAssignedNo", String, true)
+   stateAssignedNo?: string | undefined = undefined;
     /**
      * @type {Enums.JurisTypeId}
      * @memberof TransactionLineDetailModel
      */
-   jurisType?: Enums.JurisTypeId;
+   @JsonProperty("jurisType", Enums.JurisTypeIdConverter, true)
+   jurisType?: Enums.JurisTypeId | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof TransactionLineDetailModel
      */
-   jurisdictionType?: Enums.JurisdictionType;
+   @JsonProperty("jurisdictionType", Enums.JurisdictionTypeConverter, true)
+   jurisdictionType?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   nonTaxableAmount?: number;
+   @JsonProperty("nonTaxableAmount", Number, true)
+   nonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   nonTaxableRuleId?: number;
+   @JsonProperty("nonTaxableRuleId", Number, true)
+   nonTaxableRuleId?: number | undefined = undefined;
     /**
      * @type {Enums.TaxRuleTypeId}
      * @memberof TransactionLineDetailModel
      */
-   nonTaxableType?: Enums.TaxRuleTypeId;
+   @JsonProperty("nonTaxableType", Enums.TaxRuleTypeIdConverter, true)
+   nonTaxableType?: Enums.TaxRuleTypeId | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   rate?: number;
+   @JsonProperty("rate", Number, true)
+   rate?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   rateRuleId?: number;
+   @JsonProperty("rateRuleId", Number, true)
+   rateRuleId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   rateSourceId?: number;
+   @JsonProperty("rateSourceId", Number, true)
+   rateSourceId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   serCode?: string;
+   @JsonProperty("serCode", String, true)
+   serCode?: string | undefined = undefined;
     /**
      * @type {Enums.Sourcing}
      * @memberof TransactionLineDetailModel
      */
-   sourcing?: Enums.Sourcing;
+   @JsonProperty("sourcing", Enums.SourcingConverter, true)
+   sourcing?: Enums.Sourcing | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   tax?: number;
+   @JsonProperty("tax", Number, true)
+   tax?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxableAmount?: number;
+   @JsonProperty("taxableAmount", Number, true)
+   taxableAmount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxType?: string;
+   @JsonProperty("taxType", String, true)
+   taxType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxSubTypeId?: string;
+   @JsonProperty("taxSubTypeId", String, true)
+   taxSubTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxTypeGroupId?: string;
+   @JsonProperty("taxTypeGroupId", String, true)
+   taxTypeGroupId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   taxName?: string;
+   @JsonProperty("taxName", String, true)
+   taxName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxAuthorityTypeId?: number;
+   @JsonProperty("taxAuthorityTypeId", Number, true)
+   taxAuthorityTypeId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxRegionId?: number;
+   @JsonProperty("taxRegionId", Number, true)
+   taxRegionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxCalculated?: number;
+   @JsonProperty("taxCalculated", Number, true)
+   taxCalculated?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxOverride?: number;
+   @JsonProperty("taxOverride", Number, true)
+   taxOverride?: number | undefined = undefined;
     /**
      * @type {Enums.RateType}
      * @memberof TransactionLineDetailModel
      */
-   rateType?: Enums.RateType;
+   @JsonProperty("rateType", Enums.RateTypeConverter, true)
+   rateType?: Enums.RateType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   rateTypeCode?: string;
+   @JsonProperty("rateTypeCode", String, true)
+   rateTypeCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   taxableUnits?: number;
+   @JsonProperty("taxableUnits", Number, true)
+   taxableUnits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   nonTaxableUnits?: number;
+   @JsonProperty("nonTaxableUnits", Number, true)
+   nonTaxableUnits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   exemptUnits?: number;
+   @JsonProperty("exemptUnits", Number, true)
+   exemptUnits?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   unitOfBasis?: string;
+   @JsonProperty("unitOfBasis", String, true)
+   unitOfBasis?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionLineDetailModel
      */
-   isNonPassThru?: boolean;
+   @JsonProperty("isNonPassThru", Boolean, true)
+   isNonPassThru?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionLineDetailModel
      */
-   isFee?: boolean;
+   @JsonProperty("isFee", Boolean, true)
+   isFee?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   reportingTaxableUnits?: number;
+   @JsonProperty("reportingTaxableUnits", Number, true)
+   reportingTaxableUnits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   reportingNonTaxableUnits?: number;
+   @JsonProperty("reportingNonTaxableUnits", Number, true)
+   reportingNonTaxableUnits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   reportingExemptUnits?: number;
+   @JsonProperty("reportingExemptUnits", Number, true)
+   reportingExemptUnits?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   reportingTax?: number;
+   @JsonProperty("reportingTax", Number, true)
+   reportingTax?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
-   reportingTaxCalculated?: number;
+   @JsonProperty("reportingTaxCalculated", Number, true)
+   reportingTaxCalculated?: number | undefined = undefined;
     /**
      * @type {Enums.LiabilityType}
      * @memberof TransactionLineDetailModel
      */
-   liabilityType?: Enums.LiabilityType;
+   @JsonProperty("liabilityType", Enums.LiabilityTypeConverter, true)
+   liabilityType?: Enums.LiabilityType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
-   avtUserBIN?: string;
+   @JsonProperty("avtUserBIN", String, true)
+   avtUserBIN?: string | undefined = undefined;
  }

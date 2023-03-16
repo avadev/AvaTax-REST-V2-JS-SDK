@@ -10,74 +10,86 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The CoverLetter model represents a message sent along with an invitation to use CertExpress to
 upload certificates.  An invitation allows customers to use CertExpress to upload their exemption
 certificates directly; this cover letter explains why the invitation was sent.
  * @export
- * @interface CoverLetterModel
+ * @class CoverLetterModel
  */
- export interface CoverLetterModel {
+ @JsonObject("CoverLetterModel")
+ export class CoverLetterModel {
     /**
      * @type {number}
      * @memberof CoverLetterModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CoverLetterModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   title?: string;
+   @JsonProperty("title", String, true)
+   title?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   subject?: string;
+   @JsonProperty("subject", String, true)
+   subject?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CoverLetterModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CoverLetterModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CoverLetterModel
      */
-   active?: boolean;
+   @JsonProperty("active", Boolean, true)
+   active?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof CoverLetterModel
      */
-   pageCount?: number;
+   @JsonProperty("pageCount", Number, true)
+   pageCount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CoverLetterModel
      */
-   templateFilename?: string;
+   @JsonProperty("templateFilename", String, true)
+   templateFilename?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CoverLetterModel
      */
-   version?: number;
+   @JsonProperty("version", Number, true)
+   version?: number | undefined = undefined;
  }

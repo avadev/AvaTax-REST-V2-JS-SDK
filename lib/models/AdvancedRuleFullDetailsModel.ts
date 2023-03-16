@@ -10,112 +10,132 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model for Advanced Rules when full details are requested
  * @export
- * @interface AdvancedRuleFullDetailsModel
+ * @class AdvancedRuleFullDetailsModel
  */
- export interface AdvancedRuleFullDetailsModel {
+ @JsonObject("AdvancedRuleFullDetailsModel")
+ export class AdvancedRuleFullDetailsModel {
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   script: string;
+   @JsonProperty("script", String)
+   script: string = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   customerDataValidatorScript?: string;
+   @JsonProperty("customerDataValidatorScript", String, true)
+   customerDataValidatorScript?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   isApproved?: boolean;
+   @JsonProperty("isApproved", Boolean, true)
+   isApproved?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   createdBy?: string;
+   @JsonProperty("createdBy", String, true)
+   createdBy?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   createdOn?: string;
+   @JsonProperty("createdOn", String, true)
+   createdOn?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   modifiedBy?: string;
+   @JsonProperty("modifiedBy", String, true)
+   modifiedBy?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   modifiedOn?: string;
+   @JsonProperty("modifiedOn", String, true)
+   modifiedOn?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   approvedBy?: string;
+   @JsonProperty("approvedBy", String, true)
+   approvedBy?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   isSystemRule?: boolean;
+   @JsonProperty("isSystemRule", Boolean, true)
+   isSystemRule?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   isVisibleInCUP?: boolean;
+   @JsonProperty("isVisibleInCUP", Boolean, true)
+   isVisibleInCUP?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   isTest?: boolean;
+   @JsonProperty("isTest", Boolean, true)
+   isTest?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   customerDataSchema?: string;
+   @JsonProperty("customerDataSchema", String, true)
+   customerDataSchema?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   version?: number;
+   @JsonProperty("version", Number, true)
+   version?: number | undefined = undefined;
     /**
      * @type {number[]}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   accountsVisibleFor?: number[];
+   @JsonProperty("accountsVisibleFor", [Number], true)
+   accountsVisibleFor?: number[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   ruleId?: string;
+   @JsonProperty("ruleId", String, true)
+   ruleId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   arEntitlementRequired?: boolean;
+   @JsonProperty("arEntitlementRequired", Boolean, true)
+   arEntitlementRequired?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   executionPosition?: string;
+   @JsonProperty("executionPosition", String, true)
+   executionPosition?: string | undefined = undefined;
  }

@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -22,4 +23,14 @@
         Address = 0,
         Zip9 = 1,
         Zip5 = 2,
+}
+
+@JsonConverter
+export class BoundaryLevelConverter implements JsonCustomConvert<BoundaryLevel> {
+    serialize(data: BoundaryLevel) {
+        return data;
+    }
+    deserialize(enumType: string): BoundaryLevel {
+        return BoundaryLevel[enumType as keyof typeof BoundaryLevel];
+    }
 }

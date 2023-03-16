@@ -10,68 +10,80 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CompanyAddress } from "./CompanyAddress";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a request for a free trial account for AvaTax.
 Free trial accounts are only available on the Sandbox environment.
  * @export
- * @interface FreeTrialRequestModel
+ * @class FreeTrialRequestModel
  */
- export interface FreeTrialRequestModel {
+ @JsonObject("FreeTrialRequestModel")
+ export class FreeTrialRequestModel {
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   firstName: string;
+   @JsonProperty("firstName", String)
+   firstName: string = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   lastName: string;
+   @JsonProperty("lastName", String)
+   lastName: string = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   email: string;
+   @JsonProperty("email", String)
+   email: string = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   company: string;
+   @JsonProperty("company", String)
+   company: string = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   phone: string;
+   @JsonProperty("phone", String)
+   phone: string = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   campaign?: string;
+   @JsonProperty("campaign", String, true)
+   campaign?: string | undefined = undefined;
     /**
-     * @type {Models.CompanyAddress}
+     * @type {CompanyAddress}
      * @memberof FreeTrialRequestModel
      */
-   companyAddress: Models.CompanyAddress;
+   @JsonProperty("companyAddress", CompanyAddress)
+   companyAddress: CompanyAddress = undefined;
     /**
      * @type {string}
      * @memberof FreeTrialRequestModel
      */
-   website?: string;
+   @JsonProperty("website", String, true)
+   website?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FreeTrialRequestModel
      */
-   haveReadAvalaraTermsAndConditions: boolean;
+   @JsonProperty("haveReadAvalaraTermsAndConditions", Boolean)
+   haveReadAvalaraTermsAndConditions: boolean = undefined;
     /**
      * @type {boolean}
      * @memberof FreeTrialRequestModel
      */
-   acceptAvalaraTermsAndConditions: boolean;
+   @JsonProperty("acceptAvalaraTermsAndConditions", Boolean)
+   acceptAvalaraTermsAndConditions: boolean = undefined;
  }

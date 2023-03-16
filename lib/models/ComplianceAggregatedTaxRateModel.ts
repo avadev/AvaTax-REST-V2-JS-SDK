@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model for aggregated rates.
  * @export
- * @interface ComplianceAggregatedTaxRateModel
+ * @class ComplianceAggregatedTaxRateModel
  */
- export interface ComplianceAggregatedTaxRateModel {
+ @JsonObject("ComplianceAggregatedTaxRateModel")
+ export class ComplianceAggregatedTaxRateModel {
     /**
      * @type {number}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   rate?: number;
+   @JsonProperty("rate", Number, true)
+   rate?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   stackRate?: number;
+   @JsonProperty("stackRate", Number, true)
+   stackRate?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceAggregatedTaxRateModel
      */
-   rateTypeId?: string;
+   @JsonProperty("rateTypeId", String, true)
+   rateTypeId?: string | undefined = undefined;
  }

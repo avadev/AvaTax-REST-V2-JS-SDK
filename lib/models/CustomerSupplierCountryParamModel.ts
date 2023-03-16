@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a parameter associated with a company.
  * @export
- * @interface CustomerSupplierCountryParamModel
+ * @class CustomerSupplierCountryParamModel
  */
- export interface CustomerSupplierCountryParamModel {
+ @JsonObject("CustomerSupplierCountryParamModel")
+ export class CustomerSupplierCountryParamModel {
     /**
      * @type {number}
      * @memberof CustomerSupplierCountryParamModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CustomerSupplierCountryParamModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CustomerSupplierCountryParamModel
      */
-   customerId?: number;
+   @JsonProperty("customerId", Number, true)
+   customerId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
      */
-   customerCode?: string;
+   @JsonProperty("customerCode", String, true)
+   customerCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerSupplierCountryParamModel
      */
-   isEstablished?: boolean;
+   @JsonProperty("isEstablished", Boolean, true)
+   isEstablished?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerSupplierCountryParamModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerSupplierCountryParamModel
      */
-   isRegisteredThroughFiscalRep?: boolean;
+   @JsonProperty("isRegisteredThroughFiscalRep", Boolean, true)
+   isRegisteredThroughFiscalRep?: boolean | undefined = undefined;
  }

@@ -10,27 +10,32 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CreateTransactionModel } from "./CreateTransactionModel";
+import { TransactionModel } from "./TransactionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents the exact API request and response from the original transaction API call, if available
  * @export
- * @interface OriginalApiRequestResponseModel
+ * @class OriginalApiRequestResponseModel
  */
- export interface OriginalApiRequestResponseModel {
+ @JsonObject("OriginalApiRequestResponseModel")
+ export class OriginalApiRequestResponseModel {
     /**
-     * @type {Models.CreateTransactionModel}
+     * @type {CreateTransactionModel}
      * @memberof OriginalApiRequestResponseModel
      */
-   request?: Models.CreateTransactionModel;
+   @JsonProperty("request", CreateTransactionModel, true)
+   request?: CreateTransactionModel | undefined = undefined;
     /**
-     * @type {Models.TransactionModel}
+     * @type {TransactionModel}
      * @memberof OriginalApiRequestResponseModel
      */
-   response?: Models.TransactionModel;
+   @JsonProperty("response", TransactionModel, true)
+   response?: TransactionModel | undefined = undefined;
  }

@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface ItemTagDetailInputModel
+ * @class ItemTagDetailInputModel
  */
- export interface ItemTagDetailInputModel {
+ @JsonObject("ItemTagDetailInputModel")
+ export class ItemTagDetailInputModel {
     /**
      * @type {string}
      * @memberof ItemTagDetailInputModel
      */
-   tagName: string;
+   @JsonProperty("tagName", String)
+   tagName: string = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailInputModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailInputModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
  }

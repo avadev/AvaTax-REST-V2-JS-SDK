@@ -10,64 +10,74 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The "Unit of Measurement" model captures information about a type of measurement.  Types of measurement refer to
 different scales for the same dimension.  For example, measurements of type "Distance" may include units of measurement
 such as meters, feet, inches, and miles.
  * @export
- * @interface UomModel
+ * @class UomModel
  */
- export interface UomModel {
+ @JsonObject("UomModel")
+ export class UomModel {
     /**
      * @type {number}
      * @memberof UomModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   shortDesc?: string;
+   @JsonProperty("shortDesc", String, true)
+   shortDesc?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof UomModel
      */
-   measurementTypeId?: number;
+   @JsonProperty("measurementTypeId", Number, true)
+   measurementTypeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   measurementTypeCode?: string;
+   @JsonProperty("measurementTypeCode", String, true)
+   measurementTypeCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   siUOM?: string;
+   @JsonProperty("siUOM", String, true)
+   siUOM?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UomModel
      */
-   measurementTypeDescription?: string;
+   @JsonProperty("measurementTypeDescription", String, true)
+   measurementTypeDescription?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof UomModel
      */
-   isSiUom?: boolean;
+   @JsonProperty("isSiUom", Boolean, true)
+   isSiUom?: boolean | undefined = undefined;
  }

@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface CompanyUserDefinedFieldModel
+ * @class CompanyUserDefinedFieldModel
  */
- export interface CompanyUserDefinedFieldModel {
+ @JsonObject("CompanyUserDefinedFieldModel")
+ export class CompanyUserDefinedFieldModel {
     /**
      * @type {number}
      * @memberof CompanyUserDefinedFieldModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyUserDefinedFieldModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyUserDefinedFieldModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof CompanyUserDefinedFieldModel
      */
-   friendlyName: string;
+   @JsonProperty("friendlyName", String)
+   friendlyName: string = undefined;
     /**
      * @type {Enums.UserDefinedFieldDataType}
      * @memberof CompanyUserDefinedFieldModel
      */
-   dataType?: Enums.UserDefinedFieldDataType;
+   @JsonProperty("dataType", Enums.UserDefinedFieldDataTypeConverter, true)
+   dataType?: Enums.UserDefinedFieldDataType | undefined = undefined;
     /**
      * @type {Enums.UserDefinedFieldType}
      * @memberof CompanyUserDefinedFieldModel
      */
-   userDefinedFieldType?: Enums.UserDefinedFieldType;
+   @JsonProperty("userDefinedFieldType", Enums.UserDefinedFieldTypeConverter, true)
+   userDefinedFieldType?: Enums.UserDefinedFieldType | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyUserDefinedFieldModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyUserDefinedFieldModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyUserDefinedFieldModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyUserDefinedFieldModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

@@ -10,93 +10,109 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax code that can be applied to items on a transaction.
 A tax code can have specific rules for specific jurisdictions that change the tax calculation behavior.
  * @export
- * @interface TaxCodeModel
+ * @class TaxCodeModel
  */
- export interface TaxCodeModel {
+ @JsonObject("TaxCodeModel")
+ export class TaxCodeModel {
     /**
      * @type {number}
      * @memberof TaxCodeModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxCodeModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   taxCode: string;
+   @JsonProperty("taxCode", String)
+   taxCode: string = undefined;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   taxCodeTypeId: string;
+   @JsonProperty("taxCodeTypeId", String)
+   taxCodeTypeId: string = undefined;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   parentTaxCode?: string;
+   @JsonProperty("parentTaxCode", String, true)
+   parentTaxCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxCodeModel
      */
-   isPhysical?: boolean;
+   @JsonProperty("isPhysical", Boolean, true)
+   isPhysical?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxCodeModel
      */
-   goodsServiceCode?: number;
+   @JsonProperty("goodsServiceCode", Number, true)
+   goodsServiceCode?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxCodeModel
      */
-   entityUseCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxCodeModel
      */
-   isActive?: boolean;
+   @JsonProperty("isActive", Boolean, true)
+   isActive?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxCodeModel
      */
-   isSSTCertified?: boolean;
+   @JsonProperty("isSSTCertified", Boolean, true)
+   isSSTCertified?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxCodeModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxCodeModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxCodeModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxCodeModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

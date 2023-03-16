@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CertExpressInvitationModel } from "./CertExpressInvitationModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represent what is the current status of certificate request
  * @export
- * @interface CertExpressInvitationStatusModel
+ * @class CertExpressInvitationStatusModel
  */
- export interface CertExpressInvitationStatusModel {
+ @JsonObject("CertExpressInvitationStatusModel")
+ export class CertExpressInvitationStatusModel {
     /**
      * @type {Enums.CertExpressInvitationStatus}
      * @memberof CertExpressInvitationStatusModel
      */
-   status?: Enums.CertExpressInvitationStatus;
+   @JsonProperty("status", Enums.CertExpressInvitationStatusConverter, true)
+   status?: Enums.CertExpressInvitationStatus | undefined = undefined;
     /**
-     * @type {Models.CertExpressInvitationModel}
+     * @type {CertExpressInvitationModel}
      * @memberof CertExpressInvitationStatusModel
      */
-   invitation?: Models.CertExpressInvitationModel;
+   @JsonProperty("invitation", CertExpressInvitationModel, true)
+   invitation?: CertExpressInvitationModel | undefined = undefined;
  }

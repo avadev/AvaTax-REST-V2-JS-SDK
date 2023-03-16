@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An account user who is permitted to use AvaTax.
  * @export
- * @interface AccountLicenseKeyModel
+ * @class AccountLicenseKeyModel
  */
- export interface AccountLicenseKeyModel {
+ @JsonObject("AccountLicenseKeyModel")
+ export class AccountLicenseKeyModel {
     /**
      * @type {string}
      * @memberof AccountLicenseKeyModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {number}
      * @memberof AccountLicenseKeyModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {Date}
      * @memberof AccountLicenseKeyModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountLicenseKeyModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountLicenseKeyModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountLicenseKeyModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

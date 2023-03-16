@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The Request for the /ageVerification/verify endpoint. Describes information about the person whose age is being verified.
  * @export
- * @interface AgeVerifyRequest
+ * @class AgeVerifyRequest
  */
- export interface AgeVerifyRequest {
+ @JsonObject("AgeVerifyRequest")
+ export class AgeVerifyRequest {
     /**
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   firstName?: string;
+   @JsonProperty("firstName", String, true)
+   firstName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   lastName?: string;
+   @JsonProperty("lastName", String, true)
+   lastName?: string | undefined = undefined;
     /**
      * @type {object}
      * @memberof AgeVerifyRequest
      */
-   address?: object;
+   @JsonProperty("address", Object, true)
+   address?: object | undefined = undefined;
     /**
      * @type {string}
      * @memberof AgeVerifyRequest
      */
-   DOB?: string;
+   @JsonProperty("DOB", String, true)
+   DOB?: string | undefined = undefined;
  }

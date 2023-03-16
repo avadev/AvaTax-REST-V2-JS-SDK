@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents item tax code model
  * @export
- * @interface ItemTaxCodeModel
+ * @class ItemTaxCodeModel
  */
- export interface ItemTaxCodeModel {
+ @JsonObject("ItemTaxCodeModel")
+ export class ItemTaxCodeModel {
     /**
      * @type {string}
      * @memberof ItemTaxCodeModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTaxCodeModel
      */
-   rank?: number;
+   @JsonProperty("rank", Number, true)
+   rank?: number | undefined = undefined;
  }

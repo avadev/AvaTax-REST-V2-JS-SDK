@@ -10,37 +10,43 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CycleSafeFilingCalendarEditModel } from "./CycleSafeFilingCalendarEditModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Options for expiring a filing calendar.
  * @export
- * @interface CycleSafeEditRequestModel
+ * @class CycleSafeEditRequestModel
  */
- export interface CycleSafeEditRequestModel {
+ @JsonObject("CycleSafeEditRequestModel")
+ export class CycleSafeEditRequestModel {
     /**
      * @type {number}
      * @memberof CycleSafeEditRequestModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleSafeEditRequestModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CycleSafeEditRequestModel
      */
-   filingCalendarId?: number;
+   @JsonProperty("filingCalendarId", Number, true)
+   filingCalendarId?: number | undefined = undefined;
     /**
-     * @type {Models.CycleSafeFilingCalendarEditModel[]}
+     * @type {CycleSafeFilingCalendarEditModel[]}
      * @memberof CycleSafeEditRequestModel
      */
-   edits?: Models.CycleSafeFilingCalendarEditModel[];
+   @JsonProperty("edits", [CycleSafeFilingCalendarEditModel], true)
+   edits?: CycleSafeFilingCalendarEditModel[] | undefined = undefined;
  }

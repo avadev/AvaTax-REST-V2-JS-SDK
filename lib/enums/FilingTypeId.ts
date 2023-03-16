@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -26,4 +27,14 @@
         PhonePaper = 4,
         SignatureReady = 5,
         EfileCheck = 6,
+}
+
+@JsonConverter
+export class FilingTypeIdConverter implements JsonCustomConvert<FilingTypeId> {
+    serialize(data: FilingTypeId) {
+        return data;
+    }
+    deserialize(enumType: string): FilingTypeId {
+        return FilingTypeId[enumType as keyof typeof FilingTypeId];
+    }
 }

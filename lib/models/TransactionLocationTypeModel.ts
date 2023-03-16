@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about a location type
  * @export
- * @interface TransactionLocationTypeModel
+ * @class TransactionLocationTypeModel
  */
- export interface TransactionLocationTypeModel {
+ @JsonObject("TransactionLocationTypeModel")
+ export class TransactionLocationTypeModel {
     /**
      * @type {number}
      * @memberof TransactionLocationTypeModel
      */
-   documentLocationTypeId?: number;
+   @JsonProperty("documentLocationTypeId", Number, true)
+   documentLocationTypeId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLocationTypeModel
      */
-   documentId?: number;
+   @JsonProperty("documentId", Number, true)
+   documentId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionLocationTypeModel
      */
-   documentAddressId?: number;
+   @JsonProperty("documentAddressId", Number, true)
+   documentAddressId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionLocationTypeModel
      */
-   locationTypeCode?: string;
+   @JsonProperty("locationTypeCode", String, true)
+   locationTypeCode?: string | undefined = undefined;
  }

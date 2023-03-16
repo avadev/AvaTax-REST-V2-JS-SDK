@@ -10,43 +10,53 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CreateTransactionModel } from "./CreateTransactionModel";
+import { BatchAdjustTransactionModel } from "./BatchAdjustTransactionModel";
+import { CreateOrAdjustTransactionModel } from "./CreateOrAdjustTransactionModel";
+import { BatchVoidTransactionModel } from "./BatchVoidTransactionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a transaction batch item.
 Only one child transaction model should contain data.
  * @export
- * @interface TransactionBatchItemModel
+ * @class TransactionBatchItemModel
  */
- export interface TransactionBatchItemModel {
+ @JsonObject("TransactionBatchItemModel")
+ export class TransactionBatchItemModel {
     /**
      * @type {string}
      * @memberof TransactionBatchItemModel
      */
-   memo?: string;
+   @JsonProperty("memo", String, true)
+   memo?: string | undefined = undefined;
     /**
-     * @type {Models.CreateTransactionModel}
+     * @type {CreateTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   createTransactionModel?: Models.CreateTransactionModel;
+   @JsonProperty("createTransactionModel", CreateTransactionModel, true)
+   createTransactionModel?: CreateTransactionModel | undefined = undefined;
     /**
-     * @type {Models.BatchAdjustTransactionModel}
+     * @type {BatchAdjustTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   adjustTransactionModel?: Models.BatchAdjustTransactionModel;
+   @JsonProperty("adjustTransactionModel", BatchAdjustTransactionModel, true)
+   adjustTransactionModel?: BatchAdjustTransactionModel | undefined = undefined;
     /**
-     * @type {Models.CreateOrAdjustTransactionModel}
+     * @type {CreateOrAdjustTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   createOrAdjustTransactionModel?: Models.CreateOrAdjustTransactionModel;
+   @JsonProperty("createOrAdjustTransactionModel", CreateOrAdjustTransactionModel, true)
+   createOrAdjustTransactionModel?: CreateOrAdjustTransactionModel | undefined = undefined;
     /**
-     * @type {Models.BatchVoidTransactionModel}
+     * @type {BatchVoidTransactionModel}
      * @memberof TransactionBatchItemModel
      */
-   voidTransactionModel?: Models.BatchVoidTransactionModel;
+   @JsonProperty("voidTransactionModel", BatchVoidTransactionModel, true)
+   voidTransactionModel?: BatchVoidTransactionModel | undefined = undefined;
  }

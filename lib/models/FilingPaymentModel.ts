@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model for return payments.
  * @export
- * @interface FilingPaymentModel
+ * @class FilingPaymentModel
  */
- export interface FilingPaymentModel {
+ @JsonObject("FilingPaymentModel")
+ export class FilingPaymentModel {
     /**
      * @type {number}
      * @memberof FilingPaymentModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingPaymentModel
      */
-   filingId: number;
+   @JsonProperty("filingId", Number)
+   filingId: number = undefined;
     /**
      * @type {number}
      * @memberof FilingPaymentModel
      */
-   paymentAmount: number;
+   @JsonProperty("paymentAmount", Number)
+   paymentAmount: number = undefined;
     /**
      * @type {Enums.PaymentType}
      * @memberof FilingPaymentModel
      */
-   type: Enums.PaymentType;
+   @JsonProperty("type", Enums.PaymentTypeConverter)
+   type: Enums.PaymentType = undefined;
     /**
      * @type {boolean}
      * @memberof FilingPaymentModel
      */
-   isCalculated?: boolean;
+   @JsonProperty("isCalculated", Boolean, true)
+   isCalculated?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingPaymentModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingPaymentModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingPaymentModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingPaymentModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

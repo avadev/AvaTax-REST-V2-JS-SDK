@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax type group
  * @export
- * @interface TaxTypeGroupModel
+ * @class TaxTypeGroupModel
  */
- export interface TaxTypeGroupModel {
+ @JsonObject("TaxTypeGroupModel")
+ export class TaxTypeGroupModel {
     /**
      * @type {number}
      * @memberof TaxTypeGroupModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   taxTypeGroup?: string;
+   @JsonProperty("taxTypeGroup", String, true)
+   taxTypeGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxTypeGroupModel
      */
-   subscriptionTypeId?: number;
+   @JsonProperty("subscriptionTypeId", Number, true)
+   subscriptionTypeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   subscriptionDescription?: string;
+   @JsonProperty("subscriptionDescription", String, true)
+   subscriptionDescription?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxTypeGroupModel
      */
-   tabName?: string;
+   @JsonProperty("tabName", String, true)
+   tabName?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxTypeGroupModel
      */
-   showColumn?: boolean;
+   @JsonProperty("showColumn", Boolean, true)
+   showColumn?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxTypeGroupModel
      */
-   displaySequence?: number;
+   @JsonProperty("displaySequence", Number, true)
+   displaySequence?: number | undefined = undefined;
  }

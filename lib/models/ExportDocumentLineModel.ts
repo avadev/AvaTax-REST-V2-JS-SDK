@@ -10,117 +10,138 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An input model for executing a report detailed to the document line level
  * @export
- * @interface ExportDocumentLineModel
+ * @class ExportDocumentLineModel
  */
- export interface ExportDocumentLineModel {
+ @JsonObject("ExportDocumentLineModel")
+ export class ExportDocumentLineModel {
     /**
      * @type {Enums.ReportFormat}
      * @memberof ExportDocumentLineModel
      */
-   format?: Enums.ReportFormat;
+   @JsonProperty("format", Enums.ReportFormatConverter, true)
+   format?: Enums.ReportFormat | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ExportDocumentLineModel
      */
-   startDate?: Date;
+   @JsonProperty("startDate", DateConverter, true)
+   startDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ExportDocumentLineModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   state?: string;
+   @JsonProperty("state", String, true)
+   state?: string | undefined = undefined;
     /**
      * @type {Enums.ReportDateFilter}
      * @memberof ExportDocumentLineModel
      */
-   dateFilter?: Enums.ReportDateFilter;
+   @JsonProperty("dateFilter", Enums.ReportDateFilterConverter, true)
+   dateFilter?: Enums.ReportDateFilter | undefined = undefined;
     /**
      * @type {Enums.ReportDocType}
      * @memberof ExportDocumentLineModel
      */
-   docType?: Enums.ReportDocType;
+   @JsonProperty("docType", Enums.ReportDocTypeConverter, true)
+   docType?: Enums.ReportDocType | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   currencyCode?: string;
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ExportDocumentLineModel
      */
-   numberOfPartitions?: number;
+   @JsonProperty("numberOfPartitions", Number, true)
+   numberOfPartitions?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ExportDocumentLineModel
      */
-   partition?: number;
+   @JsonProperty("partition", Number, true)
+   partition?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ExportDocumentLineModel
      */
-   isLocked?: boolean;
+   @JsonProperty("isLocked", Boolean, true)
+   isLocked?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   merchantSellerIdentifier?: string;
+   @JsonProperty("merchantSellerIdentifier", String, true)
+   merchantSellerIdentifier?: string | undefined = undefined;
     /**
      * @type {Enums.DocumentStatus}
      * @memberof ExportDocumentLineModel
      */
-   documentStatus?: Enums.DocumentStatus;
+   @JsonProperty("documentStatus", Enums.DocumentStatusConverter, true)
+   documentStatus?: Enums.DocumentStatus | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ExportDocumentLineModel
      */
-   isModifiedDateSameAsDocumentDate?: boolean;
+   @JsonProperty("isModifiedDateSameAsDocumentDate", Boolean, true)
+   isModifiedDateSameAsDocumentDate?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxGroup?: string;
+   @JsonProperty("taxGroup", String, true)
+   taxGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxName?: string;
+   @JsonProperty("taxName", String, true)
+   taxName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   customerVendorCode?: string;
+   @JsonProperty("customerVendorCode", String, true)
+   customerVendorCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */
-   taxSubType?: string;
+   @JsonProperty("taxSubType", String, true)
+   taxSubType?: string | undefined = undefined;
     /**
      * @type {Enums.ReportSource}
      * @memberof ExportDocumentLineModel
      */
-   reportSource?: Enums.ReportSource;
+   @JsonProperty("reportSource", Enums.ReportSourceConverter, true)
+   reportSource?: Enums.ReportSource | undefined = undefined;
  }

@@ -10,77 +10,90 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * usage of system defined parameters for returns.
  * @export
- * @interface ReturnsParameterUsageModel
+ * @class ReturnsParameterUsageModel
  */
- export interface ReturnsParameterUsageModel {
+ @JsonObject("ReturnsParameterUsageModel")
+ export class ReturnsParameterUsageModel {
     /**
      * @type {number}
      * @memberof ReturnsParameterUsageModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReturnsParameterUsageModel
      */
-   parameterId?: number;
+   @JsonProperty("parameterId", Number, true)
+   parameterId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   productCode?: string;
+   @JsonProperty("productCode", String, true)
+   productCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   attributeType?: string;
+   @JsonProperty("attributeType", String, true)
+   attributeType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   dataType?: string;
+   @JsonProperty("dataType", String, true)
+   dataType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   helpText?: string;
+   @JsonProperty("helpText", String, true)
+   helpText?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   label?: string;
+   @JsonProperty("label", String, true)
+   label?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   helpUrl?: string;
+   @JsonProperty("helpUrl", String, true)
+   helpUrl?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ReturnsParameterUsageModel
      */
-   values?: string[];
+   @JsonProperty("values", [String], true)
+   values?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
-   measurementType?: string;
+   @JsonProperty("measurementType", String, true)
+   measurementType?: string | undefined = undefined;
  }

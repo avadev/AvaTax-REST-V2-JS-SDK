@@ -10,92 +10,108 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * usage of system defined parameters.
  * @export
- * @interface ParameterUsageModel
+ * @class ParameterUsageModel
  */
- export interface ParameterUsageModel {
+ @JsonObject("ParameterUsageModel")
+ export class ParameterUsageModel {
     /**
      * @type {number}
      * @memberof ParameterUsageModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ParameterUsageModel
      */
-   parameterId?: number;
+   @JsonProperty("parameterId", Number, true)
+   parameterId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   productCode?: string;
+   @JsonProperty("productCode", String, true)
+   productCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ParameterUsageModel
      */
-   systemId?: number;
+   @JsonProperty("systemId", Number, true)
+   systemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   attributeType?: string;
+   @JsonProperty("attributeType", String, true)
+   attributeType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   dataType?: string;
+   @JsonProperty("dataType", String, true)
+   dataType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   helpText?: string;
+   @JsonProperty("helpText", String, true)
+   helpText?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   label?: string;
+   @JsonProperty("label", String, true)
+   label?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   helpUrl?: string;
+   @JsonProperty("helpUrl", String, true)
+   helpUrl?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ParameterUsageModel
      */
-   values?: string[];
+   @JsonProperty("values", [String], true)
+   values?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof ParameterUsageModel
      */
-   measurementType?: string;
+   @JsonProperty("measurementType", String, true)
+   measurementType?: string | undefined = undefined;
  }

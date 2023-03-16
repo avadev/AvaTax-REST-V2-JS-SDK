@@ -10,87 +10,103 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { BatchFileModel } from "./BatchFileModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a create transaction batch response model.
  * @export
- * @interface CreateTransactionBatchResponseModel
+ * @class CreateTransactionBatchResponseModel
  */
- export interface CreateTransactionBatchResponseModel {
+ @JsonObject("CreateTransactionBatchResponseModel")
+ export class CreateTransactionBatchResponseModel {
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateTransactionBatchResponseModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {Enums.BatchStatus}
      * @memberof CreateTransactionBatchResponseModel
      */
-   status?: Enums.BatchStatus;
+   @JsonProperty("status", Enums.BatchStatusConverter, true)
+   status?: Enums.BatchStatus | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateTransactionBatchResponseModel
      */
-   startedDate?: Date;
+   @JsonProperty("startedDate", DateConverter, true)
+   startedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   recordCount?: number;
+   @JsonProperty("recordCount", Number, true)
+   recordCount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   currentRecord?: number;
+   @JsonProperty("currentRecord", Number, true)
+   currentRecord?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateTransactionBatchResponseModel
      */
-   completedDate?: Date;
+   @JsonProperty("completedDate", DateConverter, true)
+   completedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateTransactionBatchResponseModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateTransactionBatchResponseModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateTransactionBatchResponseModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.BatchFileModel[]}
+     * @type {BatchFileModel[]}
      * @memberof CreateTransactionBatchResponseModel
      */
-   files?: Models.BatchFileModel[];
+   @JsonProperty("files", [BatchFileModel], true)
+   files?: BatchFileModel[] | undefined = undefined;
  }

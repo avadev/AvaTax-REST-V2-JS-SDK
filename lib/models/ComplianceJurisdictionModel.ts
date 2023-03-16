@@ -10,72 +10,85 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ComplianceAggregatedTaxRateModel } from "./ComplianceAggregatedTaxRateModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model for distinct jurisdictions.
  * @export
- * @interface ComplianceJurisdictionModel
+ * @class ComplianceJurisdictionModel
  */
- export interface ComplianceJurisdictionModel {
+ @JsonObject("ComplianceJurisdictionModel")
+ export class ComplianceJurisdictionModel {
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionModel
      */
-   taxRegionId?: number;
+   @JsonProperty("taxRegionId", Number, true)
+   taxRegionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   stateAssignedCode?: string;
+   @JsonProperty("stateAssignedCode", String, true)
+   stateAssignedCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   jurisdictionTypeId?: string;
+   @JsonProperty("jurisdictionTypeId", String, true)
+   jurisdictionTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   county?: string;
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionModel
      */
-   taxRegionName?: string;
+   @JsonProperty("taxRegionName", String, true)
+   taxRegionName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
-     * @type {Models.ComplianceAggregatedTaxRateModel[]}
+     * @type {ComplianceAggregatedTaxRateModel[]}
      * @memberof ComplianceJurisdictionModel
      */
-   rates?: Models.ComplianceAggregatedTaxRateModel[];
+   @JsonProperty("rates", [ComplianceAggregatedTaxRateModel], true)
+   rates?: ComplianceAggregatedTaxRateModel[] | undefined = undefined;
  }

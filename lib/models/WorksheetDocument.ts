@@ -10,62 +10,74 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { WorksheetDocumentLine } from "./WorksheetDocumentLine";
+import { Message } from "./Message";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface WorksheetDocument
+ * @class WorksheetDocument
  */
- export interface WorksheetDocument {
+ @JsonObject("WorksheetDocument")
+ export class WorksheetDocument {
     /**
      * @type {string}
      * @memberof WorksheetDocument
      */
-   docCode?: string;
+   @JsonProperty("docCode", String, true)
+   docCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof WorksheetDocument
      */
-   docDate?: Date;
+   @JsonProperty("docDate", DateConverter, true)
+   docDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof WorksheetDocument
      */
-   totalExempt?: number;
+   @JsonProperty("totalExempt", Number, true)
+   totalExempt?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof WorksheetDocument
      */
-   totalTaxable?: number;
+   @JsonProperty("totalTaxable", Number, true)
+   totalTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof WorksheetDocument
      */
-   totalTax?: number;
+   @JsonProperty("totalTax", Number, true)
+   totalTax?: number | undefined = undefined;
     /**
-     * @type {Models.WorksheetDocumentLine[]}
+     * @type {WorksheetDocumentLine[]}
      * @memberof WorksheetDocument
      */
-   lines?: Models.WorksheetDocumentLine[];
+   @JsonProperty("lines", [WorksheetDocumentLine], true)
+   lines?: WorksheetDocumentLine[] | undefined = undefined;
     /**
-     * @type {Models.Message[]}
+     * @type {Message[]}
      * @memberof WorksheetDocument
      */
-   messages?: Models.Message[];
+   @JsonProperty("messages", [Message], true)
+   messages?: Message[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof WorksheetDocument
      */
-   resultCode?: string;
+   @JsonProperty("resultCode", String, true)
+   resultCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof WorksheetDocument
      */
-   transactionId?: string;
+   @JsonProperty("transactionId", String, true)
+   transactionId?: string | undefined = undefined;
  }

@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Filing Returns Model
  * @export
- * @interface FiledReturnModel
+ * @class FiledReturnModel
  */
- export interface FiledReturnModel {
+ @JsonObject("FiledReturnModel")
+ export class FiledReturnModel {
     /**
      * @type {number}
      * @memberof FiledReturnModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FiledReturnModel
      */
-   endPeriodMonth?: number;
+   @JsonProperty("endPeriodMonth", Number, true)
+   endPeriodMonth?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FiledReturnModel
      */
-   endPeriodYear?: number;
+   @JsonProperty("endPeriodYear", Number, true)
+   endPeriodYear?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FiledReturnModel
      */
-   taxformCode?: string;
+   @JsonProperty("taxformCode", String, true)
+   taxformCode?: string | undefined = undefined;
  }

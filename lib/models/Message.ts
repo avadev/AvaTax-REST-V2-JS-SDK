@@ -10,52 +10,60 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface Message
+ * @class Message
  */
- export interface Message {
+ @JsonObject("Message")
+ export class Message {
     /**
      * @type {string}
      * @memberof Message
      */
-   details?: string;
+   @JsonProperty("details", String, true)
+   details?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   helpLink?: string;
+   @JsonProperty("helpLink", String, true)
+   helpLink?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   refersTo?: string;
+   @JsonProperty("refersTo", String, true)
+   refersTo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   severity?: string;
+   @JsonProperty("severity", String, true)
+   severity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   source?: string;
+   @JsonProperty("source", String, true)
+   source?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof Message
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
  }

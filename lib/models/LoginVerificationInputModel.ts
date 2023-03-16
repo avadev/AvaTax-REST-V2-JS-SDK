@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a verification request using Skyscraper for a company
  * @export
- * @interface LoginVerificationInputModel
+ * @class LoginVerificationInputModel
  */
- export interface LoginVerificationInputModel {
+ @JsonObject("LoginVerificationInputModel")
+ export class LoginVerificationInputModel {
     /**
      * @type {number}
      * @memberof LoginVerificationInputModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {number}
      * @memberof LoginVerificationInputModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {string}
      * @memberof LoginVerificationInputModel
      */
-   region: string;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {string}
      * @memberof LoginVerificationInputModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LoginVerificationInputModel
      */
-   username: string;
+   @JsonProperty("username", String)
+   username: string = undefined;
     /**
      * @type {string}
      * @memberof LoginVerificationInputModel
      */
-   password: string;
+   @JsonProperty("password", String)
+   password: string = undefined;
     /**
      * @type {object}
      * @memberof LoginVerificationInputModel
      */
-   additionalOptions?: object;
+   @JsonProperty("additionalOptions", Object, true)
+   additionalOptions?: object | undefined = undefined;
     /**
      * @type {number}
      * @memberof LoginVerificationInputModel
      */
-   bulkRequestId?: number;
+   @JsonProperty("bulkRequestId", Number, true)
+   bulkRequestId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof LoginVerificationInputModel
      */
-   priority?: number;
+   @JsonProperty("priority", Number, true)
+   priority?: number | undefined = undefined;
  }

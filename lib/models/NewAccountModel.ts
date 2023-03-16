@@ -10,52 +10,60 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents information about a newly created account
  * @export
- * @interface NewAccountModel
+ * @class NewAccountModel
  */
- export interface NewAccountModel {
+ @JsonObject("NewAccountModel")
+ export class NewAccountModel {
     /**
      * @type {number}
      * @memberof NewAccountModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   accountDetailsEmailedTo?: string;
+   @JsonProperty("accountDetailsEmailedTo", String, true)
+   accountDetailsEmailedTo?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NewAccountModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NewAccountModel
      */
-   emailedDate?: Date;
+   @JsonProperty("emailedDate", DateConverter, true)
+   emailedDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   limitations?: string;
+   @JsonProperty("limitations", String, true)
+   limitations?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   licenseKey?: string;
+   @JsonProperty("licenseKey", String, true)
+   licenseKey?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountModel
      */
-   paymentUrl?: string;
+   @JsonProperty("paymentUrl", String, true)
+   paymentUrl?: string | undefined = undefined;
  }

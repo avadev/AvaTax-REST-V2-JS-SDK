@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Describes an element in the harmonized tariff system.
@@ -30,47 +30,56 @@ number. Each product category within the various chapters is designated by 4, 6,
 Within AvaTax, the `HsCodeModel` object can refer to sections, chapters, headings, subheadings, or articles.  Each object represents one
 classification.  Many of these objects have child objects underneath them; these child objects are more specific than their parent objects.
  * @export
- * @interface HsCodeModel
+ * @class HsCodeModel
  */
- export interface HsCodeModel {
+ @JsonObject("HsCodeModel")
+ export class HsCodeModel {
     /**
      * @type {string}
      * @memberof HsCodeModel
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof HsCodeModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof HsCodeModel
      */
-   parentHsCodeId?: number;
+   @JsonProperty("parentHsCodeId", Number, true)
+   parentHsCodeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof HsCodeModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof HsCodeModel
      */
-   system?: string;
+   @JsonProperty("system", String, true)
+   system?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof HsCodeModel
      */
-   destinationCountry?: string;
+   @JsonProperty("destinationCountry", String, true)
+   destinationCountry?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof HsCodeModel
      */
-   effDate?: Date;
+   @JsonProperty("effDate", DateConverter, true)
+   effDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof HsCodeModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

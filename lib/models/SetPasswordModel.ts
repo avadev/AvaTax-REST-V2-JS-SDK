@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Set Password Model
  * @export
- * @interface SetPasswordModel
+ * @class SetPasswordModel
  */
- export interface SetPasswordModel {
+ @JsonObject("SetPasswordModel")
+ export class SetPasswordModel {
     /**
      * @type {string}
      * @memberof SetPasswordModel
      */
-   newPassword: string;
+   @JsonProperty("newPassword", String)
+   newPassword: string = undefined;
     /**
      * @type {boolean}
      * @memberof SetPasswordModel
      */
-   suppressResetPasswordEmail?: boolean;
+   @JsonProperty("suppressResetPasswordEmail", Boolean, true)
+   suppressResetPasswordEmail?: boolean | undefined = undefined;
  }

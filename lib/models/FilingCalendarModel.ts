@@ -10,338 +10,404 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CompanyReturnSettingModel } from "./CompanyReturnSettingModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a commitment to file a tax return on a recurring basis.
 Only used if you subscribe to Avalara Returns.
  * @export
- * @interface FilingCalendarModel
+ * @class FilingCalendarModel
  */
- export interface FilingCalendarModel {
+ @JsonObject("FilingCalendarModel")
+ export class FilingCalendarModel {
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   returnName?: string;
+   @JsonProperty("returnName", String, true)
+   returnName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   formCountry?: string;
+   @JsonProperty("formCountry", String, true)
+   formCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   formRegion?: string;
+   @JsonProperty("formRegion", String, true)
+   formRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   fiscalYearStartMonth?: number;
+   @JsonProperty("fiscalYearStartMonth", Number, true)
+   fiscalYearStartMonth?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   locationCode?: string;
+   @JsonProperty("locationCode", String, true)
+   locationCode?: string | undefined = undefined;
     /**
      * @type {Enums.OutletTypeId}
      * @memberof FilingCalendarModel
      */
-   outletTypeId?: Enums.OutletTypeId;
+   @JsonProperty("outletTypeId", Enums.OutletTypeIdConverter, true)
+   outletTypeId?: Enums.OutletTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   paymentCurrency?: string;
+   @JsonProperty("paymentCurrency", String, true)
+   paymentCurrency?: string | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof FilingCalendarModel
      */
-   filingFrequencyId: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequencyId", Enums.FilingFrequencyIdConverter)
+   filingFrequencyId: Enums.FilingFrequencyId = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   months?: number;
+   @JsonProperty("months", Number, true)
+   months?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   stateRegistrationId?: string;
+   @JsonProperty("stateRegistrationId", String, true)
+   stateRegistrationId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   localRegistrationId?: string;
+   @JsonProperty("localRegistrationId", String, true)
+   localRegistrationId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   employerIdentificationNumber?: string;
+   @JsonProperty("employerIdentificationNumber", String, true)
+   employerIdentificationNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressLine1?: string;
+   @JsonProperty("mailingAddressLine1", String, true)
+   mailingAddressLine1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressLine2?: string;
+   @JsonProperty("mailingAddressLine2", String, true)
+   mailingAddressLine2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressCity?: string;
+   @JsonProperty("mailingAddressCity", String, true)
+   mailingAddressCity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressRegion?: string;
+   @JsonProperty("mailingAddressRegion", String, true)
+   mailingAddressRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressPostalCode?: string;
+   @JsonProperty("mailingAddressPostalCode", String, true)
+   mailingAddressPostalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   mailingAddressCountry?: string;
+   @JsonProperty("mailingAddressCountry", String, true)
+   mailingAddressCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   phone?: string;
+   @JsonProperty("phone", String, true)
+   phone?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   customerFilingInstructions?: string;
+   @JsonProperty("customerFilingInstructions", String, true)
+   customerFilingInstructions?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   legalEntityName?: string;
+   @JsonProperty("legalEntityName", String, true)
+   legalEntityName?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
      */
-   effectiveDate: Date;
+   @JsonProperty("effectiveDate", DateConverter)
+   effectiveDate: Date = undefined;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {Enums.FilingTypeId}
      * @memberof FilingCalendarModel
      */
-   filingTypeId?: Enums.FilingTypeId;
+   @JsonProperty("filingTypeId", Enums.FilingTypeIdConverter, true)
+   filingTypeId?: Enums.FilingTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   eFileUsername?: string;
+   @JsonProperty("eFileUsername", String, true)
+   eFileUsername?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   eFilePassword?: string;
+   @JsonProperty("eFilePassword", String, true)
+   eFilePassword?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   prepayPercentage?: number;
+   @JsonProperty("prepayPercentage", Number, true)
+   prepayPercentage?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FilingCalendarModel
      */
-   prePaymentRequired?: boolean;
+   @JsonProperty("prePaymentRequired", Boolean, true)
+   prePaymentRequired?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   fixedPrepaymentAmount?: number;
+   @JsonProperty("fixedPrepaymentAmount", Number, true)
+   fixedPrepaymentAmount?: number | undefined = undefined;
     /**
      * @type {Enums.MatchingTaxType}
      * @memberof FilingCalendarModel
      */
-   taxTypeId: Enums.MatchingTaxType;
+   @JsonProperty("taxTypeId", Enums.MatchingTaxTypeConverter)
+   taxTypeId: Enums.MatchingTaxType = undefined;
     /**
      * @type {string[]}
      * @memberof FilingCalendarModel
      */
-   taxTypes?: string[];
+   @JsonProperty("taxTypes", [String], true)
+   taxTypes?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   internalNotes?: string;
+   @JsonProperty("internalNotes", String, true)
+   internalNotes?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   alSignOn?: string;
+   @JsonProperty("alSignOn", String, true)
+   alSignOn?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   alAccessCode?: string;
+   @JsonProperty("alAccessCode", String, true)
+   alAccessCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   meBusinessCode?: string;
+   @JsonProperty("meBusinessCode", String, true)
+   meBusinessCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   iaBen?: string;
+   @JsonProperty("iaBen", String, true)
+   iaBen?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   ctReg?: string;
+   @JsonProperty("ctReg", String, true)
+   ctReg?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other1Name?: string;
+   @JsonProperty("other1Name", String, true)
+   other1Name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other1Value?: string;
+   @JsonProperty("other1Value", String, true)
+   other1Value?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other2Name?: string;
+   @JsonProperty("other2Name", String, true)
+   other2Name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other2Value?: string;
+   @JsonProperty("other2Value", String, true)
+   other2Value?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other3Name?: string;
+   @JsonProperty("other3Name", String, true)
+   other3Name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   other3Value?: string;
+   @JsonProperty("other3Value", String, true)
+   other3Value?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxAuthorityName?: string;
+   @JsonProperty("taxAuthorityName", String, true)
+   taxAuthorityName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   taxAuthorityType?: string;
+   @JsonProperty("taxAuthorityType", String, true)
+   taxAuthorityType?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingCalendarModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   bulkAccountId?: string;
+   @JsonProperty("bulkAccountId", String, true)
+   bulkAccountId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingCalendarModel
      */
-   siteCode?: string;
+   @JsonProperty("siteCode", String, true)
+   siteCode?: string | undefined = undefined;
     /**
      * @type {Enums.BulkAccountValidationStatus}
      * @memberof FilingCalendarModel
      */
-   bulkAccountValidationStatus?: Enums.BulkAccountValidationStatus;
+   @JsonProperty("bulkAccountValidationStatus", Enums.BulkAccountValidationStatusConverter, true)
+   bulkAccountValidationStatus?: Enums.BulkAccountValidationStatus | undefined = undefined;
     /**
-     * @type {Models.CompanyReturnSettingModel[]}
+     * @type {CompanyReturnSettingModel[]}
      * @memberof FilingCalendarModel
      */
-   settings?: Models.CompanyReturnSettingModel[];
+   @JsonProperty("settings", [CompanyReturnSettingModel], true)
+   settings?: CompanyReturnSettingModel[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingCalendarModel
      */
-   autoLockOverrideDay?: number;
+   @JsonProperty("autoLockOverrideDay", Number, true)
+   autoLockOverrideDay?: number | undefined = undefined;
  }

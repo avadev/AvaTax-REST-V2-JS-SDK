@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TransactionBatchItemModel } from "./TransactionBatchItemModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a create transaction batch request model.
  * @export
- * @interface CreateTransactionBatchRequestModel
+ * @class CreateTransactionBatchRequestModel
  */
- export interface CreateTransactionBatchRequestModel {
+ @JsonObject("CreateTransactionBatchRequestModel")
+ export class CreateTransactionBatchRequestModel {
     /**
      * @type {string}
      * @memberof CreateTransactionBatchRequestModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
-     * @type {Models.TransactionBatchItemModel[]}
+     * @type {TransactionBatchItemModel[]}
      * @memberof CreateTransactionBatchRequestModel
      */
-   transactions: Models.TransactionBatchItemModel[];
+   @JsonProperty("transactions", [TransactionBatchItemModel])
+   transactions: TransactionBatchItemModel[] = undefined;
  }

@@ -10,147 +10,181 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingsTaxSummaryModel } from "./FilingsTaxSummaryModel";
+import { FilingsTaxDetailsModel } from "./FilingsTaxDetailsModel";
+import { FilingReturnCreditModel } from "./FilingReturnCreditModel";
+import { FilingAdjustmentModel } from "./FilingAdjustmentModel";
+import { FilingAugmentationModel } from "./FilingAugmentationModel";
+import { FilingPaymentModel } from "./FilingPaymentModel";
+import { FilingAttachmentModel } from "./FilingAttachmentModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Filing Returns Model
  * @export
- * @interface MultiTaxFilingReturnModel
+ * @class MultiTaxFilingReturnModel
  */
- export interface MultiTaxFilingReturnModel {
+ @JsonObject("MultiTaxFilingReturnModel")
+ export class MultiTaxFilingReturnModel {
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   filingCalendarId?: number;
+   @JsonProperty("filingCalendarId", Number, true)
+   filingCalendarId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   registrationId?: string;
+   @JsonProperty("registrationId", String, true)
+   registrationId?: string | undefined = undefined;
     /**
      * @type {Enums.FilingStatusId}
      * @memberof MultiTaxFilingReturnModel
      */
-   status?: Enums.FilingStatusId;
+   @JsonProperty("status", Enums.FilingStatusIdConverter, true)
+   status?: Enums.FilingStatusId | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof MultiTaxFilingReturnModel
      */
-   filingFrequency?: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequency", Enums.FilingFrequencyIdConverter, true)
+   filingFrequency?: Enums.FilingFrequencyId | undefined = undefined;
     /**
      * @type {Enums.FilingTypeId}
      * @memberof MultiTaxFilingReturnModel
      */
-   filingType?: Enums.FilingTypeId;
+   @JsonProperty("filingType", Enums.FilingTypeIdConverter, true)
+   filingType?: Enums.FilingTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   formName?: string;
+   @JsonProperty("formName", String, true)
+   formName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   formCode?: string;
+   @JsonProperty("formCode", String, true)
+   formCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MultiTaxFilingReturnModel
      */
-   filedDate?: Date;
+   @JsonProperty("filedDate", DateConverter, true)
+   filedDate?: Date | undefined = undefined;
     /**
      * @type {Enums.AccrualType}
      * @memberof MultiTaxFilingReturnModel
      */
-   accrualType?: Enums.AccrualType;
+   @JsonProperty("accrualType", Enums.AccrualTypeConverter, true)
+   accrualType?: Enums.AccrualType | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MultiTaxFilingReturnModel
      */
-   startPeriod?: Date;
+   @JsonProperty("startPeriod", DateConverter, true)
+   startPeriod?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MultiTaxFilingReturnModel
      */
-   endPeriod?: Date;
+   @JsonProperty("endPeriod", DateConverter, true)
+   endPeriod?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
-   type?: string;
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxSummaryModel}
+     * @type {FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   returnTaxSummary?: Models.FilingsTaxSummaryModel;
+   @JsonProperty("returnTaxSummary", FilingsTaxSummaryModel, true)
+   returnTaxSummary?: FilingsTaxSummaryModel | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxDetailsModel[]}
+     * @type {FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   returnTaxDetails?: Models.FilingsTaxDetailsModel[];
+   @JsonProperty("returnTaxDetails", [FilingsTaxDetailsModel], true)
+   returnTaxDetails?: FilingsTaxDetailsModel[] | undefined = undefined;
     /**
-     * @type {Models.FilingReturnCreditModel}
+     * @type {FilingReturnCreditModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   excludedCarryOverCredits?: Models.FilingReturnCreditModel;
+   @JsonProperty("excludedCarryOverCredits", FilingReturnCreditModel, true)
+   excludedCarryOverCredits?: FilingReturnCreditModel | undefined = undefined;
     /**
-     * @type {Models.FilingReturnCreditModel}
+     * @type {FilingReturnCreditModel}
      * @memberof MultiTaxFilingReturnModel
      */
-   appliedCarryOverCredits?: Models.FilingReturnCreditModel;
-    /**
-     * @type {number}
-     * @memberof MultiTaxFilingReturnModel
-     */
-   totalAdjustments?: number;
-    /**
-     * @type {Models.FilingAdjustmentModel[]}
-     * @memberof MultiTaxFilingReturnModel
-     */
-   adjustments?: Models.FilingAdjustmentModel[];
+   @JsonProperty("appliedCarryOverCredits", FilingReturnCreditModel, true)
+   appliedCarryOverCredits?: FilingReturnCreditModel | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   totalAugmentations?: number;
+   @JsonProperty("totalAdjustments", Number, true)
+   totalAdjustments?: number | undefined = undefined;
     /**
-     * @type {Models.FilingAugmentationModel[]}
+     * @type {FilingAdjustmentModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   augmentations?: Models.FilingAugmentationModel[];
+   @JsonProperty("adjustments", [FilingAdjustmentModel], true)
+   adjustments?: FilingAdjustmentModel[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   totalPayments?: number;
+   @JsonProperty("totalAugmentations", Number, true)
+   totalAugmentations?: number | undefined = undefined;
     /**
-     * @type {Models.FilingPaymentModel[]}
+     * @type {FilingAugmentationModel[]}
      * @memberof MultiTaxFilingReturnModel
      */
-   payments?: Models.FilingPaymentModel[];
+   @JsonProperty("augmentations", [FilingAugmentationModel], true)
+   augmentations?: FilingAugmentationModel[] | undefined = undefined;
     /**
-     * @type {Models.FilingAttachmentModel[]}
+     * @type {number}
      * @memberof MultiTaxFilingReturnModel
      */
-   attachments?: Models.FilingAttachmentModel[];
+   @JsonProperty("totalPayments", Number, true)
+   totalPayments?: number | undefined = undefined;
+    /**
+     * @type {FilingPaymentModel[]}
+     * @memberof MultiTaxFilingReturnModel
+     */
+   @JsonProperty("payments", [FilingPaymentModel], true)
+   payments?: FilingPaymentModel[] | undefined = undefined;
+    /**
+     * @type {FilingAttachmentModel[]}
+     * @memberof MultiTaxFilingReturnModel
+     */
+   @JsonProperty("attachments", [FilingAttachmentModel], true)
+   attachments?: FilingAttachmentModel[] | undefined = undefined;
  }

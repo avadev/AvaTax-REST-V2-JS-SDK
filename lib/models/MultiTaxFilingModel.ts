@@ -10,57 +10,69 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingsTaxSummaryModel } from "./FilingsTaxSummaryModel";
+import { FilingsTaxDetailsModel } from "./FilingsTaxDetailsModel";
+import { MultiTaxFilingRegionModel } from "./MultiTaxFilingRegionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a listing of all tax calculation data for filings and for accruing to future filings.
  * @export
- * @interface MultiTaxFilingModel
+ * @class MultiTaxFilingModel
  */
- export interface MultiTaxFilingModel {
+ @JsonObject("MultiTaxFilingModel")
+ export class MultiTaxFilingModel {
     /**
      * @type {number}
      * @memberof MultiTaxFilingModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingModel
      */
-   month?: number;
+   @JsonProperty("month", Number, true)
+   month?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiTaxFilingModel
      */
-   year?: number;
+   @JsonProperty("year", Number, true)
+   year?: number | undefined = undefined;
     /**
      * @type {Enums.WorksheetTypeId}
      * @memberof MultiTaxFilingModel
      */
-   type?: Enums.WorksheetTypeId;
+   @JsonProperty("type", Enums.WorksheetTypeIdConverter, true)
+   type?: Enums.WorksheetTypeId | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxSummaryModel}
+     * @type {FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingModel
      */
-   taxSummary?: Models.FilingsTaxSummaryModel;
+   @JsonProperty("taxSummary", FilingsTaxSummaryModel, true)
+   taxSummary?: FilingsTaxSummaryModel | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxDetailsModel[]}
+     * @type {FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingModel
      */
-   taxDetails?: Models.FilingsTaxDetailsModel[];
+   @JsonProperty("taxDetails", [FilingsTaxDetailsModel], true)
+   taxDetails?: FilingsTaxDetailsModel[] | undefined = undefined;
     /**
-     * @type {Models.MultiTaxFilingRegionModel[]}
+     * @type {MultiTaxFilingRegionModel[]}
      * @memberof MultiTaxFilingModel
      */
-   filingRegions?: Models.MultiTaxFilingRegionModel[];
+   @JsonProperty("filingRegions", [MultiTaxFilingRegionModel], true)
+   filingRegions?: MultiTaxFilingRegionModel[] | undefined = undefined;
  }

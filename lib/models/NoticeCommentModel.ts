@@ -10,87 +10,103 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ResourceFileUploadRequestModel } from "./ResourceFileUploadRequestModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents communication between Avalara and the company regarding the processing of a tax notice.
  * @export
- * @interface NoticeCommentModel
+ * @class NoticeCommentModel
  */
- export interface NoticeCommentModel {
+ @JsonObject("NoticeCommentModel")
+ export class NoticeCommentModel {
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   noticeId: number;
+   @JsonProperty("noticeId", Number)
+   noticeId: number = undefined;
     /**
      * @type {Date}
      * @memberof NoticeCommentModel
      */
-   date?: Date;
+   @JsonProperty("date", DateConverter, true)
+   date?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   comment?: string;
+   @JsonProperty("comment", String, true)
+   comment?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   commentUserId?: number;
+   @JsonProperty("commentUserId", Number, true)
+   commentUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   commentUserName?: string;
+   @JsonProperty("commentUserName", String, true)
+   commentUserName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   commentTypeId?: number;
+   @JsonProperty("commentTypeId", Number, true)
+   commentTypeId?: number | undefined = undefined;
     /**
      * @type {Enums.CommentType}
      * @memberof NoticeCommentModel
      */
-   commentType: Enums.CommentType;
+   @JsonProperty("commentType", Enums.CommentTypeConverter)
+   commentType: Enums.CommentType = undefined;
     /**
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   commentLink?: string;
+   @JsonProperty("commentLink", String, true)
+   commentLink?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeCommentModel
      */
-   taxNoticeFileName?: string;
+   @JsonProperty("taxNoticeFileName", String, true)
+   taxNoticeFileName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   resourceFileId?: number;
+   @JsonProperty("resourceFileId", Number, true)
+   resourceFileId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeCommentModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeCommentModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.ResourceFileUploadRequestModel}
+     * @type {ResourceFileUploadRequestModel}
      * @memberof NoticeCommentModel
      */
-   attachmentUploadRequest?: Models.ResourceFileUploadRequestModel;
+   @JsonProperty("attachmentUploadRequest", ResourceFileUploadRequestModel, true)
+   attachmentUploadRequest?: ResourceFileUploadRequestModel | undefined = undefined;
  }

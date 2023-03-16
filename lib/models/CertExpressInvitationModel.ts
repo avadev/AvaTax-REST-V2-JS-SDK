@@ -10,12 +10,14 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CustomerModel } from "./CustomerModel";
+import { CoverLetterModel } from "./CoverLetterModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents an invitation for a customer to use CertExpress to self-report their own certificates.
@@ -24,77 +26,92 @@ directly in your connector.  Your customer will be redirected to https://app.cer
 they can follow a step-by-step guide to enter information about their exemption certificates.  The
 certificates entered will be recorded and automatically linked to their customer record.
  * @export
- * @interface CertExpressInvitationModel
+ * @class CertExpressInvitationModel
  */
- export interface CertExpressInvitationModel {
+ @JsonObject("CertExpressInvitationModel")
+ export class CertExpressInvitationModel {
     /**
      * @type {number}
      * @memberof CertExpressInvitationModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertExpressInvitationModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   recipient?: string;
+   @JsonProperty("recipient", String, true)
+   recipient?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   customerCode?: string;
+   @JsonProperty("customerCode", String, true)
+   customerCode?: string | undefined = undefined;
     /**
-     * @type {Models.CustomerModel}
+     * @type {CustomerModel}
      * @memberof CertExpressInvitationModel
      */
-   customer?: Models.CustomerModel;
+   @JsonProperty("customer", CustomerModel, true)
+   customer?: CustomerModel | undefined = undefined;
     /**
-     * @type {Models.CoverLetterModel}
+     * @type {CoverLetterModel}
      * @memberof CertExpressInvitationModel
      */
-   coverLetter?: Models.CoverLetterModel;
+   @JsonProperty("coverLetter", CoverLetterModel, true)
+   coverLetter?: CoverLetterModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   emailStatus?: string;
+   @JsonProperty("emailStatus", String, true)
+   emailStatus?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertExpressInvitationModel
      */
-   coverLettersOnly?: boolean;
+   @JsonProperty("coverLettersOnly", Boolean, true)
+   coverLettersOnly?: boolean | undefined = undefined;
     /**
      * @type {number[]}
      * @memberof CertExpressInvitationModel
      */
-   exposureZones?: number[];
+   @JsonProperty("exposureZones", [Number], true)
+   exposureZones?: number[] | undefined = undefined;
     /**
      * @type {number[]}
      * @memberof CertExpressInvitationModel
      */
-   exemptReasons?: number[];
+   @JsonProperty("exemptReasons", [Number], true)
+   exemptReasons?: number[] | undefined = undefined;
     /**
      * @type {Enums.CertificateRequestDeliveryMethod}
      * @memberof CertExpressInvitationModel
      */
-   deliveryMethod?: Enums.CertificateRequestDeliveryMethod;
+   @JsonProperty("deliveryMethod", Enums.CertificateRequestDeliveryMethodConverter, true)
+   deliveryMethod?: Enums.CertificateRequestDeliveryMethod | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CertExpressInvitationModel
      */
-   date?: Date;
+   @JsonProperty("date", DateConverter, true)
+   date?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertExpressInvitationModel
      */
-   requestLink?: string;
+   @JsonProperty("requestLink", String, true)
+   requestLink?: string | undefined = undefined;
  }

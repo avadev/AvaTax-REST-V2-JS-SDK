@@ -10,102 +10,121 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { BatchFileModel } from "./BatchFileModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a batch of uploaded documents.
  * @export
- * @interface BatchModel
+ * @class BatchModel
  */
- export interface BatchModel {
+ @JsonObject("BatchModel")
+ export class BatchModel {
     /**
      * @type {Enums.BatchType}
      * @memberof BatchModel
      */
-   type: Enums.BatchType;
+   @JsonProperty("type", Enums.BatchTypeConverter)
+   type: Enums.BatchType = undefined;
     /**
      * @type {string}
      * @memberof BatchModel
      */
-   batchAgent?: string;
+   @JsonProperty("batchAgent", String, true)
+   batchAgent?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchModel
      */
-   options?: string;
+   @JsonProperty("options", String, true)
+   options?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {Enums.BatchStatus}
      * @memberof BatchModel
      */
-   status?: Enums.BatchStatus;
+   @JsonProperty("status", Enums.BatchStatusConverter, true)
+   status?: Enums.BatchStatus | undefined = undefined;
     /**
      * @type {Date}
      * @memberof BatchModel
      */
-   startedDate?: Date;
+   @JsonProperty("startedDate", DateConverter, true)
+   startedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   recordCount?: number;
+   @JsonProperty("recordCount", Number, true)
+   recordCount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   currentRecord?: number;
+   @JsonProperty("currentRecord", Number, true)
+   currentRecord?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof BatchModel
      */
-   completedDate?: Date;
+   @JsonProperty("completedDate", DateConverter, true)
+   completedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof BatchModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof BatchModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof BatchModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.BatchFileModel[]}
+     * @type {BatchFileModel[]}
      * @memberof BatchModel
      */
-   files?: Models.BatchFileModel[];
+   @JsonProperty("files", [BatchFileModel], true)
+   files?: BatchFileModel[] | undefined = undefined;
  }

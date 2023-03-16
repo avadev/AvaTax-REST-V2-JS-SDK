@@ -10,77 +10,90 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A flattened model for jurisdictions and rates.
  * @export
- * @interface ComplianceJurisdictionRateModel
+ * @class ComplianceJurisdictionRateModel
  */
- export interface ComplianceJurisdictionRateModel {
+ @JsonObject("ComplianceJurisdictionRateModel")
+ export class ComplianceJurisdictionRateModel {
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionRateModel
      */
-   jurisdictionId?: number;
+   @JsonProperty("jurisdictionId", Number, true)
+   jurisdictionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   jurisdictionTypeId?: string;
+   @JsonProperty("jurisdictionTypeId", String, true)
+   jurisdictionTypeId?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionRateModel
      */
-   rate?: number;
+   @JsonProperty("rate", Number, true)
+   rate?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   rateTypeId?: string;
+   @JsonProperty("rateTypeId", String, true)
+   rateTypeId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   taxTypeId?: string;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ComplianceJurisdictionRateModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ComplianceJurisdictionRateModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof ComplianceJurisdictionRateModel
      */
-   stateAssignedCode?: string;
+   @JsonProperty("stateAssignedCode", String, true)
+   stateAssignedCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ComplianceJurisdictionRateModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
  }

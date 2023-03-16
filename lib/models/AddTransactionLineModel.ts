@@ -10,42 +10,49 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { LineItemModel } from "./LineItemModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model to add specific lines to exising transaction
  * @export
- * @interface AddTransactionLineModel
+ * @class AddTransactionLineModel
  */
- export interface AddTransactionLineModel {
+ @JsonObject("AddTransactionLineModel")
+ export class AddTransactionLineModel {
     /**
      * @type {string}
      * @memberof AddTransactionLineModel
      */
-   companyCode: string;
+   @JsonProperty("companyCode", String)
+   companyCode: string = undefined;
     /**
      * @type {string}
      * @memberof AddTransactionLineModel
      */
-   transactionCode: string;
+   @JsonProperty("transactionCode", String)
+   transactionCode: string = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof AddTransactionLineModel
      */
-   documentType?: Enums.DocumentType;
+   @JsonProperty("documentType", Enums.DocumentTypeConverter, true)
+   documentType?: Enums.DocumentType | undefined = undefined;
     /**
-     * @type {Models.LineItemModel[]}
+     * @type {LineItemModel[]}
      * @memberof AddTransactionLineModel
      */
-   lines: Models.LineItemModel[];
+   @JsonProperty("lines", [LineItemModel])
+   lines: LineItemModel[] = undefined;
     /**
      * @type {boolean}
      * @memberof AddTransactionLineModel
      */
-   renumber?: boolean;
+   @JsonProperty("renumber", Boolean, true)
+   renumber?: boolean | undefined = undefined;
  }

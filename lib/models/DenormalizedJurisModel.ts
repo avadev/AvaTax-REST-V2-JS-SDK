@@ -10,87 +10,102 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents information about a single legal taxing jurisdiction within a specific Avalara tax region.
  * @export
- * @interface DenormalizedJurisModel
+ * @class DenormalizedJurisModel
  */
- export interface DenormalizedJurisModel {
+ @JsonObject("DenormalizedJurisModel")
+ export class DenormalizedJurisModel {
     /**
      * @type {Date}
      * @memberof DenormalizedJurisModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DenormalizedJurisModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   jurisCode?: string;
+   @JsonProperty("jurisCode", String, true)
+   jurisCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof DenormalizedJurisModel
      */
-   jurisdictionId?: number;
+   @JsonProperty("jurisdictionId", Number, true)
+   jurisdictionId?: number | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof DenormalizedJurisModel
      */
-   jurisType?: Enums.JurisdictionType;
+   @JsonProperty("jurisType", Enums.JurisdictionTypeConverter, true)
+   jurisType?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   jurisName?: string;
+   @JsonProperty("jurisName", String, true)
+   jurisName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   stateAssignedCode?: string;
+   @JsonProperty("stateAssignedCode", String, true)
+   stateAssignedCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof DenormalizedJurisModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   state?: string;
+   @JsonProperty("state", String, true)
+   state?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   county?: string;
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DenormalizedJurisModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DenormalizedJurisModel
      */
-   isAcm?: boolean;
+   @JsonProperty("isAcm", Boolean, true)
+   isAcm?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DenormalizedJurisModel
      */
-   isSst?: boolean;
+   @JsonProperty("isSst", Boolean, true)
+   isSst?: boolean | undefined = undefined;
  }

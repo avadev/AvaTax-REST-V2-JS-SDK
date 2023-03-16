@@ -10,22 +10,24 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model used to request the refresh of a CertCapture eCommerce token.
  * @export
- * @interface RefreshECommerceTokenInputModel
+ * @class RefreshECommerceTokenInputModel
  */
- export interface RefreshECommerceTokenInputModel {
+ @JsonObject("RefreshECommerceTokenInputModel")
+ export class RefreshECommerceTokenInputModel {
     /**
      * @type {string}
      * @memberof RefreshECommerceTokenInputModel
      */
-   token: string;
+   @JsonProperty("token", String)
+   token: string = undefined;
  }

@@ -10,39 +10,44 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A certificate attribute can be thought of as a feature or flag that is applied to a certificate.
 A single certificate can be linked to zero, one, or many certificate attributes.  The full list of
 attributes can be obtained by calling the `ListCertificateAttributes` API.
  * @export
- * @interface CertificateAttributeModel
+ * @class CertificateAttributeModel
  */
- export interface CertificateAttributeModel {
+ @JsonObject("CertificateAttributeModel")
+ export class CertificateAttributeModel {
     /**
      * @type {number}
      * @memberof CertificateAttributeModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateAttributeModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateAttributeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CertificateAttributeModel
      */
-   isSystemCode?: boolean;
+   @JsonProperty("isSystemCode", Boolean, true)
+   isSystemCode?: boolean | undefined = undefined;
  }

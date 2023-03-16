@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Verify this transaction by matching it to values in your accounting system.
@@ -24,22 +24,26 @@ You may specify one or more of the following fields to verify: `date`, `totalAmo
 This call will report an error if there is any difference between the data stored in AvaTax and
 the data stored in your accounting system.
  * @export
- * @interface VerifyTransactionModel
+ * @class VerifyTransactionModel
  */
- export interface VerifyTransactionModel {
+ @JsonObject("VerifyTransactionModel")
+ export class VerifyTransactionModel {
     /**
      * @type {Date}
      * @memberof VerifyTransactionModel
      */
-   verifyTransactionDate?: Date;
+   @JsonProperty("verifyTransactionDate", DateConverter, true)
+   verifyTransactionDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof VerifyTransactionModel
      */
-   verifyTotalAmount?: number;
+   @JsonProperty("verifyTotalAmount", Number, true)
+   verifyTotalAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof VerifyTransactionModel
      */
-   verifyTotalTax?: number;
+   @JsonProperty("verifyTotalTax", Number, true)
+   verifyTotalTax?: number | undefined = undefined;
  }

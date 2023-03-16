@@ -10,22 +10,25 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ErrorTransactionModelBase } from "./ErrorTransactionModelBase";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Request model for when a user is deleting multiple error transaction
  * @export
- * @interface DeleteErrorTransactionsRequestModel
+ * @class DeleteErrorTransactionsRequestModel
  */
- export interface DeleteErrorTransactionsRequestModel {
+ @JsonObject("DeleteErrorTransactionsRequestModel")
+ export class DeleteErrorTransactionsRequestModel {
     /**
-     * @type {Models.ErrorTransactionModelBase[]}
+     * @type {ErrorTransactionModelBase[]}
      * @memberof DeleteErrorTransactionsRequestModel
      */
-   models: Models.ErrorTransactionModelBase[];
+   @JsonProperty("models", [ErrorTransactionModelBase])
+   models: ErrorTransactionModelBase[] = undefined;
  }

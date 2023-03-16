@@ -10,64 +10,74 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about a physical area or zone in which a certificate can apply.
 An exposure zone for an exemption certificate will generally be a tax authority such
 as a state, country, or local government entity.
  * @export
- * @interface ExposureZoneModel
+ * @class ExposureZoneModel
  */
- export interface ExposureZoneModel {
+ @JsonObject("ExposureZoneModel")
+ export class ExposureZoneModel {
     /**
      * @type {number}
      * @memberof ExposureZoneModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ExposureZoneModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   tag?: string;
+   @JsonProperty("tag", String, true)
+   tag?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ExposureZoneModel
      */
-   created?: Date;
+   @JsonProperty("created", DateConverter, true)
+   created?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ExposureZoneModel
      */
-   modified?: Date;
+   @JsonProperty("modified", DateConverter, true)
+   modified?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExposureZoneModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
  }

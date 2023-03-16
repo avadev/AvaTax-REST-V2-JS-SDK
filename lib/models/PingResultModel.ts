@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Ping Result Model
  * @export
- * @interface PingResultModel
+ * @class PingResultModel
  */
- export interface PingResultModel {
+ @JsonObject("PingResultModel")
+ export class PingResultModel {
     /**
      * @type {string}
      * @memberof PingResultModel
      */
-   version?: string;
+   @JsonProperty("version", String, true)
+   version?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof PingResultModel
      */
-   authenticated?: boolean;
+   @JsonProperty("authenticated", Boolean, true)
+   authenticated?: boolean | undefined = undefined;
     /**
      * @type {Enums.AuthenticationTypeId}
      * @memberof PingResultModel
      */
-   authenticationType?: Enums.AuthenticationTypeId;
+   @JsonProperty("authenticationType", Enums.AuthenticationTypeIdConverter, true)
+   authenticationType?: Enums.AuthenticationTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof PingResultModel
      */
-   authenticatedUserName?: string;
+   @JsonProperty("authenticatedUserName", String, true)
+   authenticatedUserName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof PingResultModel
      */
-   authenticatedUserId?: number;
+   @JsonProperty("authenticatedUserId", Number, true)
+   authenticatedUserId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof PingResultModel
      */
-   authenticatedAccountId?: number;
+   @JsonProperty("authenticatedAccountId", Number, true)
+   authenticatedAccountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof PingResultModel
      */
-   authenticatedCompanyId?: number;
+   @JsonProperty("authenticatedCompanyId", Number, true)
+   authenticatedCompanyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof PingResultModel
      */
-   crmid?: string;
+   @JsonProperty("crmid", String, true)
+   crmid?: string | undefined = undefined;
  }

@@ -10,312 +10,377 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingAdjustmentModel } from "./FilingAdjustmentModel";
+import { FilingAugmentationModel } from "./FilingAugmentationModel";
+import { FilingPaymentModel } from "./FilingPaymentModel";
+import { FilingAttachmentModel } from "./FilingAttachmentModel";
+import { FilingReturnCreditModel } from "./FilingReturnCreditModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Filing Returns Model
  * @export
- * @interface FilingReturnModel
+ * @class FilingReturnModel
  */
- export interface FilingReturnModel {
+ @JsonObject("FilingReturnModel")
+ export class FilingReturnModel {
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   filingRegionId?: number;
+   @JsonProperty("filingRegionId", Number, true)
+   filingRegionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   filingCalendarId?: number;
+   @JsonProperty("filingCalendarId", Number, true)
+   filingCalendarId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   registrationId?: string;
+   @JsonProperty("registrationId", String, true)
+   registrationId?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   resourceFileId?: number;
+   @JsonProperty("resourceFileId", Number, true)
+   resourceFileId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {Enums.FilingStatusId}
      * @memberof FilingReturnModel
      */
-   status?: Enums.FilingStatusId;
+   @JsonProperty("status", Enums.FilingStatusIdConverter, true)
+   status?: Enums.FilingStatusId | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof FilingReturnModel
      */
-   filingFrequency?: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequency", Enums.FilingFrequencyIdConverter, true)
+   filingFrequency?: Enums.FilingFrequencyId | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingReturnModel
      */
-   filedDate?: Date;
+   @JsonProperty("filedDate", DateConverter, true)
+   filedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingReturnModel
      */
-   startPeriod?: Date;
+   @JsonProperty("startPeriod", DateConverter, true)
+   startPeriod?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingReturnModel
      */
-   endPeriod?: Date;
+   @JsonProperty("endPeriod", DateConverter, true)
+   endPeriod?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   salesAmount?: number;
+   @JsonProperty("salesAmount", Number, true)
+   salesAmount?: number | undefined = undefined;
     /**
      * @type {Enums.FilingTypeId}
      * @memberof FilingReturnModel
      */
-   filingType?: Enums.FilingTypeId;
+   @JsonProperty("filingType", Enums.FilingTypeIdConverter, true)
+   filingType?: Enums.FilingTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   formName?: string;
+   @JsonProperty("formName", String, true)
+   formName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   remitAmount?: number;
+   @JsonProperty("remitAmount", Number, true)
+   remitAmount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   formCode?: string;
+   @JsonProperty("formCode", String, true)
+   formCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxableAmount?: number;
+   @JsonProperty("taxableAmount", Number, true)
+   taxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxAmount?: number;
+   @JsonProperty("taxAmount", Number, true)
+   taxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   collectAmount?: number;
+   @JsonProperty("collectAmount", Number, true)
+   collectAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxDueAmount?: number;
+   @JsonProperty("taxDueAmount", Number, true)
+   taxDueAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   nonTaxableAmount?: number;
+   @JsonProperty("nonTaxableAmount", Number, true)
+   nonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   nonTaxableDueAmount?: number;
+   @JsonProperty("nonTaxableDueAmount", Number, true)
+   nonTaxableDueAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseTaxAmount?: number;
+   @JsonProperty("consumerUseTaxAmount", Number, true)
+   consumerUseTaxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseTaxDueAmount?: number;
+   @JsonProperty("consumerUseTaxDueAmount", Number, true)
+   consumerUseTaxDueAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseNonTaxableAmount?: number;
+   @JsonProperty("consumerUseNonTaxableAmount", Number, true)
+   consumerUseNonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseTaxableAmount?: number;
+   @JsonProperty("consumerUseTaxableAmount", Number, true)
+   consumerUseTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   totalAdjustments?: number;
+   @JsonProperty("totalAdjustments", Number, true)
+   totalAdjustments?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   excludedSalesAmount?: number;
+   @JsonProperty("excludedSalesAmount", Number, true)
+   excludedSalesAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   excludedNonTaxableAmount?: number;
+   @JsonProperty("excludedNonTaxableAmount", Number, true)
+   excludedNonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   excludedTaxAmount?: number;
+   @JsonProperty("excludedTaxAmount", Number, true)
+   excludedTaxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   carryOverSalesAmount?: number;
+   @JsonProperty("carryOverSalesAmount", Number, true)
+   carryOverSalesAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   carryOverNonTaxableAmount?: number;
+   @JsonProperty("carryOverNonTaxableAmount", Number, true)
+   carryOverNonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   carryOverTaxAmount?: number;
+   @JsonProperty("carryOverTaxAmount", Number, true)
+   carryOverTaxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   carryOverConsumerUseTaxAmount?: number;
+   @JsonProperty("carryOverConsumerUseTaxAmount", Number, true)
+   carryOverConsumerUseTaxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxAccrualAmount?: number;
+   @JsonProperty("taxAccrualAmount", Number, true)
+   taxAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   salesAccrualAmount?: number;
+   @JsonProperty("salesAccrualAmount", Number, true)
+   salesAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   nonTaxableAccrualAmount?: number;
+   @JsonProperty("nonTaxableAccrualAmount", Number, true)
+   nonTaxableAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   taxableAccrualAmount?: number;
+   @JsonProperty("taxableAccrualAmount", Number, true)
+   taxableAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   salesTaxAccrualAmount?: number;
+   @JsonProperty("salesTaxAccrualAmount", Number, true)
+   salesTaxAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   sellersUseTaxAccrualAmount?: number;
+   @JsonProperty("sellersUseTaxAccrualAmount", Number, true)
+   sellersUseTaxAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseTaxAccrualAmount?: number;
+   @JsonProperty("consumerUseTaxAccrualAmount", Number, true)
+   consumerUseTaxAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseTaxableAccrualAmount?: number;
+   @JsonProperty("consumerUseTaxableAccrualAmount", Number, true)
+   consumerUseTaxableAccrualAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   consumerUseNonTaxableAccrualAmount?: number;
+   @JsonProperty("consumerUseNonTaxableAccrualAmount", Number, true)
+   consumerUseNonTaxableAccrualAmount?: number | undefined = undefined;
     /**
-     * @type {Models.FilingAdjustmentModel[]}
+     * @type {FilingAdjustmentModel[]}
      * @memberof FilingReturnModel
      */
-   adjustments?: Models.FilingAdjustmentModel[];
-    /**
-     * @type {number}
-     * @memberof FilingReturnModel
-     */
-   totalAugmentations?: number;
-    /**
-     * @type {Models.FilingAugmentationModel[]}
-     * @memberof FilingReturnModel
-     */
-   augmentations?: Models.FilingAugmentationModel[];
+   @JsonProperty("adjustments", [FilingAdjustmentModel], true)
+   adjustments?: FilingAdjustmentModel[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   totalPayments?: number;
+   @JsonProperty("totalAugmentations", Number, true)
+   totalAugmentations?: number | undefined = undefined;
     /**
-     * @type {Models.FilingPaymentModel[]}
+     * @type {FilingAugmentationModel[]}
      * @memberof FilingReturnModel
      */
-   payments?: Models.FilingPaymentModel[];
+   @JsonProperty("augmentations", [FilingAugmentationModel], true)
+   augmentations?: FilingAugmentationModel[] | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof FilingReturnModel
+     */
+   @JsonProperty("totalPayments", Number, true)
+   totalPayments?: number | undefined = undefined;
+    /**
+     * @type {FilingPaymentModel[]}
+     * @memberof FilingReturnModel
+     */
+   @JsonProperty("payments", [FilingPaymentModel], true)
+   payments?: FilingPaymentModel[] | undefined = undefined;
     /**
      * @type {Enums.AccrualType}
      * @memberof FilingReturnModel
      */
-   accrualType?: Enums.AccrualType;
+   @JsonProperty("accrualType", Enums.AccrualTypeConverter, true)
+   accrualType?: Enums.AccrualType | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   month?: number;
+   @JsonProperty("month", Number, true)
+   month?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   year?: number;
+   @JsonProperty("year", Number, true)
+   year?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingReturnModel
      */
-   type?: string;
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
     /**
-     * @type {Models.FilingAttachmentModel[]}
+     * @type {FilingAttachmentModel[]}
      * @memberof FilingReturnModel
      */
-   attachments?: Models.FilingAttachmentModel[];
+   @JsonProperty("attachments", [FilingAttachmentModel], true)
+   attachments?: FilingAttachmentModel[] | undefined = undefined;
     /**
-     * @type {Models.FilingReturnCreditModel}
+     * @type {FilingReturnCreditModel}
      * @memberof FilingReturnModel
      */
-   excludedCarryOverCredits?: Models.FilingReturnCreditModel;
+   @JsonProperty("excludedCarryOverCredits", FilingReturnCreditModel, true)
+   excludedCarryOverCredits?: FilingReturnCreditModel | undefined = undefined;
     /**
-     * @type {Models.FilingReturnCreditModel}
+     * @type {FilingReturnCreditModel}
      * @memberof FilingReturnModel
      */
-   appliedCarryOverCredits?: Models.FilingReturnCreditModel;
+   @JsonProperty("appliedCarryOverCredits", FilingReturnCreditModel, true)
+   appliedCarryOverCredits?: FilingReturnCreditModel | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingReturnModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingReturnModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingReturnModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a parameter associated with an item.
  * @export
- * @interface ItemRestrictionInputModel
+ * @class ItemRestrictionInputModel
  */
- export interface ItemRestrictionInputModel {
+ @JsonObject("ItemRestrictionInputModel")
+ export class ItemRestrictionInputModel {
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   itemCode: string;
+   @JsonProperty("itemCode", String)
+   itemCode: string = undefined;
     /**
      * @type {number}
      * @memberof ItemRestrictionInputModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   hsCode: string;
+   @JsonProperty("hsCode", String)
+   hsCode: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   countryOfImport: string;
+   @JsonProperty("countryOfImport", String)
+   countryOfImport: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   countryOfExport: string;
+   @JsonProperty("countryOfExport", String)
+   countryOfExport: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   countryOfManufacture: string;
+   @JsonProperty("countryOfManufacture", String)
+   countryOfManufacture: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   restrictionType: string;
+   @JsonProperty("restrictionType", String)
+   restrictionType: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   regulation: string;
+   @JsonProperty("regulation", String)
+   regulation: string = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   governmentAgency?: string;
+   @JsonProperty("governmentAgency", String, true)
+   governmentAgency?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemRestrictionInputModel
      */
-   complianceMessage?: string;
+   @JsonProperty("complianceMessage", String, true)
+   complianceMessage?: string | undefined = undefined;
  }

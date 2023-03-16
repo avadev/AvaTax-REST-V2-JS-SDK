@@ -10,12 +10,17 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { MultiDocumentLineItemModel } from "./MultiDocumentLineItemModel";
+import { AddressesModel } from "./AddressesModel";
+import { TransactionParameterModel } from "./TransactionParameterModel";
+import { TransactionUserDefinedFieldModel } from "./TransactionUserDefinedFieldModel";
+import { TaxOverrideModel } from "./TaxOverrideModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A MultiDocument transaction represents a sale or purchase that occurred between more than two companies.
@@ -25,182 +30,218 @@ involve a marketplace of vendors, each of which contributes some portion of the 
 a MultiDocument transaction, each individual buyer and seller pair are matched up and converted to a separate
 document.  This separation of documents allows each seller to file their taxes separately.
  * @export
- * @interface CreateMultiDocumentModel
+ * @class CreateMultiDocumentModel
  */
- export interface CreateMultiDocumentModel {
+ @JsonObject("CreateMultiDocumentModel")
+ export class CreateMultiDocumentModel {
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
-     * @type {Models.MultiDocumentLineItemModel[]}
+     * @type {MultiDocumentLineItemModel[]}
      * @memberof CreateMultiDocumentModel
      */
-   lines: Models.MultiDocumentLineItemModel[];
+   @JsonProperty("lines", [MultiDocumentLineItemModel])
+   lines: MultiDocumentLineItemModel[] = undefined;
     /**
      * @type {boolean}
      * @memberof CreateMultiDocumentModel
      */
-   allowAdjust?: boolean;
+   @JsonProperty("allowAdjust", Boolean, true)
+   allowAdjust?: boolean | undefined = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof CreateMultiDocumentModel
      */
-   type?: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter, true)
+   type?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   companyCode?: string;
+   @JsonProperty("companyCode", String, true)
+   companyCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateMultiDocumentModel
      */
-   date: Date;
+   @JsonProperty("date", DateConverter)
+   date: Date = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   salespersonCode?: string;
+   @JsonProperty("salespersonCode", String, true)
+   salespersonCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   customerCode: string;
+   @JsonProperty("customerCode", String)
+   customerCode: string = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   customerUsageType?: string;
+   @JsonProperty("customerUsageType", String, true)
+   customerUsageType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   entityUseCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateMultiDocumentModel
      */
-   discount?: number;
+   @JsonProperty("discount", Number, true)
+   discount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   purchaseOrderNo?: string;
+   @JsonProperty("purchaseOrderNo", String, true)
+   purchaseOrderNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   exemptionNo?: string;
+   @JsonProperty("exemptionNo", String, true)
+   exemptionNo?: string | undefined = undefined;
     /**
-     * @type {Models.AddressesModel}
+     * @type {AddressesModel}
      * @memberof CreateMultiDocumentModel
      */
-   addresses?: Models.AddressesModel;
+   @JsonProperty("addresses", AddressesModel, true)
+   addresses?: AddressesModel | undefined = undefined;
     /**
-     * @type {Models.TransactionParameterModel[]}
+     * @type {TransactionParameterModel[]}
      * @memberof CreateMultiDocumentModel
      */
-   parameters?: Models.TransactionParameterModel[];
+   @JsonProperty("parameters", [TransactionParameterModel], true)
+   parameters?: TransactionParameterModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionUserDefinedFieldModel[]}
+     * @type {TransactionUserDefinedFieldModel[]}
      * @memberof CreateMultiDocumentModel
      */
-   userDefinedFields?: Models.TransactionUserDefinedFieldModel[];
+   @JsonProperty("userDefinedFields", [TransactionUserDefinedFieldModel], true)
+   userDefinedFields?: TransactionUserDefinedFieldModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   referenceCode?: string;
+   @JsonProperty("referenceCode", String, true)
+   referenceCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   reportingLocationCode?: string;
+   @JsonProperty("reportingLocationCode", String, true)
+   reportingLocationCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CreateMultiDocumentModel
      */
-   commit?: boolean;
+   @JsonProperty("commit", Boolean, true)
+   commit?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   batchCode?: string;
+   @JsonProperty("batchCode", String, true)
+   batchCode?: string | undefined = undefined;
     /**
-     * @type {Models.TaxOverrideModel}
+     * @type {TaxOverrideModel}
      * @memberof CreateMultiDocumentModel
      */
-   taxOverride?: Models.TaxOverrideModel;
+   @JsonProperty("taxOverride", TaxOverrideModel, true)
+   taxOverride?: TaxOverrideModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   currencyCode?: string;
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
     /**
      * @type {Enums.ServiceMode}
      * @memberof CreateMultiDocumentModel
      */
-   serviceMode?: Enums.ServiceMode;
+   @JsonProperty("serviceMode", Enums.ServiceModeConverter, true)
+   serviceMode?: Enums.ServiceMode | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateMultiDocumentModel
      */
-   exchangeRate?: number;
+   @JsonProperty("exchangeRate", Number, true)
+   exchangeRate?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CreateMultiDocumentModel
      */
-   exchangeRateEffectiveDate?: Date;
+   @JsonProperty("exchangeRateEffectiveDate", DateConverter, true)
+   exchangeRateEffectiveDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   exchangeRateCurrencyCode?: string;
+   @JsonProperty("exchangeRateCurrencyCode", String, true)
+   exchangeRateCurrencyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   posLaneCode?: string;
+   @JsonProperty("posLaneCode", String, true)
+   posLaneCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CreateMultiDocumentModel
      */
-   isSellerImporterOfRecord?: boolean;
+   @JsonProperty("isSellerImporterOfRecord", Boolean, true)
+   isSellerImporterOfRecord?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   email?: string;
+   @JsonProperty("email", String, true)
+   email?: string | undefined = undefined;
     /**
      * @type {Enums.TaxDebugLevel}
      * @memberof CreateMultiDocumentModel
      */
-   debugLevel?: Enums.TaxDebugLevel;
+   @JsonProperty("debugLevel", Enums.TaxDebugLevelConverter, true)
+   debugLevel?: Enums.TaxDebugLevel | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateMultiDocumentModel
      */
-   customerSupplierName?: string;
+   @JsonProperty("customerSupplierName", String, true)
+   customerSupplierName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof CreateMultiDocumentModel
      */
-   dataSourceId?: number;
+   @JsonProperty("dataSourceId", Number, true)
+   dataSourceId?: number | undefined = undefined;
     /**
      * @type {Enums.DeliveryTerms}
      * @memberof CreateMultiDocumentModel
      */
-   deliveryTerms?: Enums.DeliveryTerms;
+   @JsonProperty("deliveryTerms", Enums.DeliveryTermsConverter, true)
+   deliveryTerms?: Enums.DeliveryTerms | undefined = undefined;
  }

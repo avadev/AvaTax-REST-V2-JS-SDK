@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { NexusTaxTypeGroupCountModel } from "./NexusTaxTypeGroupCountModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Nexus summary model
  * @export
- * @interface NexusSummaryModel
+ * @class NexusSummaryModel
  */
- export interface NexusSummaryModel {
+ @JsonObject("NexusSummaryModel")
+ export class NexusSummaryModel {
     /**
      * @type {number}
      * @memberof NexusSummaryModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
-     * @type {Models.NexusTaxTypeGroupCountModel[]}
+     * @type {NexusTaxTypeGroupCountModel[]}
      * @memberof NexusSummaryModel
      */
-   nexusSummary?: Models.NexusTaxTypeGroupCountModel[];
+   @JsonProperty("nexusSummary", [NexusTaxTypeGroupCountModel], true)
+   nexusSummary?: NexusTaxTypeGroupCountModel[] | undefined = undefined;
  }

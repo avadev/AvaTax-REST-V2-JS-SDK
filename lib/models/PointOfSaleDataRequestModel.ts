@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Point-of-Sale Data Request Model
  * @export
- * @interface PointOfSaleDataRequestModel
+ * @class PointOfSaleDataRequestModel
  */
- export interface PointOfSaleDataRequestModel {
+ @JsonObject("PointOfSaleDataRequestModel")
+ export class PointOfSaleDataRequestModel {
     /**
      * @type {string}
      * @memberof PointOfSaleDataRequestModel
      */
-   companyCode: string;
+   @JsonProperty("companyCode", String)
+   companyCode: string = undefined;
     /**
      * @type {Date}
      * @memberof PointOfSaleDataRequestModel
      */
-   documentDate?: Date;
+   @JsonProperty("documentDate", DateConverter, true)
+   documentDate?: Date | undefined = undefined;
     /**
      * @type {Enums.PointOfSaleFileType}
      * @memberof PointOfSaleDataRequestModel
      */
-   responseType?: Enums.PointOfSaleFileType;
+   @JsonProperty("responseType", Enums.PointOfSaleFileTypeConverter, true)
+   responseType?: Enums.PointOfSaleFileType | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   taxCodes?: string[];
+   @JsonProperty("taxCodes", [String], true)
+   taxCodes?: string[] | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   itemCodes?: string[];
+   @JsonProperty("itemCodes", [String], true)
+   itemCodes?: string[] | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof PointOfSaleDataRequestModel
      */
-   locationCodes?: string[];
+   @JsonProperty("locationCodes", [String], true)
+   locationCodes?: string[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof PointOfSaleDataRequestModel
      */
-   includeJurisCodes?: boolean;
+   @JsonProperty("includeJurisCodes", Boolean, true)
+   includeJurisCodes?: boolean | undefined = undefined;
     /**
      * @type {Enums.PointOfSalePartnerId}
      * @memberof PointOfSaleDataRequestModel
      */
-   partnerId?: Enums.PointOfSalePartnerId;
+   @JsonProperty("partnerId", Enums.PointOfSalePartnerIdConverter, true)
+   partnerId?: Enums.PointOfSalePartnerId | undefined = undefined;
  }
