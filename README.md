@@ -40,7 +40,8 @@ const config = {
     logRequestAndResponseInfo: true, // Toggle logging of the request and response bodies on and off.
     logger: myCustomLogger // (OPTIONAL) Custom logger can be passed in that implements the BaseLogger interface (e.g. debug, info, warn, error, and log functions) Otherwise console.log/error etc will be used by default.
   },
-  customHttpAgent: new https.Agent({keepAlive: true}) // (OPTIONAL) Define a custom https agent, import https from node to use this constructor. See https://node.readthedocs.io/en/latest/api/https/#https_class_https_agent for more information. 
+  customHttpAgent: new https.Agent({keepAlive: true}), // (OPTIONAL) Define a custom https agent, import https from node to use this constructor. See https://node.readthedocs.io/en/latest/api/https/#https_class_https_agent for more information.
+  enableStrictTypeConversion: true // Ensures that all responses returned by the API methods will be type-safe and match the Models explicitly, For Example, the enums will be returned as integer values instead of as Strings as previously were.
 };
 
 const creds = {
