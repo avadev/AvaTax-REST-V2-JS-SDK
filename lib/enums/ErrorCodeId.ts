@@ -317,6 +317,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidParameter = 1734,
         InvalidSystemCode = 1735,
         NoItemsForClassification = 1736,
+        InvalidFileName = 1737,
         UnsupportedFileFormat = 1800,
         UnsupportedOutputFileType = 1801,
         TaxProfileNotProvided = 1900,

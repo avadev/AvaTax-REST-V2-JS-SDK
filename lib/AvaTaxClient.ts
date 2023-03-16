@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.3.0
+ * @version    23.3.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '23.3.0';
+  private apiVersion: string = '23.3.1';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -145,8 +145,10 @@ export default class AvaTaxClient {
       const contentLength = res.headers.get('content-length');
       
       if (contentType === 'application/vnd.ms-excel' || contentType === 'text/csv') {
-        res.text().then((txt: string) => {
+        return res.text().then((txt: string) => {
           logObject.populateResponseInfo(res, txt);
+          res.text = () => Promise.resolve(txt);
+          return res;
         }).catch((error) => {
           let ex = new AvalaraError('The server returned the response is in an unexpected format');
           ex.code = 'FormatException';
@@ -156,7 +158,6 @@ export default class AvaTaxClient {
         }).finally(() => {
           this.createLogEntry(logObject);
         });
-        return res as any;
       }
 
       if (contentType && contentType.includes('application/json')) {

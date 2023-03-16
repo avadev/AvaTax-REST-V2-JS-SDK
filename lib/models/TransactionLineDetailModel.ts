@@ -325,6 +325,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("liabilityType", Enums.LiabilityTypeConverter, true)
    liabilityType?: Enums.LiabilityType | undefined = undefined;
     /**
+     * @type {Enums.ChargedTo}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("chargedTo", Enums.ChargedToConverter, true)
+   chargedTo?: Enums.ChargedTo | undefined = undefined;
+    /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */

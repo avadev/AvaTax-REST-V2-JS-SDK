@@ -19,17 +19,17 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum ReportSource {
-        SNOWFLAKE = 0,
-        MONGODB = 1,
+ export enum Compression {
+        NONE = 0,
+        GZIP = 1,
 }
 
 @JsonConverter
-export class ReportSourceConverter implements JsonCustomConvert<ReportSource> {
-    serialize(data: ReportSource) {
+export class CompressionConverter implements JsonCustomConvert<Compression> {
+    serialize(data: Compression) {
         return data;
     }
-    deserialize(enumType: string): ReportSource {
-        return ReportSource[enumType as keyof typeof ReportSource];
+    deserialize(enumType: string): Compression {
+        return Compression[enumType as keyof typeof Compression];
     }
 }
