@@ -14,7 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
-import { RequiredFilingCalendarDataFieldModel } from "./RequiredFilingCalendarDataFieldModel";
+import { RequiredFilingCalendarDataFieldModel } from "./requiredFilingCalendarDataFieldModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
