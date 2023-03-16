@@ -324,7 +324,7 @@ export * from './VerifyTransactionModel';
 export * from './VoidTransactionModel';
 export * from './WorksheetDocument';
 export * from './WorksheetDocumentLine';
-export * from './RequiredFilingCalendarDataFieldModel';
+export * from './requiredFilingCalendarDataFieldModel';
 export * from './ShippingVerifyResult';
 export * from './ErrorDetails';
 export * from './AgeVerifyRequest';
