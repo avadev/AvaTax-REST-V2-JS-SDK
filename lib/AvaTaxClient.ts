@@ -145,8 +145,10 @@ export default class AvaTaxClient {
       const contentLength = res.headers.get('content-length');
       
       if (contentType === 'application/vnd.ms-excel' || contentType === 'text/csv') {
-        res.text().then((txt: string) => {
+        return res.text().then((txt: string) => {
           logObject.populateResponseInfo(res, txt);
+          res.text = () => Promise.resolve(txt);
+          return res;
         }).catch((error) => {
           let ex = new AvalaraError('The server returned the response is in an unexpected format');
           ex.code = 'FormatException';
@@ -156,7 +158,6 @@ export default class AvaTaxClient {
         }).finally(() => {
           this.createLogEntry(logObject);
         });
-        return res as any;
       }
 
       if (contentType && contentType.includes('application/json')) {
