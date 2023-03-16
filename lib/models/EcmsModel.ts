@@ -10,167 +10,199 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { EcmsDetailModel } from "./EcmsDetailModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Exempt certificate
  * @export
- * @interface EcmsModel
+ * @class EcmsModel
  */
- export interface EcmsModel {
+ @JsonObject("EcmsModel")
+ export class EcmsModel {
     /**
      * @type {number}
      * @memberof EcmsModel
      */
-   exemptCertId: number;
+   @JsonProperty("exemptCertId", Number)
+   exemptCertId: number = undefined;
     /**
      * @type {number}
      * @memberof EcmsModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   customerCode: string;
+   @JsonProperty("customerCode", String)
+   customerCode: string = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   customerName?: string;
+   @JsonProperty("customerName", String, true)
+   customerName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address1?: string;
+   @JsonProperty("address1", String, true)
+   address1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address2?: string;
+   @JsonProperty("address2", String, true)
+   address2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   address3?: string;
+   @JsonProperty("address3", String, true)
+   address3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   region: string;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {Enums.ExemptCertTypeId}
      * @memberof EcmsModel
      */
-   exemptCertTypeId: Enums.ExemptCertTypeId;
+   @JsonProperty("exemptCertTypeId", Enums.ExemptCertTypeIdConverter)
+   exemptCertTypeId: Enums.ExemptCertTypeId = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   documentRefNo?: string;
+   @JsonProperty("documentRefNo", String, true)
+   documentRefNo?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof EcmsModel
      */
-   businessTypeId: number;
+   @JsonProperty("businessTypeId", Number)
+   businessTypeId: number = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   businessTypeOtherDescription?: string;
+   @JsonProperty("businessTypeOtherDescription", String, true)
+   businessTypeOtherDescription?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   exemptReasonId?: string;
+   @JsonProperty("exemptReasonId", String, true)
+   exemptReasonId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   exemptReasonOtherDescription?: string;
+   @JsonProperty("exemptReasonOtherDescription", String, true)
+   exemptReasonOtherDescription?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof EcmsModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   regionsApplicable: string;
+   @JsonProperty("regionsApplicable", String)
+   regionsApplicable: string = undefined;
     /**
      * @type {Enums.ExemptCertStatusId}
      * @memberof EcmsModel
      */
-   exemptCertStatusId: Enums.ExemptCertStatusId;
+   @JsonProperty("exemptCertStatusId", Enums.ExemptCertStatusIdConverter)
+   exemptCertStatusId: Enums.ExemptCertStatusId = undefined;
     /**
      * @type {Date}
      * @memberof EcmsModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof EcmsModel
      */
-   lastTransactionDate?: Date;
+   @JsonProperty("lastTransactionDate", DateConverter, true)
+   lastTransactionDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof EcmsModel
      */
-   expiryDate?: Date;
+   @JsonProperty("expiryDate", DateConverter, true)
+   expiryDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof EcmsModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof EcmsModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof EcmsModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   countryIssued: string;
+   @JsonProperty("countryIssued", String)
+   countryIssued: string = undefined;
     /**
      * @type {string}
      * @memberof EcmsModel
      */
-   avaCertId?: string;
+   @JsonProperty("avaCertId", String, true)
+   avaCertId?: string | undefined = undefined;
     /**
      * @type {Enums.ExemptCertReviewStatusId}
      * @memberof EcmsModel
      */
-   exemptCertReviewStatusId?: Enums.ExemptCertReviewStatusId;
+   @JsonProperty("exemptCertReviewStatusId", Enums.ExemptCertReviewStatusIdConverter, true)
+   exemptCertReviewStatusId?: Enums.ExemptCertReviewStatusId | undefined = undefined;
     /**
-     * @type {Models.EcmsDetailModel[]}
+     * @type {EcmsDetailModel[]}
      * @memberof EcmsModel
      */
-   details?: Models.EcmsDetailModel[];
+   @JsonProperty("details", [EcmsDetailModel], true)
+   details?: EcmsDetailModel[] | undefined = undefined;
  }

@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents one configuration setting for this company
  * @export
- * @interface CompanyConfigurationModel
+ * @class CompanyConfigurationModel
  */
- export interface CompanyConfigurationModel {
+ @JsonObject("CompanyConfigurationModel")
+ export class CompanyConfigurationModel {
     /**
      * @type {number}
      * @memberof CompanyConfigurationModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyConfigurationModel
      */
-   category: string;
+   @JsonProperty("category", String)
+   category: string = undefined;
     /**
      * @type {string}
      * @memberof CompanyConfigurationModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof CompanyConfigurationModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyConfigurationModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyConfigurationModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyConfigurationModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyConfigurationModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

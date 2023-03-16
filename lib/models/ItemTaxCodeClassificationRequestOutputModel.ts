@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax code classification request output model
  * @export
- * @interface ItemTaxCodeClassificationRequestOutputModel
+ * @class ItemTaxCodeClassificationRequestOutputModel
  */
- export interface ItemTaxCodeClassificationRequestOutputModel {
+ @JsonObject("ItemTaxCodeClassificationRequestOutputModel")
+ export class ItemTaxCodeClassificationRequestOutputModel {
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   requestId?: number;
+   @JsonProperty("requestId", Number, true)
+   requestId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   request?: string;
+   @JsonProperty("request", String, true)
+   request?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   requestType?: string;
+   @JsonProperty("requestType", String, true)
+   requestType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemTaxCodeClassificationRequestOutputModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

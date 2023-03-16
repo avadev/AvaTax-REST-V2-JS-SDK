@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Base model class for single error transaction delete request
  * @export
- * @interface ErrorTransactionModelBase
+ * @class ErrorTransactionModelBase
  */
- export interface ErrorTransactionModelBase {
+ @JsonObject("ErrorTransactionModelBase")
+ export class ErrorTransactionModelBase {
     /**
      * @type {Enums.DocumentType}
      * @memberof ErrorTransactionModelBase
      */
-   documentType: Enums.DocumentType;
+   @JsonProperty("documentType", Enums.DocumentTypeConverter)
+   documentType: Enums.DocumentType = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionModelBase
      */
-   documentCode: string;
+   @JsonProperty("documentCode", String)
+   documentCode: string = undefined;
  }

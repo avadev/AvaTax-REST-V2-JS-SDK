@@ -10,29 +10,32 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An exemption reason defines why a certificate allows a customer to be exempt
 for purposes of tax calculation.  For a full list of defined exemption reasons,
 please call the `ListCertificateExemptionReasons` API.
  * @export
- * @interface ExemptionReasonModel
+ * @class ExemptionReasonModel
  */
- export interface ExemptionReasonModel {
+ @JsonObject("ExemptionReasonModel")
+ export class ExemptionReasonModel {
     /**
      * @type {number}
      * @memberof ExemptionReasonModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ExemptionReasonModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
  }

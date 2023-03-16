@@ -10,57 +10,70 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingsTaxSummaryModel } from "./FilingsTaxSummaryModel";
+import { FilingsTaxDetailsModel } from "./FilingsTaxDetailsModel";
+import { FilingsCheckupSuggestedFormModel } from "./FilingsCheckupSuggestedFormModel";
+import { MultiTaxFilingReturnModel } from "./MultiTaxFilingReturnModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Regions
  * @export
- * @interface MultiTaxFilingRegionModel
+ * @class MultiTaxFilingRegionModel
  */
- export interface MultiTaxFilingRegionModel {
+ @JsonObject("MultiTaxFilingRegionModel")
+ export class MultiTaxFilingRegionModel {
     /**
      * @type {string}
      * @memberof MultiTaxFilingRegionModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiTaxFilingRegionModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof MultiTaxFilingRegionModel
      */
-   hasNexus?: boolean;
+   @JsonProperty("hasNexus", Boolean, true)
+   hasNexus?: boolean | undefined = undefined;
     /**
      * @type {Enums.FilingStatusId}
      * @memberof MultiTaxFilingRegionModel
      */
-   status?: Enums.FilingStatusId;
+   @JsonProperty("status", Enums.FilingStatusIdConverter, true)
+   status?: Enums.FilingStatusId | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxSummaryModel}
+     * @type {FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingRegionModel
      */
-   regionTaxSummary?: Models.FilingsTaxSummaryModel;
+   @JsonProperty("regionTaxSummary", FilingsTaxSummaryModel, true)
+   regionTaxSummary?: FilingsTaxSummaryModel | undefined = undefined;
     /**
-     * @type {Models.FilingsTaxDetailsModel[]}
+     * @type {FilingsTaxDetailsModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   regionTaxDetails?: Models.FilingsTaxDetailsModel[];
+   @JsonProperty("regionTaxDetails", [FilingsTaxDetailsModel], true)
+   regionTaxDetails?: FilingsTaxDetailsModel[] | undefined = undefined;
     /**
-     * @type {Models.FilingsCheckupSuggestedFormModel[]}
+     * @type {FilingsCheckupSuggestedFormModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   suggestReturns?: Models.FilingsCheckupSuggestedFormModel[];
+   @JsonProperty("suggestReturns", [FilingsCheckupSuggestedFormModel], true)
+   suggestReturns?: FilingsCheckupSuggestedFormModel[] | undefined = undefined;
     /**
-     * @type {Models.MultiTaxFilingReturnModel[]}
+     * @type {MultiTaxFilingReturnModel[]}
      * @memberof MultiTaxFilingRegionModel
      */
-   returns?: Models.MultiTaxFilingReturnModel[];
+   @JsonProperty("returns", [MultiTaxFilingReturnModel], true)
+   returns?: MultiTaxFilingReturnModel[] | undefined = undefined;
  }

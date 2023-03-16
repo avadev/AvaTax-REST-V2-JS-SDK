@@ -10,22 +10,25 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { DeterminationFactorModel } from "./DeterminationFactorModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Response model used as output for InspectLine API.
  * @export
- * @interface InspectResponseModel
+ * @class InspectResponseModel
  */
- export interface InspectResponseModel {
+ @JsonObject("InspectResponseModel")
+ export class InspectResponseModel {
     /**
-     * @type {Models.DeterminationFactorModel[]}
+     * @type {DeterminationFactorModel[]}
      * @memberof InspectResponseModel
      */
-   determinationFactors?: Models.DeterminationFactorModel[];
+   @JsonProperty("determinationFactors", [DeterminationFactorModel], true)
+   determinationFactors?: DeterminationFactorModel[] | undefined = undefined;
  }

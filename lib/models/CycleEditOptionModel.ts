@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model with options for actual filing calendar output based on user edits to filing calendar.
  * @export
- * @interface CycleEditOptionModel
+ * @class CycleEditOptionModel
  */
- export interface CycleEditOptionModel {
+ @JsonObject("CycleEditOptionModel")
+ export class CycleEditOptionModel {
     /**
      * @type {boolean}
      * @memberof CycleEditOptionModel
      */
-   success?: boolean;
+   @JsonProperty("success", Boolean, true)
+   success?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleEditOptionModel
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CycleEditOptionModel
      */
-   customerMustApprove?: boolean;
+   @JsonProperty("customerMustApprove", Boolean, true)
+   customerMustApprove?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CycleEditOptionModel
      */
-   mustCloneFilingCalendar?: boolean;
+   @JsonProperty("mustCloneFilingCalendar", Boolean, true)
+   mustCloneFilingCalendar?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleEditOptionModel
      */
-   clonedCalendarEffDate?: Date;
+   @JsonProperty("clonedCalendarEffDate", DateConverter, true)
+   clonedCalendarEffDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleEditOptionModel
      */
-   expiredCalendarEndDate?: Date;
+   @JsonProperty("expiredCalendarEndDate", DateConverter, true)
+   expiredCalendarEndDate?: Date | undefined = undefined;
  }

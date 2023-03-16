@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A company-distance-threshold model indicates the distance between a company
@@ -36,47 +36,56 @@ as to whether you have exceeded this threshold is maintained in this object.
 By default, you are considered to have exceeded tax thresholds. If you wish to change this default, you can create
 a company-distance-threshold object to select the correct behavior for this origin/destination tax calculation process.
  * @export
- * @interface CompanyDistanceThresholdModel
+ * @class CompanyDistanceThresholdModel
  */
- export interface CompanyDistanceThresholdModel {
+ @JsonObject("CompanyDistanceThresholdModel")
+ export class CompanyDistanceThresholdModel {
     /**
      * @type {number}
      * @memberof CompanyDistanceThresholdModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyDistanceThresholdModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyDistanceThresholdModel
      */
-   originCountry: string;
+   @JsonProperty("originCountry", String)
+   originCountry: string = undefined;
     /**
      * @type {string}
      * @memberof CompanyDistanceThresholdModel
      */
-   destinationCountry: string;
+   @JsonProperty("destinationCountry", String)
+   destinationCountry: string = undefined;
     /**
      * @type {Date}
      * @memberof CompanyDistanceThresholdModel
      */
-   effDate?: Date;
+   @JsonProperty("effDate", DateConverter, true)
+   effDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyDistanceThresholdModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyDistanceThresholdModel
      */
-   thresholdExceeded?: boolean;
+   @JsonProperty("thresholdExceeded", Boolean, true)
+   thresholdExceeded?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyDistanceThresholdModel
      */
-   type: string;
+   @JsonProperty("type", String)
+   type: string = undefined;
  }

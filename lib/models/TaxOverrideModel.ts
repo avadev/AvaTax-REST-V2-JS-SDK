@@ -10,42 +10,49 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TransactionLineTaxAmountByTaxTypeModel } from "./TransactionLineTaxAmountByTaxTypeModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax override for a transaction
  * @export
- * @interface TaxOverrideModel
+ * @class TaxOverrideModel
  */
- export interface TaxOverrideModel {
+ @JsonObject("TaxOverrideModel")
+ export class TaxOverrideModel {
     /**
      * @type {Enums.TaxOverrideType}
      * @memberof TaxOverrideModel
      */
-   type?: Enums.TaxOverrideType;
+   @JsonProperty("type", Enums.TaxOverrideTypeConverter, true)
+   type?: Enums.TaxOverrideType | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxOverrideModel
      */
-   taxAmount?: number;
+   @JsonProperty("taxAmount", Number, true)
+   taxAmount?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxOverrideModel
      */
-   taxDate?: Date;
+   @JsonProperty("taxDate", DateConverter, true)
+   taxDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxOverrideModel
      */
-   reason?: string;
+   @JsonProperty("reason", String, true)
+   reason?: string | undefined = undefined;
     /**
-     * @type {Models.TransactionLineTaxAmountByTaxTypeModel[]}
+     * @type {TransactionLineTaxAmountByTaxTypeModel[]}
      * @memberof TaxOverrideModel
      */
-   taxAmountByTaxTypes?: Models.TransactionLineTaxAmountByTaxTypeModel[];
+   @JsonProperty("taxAmountByTaxTypes", [TransactionLineTaxAmountByTaxTypeModel], true)
+   taxAmountByTaxTypes?: TransactionLineTaxAmountByTaxTypeModel[] | undefined = undefined;
  }

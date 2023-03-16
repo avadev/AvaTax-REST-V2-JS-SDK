@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about a tax authority relevant for an address.
  * @export
- * @interface TaxAuthorityInfo
+ * @class TaxAuthorityInfo
  */
- export interface TaxAuthorityInfo {
+ @JsonObject("TaxAuthorityInfo")
+ export class TaxAuthorityInfo {
     /**
      * @type {string}
      * @memberof TaxAuthorityInfo
      */
-   avalaraId?: string;
+   @JsonProperty("avalaraId", String, true)
+   avalaraId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxAuthorityInfo
      */
-   jurisdictionName: string;
+   @JsonProperty("jurisdictionName", String)
+   jurisdictionName: string = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof TaxAuthorityInfo
      */
-   jurisdictionType?: Enums.JurisdictionType;
+   @JsonProperty("jurisdictionType", Enums.JurisdictionTypeConverter, true)
+   jurisdictionType?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxAuthorityInfo
      */
-   signatureCode?: string;
+   @JsonProperty("signatureCode", String, true)
+   signatureCode?: string | undefined = undefined;
  }

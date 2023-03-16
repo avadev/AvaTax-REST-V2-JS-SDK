@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AuditEvent } from "./AuditEvent";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Provides detailed information about an API call.
@@ -24,172 +25,206 @@ The information on this record was captured by AvaTax when your API call was mad
 received an error, you can fetch these audit objects and examine the `RequestUrl`, `RequestBody`, and `ErrorMessage`
 fields to determine root cause for the error.
  * @export
- * @interface AuditModel
+ * @class AuditModel
  */
- export interface AuditModel {
+ @JsonObject("AuditModel")
+ export class AuditModel {
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   transactionId?: number;
+   @JsonProperty("transactionId", Number, true)
+   transactionId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   userId?: number;
+   @JsonProperty("userId", Number, true)
+   userId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   ipAddress?: string;
+   @JsonProperty("ipAddress", String, true)
+   ipAddress?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   machineName?: string;
+   @JsonProperty("machineName", String, true)
+   machineName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   clientName?: string;
+   @JsonProperty("clientName", String, true)
+   clientName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   clientVersion?: string;
+   @JsonProperty("clientVersion", String, true)
+   clientVersion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   adapterName?: string;
+   @JsonProperty("adapterName", String, true)
+   adapterName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   adapterVersion?: string;
+   @JsonProperty("adapterVersion", String, true)
+   adapterVersion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   serverName?: string;
+   @JsonProperty("serverName", String, true)
+   serverName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   serverVersion?: string;
+   @JsonProperty("serverVersion", String, true)
+   serverVersion?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   referenceId?: number;
+   @JsonProperty("referenceId", Number, true)
+   referenceId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   severityLevelId?: number;
+   @JsonProperty("severityLevelId", Number, true)
+   severityLevelId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AuditModel
      */
-   serverTimestamp?: Date;
+   @JsonProperty("serverTimestamp", DateConverter, true)
+   serverTimestamp?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   serverDuration?: number;
+   @JsonProperty("serverDuration", Number, true)
+   serverDuration?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   serviceName?: string;
+   @JsonProperty("serviceName", String, true)
+   serviceName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   operation?: string;
+   @JsonProperty("operation", String, true)
+   operation?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   referenceCode?: string;
+   @JsonProperty("referenceCode", String, true)
+   referenceCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   errorMessage?: string;
+   @JsonProperty("errorMessage", String, true)
+   errorMessage?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   auditMessage?: string;
+   @JsonProperty("auditMessage", String, true)
+   auditMessage?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   loadBalancerDuration?: number;
+   @JsonProperty("loadBalancerDuration", Number, true)
+   loadBalancerDuration?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   recordCount?: number;
+   @JsonProperty("recordCount", Number, true)
+   recordCount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   referenceAuthorization?: string;
+   @JsonProperty("referenceAuthorization", String, true)
+   referenceAuthorization?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AuditModel
      */
-   isQueued?: boolean;
+   @JsonProperty("isQueued", Boolean, true)
+   isQueued?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   databaseCallCount?: number;
+   @JsonProperty("databaseCallCount", Number, true)
+   databaseCallCount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   databaseCallDuration?: string;
+   @JsonProperty("databaseCallDuration", String, true)
+   databaseCallDuration?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   remoteCallDuration?: string;
+   @JsonProperty("remoteCallDuration", String, true)
+   remoteCallDuration?: string | undefined = undefined;
     /**
-     * @type {Models.AuditEvent[]}
+     * @type {AuditEvent[]}
      * @memberof AuditModel
      */
-   events?: Models.AuditEvent[];
-    /**
-     * @type {string}
-     * @memberof AuditModel
-     */
-   requestUrl?: string;
+   @JsonProperty("events", [AuditEvent], true)
+   events?: AuditEvent[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   requestBody?: string;
+   @JsonProperty("requestUrl", String, true)
+   requestUrl?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof AuditModel
+     */
+   @JsonProperty("requestBody", String, true)
+   requestBody?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditModel
      */
-   responseStatus?: number;
+   @JsonProperty("responseStatus", Number, true)
+   responseStatus?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditModel
      */
-   responseBody?: string;
+   @JsonProperty("responseBody", String, true)
+   responseBody?: string | undefined = undefined;
     /**
-     * @type {Models.AuditModel[]}
+     * @type {AuditModel[]}
      * @memberof AuditModel
      */
-   remoteCalls?: Models.AuditModel[];
+   @JsonProperty("remoteCalls", [AuditModel], true)
+   remoteCalls?: AuditModel[] | undefined = undefined;
  }

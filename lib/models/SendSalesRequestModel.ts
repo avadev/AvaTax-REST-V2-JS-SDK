@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * SendSales Request Model.
  * @export
- * @interface SendSalesRequestModel
+ * @class SendSalesRequestModel
  */
- export interface SendSalesRequestModel {
+ @JsonObject("SendSalesRequestModel")
+ export class SendSalesRequestModel {
     /**
      * @type {number}
      * @memberof SendSalesRequestModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string[]}
      * @memberof SendSalesRequestModel
      */
-   taxCodes: string[];
+   @JsonProperty("taxCodes", [String])
+   taxCodes: string[] = undefined;
     /**
      * @type {Date}
      * @memberof SendSalesRequestModel
      */
-   date: Date;
+   @JsonProperty("date", DateConverter)
+   date: Date = undefined;
     /**
      * @type {Enums.SendSalesOutputFileFormat}
      * @memberof SendSalesRequestModel
      */
-   format?: Enums.SendSalesOutputFileFormat;
+   @JsonProperty("format", Enums.SendSalesOutputFileFormatConverter, true)
+   format?: Enums.SendSalesOutputFileFormat | undefined = undefined;
     /**
      * @type {Enums.SendSalesFileType}
      * @memberof SendSalesRequestModel
      */
-   type?: Enums.SendSalesFileType;
+   @JsonProperty("type", Enums.SendSalesFileTypeConverter, true)
+   type?: Enums.SendSalesFileType | undefined = undefined;
  }

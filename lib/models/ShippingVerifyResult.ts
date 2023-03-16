@@ -10,52 +10,60 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The Response of the /shippingverify endpoint. Describes the result of checking all applicable shipping rules against each line in the transaction.
  * @export
- * @interface ShippingVerifyResult
+ * @class ShippingVerifyResult
  */
- export interface ShippingVerifyResult {
+ @JsonObject("ShippingVerifyResult")
+ export class ShippingVerifyResult {
     /**
      * @type {boolean}
      * @memberof ShippingVerifyResult
      */
-   compliant?: boolean;
+   @JsonProperty("compliant", Boolean, true)
+   compliant?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   successMessages?: string;
+   @JsonProperty("successMessages", String, true)
+   successMessages?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ShippingVerifyResult
      */
-   failureMessages?: string;
+   @JsonProperty("failureMessages", String, true)
+   failureMessages?: string | undefined = undefined;
     /**
      * @type {Enums.FailureCodes[]}
      * @memberof ShippingVerifyResult
      */
-   failureCodes?: Enums.FailureCodes[];
+   @JsonProperty("failureCodes", [Enums.FailureCodes], true)
+   failureCodes?: Enums.FailureCodes[] | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof ShippingVerifyResult
      */
-   warningCodes?: string[];
+   @JsonProperty("warningCodes", [String], true)
+   warningCodes?: string[] | undefined = undefined;
     /**
      * @type {object[]}
      * @memberof ShippingVerifyResult
      */
-   lines?: object[];
+   @JsonProperty("lines", [Object], true)
+   lines?: object[] | undefined = undefined;
  }

@@ -10,259 +10,312 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { NoticeCommentModel } from "./NoticeCommentModel";
+import { NoticeFinanceModel } from "./NoticeFinanceModel";
+import { NoticeResponsibilityDetailModel } from "./NoticeResponsibilityDetailModel";
+import { NoticeRootCauseDetailModel } from "./NoticeRootCauseDetailModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a letter received from a tax authority regarding tax filing.
 These letters often have the warning "Notice" printed at the top, which is why
 they are called "Notices".
  * @export
- * @interface NoticeModel
+ * @class NoticeModel
  */
- export interface NoticeModel {
+ @JsonObject("NoticeModel")
+ export class NoticeModel {
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   statusId: number;
+   @JsonProperty("statusId", Number)
+   statusId: number = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeModel
      */
-   receivedDate: Date;
+   @JsonProperty("receivedDate", DateConverter)
+   receivedDate: Date = undefined;
     /**
      * @type {Date}
      * @memberof NoticeModel
      */
-   closedDate?: Date;
+   @JsonProperty("closedDate", DateConverter, true)
+   closedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   totalRemit?: number;
+   @JsonProperty("totalRemit", Number, true)
+   totalRemit?: number | undefined = undefined;
     /**
      * @type {Enums.NoticeCustomerType}
      * @memberof NoticeModel
      */
-   customerTypeId: Enums.NoticeCustomerType;
+   @JsonProperty("customerTypeId", Enums.NoticeCustomerTypeConverter)
+   customerTypeId: Enums.NoticeCustomerType = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof NoticeModel
      */
-   filingFrequency?: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequency", Enums.FilingFrequencyIdConverter, true)
+   filingFrequency?: Enums.FilingFrequencyId | undefined = undefined;
     /**
      * @type {Enums.TaxNoticeFilingTypeId}
      * @memberof NoticeModel
      */
-   filingTypeId?: Enums.TaxNoticeFilingTypeId;
+   @JsonProperty("filingTypeId", Enums.TaxNoticeFilingTypeIdConverter, true)
+   filingTypeId?: Enums.TaxNoticeFilingTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   ticketReferenceNo?: string;
+   @JsonProperty("ticketReferenceNo", String, true)
+   ticketReferenceNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   ticketReferenceUrl?: string;
+   @JsonProperty("ticketReferenceUrl", String, true)
+   ticketReferenceUrl?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   salesForceCase?: string;
+   @JsonProperty("salesForceCase", String, true)
+   salesForceCase?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   salesForceCaseUrl?: string;
+   @JsonProperty("salesForceCaseUrl", String, true)
+   salesForceCaseUrl?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   taxPeriod?: string;
+   @JsonProperty("taxPeriod", String, true)
+   taxPeriod?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   reasonId: number;
+   @JsonProperty("reasonId", Number)
+   reasonId: number = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   reason?: string;
+   @JsonProperty("reason", String, true)
+   reason?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   typeId?: number;
+   @JsonProperty("typeId", Number, true)
+   typeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   type?: string;
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
     /**
      * @type {Enums.FundingOption}
      * @memberof NoticeModel
      */
-   customerFundingOptionId?: Enums.FundingOption;
+   @JsonProperty("customerFundingOptionId", Enums.FundingOptionConverter, true)
+   customerFundingOptionId?: Enums.FundingOption | undefined = undefined;
     /**
      * @type {Enums.NoticePriorityId}
      * @memberof NoticeModel
      */
-   priorityId: Enums.NoticePriorityId;
+   @JsonProperty("priorityId", Enums.NoticePriorityIdConverter)
+   priorityId: Enums.NoticePriorityId = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   customerComment?: string;
+   @JsonProperty("customerComment", String, true)
+   customerComment?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NoticeModel
      */
-   hideFromCustomer: boolean;
+   @JsonProperty("hideFromCustomer", Boolean)
+   hideFromCustomer: boolean = undefined;
     /**
      * @type {Date}
      * @memberof NoticeModel
      */
-   expectedResolutionDate?: Date;
+   @JsonProperty("expectedResolutionDate", DateConverter, true)
+   expectedResolutionDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NoticeModel
      */
-   showResolutionDateToCustomer: boolean;
+   @JsonProperty("showResolutionDateToCustomer", Boolean)
+   showResolutionDateToCustomer: boolean = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   closedByUserId?: number;
+   @JsonProperty("closedByUserId", Number, true)
+   closedByUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   createdByUserName?: string;
+   @JsonProperty("createdByUserName", String, true)
+   createdByUserName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   ownedByUserId?: number;
+   @JsonProperty("ownedByUserId", Number, true)
+   ownedByUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   avaFileFormId?: number;
+   @JsonProperty("avaFileFormId", Number, true)
+   avaFileFormId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   revenueContactId?: number;
+   @JsonProperty("revenueContactId", Number, true)
+   revenueContactId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   complianceContactId?: number;
+   @JsonProperty("complianceContactId", Number, true)
+   complianceContactId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   documentReference?: string;
+   @JsonProperty("documentReference", String, true)
+   documentReference?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   jurisdictionName?: string;
+   @JsonProperty("jurisdictionName", String, true)
+   jurisdictionName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   jurisdictionType?: string;
+   @JsonProperty("jurisdictionType", String, true)
+   jurisdictionType?: string | undefined = undefined;
     /**
-     * @type {Models.NoticeCommentModel[]}
+     * @type {NoticeCommentModel[]}
      * @memberof NoticeModel
      */
-   comments?: Models.NoticeCommentModel[];
+   @JsonProperty("comments", [NoticeCommentModel], true)
+   comments?: NoticeCommentModel[] | undefined = undefined;
     /**
-     * @type {Models.NoticeFinanceModel[]}
+     * @type {NoticeFinanceModel[]}
      * @memberof NoticeModel
      */
-   finances?: Models.NoticeFinanceModel[];
+   @JsonProperty("finances", [NoticeFinanceModel], true)
+   finances?: NoticeFinanceModel[] | undefined = undefined;
     /**
-     * @type {Models.NoticeResponsibilityDetailModel[]}
+     * @type {NoticeResponsibilityDetailModel[]}
      * @memberof NoticeModel
      */
-   responsibility?: Models.NoticeResponsibilityDetailModel[];
+   @JsonProperty("responsibility", [NoticeResponsibilityDetailModel], true)
+   responsibility?: NoticeResponsibilityDetailModel[] | undefined = undefined;
     /**
-     * @type {Models.NoticeRootCauseDetailModel[]}
+     * @type {NoticeRootCauseDetailModel[]}
      * @memberof NoticeModel
      */
-   rootCause?: Models.NoticeRootCauseDetailModel[];
+   @JsonProperty("rootCause", [NoticeRootCauseDetailModel], true)
+   rootCause?: NoticeRootCauseDetailModel[] | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NoticeModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   registrationId?: string;
+   @JsonProperty("registrationId", String, true)
+   registrationId?: string | undefined = undefined;
  }

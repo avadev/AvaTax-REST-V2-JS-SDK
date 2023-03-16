@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model with options for adding a new filing calendar
  * @export
- * @interface CycleAddOptionModel
+ * @class CycleAddOptionModel
  */
- export interface CycleAddOptionModel {
+ @JsonObject("CycleAddOptionModel")
+ export class CycleAddOptionModel {
     /**
      * @type {boolean}
      * @memberof CycleAddOptionModel
      */
-   available?: boolean;
+   @JsonProperty("available", Boolean, true)
+   available?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleAddOptionModel
      */
-   transactionalPeriodStart?: Date;
+   @JsonProperty("transactionalPeriodStart", DateConverter, true)
+   transactionalPeriodStart?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleAddOptionModel
      */
-   transactionalPeriodEnd?: Date;
+   @JsonProperty("transactionalPeriodEnd", DateConverter, true)
+   transactionalPeriodEnd?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CycleAddOptionModel
      */
-   filingDueDate?: Date;
+   @JsonProperty("filingDueDate", DateConverter, true)
+   filingDueDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   cycleName?: string;
+   @JsonProperty("cycleName", String, true)
+   cycleName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   frequencyName?: string;
+   @JsonProperty("frequencyName", String, true)
+   frequencyName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   filingFrequencyCode?: string;
+   @JsonProperty("filingFrequencyCode", String, true)
+   filingFrequencyCode?: string | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof CycleAddOptionModel
      */
-   filingFrequencyId?: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequencyId", Enums.FilingFrequencyIdConverter, true)
+   filingFrequencyId?: Enums.FilingFrequencyId | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleAddOptionModel
      */
-   cycleUnavailableReason?: string;
+   @JsonProperty("cycleUnavailableReason", String, true)
+   cycleUnavailableReason?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof CycleAddOptionModel
      */
-   availableLocationCodes?: string[];
+   @JsonProperty("availableLocationCodes", [String], true)
+   availableLocationCodes?: string[] | undefined = undefined;
  }

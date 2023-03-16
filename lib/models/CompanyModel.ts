@@ -10,217 +10,269 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ContactModel } from "./ContactModel";
+import { ItemModel } from "./ItemModel";
+import { LocationModel } from "./LocationModel";
+import { NexusModel } from "./NexusModel";
+import { SettingModel } from "./SettingModel";
+import { TaxCodeModel } from "./TaxCodeModel";
+import { TaxRuleModel } from "./TaxRuleModel";
+import { UPCModel } from "./UPCModel";
+import { EcmsModel } from "./EcmsModel";
+import { CompanyParameterDetailModel } from "./CompanyParameterDetailModel";
+import { CustomerSupplierModel } from "./CustomerSupplierModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A company or business entity.
  * @export
- * @interface CompanyModel
+ * @class CompanyModel
  */
- export interface CompanyModel {
+ @JsonObject("CompanyModel")
+ export class CompanyModel {
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   parentCompanyId?: number;
+   @JsonProperty("parentCompanyId", Number, true)
+   parentCompanyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   sstPid?: string;
+   @JsonProperty("sstPid", String, true)
+   sstPid?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   companyCode?: string;
+   @JsonProperty("companyCode", String, true)
+   companyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   isDefault?: boolean;
+   @JsonProperty("isDefault", Boolean, true)
+   isDefault?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   defaultLocationId?: number;
+   @JsonProperty("defaultLocationId", Number, true)
+   defaultLocationId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   isActive?: boolean;
+   @JsonProperty("isActive", Boolean, true)
+   isActive?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   taxpayerIdNumber?: string;
+   @JsonProperty("taxpayerIdNumber", String, true)
+   taxpayerIdNumber?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   isFein?: boolean;
+   @JsonProperty("isFein", Boolean, true)
+   isFein?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   hasProfile?: boolean;
+   @JsonProperty("hasProfile", Boolean, true)
+   hasProfile?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   isReportingEntity?: boolean;
+   @JsonProperty("isReportingEntity", Boolean, true)
+   isReportingEntity?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyModel
      */
-   sstEffectiveDate?: Date;
+   @JsonProperty("sstEffectiveDate", DateConverter, true)
+   sstEffectiveDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   defaultCountry: string;
+   @JsonProperty("defaultCountry", String)
+   defaultCountry: string = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   baseCurrencyCode?: string;
+   @JsonProperty("baseCurrencyCode", String, true)
+   baseCurrencyCode?: string | undefined = undefined;
     /**
      * @type {Enums.RoundingLevelId}
      * @memberof CompanyModel
      */
-   roundingLevelId?: Enums.RoundingLevelId;
+   @JsonProperty("roundingLevelId", Enums.RoundingLevelIdConverter, true)
+   roundingLevelId?: Enums.RoundingLevelId | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   warningsEnabled?: boolean;
+   @JsonProperty("warningsEnabled", Boolean, true)
+   warningsEnabled?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   isTest?: boolean;
+   @JsonProperty("isTest", Boolean, true)
+   isTest?: boolean | undefined = undefined;
     /**
      * @type {Enums.TaxDependencyLevelId}
      * @memberof CompanyModel
      */
-   taxDependencyLevelId?: Enums.TaxDependencyLevelId;
+   @JsonProperty("taxDependencyLevelId", Enums.TaxDependencyLevelIdConverter, true)
+   taxDependencyLevelId?: Enums.TaxDependencyLevelId | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CompanyModel
      */
-   inProgress?: boolean;
+   @JsonProperty("inProgress", Boolean, true)
+   inProgress?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.ContactModel[]}
+     * @type {ContactModel[]}
      * @memberof CompanyModel
      */
-   contacts?: Models.ContactModel[];
+   @JsonProperty("contacts", [ContactModel], true)
+   contacts?: ContactModel[] | undefined = undefined;
     /**
-     * @type {Models.ItemModel[]}
+     * @type {ItemModel[]}
      * @memberof CompanyModel
      */
-   items?: Models.ItemModel[];
+   @JsonProperty("items", [ItemModel], true)
+   items?: ItemModel[] | undefined = undefined;
     /**
-     * @type {Models.LocationModel[]}
+     * @type {LocationModel[]}
      * @memberof CompanyModel
      */
-   locations?: Models.LocationModel[];
+   @JsonProperty("locations", [LocationModel], true)
+   locations?: LocationModel[] | undefined = undefined;
     /**
-     * @type {Models.NexusModel[]}
+     * @type {NexusModel[]}
      * @memberof CompanyModel
      */
-   nexus?: Models.NexusModel[];
+   @JsonProperty("nexus", [NexusModel], true)
+   nexus?: NexusModel[] | undefined = undefined;
     /**
-     * @type {Models.SettingModel[]}
+     * @type {SettingModel[]}
      * @memberof CompanyModel
      */
-   settings?: Models.SettingModel[];
+   @JsonProperty("settings", [SettingModel], true)
+   settings?: SettingModel[] | undefined = undefined;
     /**
-     * @type {Models.TaxCodeModel[]}
+     * @type {TaxCodeModel[]}
      * @memberof CompanyModel
      */
-   taxCodes?: Models.TaxCodeModel[];
+   @JsonProperty("taxCodes", [TaxCodeModel], true)
+   taxCodes?: TaxCodeModel[] | undefined = undefined;
     /**
-     * @type {Models.TaxRuleModel[]}
+     * @type {TaxRuleModel[]}
      * @memberof CompanyModel
      */
-   taxRules?: Models.TaxRuleModel[];
+   @JsonProperty("taxRules", [TaxRuleModel], true)
+   taxRules?: TaxRuleModel[] | undefined = undefined;
     /**
-     * @type {Models.UPCModel[]}
+     * @type {UPCModel[]}
      * @memberof CompanyModel
      */
-   upcs?: Models.UPCModel[];
+   @JsonProperty("upcs", [UPCModel], true)
+   upcs?: UPCModel[] | undefined = undefined;
     /**
-     * @type {Models.CompanyModel[]}
+     * @type {CompanyModel[]}
      * @memberof CompanyModel
      */
-   nonReportingChildCompanies?: Models.CompanyModel[];
+   @JsonProperty("nonReportingChildCompanies", [CompanyModel], true)
+   nonReportingChildCompanies?: CompanyModel[] | undefined = undefined;
     /**
-     * @type {Models.EcmsModel[]}
+     * @type {EcmsModel[]}
      * @memberof CompanyModel
      */
-   exemptCerts?: Models.EcmsModel[];
+   @JsonProperty("exemptCerts", [EcmsModel], true)
+   exemptCerts?: EcmsModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   mossId?: string;
+   @JsonProperty("mossId", String, true)
+   mossId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyModel
      */
-   mossCountry?: string;
+   @JsonProperty("mossCountry", String, true)
+   mossCountry?: string | undefined = undefined;
     /**
-     * @type {Models.CompanyParameterDetailModel[]}
+     * @type {CompanyParameterDetailModel[]}
      * @memberof CompanyModel
      */
-   parameters?: Models.CompanyParameterDetailModel[];
+   @JsonProperty("parameters", [CompanyParameterDetailModel], true)
+   parameters?: CompanyParameterDetailModel[] | undefined = undefined;
     /**
-     * @type {Models.CustomerSupplierModel[]}
+     * @type {CustomerSupplierModel[]}
      * @memberof CompanyModel
      */
-   supplierandcustomers?: Models.CustomerSupplierModel[];
+   @JsonProperty("supplierandcustomers", [CustomerSupplierModel], true)
+   supplierandcustomers?: CustomerSupplierModel[] | undefined = undefined;
  }

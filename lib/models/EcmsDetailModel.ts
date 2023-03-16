@@ -10,67 +10,79 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { EcmsDetailTaxCodeModel } from "./EcmsDetailTaxCodeModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents an ECMS record, used internally by AvaTax to track information about exemptions.
  * @export
- * @interface EcmsDetailModel
+ * @class EcmsDetailModel
  */
- export interface EcmsDetailModel {
+ @JsonObject("EcmsDetailModel")
+ export class EcmsDetailModel {
     /**
      * @type {number}
      * @memberof EcmsDetailModel
      */
-   exemptCertDetailId: number;
+   @JsonProperty("exemptCertDetailId", Number)
+   exemptCertDetailId: number = undefined;
     /**
      * @type {number}
      * @memberof EcmsDetailModel
      */
-   exemptCertId: number;
+   @JsonProperty("exemptCertId", Number)
+   exemptCertId: number = undefined;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   stateFips: string;
+   @JsonProperty("stateFips", String)
+   stateFips: string = undefined;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   region: string;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   idNo?: string;
+   @JsonProperty("idNo", String, true)
+   idNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {Date}
      * @memberof EcmsDetailModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof EcmsDetailModel
      */
-   idType?: string;
+   @JsonProperty("idType", String, true)
+   idType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof EcmsDetailModel
      */
-   isTaxCodeListExclusionList?: number;
+   @JsonProperty("isTaxCodeListExclusionList", Number, true)
+   isTaxCodeListExclusionList?: number | undefined = undefined;
     /**
-     * @type {Models.EcmsDetailTaxCodeModel[]}
+     * @type {EcmsDetailTaxCodeModel[]}
      * @memberof EcmsDetailModel
      */
-   taxCodes?: Models.EcmsDetailTaxCodeModel[];
+   @JsonProperty("taxCodes", [EcmsDetailTaxCodeModel], true)
+   taxCodes?: EcmsDetailTaxCodeModel[] | undefined = undefined;
  }

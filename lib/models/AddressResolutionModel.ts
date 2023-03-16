@@ -10,47 +10,59 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AddressInfo } from "./AddressInfo";
+import { ValidatedAddressInfo } from "./ValidatedAddressInfo";
+import { CoordinateInfo } from "./CoordinateInfo";
+import { TaxAuthorityInfo } from "./TaxAuthorityInfo";
+import { AvaTaxMessage } from "./AvaTaxMessage";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Address Resolution Model
  * @export
- * @interface AddressResolutionModel
+ * @class AddressResolutionModel
  */
- export interface AddressResolutionModel {
+ @JsonObject("AddressResolutionModel")
+ export class AddressResolutionModel {
     /**
-     * @type {Models.AddressInfo}
+     * @type {AddressInfo}
      * @memberof AddressResolutionModel
      */
-   address?: Models.AddressInfo;
+   @JsonProperty("address", AddressInfo, true)
+   address?: AddressInfo | undefined = undefined;
     /**
-     * @type {Models.ValidatedAddressInfo[]}
+     * @type {ValidatedAddressInfo[]}
      * @memberof AddressResolutionModel
      */
-   validatedAddresses?: Models.ValidatedAddressInfo[];
+   @JsonProperty("validatedAddresses", [ValidatedAddressInfo], true)
+   validatedAddresses?: ValidatedAddressInfo[] | undefined = undefined;
     /**
-     * @type {Models.CoordinateInfo}
+     * @type {CoordinateInfo}
      * @memberof AddressResolutionModel
      */
-   coordinates?: Models.CoordinateInfo;
+   @JsonProperty("coordinates", CoordinateInfo, true)
+   coordinates?: CoordinateInfo | undefined = undefined;
     /**
      * @type {Enums.ResolutionQuality}
      * @memberof AddressResolutionModel
      */
-   resolutionQuality?: Enums.ResolutionQuality;
+   @JsonProperty("resolutionQuality", Enums.ResolutionQualityConverter, true)
+   resolutionQuality?: Enums.ResolutionQuality | undefined = undefined;
     /**
-     * @type {Models.TaxAuthorityInfo[]}
+     * @type {TaxAuthorityInfo[]}
      * @memberof AddressResolutionModel
      */
-   taxAuthorities?: Models.TaxAuthorityInfo[];
+   @JsonProperty("taxAuthorities", [TaxAuthorityInfo], true)
+   taxAuthorities?: TaxAuthorityInfo[] | undefined = undefined;
     /**
-     * @type {Models.AvaTaxMessage[]}
+     * @type {AvaTaxMessage[]}
      * @memberof AddressResolutionModel
      */
-   messages?: Models.AvaTaxMessage[];
+   @JsonProperty("messages", [AvaTaxMessage], true)
+   messages?: AvaTaxMessage[] | undefined = undefined;
  }

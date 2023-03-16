@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface CappedFetchResult<T>
+ * @class CappedFetchResult<T>
  */
- export interface CappedFetchResult<T> {
+ @JsonObject("CappedFetchResult<T>")
+ export class CappedFetchResult<T> {
     /**
      * @type {boolean}
      * @memberof CappedFetchResult<T>
      */
-   "@isRecordsetCountCapped"?: boolean;
+   @JsonProperty("@isRecordsetCountCapped", Boolean, true)
+   "@isRecordsetCountCapped"?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof CappedFetchResult<T>
      */
-   "@recordsetCount"?: number;
+   @JsonProperty("@recordsetCount", Number, true)
+   "@recordsetCount"?: number | undefined = undefined;
     /**
      * @type {object[]}
      * @memberof CappedFetchResult<T>
      */
-   value?: object[];
+   @JsonProperty("value", [Object], true)
+   value?: object[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof CappedFetchResult<T>
      */
-   "@nextLink"?: string;
+   @JsonProperty("@nextLink", String, true)
+   "@nextLink"?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CappedFetchResult<T>
      */
-   pageKey?: string;
+   @JsonProperty("pageKey", String, true)
+   pageKey?: string | undefined = undefined;
  }

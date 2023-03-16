@@ -10,112 +10,135 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ClassificationModel } from "./ClassificationModel";
+import { ItemParameterModel } from "./ItemParameterModel";
+import { ItemTagDetailInputModel } from "./ItemTagDetailInputModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents an item in your company's product catalog.
  * @export
- * @interface ItemModel
+ * @class ItemModel
  */
- export interface ItemModel {
+ @JsonObject("ItemModel")
+ export class ItemModel {
     /**
      * @type {number}
      * @memberof ItemModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof ItemModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   itemCode: string;
+   @JsonProperty("itemCode", String)
+   itemCode: string = undefined;
     /**
      * @type {number}
      * @memberof ItemModel
      */
-   taxCodeId?: number;
+   @JsonProperty("taxCodeId", Number, true)
+   taxCodeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   itemGroup?: string;
+   @JsonProperty("itemGroup", String, true)
+   itemGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   source?: string;
+   @JsonProperty("source", String, true)
+   source?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   sourceEntityId?: string;
+   @JsonProperty("sourceEntityId", String, true)
+   sourceEntityId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemModel
      */
-   upc?: string;
+   @JsonProperty("upc", String, true)
+   upc?: string | undefined = undefined;
     /**
-     * @type {Models.ClassificationModel[]}
+     * @type {ClassificationModel[]}
      * @memberof ItemModel
      */
-   classifications?: Models.ClassificationModel[];
+   @JsonProperty("classifications", [ClassificationModel], true)
+   classifications?: ClassificationModel[] | undefined = undefined;
     /**
-     * @type {Models.ItemParameterModel[]}
+     * @type {ItemParameterModel[]}
      * @memberof ItemModel
      */
-   parameters?: Models.ItemParameterModel[];
+   @JsonProperty("parameters", [ItemParameterModel], true)
+   parameters?: ItemParameterModel[] | undefined = undefined;
     /**
-     * @type {Models.ItemTagDetailInputModel[]}
+     * @type {ItemTagDetailInputModel[]}
      * @memberof ItemModel
      */
-   tags?: Models.ItemTagDetailInputModel[];
+   @JsonProperty("tags", [ItemTagDetailInputModel], true)
+   tags?: ItemTagDetailInputModel[] | undefined = undefined;
     /**
      * @type {object}
      * @memberof ItemModel
      */
-   properties?: object;
+   @JsonProperty("properties", Object, true)
+   properties?: object | undefined = undefined;
  }

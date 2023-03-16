@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Tax Details by Tax subtype
  * @export
- * @interface TaxDetailsByTaxSubType
+ * @class TaxDetailsByTaxSubType
  */
- export interface TaxDetailsByTaxSubType {
+ @JsonObject("TaxDetailsByTaxSubType")
+ export class TaxDetailsByTaxSubType {
     /**
      * @type {string}
      * @memberof TaxDetailsByTaxSubType
      */
-   taxSubType?: string;
+   @JsonProperty("taxSubType", String, true)
+   taxSubType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxSubType
      */
-   totalTaxable?: number;
+   @JsonProperty("totalTaxable", Number, true)
+   totalTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxSubType
      */
-   totalExempt?: number;
+   @JsonProperty("totalExempt", Number, true)
+   totalExempt?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxSubType
      */
-   totalNonTaxable?: number;
+   @JsonProperty("totalNonTaxable", Number, true)
+   totalNonTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxSubType
      */
-   totalTax?: number;
+   @JsonProperty("totalTax", Number, true)
+   totalTax?: number | undefined = undefined;
  }

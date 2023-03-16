@@ -10,67 +10,79 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingRegionModel } from "./FilingRegionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a listing of all tax calculation data for filings and for accruing to future filings.
  * @export
- * @interface FilingModel
+ * @class FilingModel
  */
- export interface FilingModel {
+ @JsonObject("FilingModel")
+ export class FilingModel {
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   month?: number;
+   @JsonProperty("month", Number, true)
+   month?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   year?: number;
+   @JsonProperty("year", Number, true)
+   year?: number | undefined = undefined;
     /**
      * @type {Enums.WorksheetTypeId}
      * @memberof FilingModel
      */
-   type?: Enums.WorksheetTypeId;
+   @JsonProperty("type", Enums.WorksheetTypeIdConverter, true)
+   type?: Enums.WorksheetTypeId | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.FilingRegionModel[]}
+     * @type {FilingRegionModel[]}
      * @memberof FilingModel
      */
-   filingRegions?: Models.FilingRegionModel[];
+   @JsonProperty("filingRegions", [FilingRegionModel], true)
+   filingRegions?: FilingRegionModel[] | undefined = undefined;
  }

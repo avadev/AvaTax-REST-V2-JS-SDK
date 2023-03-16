@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A custom field provides extra information about a customer or certificate.
@@ -25,17 +25,20 @@ support additional use cases beyond that supported directly by Avalara's exempti
             
 For more information about custom fields, see the [Avalara Help Center article about custom fields](https://help.avalara.com/0021_Avalara_CertCapture/All_About_CertCapture/Edit_or_Remove_Details_about_Customers).
  * @export
- * @interface CustomFieldModel
+ * @class CustomFieldModel
  */
- export interface CustomFieldModel {
+ @JsonObject("CustomFieldModel")
+ export class CustomFieldModel {
     /**
      * @type {string}
      * @memberof CustomFieldModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomFieldModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
  }

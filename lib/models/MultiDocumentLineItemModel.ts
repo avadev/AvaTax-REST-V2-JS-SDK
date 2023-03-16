@@ -10,162 +10,196 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AddressesModel } from "./AddressesModel";
+import { TaxOverrideModel } from "./TaxOverrideModel";
+import { TransactionLineParameterModel } from "./TransactionLineParameterModel";
+import { TransactionLineUserDefinedFieldModel } from "./TransactionLineUserDefinedFieldModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents one line item in a MultiDocument transaction
  * @export
- * @interface MultiDocumentLineItemModel
+ * @class MultiDocumentLineItemModel
  */
- export interface MultiDocumentLineItemModel {
+ @JsonObject("MultiDocumentLineItemModel")
+ export class MultiDocumentLineItemModel {
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   companyCode?: string;
+   @JsonProperty("companyCode", String, true)
+   companyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   reportingLocationCode?: string;
+   @JsonProperty("reportingLocationCode", String, true)
+   reportingLocationCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   number?: string;
+   @JsonProperty("number", String, true)
+   number?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentLineItemModel
      */
-   quantity?: number;
+   @JsonProperty("quantity", Number, true)
+   quantity?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentLineItemModel
      */
-   amount: number;
+   @JsonProperty("amount", Number)
+   amount: number = undefined;
     /**
-     * @type {Models.AddressesModel}
+     * @type {AddressesModel}
      * @memberof MultiDocumentLineItemModel
      */
-   addresses?: Models.AddressesModel;
-    /**
-     * @type {string}
-     * @memberof MultiDocumentLineItemModel
-     */
-   taxCode?: string;
+   @JsonProperty("addresses", AddressesModel, true)
+   addresses?: AddressesModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   customerUsageType?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   entityUseCode?: string;
+   @JsonProperty("customerUsageType", String, true)
+   customerUsageType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   itemCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   exemptionCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof MultiDocumentLineItemModel
+     */
+   @JsonProperty("exemptionCode", String, true)
+   exemptionCode?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof MultiDocumentLineItemModel
      */
-   discounted?: boolean;
+   @JsonProperty("discounted", Boolean, true)
+   discounted?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof MultiDocumentLineItemModel
      */
-   taxIncluded?: boolean;
+   @JsonProperty("taxIncluded", Boolean, true)
+   taxIncluded?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   revenueAccount?: string;
+   @JsonProperty("revenueAccount", String, true)
+   revenueAccount?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   ref1?: string;
+   @JsonProperty("ref1", String, true)
+   ref1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   ref2?: string;
+   @JsonProperty("ref2", String, true)
+   ref2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
-     * @type {Models.TaxOverrideModel}
+     * @type {TaxOverrideModel}
      * @memberof MultiDocumentLineItemModel
      */
-   taxOverride?: Models.TaxOverrideModel;
+   @JsonProperty("taxOverride", TaxOverrideModel, true)
+   taxOverride?: TaxOverrideModel | undefined = undefined;
     /**
-     * @type {Models.TransactionLineParameterModel[]}
+     * @type {TransactionLineParameterModel[]}
      * @memberof MultiDocumentLineItemModel
      */
-   parameters?: Models.TransactionLineParameterModel[];
+   @JsonProperty("parameters", [TransactionLineParameterModel], true)
+   parameters?: TransactionLineParameterModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionLineUserDefinedFieldModel[]}
+     * @type {TransactionLineUserDefinedFieldModel[]}
      * @memberof MultiDocumentLineItemModel
      */
-   userDefinedFields?: Models.TransactionLineUserDefinedFieldModel[];
+   @JsonProperty("userDefinedFields", [TransactionLineUserDefinedFieldModel], true)
+   userDefinedFields?: TransactionLineUserDefinedFieldModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentLineItemModel
      */
-   merchantSellerId?: number;
+   @JsonProperty("merchantSellerId", Number, true)
+   merchantSellerId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   merchantSellerIdentifier?: string;
+   @JsonProperty("merchantSellerIdentifier", String, true)
+   merchantSellerIdentifier?: string | undefined = undefined;
     /**
      * @type {Enums.MarketplaceLiabilityType}
      * @memberof MultiDocumentLineItemModel
      */
-   marketplaceLiabilityType?: Enums.MarketplaceLiabilityType;
+   @JsonProperty("marketplaceLiabilityType", Enums.MarketplaceLiabilityTypeConverter, true)
+   marketplaceLiabilityType?: Enums.MarketplaceLiabilityType | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   originationDocumentId?: string;
+   @JsonProperty("originationDocumentId", String, true)
+   originationDocumentId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   originationSite?: string;
+   @JsonProperty("originationSite", String, true)
+   originationSite?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentLineItemModel
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
  }

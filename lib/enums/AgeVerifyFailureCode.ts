@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -25,4 +26,14 @@
         suspected_fraud = 3,
         deceased = 4,
         unknown_error = 5,
+}
+
+@JsonConverter
+export class AgeVerifyFailureCodeConverter implements JsonCustomConvert<AgeVerifyFailureCode> {
+    serialize(data: AgeVerifyFailureCode) {
+        return data;
+    }
+    deserialize(enumType: string): AgeVerifyFailureCode {
+        return AgeVerifyFailureCode[enumType as keyof typeof AgeVerifyFailureCode];
+    }
 }

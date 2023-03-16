@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Tax Authority Type Model
  * @export
- * @interface TaxAuthorityTypeModel
+ * @class TaxAuthorityTypeModel
  */
- export interface TaxAuthorityTypeModel {
+ @JsonObject("TaxAuthorityTypeModel")
+ export class TaxAuthorityTypeModel {
     /**
      * @type {number}
      * @memberof TaxAuthorityTypeModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {string}
      * @memberof TaxAuthorityTypeModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof TaxAuthorityTypeModel
      */
-   taxAuthorityGroup?: string;
+   @JsonProperty("taxAuthorityGroup", String, true)
+   taxAuthorityGroup?: string | undefined = undefined;
  }

@@ -10,112 +10,132 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The output model for report parameter definitions
  * @export
- * @interface ReportParametersModel
+ * @class ReportParametersModel
  */
- export interface ReportParametersModel {
+ @JsonObject("ReportParametersModel")
+ export class ReportParametersModel {
     /**
      * @type {Date}
      * @memberof ReportParametersModel
      */
-   startDate?: Date;
+   @JsonProperty("startDate", DateConverter, true)
+   startDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ReportParametersModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   state?: string;
+   @JsonProperty("state", String, true)
+   state?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   dateFilter?: string;
+   @JsonProperty("dateFilter", String, true)
+   dateFilter?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   docType?: string;
+   @JsonProperty("docType", String, true)
+   docType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   dateFormat?: string;
+   @JsonProperty("dateFormat", String, true)
+   dateFormat?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   currencyCode?: string;
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportParametersModel
      */
-   numberOfPartitions?: number;
+   @JsonProperty("numberOfPartitions", Number, true)
+   numberOfPartitions?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ReportParametersModel
      */
-   partition?: number;
+   @JsonProperty("partition", Number, true)
+   partition?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ReportParametersModel
      */
-   isLocked?: boolean;
+   @JsonProperty("isLocked", Boolean, true)
+   isLocked?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   merchantSellerId?: string;
+   @JsonProperty("merchantSellerId", String, true)
+   merchantSellerId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   documentStatus?: string;
+   @JsonProperty("documentStatus", String, true)
+   documentStatus?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ReportParametersModel
      */
-   isModifiedDateSameAsDocumentDate?: boolean;
+   @JsonProperty("isModifiedDateSameAsDocumentDate", Boolean, true)
+   isModifiedDateSameAsDocumentDate?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxGroup?: string;
+   @JsonProperty("taxGroup", String, true)
+   taxGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxName?: string;
+   @JsonProperty("taxName", String, true)
+   taxName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   customerVendorCode?: string;
+   @JsonProperty("customerVendorCode", String, true)
+   customerVendorCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ReportParametersModel
      */
-   taxSubType?: string;
+   @JsonProperty("taxSubType", String, true)
+   taxSubType?: string | undefined = undefined;
  }

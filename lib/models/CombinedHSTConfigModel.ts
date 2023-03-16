@@ -18,22 +18,28 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * An attachment associated with a filing return
+ * An AvaTax account.
  * @export
- * @class FilingAttachmentModel
+ * @class CombinedHSTConfigModel
  */
- @JsonObject("FilingAttachmentModel")
- export class FilingAttachmentModel {
+ @JsonObject("CombinedHSTConfigModel")
+ export class CombinedHSTConfigModel {
     /**
      * @type {number}
-     * @memberof FilingAttachmentModel
+     * @memberof CombinedHSTConfigModel
      */
-   @JsonProperty("resourceFileId", Number, true)
-   resourceFileId?: number | undefined = undefined;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
-     * @type {string}
-     * @memberof FilingAttachmentModel
+     * @type {string[]}
+     * @memberof CombinedHSTConfigModel
      */
-   @JsonProperty("description", String, true)
-   description?: string | undefined = undefined;
+   @JsonProperty("excludedCompanyCodes", [String], true)
+   excludedCompanyCodes?: string[] | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof CombinedHSTConfigModel
+     */
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

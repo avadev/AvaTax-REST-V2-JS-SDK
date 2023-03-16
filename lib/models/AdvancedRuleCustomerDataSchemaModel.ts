@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model for retrieving customer data schema
  * @export
- * @interface AdvancedRuleCustomerDataSchemaModel
+ * @class AdvancedRuleCustomerDataSchemaModel
  */
- export interface AdvancedRuleCustomerDataSchemaModel {
+ @JsonObject("AdvancedRuleCustomerDataSchemaModel")
+ export class AdvancedRuleCustomerDataSchemaModel {
     /**
      * @type {string}
      * @memberof AdvancedRuleCustomerDataSchemaModel
      */
-   ruleId?: string;
+   @JsonProperty("ruleId", String, true)
+   ruleId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleCustomerDataSchemaModel
      */
-   customerDataSchema?: string;
+   @JsonProperty("customerDataSchema", String, true)
+   customerDataSchema?: string | undefined = undefined;
  }

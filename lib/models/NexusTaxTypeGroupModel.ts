@@ -10,52 +10,60 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a group of tax types
  * @export
- * @interface NexusTaxTypeGroupModel
+ * @class NexusTaxTypeGroupModel
  */
- export interface NexusTaxTypeGroupModel {
+ @JsonObject("NexusTaxTypeGroupModel")
+ export class NexusTaxTypeGroupModel {
     /**
      * @type {number}
      * @memberof NexusTaxTypeGroupModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   nexusTaxTypeGroupId?: string;
+   @JsonProperty("nexusTaxTypeGroupId", String, true)
+   nexusTaxTypeGroupId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusTaxTypeGroupModel
      */
-   subscriptionTypeId?: number;
+   @JsonProperty("subscriptionTypeId", Number, true)
+   subscriptionTypeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   subscriptionDescription?: string;
+   @JsonProperty("subscriptionDescription", String, true)
+   subscriptionDescription?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusTaxTypeGroupModel
      */
-   tabName?: string;
+   @JsonProperty("tabName", String, true)
+   tabName?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusTaxTypeGroupModel
      */
-   showColumn?: boolean;
+   @JsonProperty("showColumn", Boolean, true)
+   showColumn?: boolean | undefined = undefined;
  }

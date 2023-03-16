@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a single notification.
@@ -27,112 +27,134 @@ any relevant concerns raised by this notification.
 An example of a notification would be a message about new software, or a change to AvaTax that may
 affect you, or a potential issue with your company's tax profile.
  * @export
- * @interface NotificationModel
+ * @class NotificationModel
  */
- export interface NotificationModel {
+ @JsonObject("NotificationModel")
+ export class NotificationModel {
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   referenceObject?: string;
+   @JsonProperty("referenceObject", String, true)
+   referenceObject?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   referenceId?: number;
+   @JsonProperty("referenceId", Number, true)
+   referenceId?: number | undefined = undefined;
     /**
      * @type {Enums.NotificationSeverityLevel}
      * @memberof NotificationModel
      */
-   severityLevelId: Enums.NotificationSeverityLevel;
+   @JsonProperty("severityLevelId", Enums.NotificationSeverityLevelConverter)
+   severityLevelId: Enums.NotificationSeverityLevel = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   topic?: string;
+   @JsonProperty("topic", String, true)
+   topic?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   message: string;
+   @JsonProperty("message", String)
+   message: string = undefined;
     /**
      * @type {boolean}
      * @memberof NotificationModel
      */
-   needsAction?: boolean;
+   @JsonProperty("needsAction", Boolean, true)
+   needsAction?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   actionName?: string;
+   @JsonProperty("actionName", String, true)
+   actionName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NotificationModel
      */
-   actionLink?: string;
+   @JsonProperty("actionLink", String, true)
+   actionLink?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NotificationModel
      */
-   actionDueDate?: Date;
+   @JsonProperty("actionDueDate", DateConverter, true)
+   actionDueDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NotificationModel
      */
-   dismissed?: boolean;
+   @JsonProperty("dismissed", Boolean, true)
+   dismissed?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   dismissedByUserId?: number;
+   @JsonProperty("dismissedByUserId", Number, true)
+   dismissedByUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NotificationModel
      */
-   dismissedDate?: Date;
+   @JsonProperty("dismissedDate", DateConverter, true)
+   dismissedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NotificationModel
      */
-   expireDate: Date;
+   @JsonProperty("expireDate", DateConverter)
+   expireDate: Date = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NotificationModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NotificationModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NotificationModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

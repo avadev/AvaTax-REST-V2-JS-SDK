@@ -10,82 +10,98 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ClassificationModel } from "./ClassificationModel";
+import { ItemParameterModel } from "./ItemParameterModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents an item in your company's product catalog.
  * @export
- * @interface ItemCatalogueInputModel
+ * @class ItemCatalogueInputModel
  */
- export interface ItemCatalogueInputModel {
+ @JsonObject("ItemCatalogueInputModel")
+ export class ItemCatalogueInputModel {
     /**
      * @type {number}
      * @memberof ItemCatalogueInputModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   itemCode: string;
+   @JsonProperty("itemCode", String)
+   itemCode: string = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   upc?: string;
+   @JsonProperty("upc", String, true)
+   upc?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   itemGroup?: string;
+   @JsonProperty("itemGroup", String, true)
+   itemGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   category?: string;
+   @JsonProperty("category", String, true)
+   category?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   source: string;
+   @JsonProperty("source", String)
+   source: string = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   sourceEntityId?: string;
+   @JsonProperty("sourceEntityId", String, true)
+   sourceEntityId?: string | undefined = undefined;
     /**
      * @type {object}
      * @memberof ItemCatalogueInputModel
      */
-   properties?: object;
+   @JsonProperty("properties", Object, true)
+   properties?: object | undefined = undefined;
     /**
-     * @type {Models.ClassificationModel[]}
+     * @type {ClassificationModel[]}
      * @memberof ItemCatalogueInputModel
      */
-   classifications?: Models.ClassificationModel[];
+   @JsonProperty("classifications", [ClassificationModel], true)
+   classifications?: ClassificationModel[] | undefined = undefined;
     /**
-     * @type {Models.ItemParameterModel[]}
+     * @type {ItemParameterModel[]}
      * @memberof ItemCatalogueInputModel
      */
-   parameters?: Models.ItemParameterModel[];
+   @JsonProperty("parameters", [ItemParameterModel], true)
+   parameters?: ItemParameterModel[] | undefined = undefined;
  }

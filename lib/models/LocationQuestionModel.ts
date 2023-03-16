@@ -10,92 +10,108 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about questions that the local jurisdictions require for each location
  * @export
- * @interface LocationQuestionModel
+ * @class LocationQuestionModel
  */
- export interface LocationQuestionModel {
+ @JsonObject("LocationQuestionModel")
+ export class LocationQuestionModel {
     /**
      * @type {number}
      * @memberof LocationQuestionModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   question: string;
+   @JsonProperty("question", String)
+   question: string = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   regularExpression?: string;
+   @JsonProperty("regularExpression", String, true)
+   regularExpression?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   exampleValue?: string;
+   @JsonProperty("exampleValue", String, true)
+   exampleValue?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionName?: string;
+   @JsonProperty("jurisdictionName", String, true)
+   jurisdictionName?: string | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof LocationQuestionModel
      */
-   jurisdictionType?: Enums.JurisdictionType;
+   @JsonProperty("jurisdictionType", Enums.JurisdictionTypeConverter, true)
+   jurisdictionType?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionCountry?: string;
+   @JsonProperty("jurisdictionCountry", String, true)
+   jurisdictionCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   jurisdictionRegion?: string;
+   @JsonProperty("jurisdictionRegion", String, true)
+   jurisdictionRegion?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   helpText?: string;
+   @JsonProperty("helpText", String, true)
+   helpText?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof LocationQuestionModel
      */
-   maxLength?: number;
+   @JsonProperty("maxLength", Number, true)
+   maxLength?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LocationQuestionModel
      */
-   required?: boolean;
+   @JsonProperty("required", Boolean, true)
+   required?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   dataType?: string;
+   @JsonProperty("dataType", String, true)
+   dataType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationQuestionModel
      */
-   staticOptions?: string;
+   @JsonProperty("staticOptions", String, true)
+   staticOptions?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LocationQuestionModel
      */
-   unique?: boolean;
+   @JsonProperty("unique", Boolean, true)
+   unique?: boolean | undefined = undefined;
  }

@@ -10,67 +10,80 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { VarianceUnit } from "./VarianceUnit";
+import { VarianceDetail } from "./VarianceDetail";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface VarianceLine
+ * @class VarianceLine
  */
- export interface VarianceLine {
+ @JsonObject("VarianceLine")
+ export class VarianceLine {
     /**
      * @type {string}
      * @memberof VarianceLine
      */
-   lineNo?: string;
+   @JsonProperty("lineNo", String, true)
+   lineNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof VarianceLine
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof VarianceLine
      */
-   dutyRate?: number;
+   @JsonProperty("dutyRate", Number, true)
+   dutyRate?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof VarianceLine
      */
-   taxRate?: number;
+   @JsonProperty("taxRate", Number, true)
+   taxRate?: number | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceLine
      */
-   amount?: Models.VarianceUnit;
+   @JsonProperty("amount", VarianceUnit, true)
+   amount?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceLine
      */
-   taxableAmount?: Models.VarianceUnit;
+   @JsonProperty("taxableAmount", VarianceUnit, true)
+   taxableAmount?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceLine
      */
-   dutyPaid?: Models.VarianceUnit;
+   @JsonProperty("dutyPaid", VarianceUnit, true)
+   dutyPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceLine
      */
-   taxPaid?: Models.VarianceUnit;
+   @JsonProperty("taxPaid", VarianceUnit, true)
+   taxPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceLine
      */
-   totalTaxPaid?: Models.VarianceUnit;
+   @JsonProperty("totalTaxPaid", VarianceUnit, true)
+   totalTaxPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceDetail[]}
+     * @type {VarianceDetail[]}
      * @memberof VarianceLine
      */
-   details?: Models.VarianceDetail[];
+   @JsonProperty("details", [VarianceDetail], true)
+   details?: VarianceDetail[] | undefined = undefined;
  }

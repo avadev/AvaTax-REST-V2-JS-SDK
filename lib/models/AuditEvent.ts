@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface AuditEvent
+ * @class AuditEvent
  */
- export interface AuditEvent {
+ @JsonObject("AuditEvent")
+ export class AuditEvent {
     /**
      * @type {number}
      * @memberof AuditEvent
      */
-   auditEventId?: number;
+   @JsonProperty("auditEventId", Number, true)
+   auditEventId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditEvent
      */
-   transactionId?: number;
+   @JsonProperty("transactionId", Number, true)
+   transactionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   correlationId?: string;
+   @JsonProperty("correlationId", String, true)
+   correlationId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   avalaraUid?: string;
+   @JsonProperty("avalaraUid", String, true)
+   avalaraUid?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AuditEvent
      */
-   auditEventLevelId?: number;
+   @JsonProperty("auditEventLevelId", Number, true)
+   auditEventLevelId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AuditEvent
      */
-   eventTimestamp?: Date;
+   @JsonProperty("eventTimestamp", DateConverter, true)
+   eventTimestamp?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   source?: string;
+   @JsonProperty("source", String, true)
+   source?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditEvent
      */
-   details?: string;
+   @JsonProperty("details", String, true)
+   details?: string | undefined = undefined;
  }

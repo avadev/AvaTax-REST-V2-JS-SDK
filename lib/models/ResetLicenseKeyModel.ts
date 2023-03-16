@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a license key reset request.
  * @export
- * @interface ResetLicenseKeyModel
+ * @class ResetLicenseKeyModel
  */
- export interface ResetLicenseKeyModel {
+ @JsonObject("ResetLicenseKeyModel")
+ export class ResetLicenseKeyModel {
     /**
      * @type {number}
      * @memberof ResetLicenseKeyModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {boolean}
      * @memberof ResetLicenseKeyModel
      */
-   confirmResetLicenseKey: boolean;
+   @JsonProperty("confirmResetLicenseKey", Boolean)
+   confirmResetLicenseKey: boolean = undefined;
  }

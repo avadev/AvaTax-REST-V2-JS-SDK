@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -32,4 +33,14 @@
         CustomsInvoice = 10,
         CustomsOrder = 11,
         Any = -1,
+}
+
+@JsonConverter
+export class DocumentTypeConverter implements JsonCustomConvert<DocumentType> {
+    serialize(data: DocumentType) {
+        return data;
+    }
+    deserialize(enumType: string): DocumentType {
+        return DocumentType[enumType as keyof typeof DocumentType];
+    }
 }

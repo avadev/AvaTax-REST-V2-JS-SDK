@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { NexusParameterDetailModel } from "./NexusParameterDetailModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a declaration of nexus within a particular taxing jurisdiction.
@@ -31,167 +32,200 @@ When calling `CreateNexus` or `UpdateNexus`, all values in your nexus object exc
 must match an Avalara-defined system nexus object.  You can retrieve a list of Avalara-defined system nexus objects
 by calling `ListNexus`.  If any data does not match, AvaTax may not recognize your nexus declaration.
  * @export
- * @interface NexusModel
+ * @class NexusModel
  */
- export interface NexusModel {
+ @JsonObject("NexusModel")
+ export class NexusModel {
     /**
      * @type {number}
      * @memberof NexusModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   region: string;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {Enums.JurisTypeId}
      * @memberof NexusModel
      */
-   jurisTypeId?: Enums.JurisTypeId;
+   @JsonProperty("jurisTypeId", Enums.JurisTypeIdConverter, true)
+   jurisTypeId?: Enums.JurisTypeId | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof NexusModel
      */
-   jurisdictionTypeId?: Enums.JurisdictionType;
+   @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter, true)
+   jurisdictionTypeId?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   jurisCode: string;
+   @JsonProperty("jurisCode", String)
+   jurisCode: string = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   jurisName: string;
+   @JsonProperty("jurisName", String)
+   jurisName: string = undefined;
     /**
      * @type {Date}
      * @memberof NexusModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NexusModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   shortName?: string;
+   @JsonProperty("shortName", String, true)
+   shortName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   signatureCode?: string;
+   @JsonProperty("signatureCode", String, true)
+   signatureCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   stateAssignedNo?: string;
+   @JsonProperty("stateAssignedNo", String, true)
+   stateAssignedNo?: string | undefined = undefined;
     /**
      * @type {Enums.NexusTypeId}
      * @memberof NexusModel
      */
-   nexusTypeId?: Enums.NexusTypeId;
+   @JsonProperty("nexusTypeId", Enums.NexusTypeIdConverter, true)
+   nexusTypeId?: Enums.NexusTypeId | undefined = undefined;
     /**
      * @type {Enums.Sourcing}
      * @memberof NexusModel
      */
-   sourcing?: Enums.Sourcing;
+   @JsonProperty("sourcing", Enums.SourcingConverter, true)
+   sourcing?: Enums.Sourcing | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   hasLocalNexus?: boolean;
+   @JsonProperty("hasLocalNexus", Boolean, true)
+   hasLocalNexus?: boolean | undefined = undefined;
     /**
      * @type {Enums.LocalNexusTypeId}
      * @memberof NexusModel
      */
-   localNexusTypeId?: Enums.LocalNexusTypeId;
+   @JsonProperty("localNexusTypeId", Enums.LocalNexusTypeIdConverter, true)
+   localNexusTypeId?: Enums.LocalNexusTypeId | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   hasPermanentEstablishment?: boolean;
+   @JsonProperty("hasPermanentEstablishment", Boolean, true)
+   hasPermanentEstablishment?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   taxId?: string;
+   @JsonProperty("taxId", String, true)
+   taxId?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   streamlinedSalesTax?: boolean;
+   @JsonProperty("streamlinedSalesTax", Boolean, true)
+   streamlinedSalesTax?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   isSSTActive?: boolean;
+   @JsonProperty("isSSTActive", Boolean, true)
+   isSSTActive?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NexusModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NexusModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   taxTypeGroup?: string;
+   @JsonProperty("taxTypeGroup", String, true)
+   taxTypeGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   nexusTaxTypeGroup?: string;
+   @JsonProperty("nexusTaxTypeGroup", String, true)
+   nexusTaxTypeGroup?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   isSellerImporterOfRecord?: boolean;
+   @JsonProperty("isSellerImporterOfRecord", Boolean, true)
+   isSellerImporterOfRecord?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
      */
-   taxName?: string;
+   @JsonProperty("taxName", String, true)
+   taxName?: string | undefined = undefined;
     /**
-     * @type {Models.NexusParameterDetailModel[]}
+     * @type {NexusParameterDetailModel[]}
      * @memberof NexusModel
      */
-   parameters?: Models.NexusParameterDetailModel[];
+   @JsonProperty("parameters", [NexusParameterDetailModel], true)
+   parameters?: NexusParameterDetailModel[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusModel
      */
-   taxableNexus?: boolean;
+   @JsonProperty("taxableNexus", Boolean, true)
+   taxableNexus?: boolean | undefined = undefined;
  }

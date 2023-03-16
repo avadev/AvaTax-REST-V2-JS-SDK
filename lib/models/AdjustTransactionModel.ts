@@ -10,32 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CreateTransactionModel } from "./CreateTransactionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Replace an existing transaction recorded in AvaTax with a new one.
  * @export
- * @interface AdjustTransactionModel
+ * @class AdjustTransactionModel
  */
- export interface AdjustTransactionModel {
+ @JsonObject("AdjustTransactionModel")
+ export class AdjustTransactionModel {
     /**
      * @type {Enums.AdjustmentReason}
      * @memberof AdjustTransactionModel
      */
-   adjustmentReason: Enums.AdjustmentReason;
+   @JsonProperty("adjustmentReason", Enums.AdjustmentReasonConverter)
+   adjustmentReason: Enums.AdjustmentReason = undefined;
     /**
      * @type {string}
      * @memberof AdjustTransactionModel
      */
-   adjustmentDescription?: string;
+   @JsonProperty("adjustmentDescription", String, true)
+   adjustmentDescription?: string | undefined = undefined;
     /**
-     * @type {Models.CreateTransactionModel}
+     * @type {CreateTransactionModel}
      * @memberof AdjustTransactionModel
      */
-   newTransaction: Models.CreateTransactionModel;
+   @JsonProperty("newTransaction", CreateTransactionModel)
+   newTransaction: CreateTransactionModel = undefined;
  }

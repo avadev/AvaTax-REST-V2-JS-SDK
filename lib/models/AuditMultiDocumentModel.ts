@@ -10,52 +10,62 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ReconstructedMultiDocumentModel } from "./ReconstructedMultiDocumentModel";
+import { OriginalApiRequestResponseModel } from "./OriginalApiRequestResponseModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about a previously created MultiDocument transaction
  * @export
- * @interface AuditMultiDocumentModel
+ * @class AuditMultiDocumentModel
  */
- export interface AuditMultiDocumentModel {
+ @JsonObject("AuditMultiDocumentModel")
+ export class AuditMultiDocumentModel {
     /**
-     * @type {Models.ReconstructedMultiDocumentModel}
+     * @type {ReconstructedMultiDocumentModel}
      * @memberof AuditMultiDocumentModel
      */
-   reconstructed?: Models.ReconstructedMultiDocumentModel;
+   @JsonProperty("reconstructed", ReconstructedMultiDocumentModel, true)
+   reconstructed?: ReconstructedMultiDocumentModel | undefined = undefined;
     /**
      * @type {string}
      * @memberof AuditMultiDocumentModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof AuditMultiDocumentModel
      */
-   type?: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter, true)
+   type?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AuditMultiDocumentModel
      */
-   serverTimestamp?: Date;
+   @JsonProperty("serverTimestamp", DateConverter, true)
+   serverTimestamp?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AuditMultiDocumentModel
      */
-   serverDuration?: Date;
+   @JsonProperty("serverDuration", DateConverter, true)
+   serverDuration?: Date | undefined = undefined;
     /**
      * @type {Enums.ApiCallStatus}
      * @memberof AuditMultiDocumentModel
      */
-   apiCallStatus?: Enums.ApiCallStatus;
+   @JsonProperty("apiCallStatus", Enums.ApiCallStatusConverter, true)
+   apiCallStatus?: Enums.ApiCallStatus | undefined = undefined;
     /**
-     * @type {Models.OriginalApiRequestResponseModel}
+     * @type {OriginalApiRequestResponseModel}
      * @memberof AuditMultiDocumentModel
      */
-   original?: Models.OriginalApiRequestResponseModel;
+   @JsonProperty("original", OriginalApiRequestResponseModel, true)
+   original?: OriginalApiRequestResponseModel | undefined = undefined;
  }

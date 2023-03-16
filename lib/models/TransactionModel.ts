@@ -10,317 +10,387 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TransactionLineModel } from "./TransactionLineModel";
+import { TransactionAddressModel } from "./TransactionAddressModel";
+import { TransactionLocationTypeModel } from "./TransactionLocationTypeModel";
+import { TransactionSummary } from "./TransactionSummary";
+import { TaxDetailsByTaxType } from "./TaxDetailsByTaxType";
+import { TransactionParameterModel } from "./TransactionParameterModel";
+import { TransactionUserDefinedFieldModel } from "./TransactionUserDefinedFieldModel";
+import { AvaTaxMessage } from "./AvaTaxMessage";
+import { InvoiceMessageModel } from "./InvoiceMessageModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * This object represents a single transaction; for example, a sales invoice or purchase order.
  * @export
- * @interface TransactionModel
+ * @class TransactionModel
  */
- export interface TransactionModel {
+ @JsonObject("TransactionModel")
+ export class TransactionModel {
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TransactionModel
      */
-   date?: Date;
+   @JsonProperty("date", DateConverter, true)
+   date?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TransactionModel
      */
-   paymentDate?: Date;
+   @JsonProperty("paymentDate", DateConverter, true)
+   paymentDate?: Date | undefined = undefined;
     /**
      * @type {Enums.DocumentStatus}
      * @memberof TransactionModel
      */
-   status?: Enums.DocumentStatus;
+   @JsonProperty("status", Enums.DocumentStatusConverter, true)
+   status?: Enums.DocumentStatus | undefined = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof TransactionModel
      */
-   type?: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter, true)
+   type?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   batchCode?: string;
+   @JsonProperty("batchCode", String, true)
+   batchCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   currencyCode?: string;
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   exchangeRateCurrencyCode?: string;
+   @JsonProperty("exchangeRateCurrencyCode", String, true)
+   exchangeRateCurrencyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerUsageType?: string;
+   @JsonProperty("customerUsageType", String, true)
+   customerUsageType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   entityUseCode?: string;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerVendorCode?: string;
+   @JsonProperty("customerVendorCode", String, true)
+   customerVendorCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerCode?: string;
+   @JsonProperty("customerCode", String, true)
+   customerCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   exemptNo?: string;
+   @JsonProperty("exemptNo", String, true)
+   exemptNo?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionModel
      */
-   reconciled?: boolean;
+   @JsonProperty("reconciled", Boolean, true)
+   reconciled?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   locationCode?: string;
+   @JsonProperty("locationCode", String, true)
+   locationCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   reportingLocationCode?: string;
+   @JsonProperty("reportingLocationCode", String, true)
+   reportingLocationCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   purchaseOrderNo?: string;
+   @JsonProperty("purchaseOrderNo", String, true)
+   purchaseOrderNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   referenceCode?: string;
+   @JsonProperty("referenceCode", String, true)
+   referenceCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   salespersonCode?: string;
+   @JsonProperty("salespersonCode", String, true)
+   salespersonCode?: string | undefined = undefined;
     /**
      * @type {Enums.TaxOverrideType}
      * @memberof TransactionModel
      */
-   taxOverrideType?: Enums.TaxOverrideType;
+   @JsonProperty("taxOverrideType", Enums.TaxOverrideTypeConverter, true)
+   taxOverrideType?: Enums.TaxOverrideType | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   taxOverrideAmount?: number;
+   @JsonProperty("taxOverrideAmount", Number, true)
+   taxOverrideAmount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   taxOverrideReason?: string;
+   @JsonProperty("taxOverrideReason", String, true)
+   taxOverrideReason?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalAmount?: number;
+   @JsonProperty("totalAmount", Number, true)
+   totalAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalExempt?: number;
+   @JsonProperty("totalExempt", Number, true)
+   totalExempt?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalDiscount?: number;
+   @JsonProperty("totalDiscount", Number, true)
+   totalDiscount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalTax?: number;
+   @JsonProperty("totalTax", Number, true)
+   totalTax?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalTaxable?: number;
+   @JsonProperty("totalTaxable", Number, true)
+   totalTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   totalTaxCalculated?: number;
+   @JsonProperty("totalTaxCalculated", Number, true)
+   totalTaxCalculated?: number | undefined = undefined;
     /**
      * @type {Enums.AdjustmentReason}
      * @memberof TransactionModel
      */
-   adjustmentReason?: Enums.AdjustmentReason;
+   @JsonProperty("adjustmentReason", Enums.AdjustmentReasonConverter, true)
+   adjustmentReason?: Enums.AdjustmentReason | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   adjustmentDescription?: string;
+   @JsonProperty("adjustmentDescription", String, true)
+   adjustmentDescription?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionModel
      */
-   locked?: boolean;
+   @JsonProperty("locked", Boolean, true)
+   locked?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   version?: number;
+   @JsonProperty("version", Number, true)
+   version?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   softwareVersion?: string;
+   @JsonProperty("softwareVersion", String, true)
+   softwareVersion?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   originAddressId?: number;
+   @JsonProperty("originAddressId", Number, true)
+   originAddressId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   destinationAddressId?: number;
+   @JsonProperty("destinationAddressId", Number, true)
+   destinationAddressId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TransactionModel
      */
-   exchangeRateEffectiveDate?: Date;
+   @JsonProperty("exchangeRateEffectiveDate", DateConverter, true)
+   exchangeRateEffectiveDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   exchangeRate?: number;
+   @JsonProperty("exchangeRate", Number, true)
+   exchangeRate?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TransactionModel
      */
-   isSellerImporterOfRecord?: boolean;
+   @JsonProperty("isSellerImporterOfRecord", Boolean, true)
+   isSellerImporterOfRecord?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   email?: string;
+   @JsonProperty("email", String, true)
+   email?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   businessIdentificationNo?: string;
+   @JsonProperty("businessIdentificationNo", String, true)
+   businessIdentificationNo?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TransactionModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TransactionModel
      */
-   taxDate?: Date;
+   @JsonProperty("taxDate", DateConverter, true)
+   taxDate?: Date | undefined = undefined;
     /**
-     * @type {Models.TransactionLineModel[]}
+     * @type {TransactionLineModel[]}
      * @memberof TransactionModel
      */
-   lines?: Models.TransactionLineModel[];
+   @JsonProperty("lines", [TransactionLineModel], true)
+   lines?: TransactionLineModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionAddressModel[]}
+     * @type {TransactionAddressModel[]}
      * @memberof TransactionModel
      */
-   addresses?: Models.TransactionAddressModel[];
+   @JsonProperty("addresses", [TransactionAddressModel], true)
+   addresses?: TransactionAddressModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionLocationTypeModel[]}
+     * @type {TransactionLocationTypeModel[]}
      * @memberof TransactionModel
      */
-   locationTypes?: Models.TransactionLocationTypeModel[];
+   @JsonProperty("locationTypes", [TransactionLocationTypeModel], true)
+   locationTypes?: TransactionLocationTypeModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionSummary[]}
+     * @type {TransactionSummary[]}
      * @memberof TransactionModel
      */
-   summary?: Models.TransactionSummary[];
+   @JsonProperty("summary", [TransactionSummary], true)
+   summary?: TransactionSummary[] | undefined = undefined;
     /**
-     * @type {Models.TaxDetailsByTaxType[]}
+     * @type {TaxDetailsByTaxType[]}
      * @memberof TransactionModel
      */
-   taxDetailsByTaxType?: Models.TaxDetailsByTaxType[];
+   @JsonProperty("taxDetailsByTaxType", [TaxDetailsByTaxType], true)
+   taxDetailsByTaxType?: TaxDetailsByTaxType[] | undefined = undefined;
     /**
-     * @type {Models.TransactionParameterModel[]}
+     * @type {TransactionParameterModel[]}
      * @memberof TransactionModel
      */
-   parameters?: Models.TransactionParameterModel[];
+   @JsonProperty("parameters", [TransactionParameterModel], true)
+   parameters?: TransactionParameterModel[] | undefined = undefined;
     /**
-     * @type {Models.TransactionUserDefinedFieldModel[]}
+     * @type {TransactionUserDefinedFieldModel[]}
      * @memberof TransactionModel
      */
-   userDefinedFields?: Models.TransactionUserDefinedFieldModel[];
+   @JsonProperty("userDefinedFields", [TransactionUserDefinedFieldModel], true)
+   userDefinedFields?: TransactionUserDefinedFieldModel[] | undefined = undefined;
     /**
-     * @type {Models.AvaTaxMessage[]}
+     * @type {AvaTaxMessage[]}
      * @memberof TransactionModel
      */
-   messages?: Models.AvaTaxMessage[];
+   @JsonProperty("messages", [AvaTaxMessage], true)
+   messages?: AvaTaxMessage[] | undefined = undefined;
     /**
-     * @type {Models.InvoiceMessageModel[]}
+     * @type {InvoiceMessageModel[]}
      * @memberof TransactionModel
      */
-   invoiceMessages?: Models.InvoiceMessageModel[];
+   @JsonProperty("invoiceMessages", [InvoiceMessageModel], true)
+   invoiceMessages?: InvoiceMessageModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionModel
      */
-   customerSupplierName?: string;
+   @JsonProperty("customerSupplierName", String, true)
+   customerSupplierName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionModel
      */
-   dataSourceId?: number;
+   @JsonProperty("dataSourceId", Number, true)
+   dataSourceId?: number | undefined = undefined;
     /**
      * @type {Enums.DeliveryTerms}
      * @memberof TransactionModel
      */
-   deliveryTerms?: Enums.DeliveryTerms;
+   @JsonProperty("deliveryTerms", Enums.DeliveryTermsConverter, true)
+   deliveryTerms?: Enums.DeliveryTerms | undefined = undefined;
  }

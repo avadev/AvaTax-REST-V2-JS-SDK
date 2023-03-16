@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a base address element.
  * @export
- * @interface AddressInfo
+ * @class AddressInfo
  */
- export interface AddressInfo {
+ @JsonObject("AddressInfo")
+ export class AddressInfo {
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   line3?: string;
+   @JsonProperty("line3", String, true)
+   line3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AddressInfo
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof AddressInfo
      */
-   latitude?: number;
+   @JsonProperty("latitude", Number, true)
+   latitude?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AddressInfo
      */
-   longitude?: number;
+   @JsonProperty("longitude", Number, true)
+   longitude?: number | undefined = undefined;
  }

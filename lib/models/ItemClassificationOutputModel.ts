@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Product classification output model.
  * @export
- * @interface ItemClassificationOutputModel
+ * @class ItemClassificationOutputModel
  */
- export interface ItemClassificationOutputModel {
+ @JsonObject("ItemClassificationOutputModel")
+ export class ItemClassificationOutputModel {
     /**
      * @type {number}
      * @memberof ItemClassificationOutputModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemClassificationOutputModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemClassificationOutputModel
      */
-   systemId?: number;
+   @JsonProperty("systemId", Number, true)
+   systemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemClassificationOutputModel
      */
-   productCode?: string;
+   @JsonProperty("productCode", String, true)
+   productCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemClassificationOutputModel
      */
-   systemCode?: string;
+   @JsonProperty("systemCode", String, true)
+   systemCode?: string | undefined = undefined;
  }

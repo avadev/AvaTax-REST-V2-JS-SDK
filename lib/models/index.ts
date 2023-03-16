@@ -10,7 +10,6 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -61,6 +60,7 @@ export * from './ChangeTransactionCodeModel';
 export * from './ClassificationDetailsModel';
 export * from './ClassificationModel';
 export * from './ClassificationParameterUsageMapModel';
+export * from './CombinedHSTConfigModel';
 export * from './CommitMultiDocumentModel';
 export * from './CommitTransactionModel';
 export * from './CommunicationsTSPairModel';
@@ -324,7 +324,7 @@ export * from './VerifyTransactionModel';
 export * from './VoidTransactionModel';
 export * from './WorksheetDocument';
 export * from './WorksheetDocumentLine';
-export * from './requiredFilingCalendarDataFieldModel';
+export * from './RequiredFilingCalendarDataFieldModel';
 export * from './ShippingVerifyResult';
 export * from './ErrorDetails';
 export * from './AgeVerifyRequest';

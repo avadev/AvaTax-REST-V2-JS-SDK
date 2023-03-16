@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface ErrorDetail
+ * @class ErrorDetail
  */
- export interface ErrorDetail {
+ @JsonObject("ErrorDetail")
+ export class ErrorDetail {
     /**
      * @type {Enums.ErrorCodeId}
      * @memberof ErrorDetail
      */
-   code?: Enums.ErrorCodeId;
+   @JsonProperty("code", Enums.ErrorCodeIdConverter, true)
+   code?: Enums.ErrorCodeId | undefined = undefined;
     /**
      * @type {number}
      * @memberof ErrorDetail
      */
-   number?: number;
+   @JsonProperty("number", Number, true)
+   number?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   faultCode?: string;
+   @JsonProperty("faultCode", String, true)
+   faultCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   faultSubCode?: string;
+   @JsonProperty("faultSubCode", String, true)
+   faultSubCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   helpLink?: string;
+   @JsonProperty("helpLink", String, true)
+   helpLink?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorDetail
      */
-   refersTo?: string;
+   @JsonProperty("refersTo", String, true)
+   refersTo?: string | undefined = undefined;
     /**
      * @type {Enums.SeverityLevel}
      * @memberof ErrorDetail
      */
-   severity?: Enums.SeverityLevel;
+   @JsonProperty("severity", Enums.SeverityLevelConverter, true)
+   severity?: Enums.SeverityLevel | undefined = undefined;
  }

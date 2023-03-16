@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An abridged item model used for syncing product catalogs with AvaTax.
  * @export
- * @interface ItemSyncModel
+ * @class ItemSyncModel
  */
- export interface ItemSyncModel {
+ @JsonObject("ItemSyncModel")
+ export class ItemSyncModel {
     /**
      * @type {string}
      * @memberof ItemSyncModel
      */
-   itemCode: string;
+   @JsonProperty("itemCode", String)
+   itemCode: string = undefined;
     /**
      * @type {string}
      * @memberof ItemSyncModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof ItemSyncModel
      */
-   itemGroup?: string;
+   @JsonProperty("itemGroup", String, true)
+   itemGroup?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemSyncModel
      */
-   taxCode?: string;
+   @JsonProperty("taxCode", String, true)
+   taxCode?: string | undefined = undefined;
  }

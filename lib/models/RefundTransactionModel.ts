@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Refund a committed transaction
  * @export
- * @interface RefundTransactionModel
+ * @class RefundTransactionModel
  */
- export interface RefundTransactionModel {
+ @JsonObject("RefundTransactionModel")
+ export class RefundTransactionModel {
     /**
      * @type {string}
      * @memberof RefundTransactionModel
      */
-   refundTransactionCode?: string;
+   @JsonProperty("refundTransactionCode", String, true)
+   refundTransactionCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof RefundTransactionModel
      */
-   refundDate: Date;
+   @JsonProperty("refundDate", DateConverter)
+   refundDate: Date = undefined;
     /**
      * @type {Enums.RefundType}
      * @memberof RefundTransactionModel
      */
-   refundType?: Enums.RefundType;
+   @JsonProperty("refundType", Enums.RefundTypeConverter, true)
+   refundType?: Enums.RefundType | undefined = undefined;
     /**
      * @type {number}
      * @memberof RefundTransactionModel
      */
-   refundPercentage?: number;
+   @JsonProperty("refundPercentage", Number, true)
+   refundPercentage?: number | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof RefundTransactionModel
      */
-   refundLines?: string[];
+   @JsonProperty("refundLines", [String], true)
+   refundLines?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof RefundTransactionModel
      */
-   referenceCode?: string;
+   @JsonProperty("referenceCode", String, true)
+   referenceCode?: string | undefined = undefined;
  }

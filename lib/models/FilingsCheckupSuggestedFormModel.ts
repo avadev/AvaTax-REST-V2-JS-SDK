@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Worksheet Checkup Report Suggested Form Model
  * @export
- * @interface FilingsCheckupSuggestedFormModel
+ * @class FilingsCheckupSuggestedFormModel
  */
- export interface FilingsCheckupSuggestedFormModel {
+ @JsonObject("FilingsCheckupSuggestedFormModel")
+ export class FilingsCheckupSuggestedFormModel {
     /**
      * @type {number}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingsCheckupSuggestedFormModel
      */
-   returnName?: string;
+   @JsonProperty("returnName", String, true)
+   returnName?: string | undefined = undefined;
  }

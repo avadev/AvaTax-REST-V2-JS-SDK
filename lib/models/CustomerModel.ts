@@ -10,152 +10,184 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CertificateModel } from "./CertificateModel";
+import { CustomFieldModel } from "./CustomFieldModel";
+import { ExposureZoneModel } from "./ExposureZoneModel";
+import { CustomerAttributeModel } from "./CustomerAttributeModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a customer to whom you sell products and/or services.
  * @export
- * @interface CustomerModel
+ * @class CustomerModel
  */
- export interface CustomerModel {
+ @JsonObject("CustomerModel")
+ export class CustomerModel {
     /**
      * @type {number}
      * @memberof CustomerModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CustomerModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   customerCode: string;
+   @JsonProperty("customerCode", String)
+   customerCode: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   alternateId?: string;
+   @JsonProperty("alternateId", String, true)
+   alternateId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   attnName?: string;
+   @JsonProperty("attnName", String, true)
+   attnName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   line1: string;
+   @JsonProperty("line1", String)
+   line1: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   city: string;
+   @JsonProperty("city", String)
+   city: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   postalCode: string;
+   @JsonProperty("postalCode", String)
+   postalCode: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   phoneNumber?: string;
+   @JsonProperty("phoneNumber", String, true)
+   phoneNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   faxNumber?: string;
+   @JsonProperty("faxNumber", String, true)
+   faxNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   emailAddress?: string;
+   @JsonProperty("emailAddress", String, true)
+   emailAddress?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   contactName?: string;
+   @JsonProperty("contactName", String, true)
+   contactName?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CustomerModel
      */
-   lastTransaction?: Date;
+   @JsonProperty("lastTransaction", DateConverter, true)
+   lastTransaction?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CustomerModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CustomerModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerModel
      */
-   isBill?: boolean;
+   @JsonProperty("isBill", Boolean, true)
+   isBill?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CustomerModel
      */
-   isShip?: boolean;
+   @JsonProperty("isShip", Boolean, true)
+   isShip?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomerModel
      */
-   taxpayerIdNumber?: string;
+   @JsonProperty("taxpayerIdNumber", String, true)
+   taxpayerIdNumber?: string | undefined = undefined;
     /**
-     * @type {Models.CertificateModel[]}
+     * @type {CertificateModel[]}
      * @memberof CustomerModel
      */
-   certificates?: Models.CertificateModel[];
+   @JsonProperty("certificates", [CertificateModel], true)
+   certificates?: CertificateModel[] | undefined = undefined;
     /**
-     * @type {Models.CustomFieldModel[]}
+     * @type {CustomFieldModel[]}
      * @memberof CustomerModel
      */
-   customFields?: Models.CustomFieldModel[];
+   @JsonProperty("customFields", [CustomFieldModel], true)
+   customFields?: CustomFieldModel[] | undefined = undefined;
     /**
-     * @type {Models.ExposureZoneModel[]}
+     * @type {ExposureZoneModel[]}
      * @memberof CustomerModel
      */
-   exposureZones?: Models.ExposureZoneModel[];
+   @JsonProperty("exposureZones", [ExposureZoneModel], true)
+   exposureZones?: ExposureZoneModel[] | undefined = undefined;
     /**
-     * @type {Models.CustomerModel[]}
+     * @type {CustomerModel[]}
      * @memberof CustomerModel
      */
-   shipTos?: Models.CustomerModel[];
+   @JsonProperty("shipTos", [CustomerModel], true)
+   shipTos?: CustomerModel[] | undefined = undefined;
     /**
-     * @type {Models.CustomerAttributeModel[]}
+     * @type {CustomerAttributeModel[]}
      * @memberof CustomerModel
      */
-   attributes?: Models.CustomerAttributeModel[];
+   @JsonProperty("attributes", [CustomerAttributeModel], true)
+   attributes?: CustomerAttributeModel[] | undefined = undefined;
  }

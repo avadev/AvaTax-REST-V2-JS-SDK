@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JurisdictionModel } from "./JurisdictionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents an override of tax jurisdictions for a specific address.
@@ -23,97 +24,116 @@ import * as Models from './index';
 During the time period represented by EffDate through EndDate, all tax decisions for addresses matching
 this override object will be assigned to the list of jurisdictions designated in this object.
  * @export
- * @interface JurisdictionOverrideModel
+ * @class JurisdictionOverrideModel
  */
- export interface JurisdictionOverrideModel {
+ @JsonObject("JurisdictionOverrideModel")
+ export class JurisdictionOverrideModel {
     /**
      * @type {number}
      * @memberof JurisdictionOverrideModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionOverrideModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   line1?: string;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   region: string;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionOverrideModel
      */
-   postalCode: string;
+   @JsonProperty("postalCode", String)
+   postalCode: string = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionOverrideModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionOverrideModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionOverrideModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionOverrideModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionOverrideModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionOverrideModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.JurisdictionModel[]}
+     * @type {JurisdictionModel[]}
      * @memberof JurisdictionOverrideModel
      */
-   jurisdictions: Models.JurisdictionModel[];
+   @JsonProperty("jurisdictions", [JurisdictionModel])
+   jurisdictions: JurisdictionModel[] = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionOverrideModel
      */
-   taxRegionId: number;
+   @JsonProperty("taxRegionId", Number)
+   taxRegionId: number = undefined;
     /**
      * @type {Enums.BoundaryLevel}
      * @memberof JurisdictionOverrideModel
      */
-   boundaryLevel?: Enums.BoundaryLevel;
+   @JsonProperty("boundaryLevel", Enums.BoundaryLevelConverter, true)
+   boundaryLevel?: Enums.BoundaryLevel | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof JurisdictionOverrideModel
      */
-   isDefault?: boolean;
+   @JsonProperty("isDefault", Boolean, true)
+   isDefault?: boolean | undefined = undefined;
  }

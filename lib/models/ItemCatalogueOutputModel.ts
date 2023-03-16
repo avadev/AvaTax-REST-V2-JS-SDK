@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ItemCatalogueResultModel } from "./ItemCatalogueResultModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Item Catalogue output model.
  * @export
- * @interface ItemCatalogueOutputModel
+ * @class ItemCatalogueOutputModel
  */
- export interface ItemCatalogueOutputModel {
+ @JsonObject("ItemCatalogueOutputModel")
+ export class ItemCatalogueOutputModel {
     /**
      * @type {number}
      * @memberof ItemCatalogueOutputModel
      */
-   total?: number;
+   @JsonProperty("total", Number, true)
+   total?: number | undefined = undefined;
     /**
-     * @type {Models.ItemCatalogueResultModel[]}
+     * @type {ItemCatalogueResultModel[]}
      * @memberof ItemCatalogueOutputModel
      */
-   result?: Models.ItemCatalogueResultModel[];
+   @JsonProperty("result", [ItemCatalogueResultModel], true)
+   result?: ItemCatalogueResultModel[] | undefined = undefined;
  }

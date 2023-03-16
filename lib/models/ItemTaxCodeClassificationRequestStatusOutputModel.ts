@@ -10,42 +10,49 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ClassificationDetailsModel } from "./ClassificationDetailsModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tax code classification request status output model
  * @export
- * @interface ItemTaxCodeClassificationRequestStatusOutputModel
+ * @class ItemTaxCodeClassificationRequestStatusOutputModel
  */
- export interface ItemTaxCodeClassificationRequestStatusOutputModel {
+ @JsonObject("ItemTaxCodeClassificationRequestStatusOutputModel")
+ export class ItemTaxCodeClassificationRequestStatusOutputModel {
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   requestId?: number;
+   @JsonProperty("requestId", Number, true)
+   requestId?: number | undefined = undefined;
     /**
-     * @type {Models.ClassificationDetailsModel}
+     * @type {ClassificationDetailsModel}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   classificationDetails?: Models.ClassificationDetailsModel;
+   @JsonProperty("classificationDetails", ClassificationDetailsModel, true)
+   classificationDetails?: ClassificationDetailsModel | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   totalItems?: number;
+   @JsonProperty("totalItems", Number, true)
+   totalItems?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   status?: string;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemTaxCodeClassificationRequestStatusOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
  }

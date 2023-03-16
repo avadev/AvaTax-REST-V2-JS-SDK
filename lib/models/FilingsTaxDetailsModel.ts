@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a listing of all tax calculation data for filings and for accruing to future filings.
  * @export
- * @interface FilingsTaxDetailsModel
+ * @class FilingsTaxDetailsModel
  */
- export interface FilingsTaxDetailsModel {
+ @JsonObject("FilingsTaxDetailsModel")
+ export class FilingsTaxDetailsModel {
     /**
      * @type {string}
      * @memberof FilingsTaxDetailsModel
      */
-   taxType?: string;
+   @JsonProperty("taxType", String, true)
+   taxType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxDetailsModel
      */
-   salesAmount?: number;
+   @JsonProperty("salesAmount", Number, true)
+   salesAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxDetailsModel
      */
-   nonTaxableAmount?: number;
+   @JsonProperty("nonTaxableAmount", Number, true)
+   nonTaxableAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxDetailsModel
      */
-   taxAmount?: number;
+   @JsonProperty("taxAmount", Number, true)
+   taxAmount?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingsTaxDetailsModel
      */
-   numberOfNights?: number;
+   @JsonProperty("numberOfNights", Number, true)
+   numberOfNights?: number | undefined = undefined;
  }

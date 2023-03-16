@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * NoticeResponsibility Model
  * @export
- * @interface NoticeResponsibilityDetailModel
+ * @class NoticeResponsibilityDetailModel
  */
- export interface NoticeResponsibilityDetailModel {
+ @JsonObject("NoticeResponsibilityDetailModel")
+ export class NoticeResponsibilityDetailModel {
     /**
      * @type {number}
      * @memberof NoticeResponsibilityDetailModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof NoticeResponsibilityDetailModel
      */
-   noticeId: number;
+   @JsonProperty("noticeId", Number)
+   noticeId: number = undefined;
     /**
      * @type {number}
      * @memberof NoticeResponsibilityDetailModel
      */
-   taxNoticeResponsibilityId: number;
+   @JsonProperty("taxNoticeResponsibilityId", Number)
+   taxNoticeResponsibilityId: number = undefined;
     /**
      * @type {string}
      * @memberof NoticeResponsibilityDetailModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
  }

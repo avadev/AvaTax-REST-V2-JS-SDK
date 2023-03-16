@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Product classification input model.
  * @export
- * @interface ItemClassificationInputModel
+ * @class ItemClassificationInputModel
  */
- export interface ItemClassificationInputModel {
+ @JsonObject("ItemClassificationInputModel")
+ export class ItemClassificationInputModel {
     /**
      * @type {string}
      * @memberof ItemClassificationInputModel
      */
-   productCode: string;
+   @JsonProperty("productCode", String)
+   productCode: string = undefined;
     /**
      * @type {string}
      * @memberof ItemClassificationInputModel
      */
-   systemCode?: string;
+   @JsonProperty("systemCode", String, true)
+   systemCode?: string | undefined = undefined;
  }

@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a Premium Classification output model associated with an item's SystemCode..
  * @export
- * @interface ItemPremiumClassificationOutputModel
+ * @class ItemPremiumClassificationOutputModel
  */
- export interface ItemPremiumClassificationOutputModel {
+ @JsonObject("ItemPremiumClassificationOutputModel")
+ export class ItemPremiumClassificationOutputModel {
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   id?: string;
+   @JsonProperty("id", String, true)
+   id?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   itemCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   hsCode?: string;
+   @JsonProperty("hsCode", String, true)
+   hsCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   systemCode?: string;
+   @JsonProperty("systemCode", String, true)
+   systemCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   justification?: string;
+   @JsonProperty("justification", String, true)
+   justification?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemPremiumClassificationOutputModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
  }

@@ -10,32 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CycleExpireOptionModel } from "./CycleExpireOptionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Cycle Safe Expiration results.
  * @export
- * @interface CycleExpireModel
+ * @class CycleExpireModel
  */
- export interface CycleExpireModel {
+ @JsonObject("CycleExpireModel")
+ export class CycleExpireModel {
     /**
      * @type {boolean}
      * @memberof CycleExpireModel
      */
-   success?: boolean;
+   @JsonProperty("success", Boolean, true)
+   success?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CycleExpireModel
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
-     * @type {Models.CycleExpireOptionModel[]}
+     * @type {CycleExpireOptionModel[]}
      * @memberof CycleExpireModel
      */
-   cycleExpirationOptions?: Models.CycleExpireOptionModel[];
+   @JsonProperty("cycleExpirationOptions", [CycleExpireOptionModel], true)
+   cycleExpirationOptions?: CycleExpireOptionModel[] | undefined = undefined;
  }

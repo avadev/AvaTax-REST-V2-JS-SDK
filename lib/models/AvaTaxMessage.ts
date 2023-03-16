@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Informational or warning messages returned by AvaTax with a transaction
  * @export
- * @interface AvaTaxMessage
+ * @class AvaTaxMessage
  */
- export interface AvaTaxMessage {
+ @JsonObject("AvaTaxMessage")
+ export class AvaTaxMessage {
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   summary?: string;
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   details?: string;
+   @JsonProperty("details", String, true)
+   details?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   refersTo?: string;
+   @JsonProperty("refersTo", String, true)
+   refersTo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   severity?: string;
+   @JsonProperty("severity", String, true)
+   severity?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AvaTaxMessage
      */
-   source?: string;
+   @JsonProperty("source", String, true)
+   source?: string | undefined = undefined;
  }

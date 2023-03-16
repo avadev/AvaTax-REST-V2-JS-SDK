@@ -10,97 +10,114 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An account user who is permitted to use AvaTax.
  * @export
- * @interface UserModel
+ * @class UserModel
  */
- export interface UserModel {
+ @JsonObject("UserModel")
+ export class UserModel {
     /**
      * @type {number}
      * @memberof UserModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof UserModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {number}
      * @memberof UserModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   userName: string;
+   @JsonProperty("userName", String)
+   userName: string = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   firstName: string;
+   @JsonProperty("firstName", String)
+   firstName: string = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   lastName: string;
+   @JsonProperty("lastName", String)
+   lastName: string = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   email: string;
+   @JsonProperty("email", String)
+   email: string = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   postalCode?: string;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {Enums.SecurityRoleId}
      * @memberof UserModel
      */
-   securityRoleId: Enums.SecurityRoleId;
+   @JsonProperty("securityRoleId", Enums.SecurityRoleIdConverter)
+   securityRoleId: Enums.SecurityRoleId = undefined;
     /**
      * @type {Enums.PasswordStatusId}
      * @memberof UserModel
      */
-   passwordStatus?: Enums.PasswordStatusId;
+   @JsonProperty("passwordStatus", Enums.PasswordStatusIdConverter, true)
+   passwordStatus?: Enums.PasswordStatusId | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof UserModel
      */
-   isActive?: boolean;
+   @JsonProperty("isActive", Boolean, true)
+   isActive?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof UserModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof UserModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   subjectId?: string;
+   @JsonProperty("subjectId", String, true)
+   subjectId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof UserModel
      */
-   migratedDate?: string;
+   @JsonProperty("migratedDate", String, true)
+   migratedDate?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof UserModel
      */
-   suppressNewUserEmail?: boolean;
+   @JsonProperty("suppressNewUserEmail", Boolean, true)
+   suppressNewUserEmail?: boolean | undefined = undefined;
  }

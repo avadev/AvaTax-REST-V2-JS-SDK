@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents the answer to one local jurisdiction question for a location.
  * @export
- * @interface LocationSettingModel
+ * @class LocationSettingModel
  */
- export interface LocationSettingModel {
+ @JsonObject("LocationSettingModel")
+ export class LocationSettingModel {
     /**
      * @type {number}
      * @memberof LocationSettingModel
      */
-   questionId?: number;
+   @JsonProperty("questionId", Number, true)
+   questionId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationSettingModel
      */
-   questionName?: string;
+   @JsonProperty("questionName", String, true)
+   questionName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationSettingModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
  }

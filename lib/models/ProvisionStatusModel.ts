@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Contains information about a company's exemption certificate status.
@@ -23,22 +23,26 @@ import * as Models from './index';
 This model can be used to determine if your company is able to use the Customers, Certificates, and
 CertExpressInvites APIs within AvaTax.
  * @export
- * @interface ProvisionStatusModel
+ * @class ProvisionStatusModel
  */
- export interface ProvisionStatusModel {
+ @JsonObject("ProvisionStatusModel")
+ export class ProvisionStatusModel {
     /**
      * @type {Enums.CertCaptureProvisionStatus}
      * @memberof ProvisionStatusModel
      */
-   status?: Enums.CertCaptureProvisionStatus;
+   @JsonProperty("status", Enums.CertCaptureProvisionStatusConverter, true)
+   status?: Enums.CertCaptureProvisionStatus | undefined = undefined;
     /**
      * @type {number}
      * @memberof ProvisionStatusModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ProvisionStatusModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
  }

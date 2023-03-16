@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a parameter associated with a nexus.
  * @export
- * @interface NexusParameterDetailModel
+ * @class NexusParameterDetailModel
  */
- export interface NexusParameterDetailModel {
+ @JsonObject("NexusParameterDetailModel")
+ export class NexusParameterDetailModel {
     /**
      * @type {number}
      * @memberof NexusParameterDetailModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof NexusParameterDetailModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof NexusParameterDetailModel
      */
-   value: string;
+   @JsonProperty("value", String)
+   value: string = undefined;
     /**
      * @type {string}
      * @memberof NexusParameterDetailModel
      */
-   unit?: string;
+   @JsonProperty("unit", String, true)
+   unit?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof NexusParameterDetailModel
      */
-   nexusId?: number;
+   @JsonProperty("nexusId", Number, true)
+   nexusId?: number | undefined = undefined;
  }

@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -29,4 +30,14 @@
         TaxOverrideRule = 7,
         FeeRule = 8,
         OtherRule = 100,
+}
+
+@JsonConverter
+export class TaxRuleTypeIdConverter implements JsonCustomConvert<TaxRuleTypeId> {
+    serialize(data: TaxRuleTypeId) {
+        return data;
+    }
+    deserialize(enumType: string): TaxRuleTypeId {
+        return TaxRuleTypeId[enumType as keyof typeof TaxRuleTypeId];
+    }
 }

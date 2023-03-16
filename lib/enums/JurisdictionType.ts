@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -24,4 +25,14 @@
         County = 2,
         City = 3,
         Special = 4,
+}
+
+@JsonConverter
+export class JurisdictionTypeConverter implements JsonCustomConvert<JurisdictionType> {
+    serialize(data: JurisdictionType) {
+        return data;
+    }
+    deserialize(enumType: string): JurisdictionType {
+        return JurisdictionType[enumType as keyof typeof JurisdictionType];
+    }
 }

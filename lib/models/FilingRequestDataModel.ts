@@ -10,108 +10,128 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { FilingAnswerModel } from "./FilingAnswerModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a commitment to file a tax return on a recurring basis.
 Only used if you subscribe to Avalara Returns.
  * @export
- * @interface FilingRequestDataModel
+ * @class FilingRequestDataModel
  */
- export interface FilingRequestDataModel {
+ @JsonObject("FilingRequestDataModel")
+ export class FilingRequestDataModel {
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
      */
-   companyReturnId?: number;
+   @JsonProperty("companyReturnId", Number, true)
+   companyReturnId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   returnName?: string;
+   @JsonProperty("returnName", String, true)
+   returnName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   taxFormCode?: string;
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
     /**
      * @type {Enums.FilingFrequencyId}
      * @memberof FilingRequestDataModel
      */
-   filingFrequencyId: Enums.FilingFrequencyId;
+   @JsonProperty("filingFrequencyId", Enums.FilingFrequencyIdConverter)
+   filingFrequencyId: Enums.FilingFrequencyId = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   registrationId?: string;
+   @JsonProperty("registrationId", String, true)
+   registrationId?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
      */
-   months: number;
+   @JsonProperty("months", Number)
+   months: number = undefined;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
      */
-   fiscalYearStartMonth?: number;
+   @JsonProperty("fiscalYearStartMonth", Number, true)
+   fiscalYearStartMonth?: number | undefined = undefined;
     /**
      * @type {Enums.MatchingTaxType}
      * @memberof FilingRequestDataModel
      */
-   taxTypeId?: Enums.MatchingTaxType;
+   @JsonProperty("taxTypeId", Enums.MatchingTaxTypeConverter, true)
+   taxTypeId?: Enums.MatchingTaxType | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   locationCode?: string;
+   @JsonProperty("locationCode", String, true)
+   locationCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingRequestDataModel
      */
-   effDate: Date;
+   @JsonProperty("effDate", DateConverter)
+   effDate: Date = undefined;
     /**
      * @type {Date}
      * @memberof FilingRequestDataModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof FilingRequestDataModel
      */
-   isClone?: boolean;
+   @JsonProperty("isClone", Boolean, true)
+   isClone?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
      */
-   autoLockOverrideDay?: number;
+   @JsonProperty("autoLockOverrideDay", Number, true)
+   autoLockOverrideDay?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingRequestDataModel
      */
-   taxAuthorityId?: number;
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof FilingRequestDataModel
      */
-   taxAuthorityName?: string;
+   @JsonProperty("taxAuthorityName", String, true)
+   taxAuthorityName?: string | undefined = undefined;
     /**
-     * @type {Models.FilingAnswerModel[]}
+     * @type {FilingAnswerModel[]}
      * @memberof FilingRequestDataModel
      */
-   answers?: Models.FilingAnswerModel[];
+   @JsonProperty("answers", [FilingAnswerModel], true)
+   answers?: FilingAnswerModel[] | undefined = undefined;
  }

@@ -10,62 +10,72 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * 
  * @export
- * @interface CompanyReturnSettingModel
+ * @class CompanyReturnSettingModel
  */
- export interface CompanyReturnSettingModel {
+ @JsonObject("CompanyReturnSettingModel")
+ export class CompanyReturnSettingModel {
     /**
      * @type {number}
      * @memberof CompanyReturnSettingModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyReturnSettingModel
      */
-   companyReturnId: number;
+   @JsonProperty("companyReturnId", Number)
+   companyReturnId: number = undefined;
     /**
      * @type {number}
      * @memberof CompanyReturnSettingModel
      */
-   filingQuestionId: number;
+   @JsonProperty("filingQuestionId", Number)
+   filingQuestionId: number = undefined;
     /**
      * @type {string}
      * @memberof CompanyReturnSettingModel
      */
-   filingQuestionCode?: string;
+   @JsonProperty("filingQuestionCode", String, true)
+   filingQuestionCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CompanyReturnSettingModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyReturnSettingModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyReturnSettingModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CompanyReturnSettingModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof CompanyReturnSettingModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

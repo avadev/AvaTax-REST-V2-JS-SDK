@@ -10,143 +10,170 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CompanyAddress } from "./CompanyAddress";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a request for a new account with Avalara for a new subscriber.
 Contains information about the account requested and the rate plan selected.
  * @export
- * @interface NewAccountRequestModel
+ * @class NewAccountRequestModel
  */
- export interface NewAccountRequestModel {
+ @JsonObject("NewAccountRequestModel")
+ export class NewAccountRequestModel {
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   offer: string;
+   @JsonProperty("offer", String)
+   offer: string = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   connectorId?: string;
+   @JsonProperty("connectorId", String, true)
+   connectorId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   campaign?: string;
+   @JsonProperty("campaign", String, true)
+   campaign?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   leadSource?: string;
+   @JsonProperty("leadSource", String, true)
+   leadSource?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NewAccountRequestModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof NewAccountRequestModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   accountName: string;
+   @JsonProperty("accountName", String)
+   accountName: string = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   website?: string;
+   @JsonProperty("website", String, true)
+   website?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   paymentMethodId?: string;
+   @JsonProperty("paymentMethodId", String, true)
+   paymentMethodId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   firstName: string;
+   @JsonProperty("firstName", String)
+   firstName: string = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   lastName: string;
+   @JsonProperty("lastName", String)
+   lastName: string = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   title?: string;
+   @JsonProperty("title", String, true)
+   title?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   phoneNumber?: string;
+   @JsonProperty("phoneNumber", String, true)
+   phoneNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   email: string;
+   @JsonProperty("email", String)
+   email: string = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   username?: string;
+   @JsonProperty("username", String, true)
+   username?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   userPassword?: string;
+   @JsonProperty("userPassword", String, true)
+   userPassword?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   welcomeEmail?: string;
+   @JsonProperty("welcomeEmail", String, true)
+   welcomeEmail?: string | undefined = undefined;
     /**
-     * @type {Models.CompanyAddress}
+     * @type {CompanyAddress}
      * @memberof NewAccountRequestModel
      */
-   companyAddress: Models.CompanyAddress;
+   @JsonProperty("companyAddress", CompanyAddress)
+   companyAddress: CompanyAddress = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   companyCode?: string;
+   @JsonProperty("companyCode", String, true)
+   companyCode?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof NewAccountRequestModel
      */
-   properties?: string[];
+   @JsonProperty("properties", [String], true)
+   properties?: string[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NewAccountRequestModel
      */
-   acceptAvalaraTermsAndConditions?: boolean;
+   @JsonProperty("acceptAvalaraTermsAndConditions", Boolean, true)
+   acceptAvalaraTermsAndConditions?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NewAccountRequestModel
      */
-   haveReadAvalaraTermsAndConditions?: boolean;
+   @JsonProperty("haveReadAvalaraTermsAndConditions", Boolean, true)
+   haveReadAvalaraTermsAndConditions?: boolean | undefined = undefined;
     /**
      * @type {object}
      * @memberof NewAccountRequestModel
      */
-   marketingContext?: object;
+   @JsonProperty("marketingContext", Object, true)
+   marketingContext?: object | undefined = undefined;
     /**
      * @type {Enums.AccountTypeId}
      * @memberof NewAccountRequestModel
      */
-   accountType?: Enums.AccountTypeId;
+   @JsonProperty("accountType", Enums.AccountTypeIdConverter, true)
+   accountType?: Enums.AccountTypeId | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */
-   taxPayerIdNumber?: string;
+   @JsonProperty("taxPayerIdNumber", String, true)
+   taxPayerIdNumber?: string | undefined = undefined;
  }

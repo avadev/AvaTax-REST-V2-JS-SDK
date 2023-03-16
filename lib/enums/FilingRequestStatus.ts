@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -28,4 +29,14 @@
         ChangeRequest = 7,
         RequestApproved = 8,
         RequestDenied = 9,
+}
+
+@JsonConverter
+export class FilingRequestStatusConverter implements JsonCustomConvert<FilingRequestStatus> {
+    serialize(data: FilingRequestStatus) {
+        return data;
+    }
+    deserialize(enumType: string): FilingRequestStatus {
+        return FilingRequestStatus[enumType as keyof typeof FilingRequestStatus];
+    }
 }

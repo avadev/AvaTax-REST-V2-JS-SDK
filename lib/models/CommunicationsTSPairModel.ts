@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a transaction/service type pair for telecommunications tax
  * @export
- * @interface CommunicationsTSPairModel
+ * @class CommunicationsTSPairModel
  */
- export interface CommunicationsTSPairModel {
+ @JsonObject("CommunicationsTSPairModel")
+ export class CommunicationsTSPairModel {
     /**
      * @type {number}
      * @memberof CommunicationsTSPairModel
      */
-   transactionTypeId: number;
+   @JsonProperty("transactionTypeId", Number)
+   transactionTypeId: number = undefined;
     /**
      * @type {number}
      * @memberof CommunicationsTSPairModel
      */
-   serviceTypeId: number;
+   @JsonProperty("serviceTypeId", Number)
+   serviceTypeId: number = undefined;
     /**
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   TransactionType?: string;
+   @JsonProperty("TransactionType", String, true)
+   TransactionType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   ServiceType?: string;
+   @JsonProperty("ServiceType", String, true)
+   ServiceType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CommunicationsTSPairModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof CommunicationsTSPairModel
      */
-   requiredParameters?: string[];
+   @JsonProperty("requiredParameters", [String], true)
+   requiredParameters?: string[] | undefined = undefined;
  }

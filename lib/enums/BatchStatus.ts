@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -29,4 +30,14 @@
         Paused = 7,
         Processing = 8,
         Cancelling = 9,
+}
+
+@JsonConverter
+export class BatchStatusConverter implements JsonCustomConvert<BatchStatus> {
+    serialize(data: BatchStatus) {
+        return data;
+    }
+    deserialize(enumType: string): BatchStatus {
+        return BatchStatus[enumType as keyof typeof BatchStatus];
+    }
 }

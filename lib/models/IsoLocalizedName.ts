@@ -10,33 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a language-specific localized name of a particular geographic entity such
 as a country or a region.
  * @export
- * @interface IsoLocalizedName
+ * @class IsoLocalizedName
  */
- export interface IsoLocalizedName {
+ @JsonObject("IsoLocalizedName")
+ export class IsoLocalizedName {
     /**
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   languageAlpha2Code?: string;
+   @JsonProperty("languageAlpha2Code", String, true)
+   languageAlpha2Code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   languageAlpha3Code?: string;
+   @JsonProperty("languageAlpha3Code", String, true)
+   languageAlpha3Code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof IsoLocalizedName
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
  }

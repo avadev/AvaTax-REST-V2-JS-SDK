@@ -10,47 +10,54 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a tag for an item in your company's product catalog.
  * @export
- * @interface ItemTagDetailOutputModel
+ * @class ItemTagDetailOutputModel
  */
- export interface ItemTagDetailOutputModel {
+ @JsonObject("ItemTagDetailOutputModel")
+ export class ItemTagDetailOutputModel {
     /**
      * @type {string}
      * @memberof ItemTagDetailOutputModel
      */
-   tagName: string;
+   @JsonProperty("tagName", String)
+   tagName: string = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailOutputModel
      */
-   itemId?: number;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailOutputModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailOutputModel
      */
-   itemTagDetailId?: number;
+   @JsonProperty("itemTagDetailId", Number, true)
+   itemTagDetailId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemTagDetailOutputModel
      */
-   tagId?: number;
+   @JsonProperty("tagId", Number, true)
+   tagId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemTagDetailOutputModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
  }

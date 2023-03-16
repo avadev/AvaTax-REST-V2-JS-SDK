@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -29,4 +30,14 @@
         InvalidFormat = 7,
         InvalidDate = 8,
         AlcoholContentLimitExceeded = 9,
+}
+
+@JsonConverter
+export class FailureCodesConverter implements JsonCustomConvert<FailureCodes> {
+    serialize(data: FailureCodes) {
+        return data;
+    }
+    deserialize(enumType: string): FailureCodes {
+        return FailureCodes[enumType as keyof typeof FailureCodes];
+    }
 }

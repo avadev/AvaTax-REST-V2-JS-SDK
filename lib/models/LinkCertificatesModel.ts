@@ -10,22 +10,24 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a customer to whom you sell products and/or services.
  * @export
- * @interface LinkCertificatesModel
+ * @class LinkCertificatesModel
  */
- export interface LinkCertificatesModel {
+ @JsonObject("LinkCertificatesModel")
+ export class LinkCertificatesModel {
     /**
      * @type {number[]}
      * @memberof LinkCertificatesModel
      */
-   certificates: number[];
+   @JsonProperty("certificates", [Number])
+   certificates: number[] = undefined;
  }

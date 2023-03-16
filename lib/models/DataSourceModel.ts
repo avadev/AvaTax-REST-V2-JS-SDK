@@ -10,97 +10,114 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Data source object
  * @export
- * @interface DataSourceModel
+ * @class DataSourceModel
  */
- export interface DataSourceModel {
+ @JsonObject("DataSourceModel")
+ export class DataSourceModel {
     /**
      * @type {number}
      * @memberof DataSourceModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof DataSourceModel
      */
-   companyId: number;
+   @JsonProperty("companyId", Number)
+   companyId: number = undefined;
     /**
      * @type {string}
      * @memberof DataSourceModel
      */
-   source: string;
+   @JsonProperty("source", String)
+   source: string = undefined;
     /**
      * @type {string}
      * @memberof DataSourceModel
      */
-   instance?: string;
+   @JsonProperty("instance", String, true)
+   instance?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DataSourceModel
      */
-   isEnabled?: boolean;
+   @JsonProperty("isEnabled", Boolean, true)
+   isEnabled?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DataSourceModel
      */
-   isSynced?: boolean;
+   @JsonProperty("isSynced", Boolean, true)
+   isSynced?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DataSourceModel
      */
-   isAuthorized?: boolean;
+   @JsonProperty("isAuthorized", Boolean, true)
+   isAuthorized?: boolean | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DataSourceModel
      */
-   lastSyncedDate?: Date;
+   @JsonProperty("lastSyncedDate", DateConverter, true)
+   lastSyncedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof DataSourceModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DataSourceModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof DataSourceModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DataSourceModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof DataSourceModel
      */
-   deletedDate?: Date;
+   @JsonProperty("deletedDate", DateConverter, true)
+   deletedDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof DataSourceModel
      */
-   recalculate?: boolean;
+   @JsonProperty("recalculate", Boolean, true)
+   recalculate?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof DataSourceModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof DataSourceModel
      */
-   externalState?: string;
+   @JsonProperty("externalState", String, true)
+   externalState?: string | undefined = undefined;
  }

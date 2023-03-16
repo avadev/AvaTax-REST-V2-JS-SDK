@@ -10,12 +10,12 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * This object is used to keep track of custom information about a company.
@@ -29,42 +29,50 @@ A setting can refer to any type of data you need to remember about this company 
 When creating this object, you may define your own `set`, `name`, and `value` parameters.
 To define your own values, please choose a `set` name that begins with `X-` to indicate an extension.
  * @export
- * @interface SettingModel
+ * @class SettingModel
  */
- export interface SettingModel {
+ @JsonObject("SettingModel")
+ export class SettingModel {
     /**
      * @type {number}
      * @memberof SettingModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof SettingModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof SettingModel
      */
-   set: string;
+   @JsonProperty("set", String)
+   set: string = undefined;
     /**
      * @type {string}
      * @memberof SettingModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof SettingModel
      */
-   value?: string;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof SettingModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof SettingModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

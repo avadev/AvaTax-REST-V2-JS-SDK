@@ -10,57 +10,66 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A model for return augmentations.
  * @export
- * @interface FilingAugmentationModel
+ * @class FilingAugmentationModel
  */
- export interface FilingAugmentationModel {
+ @JsonObject("FilingAugmentationModel")
+ export class FilingAugmentationModel {
     /**
      * @type {number}
      * @memberof FilingAugmentationModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAugmentationModel
      */
-   filingId?: number;
+   @JsonProperty("filingId", Number, true)
+   filingId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAugmentationModel
      */
-   fieldAmount: number;
+   @JsonProperty("fieldAmount", Number)
+   fieldAmount: number = undefined;
     /**
      * @type {string}
      * @memberof FilingAugmentationModel
      */
-   fieldName: string;
+   @JsonProperty("fieldName", String)
+   fieldName: string = undefined;
     /**
      * @type {Date}
      * @memberof FilingAugmentationModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAugmentationModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof FilingAugmentationModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof FilingAugmentationModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

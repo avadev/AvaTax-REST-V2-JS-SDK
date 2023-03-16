@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -35,4 +36,14 @@
         LeasingLow = 85,
         Services = 88,
         Zero = 90,
+}
+
+@JsonConverter
+export class RateTypeConverter implements JsonCustomConvert<RateType> {
+    serialize(data: RateType) {
+        return data;
+    }
+    deserialize(enumType: string): RateType {
+        return RateType[enumType as keyof typeof RateType];
+    }
 }

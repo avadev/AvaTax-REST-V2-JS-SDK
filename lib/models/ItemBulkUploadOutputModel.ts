@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ItemUploadErrorModel } from "./ItemUploadErrorModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a bulk upload response model.
  * @export
- * @interface ItemBulkUploadOutputModel
+ * @class ItemBulkUploadOutputModel
  */
- export interface ItemBulkUploadOutputModel {
+ @JsonObject("ItemBulkUploadOutputModel")
+ export class ItemBulkUploadOutputModel {
     /**
      * @type {number}
      * @memberof ItemBulkUploadOutputModel
      */
-   total?: number;
+   @JsonProperty("total", Number, true)
+   total?: number | undefined = undefined;
     /**
-     * @type {Models.ItemUploadErrorModel[]}
+     * @type {ItemUploadErrorModel[]}
      * @memberof ItemBulkUploadOutputModel
      */
-   failed?: Models.ItemUploadErrorModel[];
+   @JsonProperty("failed", [ItemUploadErrorModel], true)
+   failed?: ItemUploadErrorModel[] | undefined = undefined;
  }

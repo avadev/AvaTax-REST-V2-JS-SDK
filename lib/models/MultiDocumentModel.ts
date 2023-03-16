@@ -10,12 +10,13 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TransactionModel } from "./TransactionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A MultiDocument transaction represents a sale or purchase that occurred between more than two companies.
@@ -25,52 +26,62 @@ involve a marketplace of vendors, each of which contributes some portion of the 
 a MultiDocument transaction, each individual buyer and seller pair are matched up and converted to a separate
 document.  This separation of documents allows each seller to file their taxes separately.
  * @export
- * @interface MultiDocumentModel
+ * @class MultiDocumentModel
  */
- export interface MultiDocumentModel {
+ @JsonObject("MultiDocumentModel")
+ export class MultiDocumentModel {
     /**
      * @type {number}
      * @memberof MultiDocumentModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof MultiDocumentModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof MultiDocumentModel
      */
-   type?: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter, true)
+   type?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MultiDocumentModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof MultiDocumentModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof MultiDocumentModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.TransactionModel[]}
+     * @type {TransactionModel[]}
      * @memberof MultiDocumentModel
      */
-   documents?: Models.TransactionModel[];
+   @JsonProperty("documents", [TransactionModel], true)
+   documents?: TransactionModel[] | undefined = undefined;
  }

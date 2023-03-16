@@ -10,163 +10,195 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { LocationSettingModel } from "./LocationSettingModel";
+import { LocationParameterModel } from "./LocationParameterModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A location where this company does business.
 Some jurisdictions may require you to list all locations where your company does business.
  * @export
- * @interface LocationModel
+ * @class LocationModel
  */
- export interface LocationModel {
+ @JsonObject("LocationModel")
+ export class LocationModel {
     /**
      * @type {number}
      * @memberof LocationModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {number}
      * @memberof LocationModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   locationCode: string;
+   @JsonProperty("locationCode", String)
+   locationCode: string = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {Enums.AddressTypeId}
      * @memberof LocationModel
      */
-   addressTypeId: Enums.AddressTypeId;
+   @JsonProperty("addressTypeId", Enums.AddressTypeIdConverter)
+   addressTypeId: Enums.AddressTypeId = undefined;
     /**
      * @type {Enums.AddressCategoryId}
      * @memberof LocationModel
      */
-   addressCategoryId: Enums.AddressCategoryId;
+   @JsonProperty("addressCategoryId", Enums.AddressCategoryIdConverter)
+   addressCategoryId: Enums.AddressCategoryId = undefined;
     /**
      * @type {boolean}
      * @memberof LocationModel
      */
-   isMarketplaceOutsideUsa?: boolean;
+   @JsonProperty("isMarketplaceOutsideUsa", Boolean, true)
+   isMarketplaceOutsideUsa?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   line1: string;
+   @JsonProperty("line1", String)
+   line1: string = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   line2?: string;
+   @JsonProperty("line2", String, true)
+   line2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   line3?: string;
+   @JsonProperty("line3", String, true)
+   line3?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   county?: string;
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   postalCode: string;
+   @JsonProperty("postalCode", String)
+   postalCode: string = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   country: string;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {boolean}
      * @memberof LocationModel
      */
-   isDefault?: boolean;
+   @JsonProperty("isDefault", Boolean, true)
+   isDefault?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LocationModel
      */
-   isRegistered?: boolean;
+   @JsonProperty("isRegistered", Boolean, true)
+   isRegistered?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   dbaName?: string;
+   @JsonProperty("dbaName", String, true)
+   dbaName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   outletName?: string;
+   @JsonProperty("outletName", String, true)
+   outletName?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   lastTransactionDate?: Date;
+   @JsonProperty("lastTransactionDate", DateConverter, true)
+   lastTransactionDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   registeredDate?: Date;
+   @JsonProperty("registeredDate", DateConverter, true)
+   registeredDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof LocationModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof LocationModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof LocationModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
-     * @type {Models.LocationSettingModel[]}
+     * @type {LocationSettingModel[]}
      * @memberof LocationModel
      */
-   settings?: Models.LocationSettingModel[];
+   @JsonProperty("settings", [LocationSettingModel], true)
+   settings?: LocationSettingModel[] | undefined = undefined;
     /**
-     * @type {Models.LocationParameterModel[]}
+     * @type {LocationParameterModel[]}
      * @memberof LocationModel
      */
-   parameters?: Models.LocationParameterModel[];
+   @JsonProperty("parameters", [LocationParameterModel], true)
+   parameters?: LocationParameterModel[] | undefined = undefined;
  }

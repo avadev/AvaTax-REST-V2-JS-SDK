@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The Result of a call to the /ageVerification/store/identity/storeIfVerified endpoint.
  * @export
- * @interface StoreIfVerifiedResult
+ * @class StoreIfVerifiedResult
  */
- export interface StoreIfVerifiedResult {
+ @JsonObject("StoreIfVerifiedResult")
+ export class StoreIfVerifiedResult {
     /**
      * @type {boolean}
      * @memberof StoreIfVerifiedResult
      */
-   isOfAge?: boolean;
+   @JsonProperty("isOfAge", Boolean, true)
+   isOfAge?: boolean | undefined = undefined;
     /**
      * @type {Enums.AgeVerifyFailureCode[]}
      * @memberof StoreIfVerifiedResult
      */
-   failureCodes?: Enums.AgeVerifyFailureCode[];
+   @JsonProperty("failureCodes", [Enums.AgeVerifyFailureCode], true)
+   failureCodes?: Enums.AgeVerifyFailureCode[] | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof StoreIfVerifiedResult
      */
-   fromStore?: boolean;
+   @JsonProperty("fromStore", Boolean, true)
+   fromStore?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof StoreIfVerifiedResult
      */
-   createdUtc?: string;
+   @JsonProperty("createdUtc", String, true)
+   createdUtc?: string | undefined = undefined;
  }

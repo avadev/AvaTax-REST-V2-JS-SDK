@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The Result of a call to the /ageVerification/verify endpoint.
  * @export
- * @interface AgeVerifyResult
+ * @class AgeVerifyResult
  */
- export interface AgeVerifyResult {
+ @JsonObject("AgeVerifyResult")
+ export class AgeVerifyResult {
     /**
      * @type {boolean}
      * @memberof AgeVerifyResult
      */
-   isOfAge?: boolean;
+   @JsonProperty("isOfAge", Boolean, true)
+   isOfAge?: boolean | undefined = undefined;
     /**
      * @type {Enums.AgeVerifyFailureCode[]}
      * @memberof AgeVerifyResult
      */
-   failureCodes?: Enums.AgeVerifyFailureCode[];
+   @JsonProperty("failureCodes", [Enums.AgeVerifyFailureCode], true)
+   failureCodes?: Enums.AgeVerifyFailureCode[] | undefined = undefined;
  }

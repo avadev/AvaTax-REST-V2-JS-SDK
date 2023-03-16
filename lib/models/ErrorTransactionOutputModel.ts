@@ -10,82 +10,96 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Error Transaction Model
  * @export
- * @interface ErrorTransactionOutputModel
+ * @class ErrorTransactionOutputModel
  */
- export interface ErrorTransactionOutputModel {
+ @JsonObject("ErrorTransactionOutputModel")
+ export class ErrorTransactionOutputModel {
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   errorCode?: string;
+   @JsonProperty("errorCode", String, true)
+   errorCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   errorMessage?: string;
+   @JsonProperty("errorMessage", String, true)
+   errorMessage?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   avataxErrorJson?: string;
+   @JsonProperty("avataxErrorJson", String, true)
+   avataxErrorJson?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   avataxCreateTransactionJson?: string;
+   @JsonProperty("avataxCreateTransactionJson", String, true)
+   avataxCreateTransactionJson?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   datasource?: string;
+   @JsonProperty("datasource", String, true)
+   datasource?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ErrorTransactionOutputModel
      */
-   documentDate?: Date;
+   @JsonProperty("documentDate", DateConverter, true)
+   documentDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ErrorTransactionOutputModel
      */
-   expiresAt?: Date;
+   @JsonProperty("expiresAt", DateConverter, true)
+   expiresAt?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof ErrorTransactionOutputModel
      */
-   amount?: number;
+   @JsonProperty("amount", Number, true)
+   amount?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   datasourceSource?: string;
+   @JsonProperty("datasourceSource", String, true)
+   datasourceSource?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   shipToCountry?: string;
+   @JsonProperty("shipToCountry", String, true)
+   shipToCountry?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   shipToRegion?: string;
+   @JsonProperty("shipToRegion", String, true)
+   shipToRegion?: string | undefined = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof ErrorTransactionOutputModel
      */
-   documentType: Enums.DocumentType;
+   @JsonProperty("documentType", Enums.DocumentTypeConverter)
+   documentType: Enums.DocumentType = undefined;
     /**
      * @type {string}
      * @memberof ErrorTransactionOutputModel
      */
-   documentCode: string;
+   @JsonProperty("documentCode", String)
+   documentCode: string = undefined;
  }

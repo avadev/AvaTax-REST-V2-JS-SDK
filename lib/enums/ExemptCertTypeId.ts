@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -21,4 +22,14 @@
  export enum ExemptCertTypeId {
         Blanket = 0,
         SingleUse = 1,
+}
+
+@JsonConverter
+export class ExemptCertTypeIdConverter implements JsonCustomConvert<ExemptCertTypeId> {
+    serialize(data: ExemptCertTypeId) {
+        return data;
+    }
+    deserialize(enumType: string): ExemptCertTypeId {
+        return ExemptCertTypeId[enumType as keyof typeof ExemptCertTypeId];
+    }
 }

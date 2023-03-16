@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A request to void a previously created transaction.
  * @export
- * @interface BatchVoidTransactionModel
+ * @class BatchVoidTransactionModel
  */
- export interface BatchVoidTransactionModel {
+ @JsonObject("BatchVoidTransactionModel")
+ export class BatchVoidTransactionModel {
     /**
      * @type {string}
      * @memberof BatchVoidTransactionModel
      */
-   companyCode: string;
+   @JsonProperty("companyCode", String)
+   companyCode: string = undefined;
     /**
      * @type {string}
      * @memberof BatchVoidTransactionModel
      */
-   transactionCode: string;
+   @JsonProperty("transactionCode", String)
+   transactionCode: string = undefined;
     /**
      * @type {string}
      * @memberof BatchVoidTransactionModel
      */
-   documentType?: string;
+   @JsonProperty("documentType", String, true)
+   documentType?: string | undefined = undefined;
     /**
      * @type {Enums.VoidReasonCode}
      * @memberof BatchVoidTransactionModel
      */
-   code: Enums.VoidReasonCode;
+   @JsonProperty("code", Enums.VoidReasonCodeConverter)
+   code: Enums.VoidReasonCode = undefined;
  }

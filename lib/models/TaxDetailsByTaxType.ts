@@ -10,47 +10,55 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { TaxDetailsByTaxSubType } from "./TaxDetailsByTaxSubType";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Tax Details by Tax Type
  * @export
- * @interface TaxDetailsByTaxType
+ * @class TaxDetailsByTaxType
  */
- export interface TaxDetailsByTaxType {
+ @JsonObject("TaxDetailsByTaxType")
+ export class TaxDetailsByTaxType {
     /**
      * @type {string}
      * @memberof TaxDetailsByTaxType
      */
-   taxType?: string;
+   @JsonProperty("taxType", String, true)
+   taxType?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxType
      */
-   totalTaxable?: number;
+   @JsonProperty("totalTaxable", Number, true)
+   totalTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxType
      */
-   totalExempt?: number;
+   @JsonProperty("totalExempt", Number, true)
+   totalExempt?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxType
      */
-   totalNonTaxable?: number;
+   @JsonProperty("totalNonTaxable", Number, true)
+   totalNonTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TaxDetailsByTaxType
      */
-   totalTax?: number;
+   @JsonProperty("totalTax", Number, true)
+   totalTax?: number | undefined = undefined;
     /**
-     * @type {Models.TaxDetailsByTaxSubType[]}
+     * @type {TaxDetailsByTaxSubType[]}
      * @memberof TaxDetailsByTaxType
      */
-   taxSubTypeDetails?: Models.TaxDetailsByTaxSubType[];
+   @JsonProperty("taxSubTypeDetails", [TaxDetailsByTaxSubType], true)
+   taxSubTypeDetails?: TaxDetailsByTaxSubType[] | undefined = undefined;
  }

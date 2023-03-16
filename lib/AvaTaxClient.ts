@@ -10,18 +10,23 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
+ * @version    23.3.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as https from 'https';
 import fetch, { Response } from 'node-fetch';
+import { ReadStream } from 'fs';
+import * as FormData from 'form-data';
+import { JsonConvert } from "json2typescript"
+
 import { createBasicAuthHeader } from './utils/basic_auth';
 import { withTimeout } from './utils/withTimeout';
 import * as Models from './models/index';
 import * as Enums from './enums/index';
 import Logger, { LogLevel, LogOptions } from './utils/logger';
 import LogObject from './utils/logObject';
+import { FetchResult } from './utils/fetch_result';
 
 export class AvalaraError extends Error {
   code: string;
@@ -44,7 +49,8 @@ export default class AvaTaxClient {
   public timeout: number;
   public auth: string;
   public customHttpAgent: https.Agent;
-  private apiVersion: string = '23.2.0';
+  public enableStrictTypeConversion: boolean;
+  private apiVersion: string = '23.3.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -58,12 +64,13 @@ export default class AvaTaxClient {
    * @param {https.Agent} customHttpAgent      Specify the http agent which will be used to make http requests to the Avatax APIs.
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
-  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false } } : 
-    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions }) {
+  constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false }, enableStrictTypeConversion = false } : 
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions, enableStrictTypeConversion?: boolean }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
     this.customHttpAgent = customHttpAgent;
+    this.enableStrictTypeConversion = enableStrictTypeConversion;
     this.baseUrl = 'https://rest.avatax.com';
     if (environment == 'sandbox') {
       this.baseUrl = 'https://sandbox-rest.avatax.com';
@@ -106,20 +113,26 @@ export default class AvaTaxClient {
    * @param  {string}  verb       The HTTP verb being used in this request
    * @param  {string}  payload    The request body, if this is being sent to a POST/PUT API call
    */
-  restCall({ url, verb, payload, clientId = '', mapHeader = new Map() }) {
+  restCall<T extends object>({ url, verb, payload, clientId = '', mapHeader = new Map(), isMultiPart = false }, toType: { new(): T }): Promise<T> {
     const reqHeaders = {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
       Authorization: this.auth,
       'X-Avalara-Client': clientId
     };    
+    let formData = null;
+    if (!isMultiPart) {
+      reqHeaders['Content-Type'] = 'application/json';
+    } else {
+      formData = new FormData();
+      formData.append("file", payload);
+    }
     for (let [key, value] of mapHeader) {
       reqHeaders[key] = value;
     }
     const options: HttpOptions = {
       method: verb,
       headers: reqHeaders,
-      body: payload == null ? null : JSON.stringify(payload)
+      body: payload == null ? null : (formData != null) ? formData : JSON.stringify(payload)
     };
     if (this.customHttpAgent) {
       options.agent = this.customHttpAgent;
@@ -143,11 +156,11 @@ export default class AvaTaxClient {
         }).finally(() => {
           this.createLogEntry(logObject);
         });
-        return res;
+        return res as any;
       }
 
       if (contentType && contentType.includes('application/json')) {
-        if ((contentLength === 0 && Math.trunc(res.status / 100) === 2) || res.status === 204){
+        if ((contentLength === "0" && Math.trunc(res.status / 100) === 2) || res.status === 204){
           logObject.populateResponseInfo(res, null);
           this.createLogEntry(logObject);
           return null;
@@ -170,6 +183,13 @@ export default class AvaTaxClient {
           throw ex;
         } else {
           logObject.populateResponseInfo(res, json);
+          if (this.enableStrictTypeConversion) {
+            if (typeof json === 'string') {
+              return json;
+            }
+            const jsonConvert = new JsonConvert();
+            return jsonConvert.deserializeObject<T>(json, toType);
+          }
           return json;
         }
       }).finally(() => {
@@ -253,7 +273,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.LicenseKeyModel);
   }
 
   /**
@@ -291,7 +311,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.AccountModel);
   }
 
   /**
@@ -313,7 +333,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -322,10 +342,10 @@ export default class AvaTaxClient {
      * @param {Date} end The end datetime of audit history you with to retrieve, e.g. "2018-06-08T17:15:00Z. Defaults to the current time. Maximum of an hour after the start time.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-   * @return {object}
+   * @return {FetchResult<Models.AuditModel>}
    */
   
-  auditAccount({ id, start, end, top, skip }: { id: number, start?: Date, end?: Date, top?: number, skip?: number }): Promise<object> {
+  auditAccount({ id, start, end, top, skip }: { id: number, start?: Date, end?: Date, top?: number, skip?: number }): Promise<FetchResult<Models.AuditModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/audit`,
       parameters: {
@@ -341,7 +361,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.AuditModel>);
   }
 
   /**
@@ -379,7 +399,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.LicenseKeyModel);
   }
 
   /**
@@ -401,7 +421,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteLicenseKey({ id, licensekeyname }: { id: number, licensekeyname: string }): Promise<Models.ErrorDetail[]> {
+  deleteLicenseKey({ id, licensekeyname }: { id: number, licensekeyname: string }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/licensekey/${licensekeyname}`,
       parameters: {}
@@ -412,7 +432,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -425,7 +445,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -447,7 +467,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AccountModel);
   }
 
   /**
@@ -467,7 +487,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -475,7 +495,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountConfigurationModel[]}
    */
   
-  getAccountConfiguration({ id }: { id: number }): Promise<Models.AccountConfigurationModel[]> {
+  getAccountConfiguration({ id }: { id: number }): Promise<Array<Models.AccountConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/configuration`,
       parameters: {}
@@ -486,14 +506,14 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.AccountConfigurationModel>);
   }
 
   /**
    * Retrieve license key by license key name
    * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -513,7 +533,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AccountLicenseKeyModel);
   }
 
   /**
@@ -522,7 +542,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -530,7 +550,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountLicenseKeyModel[]}
    */
   
-  getLicenseKeys({ id }: { id: number }): Promise<Models.AccountLicenseKeyModel[]> {
+  getLicenseKeys({ id }: { id: number }): Promise<Array<Models.AccountLicenseKeyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/licensekeys`,
       parameters: {}
@@ -541,7 +561,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.AccountLicenseKeyModel>);
   }
 
   /**
@@ -561,7 +581,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -570,10 +590,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.AccountModel>}
    */
   
-  queryAccounts({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryAccounts({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.AccountModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts`,
       parameters: {
@@ -590,7 +610,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.AccountModel>);
   }
 
   /**
@@ -619,7 +639,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountConfigurationModel[]}
    */
   
-  setAccountConfiguration({ id, model }: { id: number, model?: Models.AccountConfigurationModel[] }): Promise<Models.AccountConfigurationModel[]> {
+  setAccountConfiguration({ id, model }: { id: number, model?: Models.AccountConfigurationModel[] }): Promise<Array<Models.AccountConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/configuration`,
       parameters: {}
@@ -630,7 +650,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.AccountConfigurationModel>);
   }
 
   /**
@@ -685,7 +705,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AddressResolutionModel);
   }
 
   /**
@@ -719,7 +739,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.AddressResolutionModel);
   }
 
   /**
@@ -745,7 +765,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.AdvancedRuleLookupFileModel);
   }
 
   /**
@@ -759,7 +779,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteLookupFile({ accountId, id }: { accountId: number, id: string }): Promise<Models.ErrorDetail[]> {
+  deleteLookupFile({ accountId, id }: { accountId: number, id: string }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/advancedrules/accounts/${accountId}/lookupFiles/${id}`,
       parameters: {}
@@ -770,7 +790,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -781,10 +801,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} accountId The account ID for the company
      * @param {number} companyId The ID of the company for which to retrieve lookup files
-   * @return {object}
+   * @return {FetchResult<Models.AdvancedRuleLookupFileModel>}
    */
   
-  getCompanyLookupFiles({ accountId, companyId }: { accountId: number, companyId: number }): Promise<object> {
+  getCompanyLookupFiles({ accountId, companyId }: { accountId: number, companyId: number }): Promise<FetchResult<Models.AdvancedRuleLookupFileModel>> {
     var path = this.buildUrl({
       url: `/api/v2/advancedrules/accounts/${accountId}/companies/${companyId}/lookupFiles`,
       parameters: {}
@@ -795,7 +815,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.AdvancedRuleLookupFileModel>);
   }
 
   /**
@@ -820,7 +840,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AdvancedRuleLookupFileModel);
   }
 
   /**
@@ -846,7 +866,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.AdvancedRuleLookupFileModel);
   }
 
   /**
@@ -865,7 +885,7 @@ export default class AvaTaxClient {
    * @return {Models.AvaFileFormModel[]}
    */
   
-  createAvaFileForms({ model }: { model?: Models.AvaFileFormModel[] }): Promise<Models.AvaFileFormModel[]> {
+  createAvaFileForms({ model }: { model?: Models.AvaFileFormModel[] }): Promise<Array<Models.AvaFileFormModel>> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms`,
       parameters: {}
@@ -876,7 +896,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.AvaFileFormModel>);
   }
 
   /**
@@ -894,7 +914,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteAvaFileForm({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteAvaFileForm({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms/${id}`,
       parameters: {}
@@ -905,7 +925,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -934,7 +954,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AvaFileFormModel);
   }
 
   /**
@@ -953,10 +973,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.AvaFileFormModel>}
    */
   
-  queryAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.AvaFileFormModel>> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms`,
       parameters: {
@@ -972,7 +992,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.AvaFileFormModel>);
   }
 
   /**
@@ -1003,7 +1023,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.AvaFileFormModel);
   }
 
   /**
@@ -1043,7 +1063,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.BatchModel);
   }
 
   /**
@@ -1079,7 +1099,7 @@ export default class AvaTaxClient {
    * @return {Models.BatchModel[]}
    */
   
-  createBatches({ companyId, model }: { companyId: number, model?: Models.BatchModel[] }): Promise<Models.BatchModel[]> {
+  createBatches({ companyId, model }: { companyId: number, model?: Models.BatchModel[] }): Promise<Array<Models.BatchModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches`,
       parameters: {}
@@ -1090,7 +1110,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.BatchModel>);
   }
 
   /**
@@ -1135,7 +1155,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CreateTransactionBatchResponseModel);
   }
 
   /**
@@ -1162,7 +1182,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteBatch({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteBatch({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches/${id}`,
       parameters: {}
@@ -1173,7 +1193,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -1192,7 +1212,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadBatch({ companyId, batchId, id }: { companyId: number, batchId: number, id: number }): Promise<object> {
+  downloadBatch({ companyId, batchId, id }: { companyId: number, batchId: number, id: number }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches/${batchId}/files/${id}/attachment`,
       parameters: {}
@@ -1203,7 +1223,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
   }
 
   /**
@@ -1246,7 +1266,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.BatchModel);
   }
 
   /**
@@ -1285,10 +1305,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.BatchModel>}
    */
   
-  listBatchesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listBatchesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.BatchModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches`,
       parameters: {
@@ -1305,7 +1325,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.BatchModel>);
   }
 
   /**
@@ -1340,10 +1360,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.BatchModel>}
    */
   
-  queryBatches({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryBatches({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.BatchModel>> {
     var path = this.buildUrl({
       url: `/api/v2/batches`,
       parameters: {
@@ -1360,7 +1380,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.BatchModel>);
   }
 
   /**
@@ -1394,7 +1414,7 @@ export default class AvaTaxClient {
    * @return {Models.CertExpressInvitationStatusModel[]}
    */
   
-  createCertExpressInvitation({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CreateCertExpressInvitationModel[] }): Promise<Models.CertExpressInvitationStatusModel[]> {
+  createCertExpressInvitation({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CreateCertExpressInvitationModel[] }): Promise<Array<Models.CertExpressInvitationStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certexpressinvites`,
       parameters: {}
@@ -1405,7 +1425,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CertExpressInvitationStatusModel>);
   }
 
   /**
@@ -1453,7 +1473,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CertExpressInvitationModel);
   }
 
   /**
@@ -1487,10 +1507,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CertExpressInvitationModel>}
    */
   
-  listCertExpressInvitations({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCertExpressInvitations({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CertExpressInvitationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certexpressinvites`,
       parameters: {
@@ -1507,7 +1527,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CertExpressInvitationModel>);
   }
 
   /**
@@ -1547,7 +1567,7 @@ export default class AvaTaxClient {
    * @return {Models.CertificateModel[]}
    */
   
-  createCertificates({ companyId, preValidatedExemptionReason, model }: { companyId: number, preValidatedExemptionReason?: boolean, model?: Models.CertificateModel[] }): Promise<Models.CertificateModel[]> {
+  createCertificates({ companyId, preValidatedExemptionReason, model }: { companyId: number, preValidatedExemptionReason?: boolean, model?: Models.CertificateModel[] }): Promise<Array<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates`,
       parameters: {
@@ -1560,7 +1580,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CertificateModel>);
   }
 
   /**
@@ -1591,7 +1611,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteCertificate({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteCertificate({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}`,
       parameters: {}
@@ -1602,7 +1622,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -1636,7 +1656,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadCertificateImage({ companyId, id, page, type }: { companyId: number, id: number, page?: number, type?: Enums.CertificatePreviewType }): Promise<object> {
+  downloadCertificateImage({ companyId, id, page, type }: { companyId: number, id: number, page?: number, type?: Enums.CertificatePreviewType }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attachment`,
       parameters: {
@@ -1650,7 +1670,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
   }
 
   /**
@@ -1699,7 +1719,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CertificateModel);
   }
 
   /**
@@ -1734,7 +1754,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ProvisionStatusModel);
   }
 
   /**
@@ -1764,10 +1784,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
      * @param {Models.CertificateAttributeModel[]} model The list of attributes to link to this certificate.
-   * @return {object}
+   * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  linkAttributesToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<object> {
+  linkAttributesToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attributes/link`,
       parameters: {}
@@ -1778,7 +1798,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CertificateAttributeModel>);
   }
 
   /**
@@ -1809,10 +1829,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
      * @param {Models.LinkCustomersModel} model The list of customers needed be added to the Certificate for exemption
-   * @return {object}
+   * @return {FetchResult<Models.CustomerModel>}
    */
   
-  linkCustomersToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<object> {
+  linkCustomersToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers/link`,
       parameters: {}
@@ -1823,7 +1843,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CustomerModel>);
   }
 
   /**
@@ -1852,10 +1872,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
-   * @return {object}
+   * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  listAttributesForCertificate({ companyId, id }: { companyId: number, id: number }): Promise<object> {
+  listAttributesForCertificate({ companyId, id }: { companyId: number, id: number }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attributes`,
       parameters: {}
@@ -1866,7 +1886,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CertificateAttributeModel>);
   }
 
   /**
@@ -1896,10 +1916,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
      * @param {string} include OPTIONAL: A comma separated list of special fetch options.   No options are currently available when fetching customers.
-   * @return {object}
+   * @return {FetchResult<Models.CustomerModel>}
    */
   
-  listCustomersForCertificate({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<object> {
+  listCustomersForCertificate({ companyId, id, include }: { companyId: number, id: number, include?: string }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers`,
       parameters: {
@@ -1912,7 +1932,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CustomerModel>);
   }
 
   /**
@@ -1948,10 +1968,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CertificateModel>}
    */
   
-  queryCertificates({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryCertificates({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates`,
       parameters: {
@@ -1968,7 +1988,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CertificateModel>);
   }
 
   /**
@@ -2005,7 +2025,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.ProvisionStatusModel);
   }
 
   /**
@@ -2035,10 +2055,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
      * @param {Models.CertificateAttributeModel[]} model The list of attributes to unlink from this certificate.
-   * @return {object}
+   * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  unlinkAttributesFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<object> {
+  unlinkAttributesFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attributes/unlink`,
       parameters: {}
@@ -2049,7 +2069,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CertificateAttributeModel>);
   }
 
   /**
@@ -2081,10 +2101,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
      * @param {Models.LinkCustomersModel} model The list of customers to unlink from this certificate
-   * @return {object}
+   * @return {FetchResult<Models.CustomerModel>}
    */
   
-  unlinkCustomersFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<object> {
+  unlinkCustomersFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers/unlink`,
       parameters: {}
@@ -2095,7 +2115,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CustomerModel>);
   }
 
   /**
@@ -2136,7 +2156,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CertificateModel);
   }
 
   /**
@@ -2165,11 +2185,11 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The unique ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
-     * @param {object} file The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
+     * @param {ReadStream} file The exemption certificate file you wanted to upload. Accepted formats are: PDF, JPEG, TIFF, PNG.
    * @return {string}
    */
   
-  uploadCertificateImage({ companyId, id, file }: { companyId: number, id: number, file: object }): Promise<string> {
+  uploadCertificateImage({ companyId, id, file }: { companyId: number, id: number, file: ReadStream }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attachment`,
       parameters: {}
@@ -2180,7 +2200,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: file, clientId: strClientId, isMultiPart: true }, String);
   }
 
   /**
@@ -2211,7 +2231,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2219,7 +2239,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  certifyIntegration({ id }: { id: number }): Promise<string> {
+  certifyIntegration({ id }: { id: number }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/certify`,
       parameters: {}
@@ -2230,7 +2250,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
   }
 
   /**
@@ -2251,7 +2271,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2260,7 +2280,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model?: Models.FilingStatusChangeModel }): Promise<string> {
+  changeFilingStatus({ id, model }: { id: number, model?: Models.FilingStatusChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2271,7 +2291,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -2310,7 +2330,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CompanyModel);
   }
 
   /**
@@ -2331,7 +2351,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyModel[]}
    */
   
-  createCompanies({ model }: { model?: Models.CompanyModel[] }): Promise<Models.CompanyModel[]> {
+  createCompanies({ model }: { model?: Models.CompanyModel[] }): Promise<Array<Models.CompanyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies`,
       parameters: {}
@@ -2342,7 +2362,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CompanyModel>);
   }
 
   /**
@@ -2370,7 +2390,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyParameterDetailModel[]}
    */
   
-  createCompanyParameters({ companyId, model }: { companyId: number, model?: Models.CompanyParameterDetailModel[] }): Promise<Models.CompanyParameterDetailModel[]> {
+  createCompanyParameters({ companyId, model }: { companyId: number, model?: Models.CompanyParameterDetailModel[] }): Promise<Array<Models.CompanyParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters`,
       parameters: {}
@@ -2381,7 +2401,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CompanyParameterDetailModel>);
   }
 
   /**
@@ -2400,7 +2420,7 @@ export default class AvaTaxClient {
      * ### Security Policies
      * 
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2425,7 +2445,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.FundingStatusModel);
   }
 
   /**
@@ -2442,7 +2462,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteCompany({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteCompany({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}`,
       parameters: {}
@@ -2453,7 +2473,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -2476,7 +2496,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteCompanyParameter({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteCompanyParameter({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters/${id}`,
       parameters: {}
@@ -2487,7 +2507,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -2499,7 +2519,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
    * Swagger Name: AvaTaxClient
    *
@@ -2519,7 +2539,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.FundingConfigurationModel);
   }
 
   /**
@@ -2531,7 +2551,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
    * Swagger Name: AvaTaxClient
    *
@@ -2541,7 +2561,7 @@ export default class AvaTaxClient {
    * @return {Models.FundingConfigurationModel[]}
    */
   
-  fundingConfigurationsByCompanyAndCurrency({ companyId, currency }: { companyId: number, currency?: string }): Promise<Models.FundingConfigurationModel[]> {
+  fundingConfigurationsByCompanyAndCurrency({ companyId, currency }: { companyId: number, currency?: string }): Promise<Array<Models.FundingConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/funding/configurations`,
       parameters: {
@@ -2554,7 +2574,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.FundingConfigurationModel>);
   }
 
   /**
@@ -2575,7 +2595,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2597,7 +2617,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CompanyModel);
   }
 
   /**
@@ -2617,7 +2637,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2625,7 +2645,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyConfigurationModel[]}
    */
   
-  getCompanyConfiguration({ id }: { id: number }): Promise<Models.CompanyConfigurationModel[]> {
+  getCompanyConfiguration({ id }: { id: number }): Promise<Array<Models.CompanyConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/configuration`,
       parameters: {}
@@ -2636,7 +2656,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.CompanyConfigurationModel>);
   }
 
   /**
@@ -2651,7 +2671,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2671,7 +2691,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CompanyParameterDetailModel);
   }
 
   /**
@@ -2693,7 +2713,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2701,7 +2721,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<string> {
+  getFilingStatus({ id }: { id: number }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2712,7 +2732,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
   }
 
   /**
@@ -2725,7 +2745,7 @@ export default class AvaTaxClient {
      * ### Security Policies
      * 
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2735,7 +2755,7 @@ export default class AvaTaxClient {
    * @return {Models.ACHEntryDetailModel[]}
    */
   
-  listACHEntryDetailsForCompany({ id, periodyear, periodmonth }: { id: number, periodyear: number, periodmonth: number }): Promise<Models.ACHEntryDetailModel[]> {
+  listACHEntryDetailsForCompany({ id, periodyear, periodmonth }: { id: number, periodyear: number, periodmonth: number }): Promise<Array<Models.ACHEntryDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/paymentdetails/${periodyear}/${periodmonth}`,
       parameters: {}
@@ -2746,7 +2766,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.ACHEntryDetailModel>);
   }
 
   /**
@@ -2764,7 +2784,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2773,10 +2793,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CompanyParameterDetailModel>}
    */
   
-  listCompanyParameterDetails({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCompanyParameterDetails({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CompanyParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters`,
       parameters: {
@@ -2792,7 +2812,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CompanyParameterDetailModel>);
   }
 
   /**
@@ -2805,7 +2825,7 @@ export default class AvaTaxClient {
      * ### Security Policies
      * 
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2813,7 +2833,7 @@ export default class AvaTaxClient {
    * @return {Models.FundingStatusModel[]}
    */
   
-  listFundingRequestsByCompany({ id }: { id: number }): Promise<Models.FundingStatusModel[]> {
+  listFundingRequestsByCompany({ id }: { id: number }): Promise<Array<Models.FundingStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/funding`,
       parameters: {}
@@ -2824,7 +2844,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.FundingStatusModel>);
   }
 
   /**
@@ -2835,14 +2855,14 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
-   * @return {object}
+   * @return {FetchResult<Models.MrsCompanyModel>}
    */
   
-  listMrsCompanies(): Promise<object> {
+  listMrsCompanies(): Promise<FetchResult<Models.MrsCompanyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/mrs`,
       parameters: {}
@@ -2853,7 +2873,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.MrsCompanyModel>);
   }
 
   /**
@@ -2878,7 +2898,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2887,10 +2907,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CompanyModel>}
    */
   
-  queryCompanies({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryCompanies({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CompanyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies`,
       parameters: {
@@ -2907,7 +2927,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CompanyModel>);
   }
 
   /**
@@ -2936,7 +2956,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyConfigurationModel[]}
    */
   
-  setCompanyConfiguration({ id, model }: { id: number, model?: Models.CompanyConfigurationModel[] }): Promise<Models.CompanyConfigurationModel[]> {
+  setCompanyConfiguration({ id, model }: { id: number, model?: Models.CompanyConfigurationModel[] }): Promise<Array<Models.CompanyConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/configuration`,
       parameters: {}
@@ -2947,7 +2967,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CompanyConfigurationModel>);
   }
 
   /**
@@ -2986,7 +3006,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CompanyModel);
   }
 
   /**
@@ -3022,7 +3042,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CompanyParameterDetailModel);
   }
 
   /**
@@ -3066,7 +3086,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ComplianceJurisdictionRateModel);
   }
 
   /**
@@ -3086,7 +3106,7 @@ export default class AvaTaxClient {
    * @return {Models.ContactModel[]}
    */
   
-  createContacts({ companyId, model }: { companyId: number, model?: Models.ContactModel[] }): Promise<Models.ContactModel[]> {
+  createContacts({ companyId, model }: { companyId: number, model?: Models.ContactModel[] }): Promise<Array<Models.ContactModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts`,
       parameters: {}
@@ -3097,7 +3117,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ContactModel>);
   }
 
   /**
@@ -3115,7 +3135,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteContact({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteContact({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts/${id}`,
       parameters: {}
@@ -3126,7 +3146,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -3157,7 +3177,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ContactModel);
   }
 
   /**
@@ -3178,10 +3198,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ContactModel>}
    */
   
-  listContactsByCompany({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listContactsByCompany({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ContactModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts`,
       parameters: {
@@ -3197,7 +3217,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ContactModel>);
   }
 
   /**
@@ -3219,10 +3239,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ContactModel>}
    */
   
-  queryContacts({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryContacts({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ContactModel>> {
     var path = this.buildUrl({
       url: `/api/v2/contacts`,
       parameters: {
@@ -3238,7 +3258,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ContactModel>);
   }
 
   /**
@@ -3272,7 +3292,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ContactModel);
   }
 
   /**
@@ -3305,7 +3325,7 @@ export default class AvaTaxClient {
    * @return {Models.CustomerModel[]}
    */
   
-  createCustomers({ companyId, model }: { companyId: number, model?: Models.CustomerModel[] }): Promise<Models.CustomerModel[]> {
+  createCustomers({ companyId, model }: { companyId: number, model?: Models.CustomerModel[] }): Promise<Array<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers`,
       parameters: {}
@@ -3316,7 +3336,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CustomerModel>);
   }
 
   /**
@@ -3357,7 +3377,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Models.CustomerModel);
   }
 
   /**
@@ -3407,7 +3427,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CustomerModel);
   }
 
   /**
@@ -3438,10 +3458,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded the provided customer
      * @param {string} customerCode The unique code representing the current customer
      * @param {Models.CustomerAttributeModel[]} model The list of attributes to link to the customer.
-   * @return {object}
+   * @return {FetchResult<Models.CustomerAttributeModel>}
    */
   
-  linkAttributesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<object> {
+  linkAttributesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/attributes/link`,
       parameters: {}
@@ -3452,7 +3472,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, FetchResult<Models.CustomerAttributeModel>);
   }
 
   /**
@@ -3480,10 +3500,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
      * @param {Models.LinkCertificatesModel} model The list of certificates to link to this customer
-   * @return {object}
+   * @return {FetchResult<Models.CertificateModel>}
    */
   
-  linkCertificatesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<object> {
+  linkCertificatesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates/link`,
       parameters: {}
@@ -3494,7 +3514,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CertificateModel>);
   }
 
   /**
@@ -3537,7 +3557,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CustomerModel);
   }
 
   /**
@@ -3567,10 +3587,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The unique ID number of the company that recorded the provided customer
      * @param {string} customerCode The unique code representing the current customer
-   * @return {object}
+   * @return {FetchResult<Models.CustomerAttributeModel>}
    */
   
-  listAttributesForCustomer({ companyId, customerCode }: { companyId: number, customerCode: string }): Promise<object> {
+  listAttributesForCustomer({ companyId, customerCode }: { companyId: number, customerCode: string }): Promise<FetchResult<Models.CustomerAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/attributes`,
       parameters: {}
@@ -3581,7 +3601,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CustomerAttributeModel>);
   }
 
   /**
@@ -3613,10 +3633,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CertificateModel>}
    */
   
-  listCertificatesForCustomer({ companyId, customerCode, include, filter, top, skip, orderBy }: { companyId: number, customerCode: string, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCertificatesForCustomer({ companyId, customerCode, include, filter, top, skip, orderBy }: { companyId: number, customerCode: string, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates`,
       parameters: {
@@ -3633,7 +3653,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CertificateModel>);
   }
 
   /**
@@ -3679,7 +3699,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ExemptionStatusModel);
   }
 
   /**
@@ -3715,10 +3735,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CustomerModel>}
    */
   
-  queryCustomers({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryCustomers({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers`,
       parameters: {
@@ -3735,7 +3755,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CustomerModel>);
   }
 
   /**
@@ -3766,10 +3786,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded the customer
      * @param {string} customerCode The unique code representing the current customer
      * @param {Models.CustomerAttributeModel[]} model The list of attributes to unlink from the customer.
-   * @return {object}
+   * @return {FetchResult<Models.CustomerAttributeModel>}
    */
   
-  unlinkAttributesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<object> {
+  unlinkAttributesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/attributes/unlink`,
       parameters: {}
@@ -3780,7 +3800,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, FetchResult<Models.CustomerAttributeModel>);
   }
 
   /**
@@ -3808,10 +3828,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
      * @param {Models.LinkCertificatesModel} model The list of certificates to link to this customer
-   * @return {object}
+   * @return {FetchResult<Models.CertificateModel>}
    */
   
-  unlinkCertificatesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<object> {
+  unlinkCertificatesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates/unlink`,
       parameters: {}
@@ -3822,7 +3842,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.CertificateModel>);
   }
 
   /**
@@ -3864,7 +3884,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CustomerModel);
   }
 
   /**
@@ -3883,7 +3903,7 @@ export default class AvaTaxClient {
    * @return {Models.DataSourceModel[]}
    */
   
-  createDataSources({ companyId, model }: { companyId: number, model?: Models.DataSourceModel[] }): Promise<Models.DataSourceModel[]> {
+  createDataSources({ companyId, model }: { companyId: number, model?: Models.DataSourceModel[] }): Promise<Array<Models.DataSourceModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources`,
       parameters: {}
@@ -3894,7 +3914,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.DataSourceModel>);
   }
 
   /**
@@ -3913,7 +3933,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteDataSource({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteDataSource({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources/${id}`,
       parameters: {}
@@ -3924,7 +3944,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -3933,7 +3953,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
    * Swagger Name: AvaTaxClient
    *
@@ -3954,7 +3974,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.DataSourceModel);
   }
 
   /**
@@ -3963,7 +3983,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
    * Swagger Name: AvaTaxClient
    *
@@ -3973,10 +3993,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.DataSourceModel>}
    */
   
-  listDataSources({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listDataSources({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.DataSourceModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources`,
       parameters: {
@@ -3992,7 +4012,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.DataSourceModel>);
   }
 
   /**
@@ -4004,7 +4024,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
    * Swagger Name: AvaTaxClient
    *
@@ -4013,10 +4033,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.DataSourceModel>}
    */
   
-  queryDataSources({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryDataSources({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.DataSourceModel>> {
     var path = this.buildUrl({
       url: `/api/v2/datasources`,
       parameters: {
@@ -4032,7 +4052,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.DataSourceModel>);
   }
 
   /**
@@ -4063,7 +4083,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.DataSourceModel);
   }
 
   /**
@@ -4087,10 +4107,10 @@ export default class AvaTaxClient {
    * 
      * @param {string} country The name or code of the destination country.
      * @param {string} hsCode The partial or full HS Code for which you would like to view all of the parents.
-   * @return {object}
+   * @return {FetchResult<Models.HsCodeModel>}
    */
   
-  getCrossBorderCode({ country, hsCode }: { country: string, hsCode: string }): Promise<object> {
+  getCrossBorderCode({ country, hsCode }: { country: string, hsCode: string }): Promise<FetchResult<Models.HsCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/crossborder/${country}/${hsCode}/hierarchy`,
       parameters: {}
@@ -4101,7 +4121,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.HsCodeModel>);
   }
 
   /**
@@ -4116,10 +4136,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SkyscraperStatusModel>}
    */
   
-  getLoginVerifierByForm({ form, filter, top, skip, orderBy }: { form: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  getLoginVerifierByForm({ form, filter, top, skip, orderBy }: { form: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SkyscraperStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingcalendars/loginverifiers/${form}`,
       parameters: {
@@ -4135,7 +4155,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SkyscraperStatusModel>);
   }
 
   /**
@@ -4148,10 +4168,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.MarketplaceModel>}
    */
   
-  listAllMarketplaceLocations({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listAllMarketplaceLocations({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.MarketplaceModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/listallmarketplacelocations`,
       parameters: {
@@ -4167,7 +4187,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.MarketplaceModel>);
   }
 
   /**
@@ -4185,10 +4205,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.AvaFileFormModel>}
    */
   
-  listAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listAvaFileForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.AvaFileFormModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/avafileforms`,
       parameters: {
@@ -4204,7 +4224,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.AvaFileFormModel>);
   }
 
   /**
@@ -4224,10 +4244,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  listCertificateAttributes({ companyid, filter, top, skip, orderBy }: { companyid?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCertificateAttributes({ companyid, filter, top, skip, orderBy }: { companyid?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateattributes`,
       parameters: {
@@ -4244,7 +4264,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CertificateAttributeModel>);
   }
 
   /**
@@ -4263,10 +4283,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ExemptionReasonModel>}
    */
   
-  listCertificateExemptReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCertificateExemptReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ExemptionReasonModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateexemptreasons`,
       parameters: {
@@ -4282,7 +4302,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ExemptionReasonModel>);
   }
 
   /**
@@ -4301,10 +4321,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ExposureZoneModel>}
    */
   
-  listCertificateExposureZones({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCertificateExposureZones({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ExposureZoneModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/certificateexposurezones`,
       parameters: {
@@ -4320,7 +4340,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ExposureZoneModel>);
   }
 
   /**
@@ -4335,10 +4355,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ClassificationParameterUsageMapModel>}
    */
   
-  listClassificationParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listClassificationParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ClassificationParameterUsageMapModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/classification/parametersusage`,
       parameters: {
@@ -4354,7 +4374,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ClassificationParameterUsageMapModel>);
   }
 
   /**
@@ -4368,10 +4388,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CommunicationsTSPairModel>}
    */
   
-  listCommunicationsServiceTypes({ id, filter, top, skip, orderBy }: { id: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCommunicationsServiceTypes({ id, filter, top, skip, orderBy }: { id: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CommunicationsTSPairModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/transactiontypes/${id}/servicetypes`,
       parameters: {
@@ -4387,7 +4407,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CommunicationsTSPairModel>);
   }
 
   /**
@@ -4401,10 +4421,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CommunicationsTransactionTypeModel>}
    */
   
-  listCommunicationsTransactionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCommunicationsTransactionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CommunicationsTransactionTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/transactiontypes`,
       parameters: {
@@ -4420,7 +4440,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CommunicationsTransactionTypeModel>);
   }
 
   /**
@@ -4434,10 +4454,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CommunicationsTSPairModel>}
    */
   
-  listCommunicationsTSPairs({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCommunicationsTSPairs({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CommunicationsTSPairModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/communications/tspairs`,
       parameters: {
@@ -4453,7 +4473,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CommunicationsTSPairModel>);
   }
 
   /**
@@ -4468,10 +4488,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.IsoCountryModel>}
    */
   
-  listCountries({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCountries({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.IsoCountryModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries`,
       parameters: {
@@ -4487,7 +4507,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.IsoCountryModel>);
   }
 
   /**
@@ -4507,10 +4527,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CoverLetterModel>}
    */
   
-  listCoverLetters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCoverLetters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CoverLetterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/coverletters`,
       parameters: {
@@ -4526,7 +4546,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CoverLetterModel>);
   }
 
   /**
@@ -4552,10 +4572,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.HsCodeModel>}
    */
   
-  listCrossBorderCodes({ country, hsCode, filter, top, skip, orderBy }: { country: string, hsCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCrossBorderCodes({ country, hsCode, filter, top, skip, orderBy }: { country: string, hsCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.HsCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/crossborder/${country}/${hsCode}`,
       parameters: {
@@ -4571,7 +4591,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.HsCodeModel>);
   }
 
   /**
@@ -4589,10 +4609,10 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-   * @return {object}
+   * @return {FetchResult<Models.HsCodeModel>}
    */
   
-  listCrossBorderSections(): Promise<object> {
+  listCrossBorderSections(): Promise<FetchResult<Models.HsCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/crossborder/sections`,
       parameters: {}
@@ -4603,7 +4623,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.HsCodeModel>);
   }
 
   /**
@@ -4619,10 +4639,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CurrencyModel>}
    */
   
-  listCurrencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listCurrencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CurrencyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/currencies`,
       parameters: {
@@ -4638,7 +4658,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CurrencyModel>);
   }
 
   /**
@@ -4655,10 +4675,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.EntityUseCodeModel>}
    */
   
-  listEntityUseCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listEntityUseCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.EntityUseCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/entityusecodes`,
       parameters: {
@@ -4674,7 +4694,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.EntityUseCodeModel>);
   }
 
   /**
@@ -4688,10 +4708,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.FilingFrequencyModel>}
    */
   
-  listFilingFrequencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listFilingFrequencies({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.FilingFrequencyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingfrequencies`,
       parameters: {
@@ -4707,7 +4727,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.FilingFrequencyModel>);
   }
 
   /**
@@ -4725,10 +4745,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.JurisdictionModel>}
    */
   
-  listJurisdictions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listJurisdictions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions`,
       parameters: {
@@ -4744,7 +4764,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.JurisdictionModel>);
   }
 
   /**
@@ -4770,10 +4790,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.JurisdictionOverrideModel>}
    */
   
-  listJurisdictionsByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listJurisdictionsByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionOverrideModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictionsnearaddress`,
       parameters: {
@@ -4796,7 +4816,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.JurisdictionOverrideModel>);
   }
 
   /**
@@ -4821,10 +4841,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.JurisdictionRateTypeTaxTypeMappingModel>}
    */
   
-  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, region?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listJurisdictionsByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId, region, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, region?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionRateTypeTaxTypeMappingModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -4842,7 +4862,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.JurisdictionRateTypeTaxTypeMappingModel>);
   }
 
   /**
@@ -4858,7 +4878,7 @@ export default class AvaTaxClient {
    * @return {string[]}
    */
   
-  listJurisdictionTypesByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string }): Promise<string[]> {
+  listJurisdictionTypesByRateTypeTaxTypeMapping({ country, taxTypeId, taxSubTypeId, rateTypeId }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string }): Promise<Array<String>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictionTypes/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -4871,7 +4891,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<String>);
   }
 
   /**
@@ -4898,10 +4918,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.LocationQuestionModel>}
    */
   
-  listLocationQuestionsByAddress({ line1, line2, line3, city, region, postalCode, country, latitude, longitude, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country?: string, latitude?: number, longitude?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listLocationQuestionsByAddress({ line1, line2, line3, city, region, postalCode, country, latitude, longitude, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region?: string, postalCode?: string, country?: string, latitude?: number, longitude?: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.LocationQuestionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/locationquestions`,
       parameters: {
@@ -4926,7 +4946,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.LocationQuestionModel>);
   }
 
   /**
@@ -4941,10 +4961,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SkyscraperStatusModel>}
    */
   
-  listLoginVerifiers({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listLoginVerifiers({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SkyscraperStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/filingcalendars/loginverifiers`,
       parameters: {
@@ -4960,7 +4980,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SkyscraperStatusModel>);
   }
 
   /**
@@ -4973,10 +4993,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.MarketplaceLocationModel>}
    */
   
-  listMarketplaceLocations({ marketplaceId, top, skip, orderBy }: { marketplaceId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listMarketplaceLocations({ marketplaceId, top, skip, orderBy }: { marketplaceId: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.MarketplaceLocationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/marketplacelocations`,
       parameters: {
@@ -4992,7 +5012,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.MarketplaceLocationModel>);
   }
 
   /**
@@ -5007,10 +5027,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexus({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexus({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus`,
       parameters: {
@@ -5026,7 +5046,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -5050,10 +5070,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByAddress({ line1, line2, line3, city, region, postalCode, country, filter, top, skip, orderBy }: { line1?: string, line2?: string, line3?: string, city?: string, region: string, postalCode?: string, country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/byaddress`,
       parameters: {
@@ -5076,7 +5096,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -5092,10 +5112,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/${country}`,
       parameters: {
@@ -5111,7 +5131,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -5128,10 +5148,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByCountryAndRegion({ country, region, filter, top, skip, orderBy }: { country: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByCountryAndRegion({ country, region, filter, top, skip, orderBy }: { country: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/${country}/${region}`,
       parameters: {
@@ -5147,7 +5167,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -5185,7 +5205,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.NexusByTaxFormModel);
   }
 
   /**
@@ -5201,10 +5221,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByTaxTypeGroup({ taxTypeGroup, filter, top, skip, orderBy }: { taxTypeGroup: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByTaxTypeGroup({ taxTypeGroup, filter, top, skip, orderBy }: { taxTypeGroup: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexus/bytaxtypegroup/${taxTypeGroup}`,
       parameters: {
@@ -5220,7 +5240,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -5234,10 +5254,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusTaxTypeGroupModel>}
    */
   
-  listNexusTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusTaxTypeGroupModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/nexustaxtypegroups`,
       parameters: {
@@ -5253,7 +5273,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusTaxTypeGroupModel>);
   }
 
   /**
@@ -5267,10 +5287,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeCustomerFundingOptionModel>}
    */
   
-  listNoticeCustomerFundingOptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeCustomerFundingOptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeCustomerFundingOptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticecustomerfundingoptions`,
       parameters: {
@@ -5286,7 +5306,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeCustomerFundingOptionModel>);
   }
 
   /**
@@ -5300,10 +5320,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeCustomerTypeModel>}
    */
   
-  listNoticeCustomerTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeCustomerTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeCustomerTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticecustomertypes`,
       parameters: {
@@ -5319,7 +5339,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeCustomerTypeModel>);
   }
 
   /**
@@ -5333,10 +5353,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeFilingTypeModel>}
    */
   
-  listNoticeFilingtypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeFilingtypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeFilingTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticefilingtypes`,
       parameters: {
@@ -5352,7 +5372,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeFilingTypeModel>);
   }
 
   /**
@@ -5366,10 +5386,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticePriorityModel>}
    */
   
-  listNoticePriorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticePriorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticePriorityModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticepriorities`,
       parameters: {
@@ -5385,7 +5405,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticePriorityModel>);
   }
 
   /**
@@ -5399,10 +5419,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeReasonModel>}
    */
   
-  listNoticeReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeReasons({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeReasonModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticereasons`,
       parameters: {
@@ -5418,7 +5438,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeReasonModel>);
   }
 
   /**
@@ -5432,10 +5452,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeResponsibilityModel>}
    */
   
-  listNoticeResponsibilities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeResponsibilities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeResponsibilityModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticeresponsibilities`,
       parameters: {
@@ -5451,7 +5471,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeResponsibilityModel>);
   }
 
   /**
@@ -5465,10 +5485,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeRootCauseModel>}
    */
   
-  listNoticeRootCauses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeRootCauses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeRootCauseModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticerootcauses`,
       parameters: {
@@ -5484,7 +5504,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeRootCauseModel>);
   }
 
   /**
@@ -5498,10 +5518,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeStatusModel>}
    */
   
-  listNoticeStatuses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeStatuses({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticestatuses`,
       parameters: {
@@ -5517,7 +5537,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeStatusModel>);
   }
 
   /**
@@ -5531,10 +5551,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NoticeTypeModel>}
    */
   
-  listNoticeTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNoticeTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NoticeTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/noticetypes`,
       parameters: {
@@ -5550,7 +5570,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NoticeTypeModel>);
   }
 
   /**
@@ -5565,10 +5585,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ParameterModel>}
    */
   
-  listParameters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listParameters({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parameters`,
       parameters: {
@@ -5584,7 +5604,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ParameterModel>);
   }
 
   /**
@@ -5616,10 +5636,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ParameterModel>}
    */
   
-  listParametersByItem({ companyCode, itemCode, filter, top, skip, orderBy }: { companyCode: string, itemCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listParametersByItem({ companyCode, itemCode, filter, top, skip, orderBy }: { companyCode: string, itemCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parameters/byitem/${companyCode}/${itemCode}`,
       parameters: {
@@ -5635,7 +5655,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ParameterModel>);
   }
 
   /**
@@ -5650,10 +5670,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ParameterUsageModel>}
    */
   
-  listParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ParameterUsageModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/parametersusage`,
       parameters: {
@@ -5669,7 +5689,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ParameterUsageModel>);
   }
 
   /**
@@ -5681,10 +5701,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-   * @return {object}
+   * @return {FetchResult<String>}
    */
   
-  listPermissions({ top, skip }: { top?: number, skip?: number }): Promise<object> {
+  listPermissions({ top, skip }: { top?: number, skip?: number }): Promise<FetchResult<String>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/permissions`,
       parameters: {
@@ -5698,7 +5718,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<String>);
   }
 
   /**
@@ -5711,10 +5731,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.PostalCodeModel>}
    */
   
-  listPostalCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listPostalCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.PostalCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/postalcodes`,
       parameters: {
@@ -5730,7 +5750,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.PostalCodeModel>);
   }
 
   /**
@@ -5751,10 +5771,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.PreferredProgramModel>}
    */
   
-  listPreferredPrograms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listPreferredPrograms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.PreferredProgramModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/preferredprograms`,
       parameters: {
@@ -5770,7 +5790,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.PreferredProgramModel>);
   }
 
   /**
@@ -5787,10 +5807,10 @@ export default class AvaTaxClient {
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
      * @param {string} countryCode If not null, return all records with this code.
-   * @return {object}
+   * @return {FetchResult<Models.ProductClassificationSystemModel>}
    */
   
-  listProductClassificationSystems({ filter, top, skip, orderBy, countryCode }: { filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<object> {
+  listProductClassificationSystems({ filter, top, skip, orderBy, countryCode }: { filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<FetchResult<Models.ProductClassificationSystemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/productclassificationsystems`,
       parameters: {
@@ -5807,7 +5827,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ProductClassificationSystemModel>);
   }
 
   /**
@@ -5833,10 +5853,10 @@ export default class AvaTaxClient {
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
      * @param {string} countryCode If not null, return all records with this code.
-   * @return {object}
+   * @return {FetchResult<Models.ProductClassificationSystemModel>}
    */
   
-  listProductClassificationSystemsByCompany({ companyCode, filter, top, skip, orderBy, countryCode }: { companyCode: string, filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<object> {
+  listProductClassificationSystemsByCompany({ companyCode, filter, top, skip, orderBy, countryCode }: { companyCode: string, filter?: string, top?: number, skip?: number, orderBy?: string, countryCode?: string }): Promise<FetchResult<Models.ProductClassificationSystemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/productclassificationsystems/bycompany/${companyCode}`,
       parameters: {
@@ -5853,7 +5873,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ProductClassificationSystemModel>);
   }
 
   /**
@@ -5868,10 +5888,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.RateTypeModel>}
    */
   
-  listRateTypesByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listRateTypesByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.RateTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/ratetypes`,
       parameters: {
@@ -5887,7 +5907,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.RateTypeModel>);
   }
 
   /**
@@ -5904,10 +5924,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.RateTypesModel>}
    */
   
-  listRateTypesByCountryTaxTypeTaxSubType({ country, taxTypeId, taxSubTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listRateTypesByCountryTaxTypeTaxSubType({ country, taxTypeId, taxSubTypeId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.RateTypesModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}/ratetypes`,
       parameters: {
@@ -5923,7 +5943,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.RateTypesModel>);
   }
 
   /**
@@ -5938,10 +5958,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.IsoRegionModel>}
    */
   
-  listRegions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listRegions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.IsoRegionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/regions`,
       parameters: {
@@ -5957,7 +5977,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.IsoRegionModel>);
   }
 
   /**
@@ -5973,10 +5993,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.IsoRegionModel>}
    */
   
-  listRegionsByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listRegionsByCountry({ country, filter, top, skip, orderBy }: { country: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.IsoRegionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries/${country}/regions`,
       parameters: {
@@ -5992,7 +6012,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.IsoRegionModel>);
   }
 
   /**
@@ -6012,10 +6032,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.IsoRegionModel>}
    */
   
-  listRegionsByCountryAndTaxTypeAndTaxSubTypeAndRateType({ companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, top, skip, orderBy }: { companyId: number, country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, jurisdictionTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listRegionsByCountryAndTaxTypeAndTaxSubTypeAndRateType({ companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, top, skip, orderBy }: { companyId: number, country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, jurisdictionTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.IsoRegionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/companies/${companyId}/countries/${country}/regions/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}/rateTypeId/${rateTypeId}/jurisdictionTypeId/${jurisdictionTypeId}`,
       parameters: {
@@ -6030,7 +6050,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.IsoRegionModel>);
   }
 
   /**
@@ -6044,10 +6064,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ResourceFileTypeModel>}
    */
   
-  listResourceFileTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listResourceFileTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ResourceFileTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/resourcefiletypes`,
       parameters: {
@@ -6063,7 +6083,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ResourceFileTypeModel>);
   }
 
   /**
@@ -6078,10 +6098,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ReturnsParameterUsageModel>}
    */
   
-  listReturnsParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listReturnsParametersUsage({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ReturnsParameterUsageModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/returns/parametersusage`,
       parameters: {
@@ -6097,7 +6117,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ReturnsParameterUsageModel>);
   }
 
   /**
@@ -6112,10 +6132,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SecurityRoleModel>}
    */
   
-  listSecurityRoles({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listSecurityRoles({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SecurityRoleModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/securityroles`,
       parameters: {
@@ -6131,7 +6151,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SecurityRoleModel>);
   }
 
   /**
@@ -6147,10 +6167,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SubscriptionTypeModel>}
    */
   
-  listSubscriptionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listSubscriptionTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SubscriptionTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/subscriptiontypes`,
       parameters: {
@@ -6166,7 +6186,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SubscriptionTypeModel>);
   }
 
   /**
@@ -6179,10 +6199,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TagsModel>}
    */
   
-  listTags({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTags({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TagsModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/tags`,
       parameters: {
@@ -6198,7 +6218,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TagsModel>);
   }
 
   /**
@@ -6212,10 +6232,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxAuthorityModel>}
    */
   
-  listTaxAuthorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxAuthorities({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxAuthorityModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthorities`,
       parameters: {
@@ -6231,7 +6251,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxAuthorityModel>);
   }
 
   /**
@@ -6247,10 +6267,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxAuthorityFormModel>}
    */
   
-  listTaxAuthorityForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxAuthorityForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxAuthorityFormModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthorityforms`,
       parameters: {
@@ -6266,7 +6286,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxAuthorityFormModel>);
   }
 
   /**
@@ -6280,10 +6300,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxAuthorityTypeModel>}
    */
   
-  listTaxAuthorityTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxAuthorityTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxAuthorityTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxauthoritytypes`,
       parameters: {
@@ -6299,7 +6319,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxAuthorityTypeModel>);
   }
 
   /**
@@ -6320,10 +6340,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxCodeModel>}
    */
   
-  listTaxCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxcodes`,
       parameters: {
@@ -6339,7 +6359,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxCodeModel>);
   }
 
   /**
@@ -6369,7 +6389,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxCodeTypesModel);
   }
 
   /**
@@ -6383,10 +6403,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.FormMasterModel>}
    */
   
-  listTaxForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxForms({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.FormMasterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxforms`,
       parameters: {
@@ -6402,7 +6422,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.FormMasterModel>);
   }
 
   /**
@@ -6416,10 +6436,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxSubTypeModel>}
    */
   
-  listTaxSubTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxSubTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxSubTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes`,
       parameters: {
@@ -6435,7 +6455,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxSubTypeModel>);
   }
 
   /**
@@ -6452,10 +6472,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxSubTypeModel>}
    */
   
-  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, companyId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, companyId, filter, top, skip, orderBy }: { country: string, taxTypeId: string, companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxSubTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/countries/${country}/taxtypes/${taxTypeId}`,
       parameters: {
@@ -6472,7 +6492,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxSubTypeModel>);
   }
 
   /**
@@ -6488,10 +6508,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxSubTypeModel>}
    */
   
-  listTaxSubTypesByJurisdictionAndRegion({ jurisdictionCode, region, filter, top, skip, orderBy }: { jurisdictionCode: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxSubTypesByJurisdictionAndRegion({ jurisdictionCode, region, filter, top, skip, orderBy }: { jurisdictionCode: string, region: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxSubTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/${jurisdictionCode}/${region}`,
       parameters: {
@@ -6507,7 +6527,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxSubTypeModel>);
   }
 
   /**
@@ -6521,10 +6541,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxTypeGroupModel>}
    */
   
-  listTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxTypeGroups({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxTypeGroupModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxtypegroups`,
       parameters: {
@@ -6540,7 +6560,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxTypeGroupModel>);
   }
 
   /**
@@ -6554,10 +6574,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxTypeModel>}
    */
   
-  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy }: { country: string, companyId: number, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy }: { country: string, companyId: number, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxtypes/countries/${country}`,
       parameters: {
@@ -6573,7 +6593,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxTypeModel>);
   }
 
   /**
@@ -6589,10 +6609,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UnitOfBasisModel>}
    */
   
-  listUnitOfBasisByCountryAndTaxTypeAndTaxSubTypeAndRateType({ country, taxTypeId, taxSubTypeId, rateTypeId, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listUnitOfBasisByCountryAndTaxTypeAndTaxSubTypeAndRateType({ country, taxTypeId, taxSubTypeId, rateTypeId, top, skip, orderBy }: { country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UnitOfBasisModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/unitofbasis/countries/${country}/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}`,
       parameters: {
@@ -6608,7 +6628,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UnitOfBasisModel>);
   }
 
   /**
@@ -6623,10 +6643,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UomModel>}
    */
   
-  listUnitOfMeasurement({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listUnitOfMeasurement({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UomModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/unitofmeasurements`,
       parameters: {
@@ -6642,7 +6662,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UomModel>);
   }
 
   /**
@@ -6664,7 +6684,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyDistanceThresholdModel[]}
    */
   
-  createDistanceThreshold({ companyId, model }: { companyId: number, model?: Models.CompanyDistanceThresholdModel[] }): Promise<Models.CompanyDistanceThresholdModel[]> {
+  createDistanceThreshold({ companyId, model }: { companyId: number, model?: Models.CompanyDistanceThresholdModel[] }): Promise<Array<Models.CompanyDistanceThresholdModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds`,
       parameters: {}
@@ -6675,7 +6695,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CompanyDistanceThresholdModel>);
   }
 
   /**
@@ -6697,7 +6717,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteDistanceThreshold({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteDistanceThreshold({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds/${id}`,
       parameters: {}
@@ -6708,7 +6728,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -6741,7 +6761,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CompanyDistanceThresholdModel);
   }
 
   /**
@@ -6764,10 +6784,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CompanyDistanceThresholdModel>}
    */
   
-  listDistanceThresholds({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listDistanceThresholds({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CompanyDistanceThresholdModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds`,
       parameters: {
@@ -6784,7 +6804,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CompanyDistanceThresholdModel>);
   }
 
   /**
@@ -6809,10 +6829,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.CompanyDistanceThresholdModel>}
    */
   
-  queryDistanceThresholds({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryDistanceThresholds({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CompanyDistanceThresholdModel>> {
     var path = this.buildUrl({
       url: `/api/v2/distancethresholds`,
       parameters: {
@@ -6829,7 +6849,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CompanyDistanceThresholdModel>);
   }
 
   /**
@@ -6866,7 +6886,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CompanyDistanceThresholdModel);
   }
 
   /**
@@ -6877,7 +6897,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -6897,7 +6917,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ECommerceTokenOutputModel);
   }
 
   /**
@@ -6908,16 +6928,16 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
      * @param {number} companyId The company ID that the refreshed certificate belongs to.
      * @param {Models.RefreshECommerceTokenInputModel} model 
-   * @return {object}
+   * @return {FetchResult<Models.ECommerceTokenOutputModel>}
    */
   
-  refreshECommerceToken({ companyId, model }: { companyId: number, model?: Models.RefreshECommerceTokenInputModel }): Promise<object> {
+  refreshECommerceToken({ companyId, model }: { companyId: number, model?: Models.RefreshECommerceTokenInputModel }): Promise<FetchResult<Models.ECommerceTokenOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/ecommercetokens`,
       parameters: {}
@@ -6928,7 +6948,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, FetchResult<Models.ECommerceTokenOutputModel>);
   }
 
   /**
@@ -6956,7 +6976,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -6993,7 +7013,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7021,7 +7041,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7038,7 +7058,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteFirmClientLinkage({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteFirmClientLinkage({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/firmclientlinkages/${id}`,
       parameters: {}
@@ -7049,7 +7069,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7058,7 +7078,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -7077,7 +7097,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7086,15 +7106,15 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* firmAccountName, clientAccountName
-   * @return {object}
+   * @return {FetchResult<Models.FirmClientLinkageOutputModel>}
    */
   
-  listFirmClientLinkage({ filter }: { filter?: string }): Promise<object> {
+  listFirmClientLinkage({ filter }: { filter?: string }): Promise<FetchResult<Models.FirmClientLinkageOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/firmclientlinkages`,
       parameters: {
@@ -7107,7 +7127,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.FirmClientLinkageOutputModel>);
   }
 
   /**
@@ -7135,7 +7155,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7163,7 +7183,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7191,7 +7211,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
   }
 
   /**
@@ -7228,7 +7248,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.NewAccountModel);
   }
 
   /**
@@ -7248,7 +7268,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
    * Swagger Name: AvaTaxClient
    *
@@ -7273,7 +7293,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.FundingStatusModel);
   }
 
   /**
@@ -7316,7 +7336,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.FundingStatusModel);
   }
 
   /**
@@ -7338,7 +7358,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  batchDeleteItemClassifications({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Models.ErrorDetail[]> {
+  batchDeleteItemClassifications({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {}
@@ -7349,7 +7369,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7373,7 +7393,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  batchDeleteItemParameters({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Models.ErrorDetail[]> {
+  batchDeleteItemParameters({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {}
@@ -7384,7 +7404,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7421,7 +7441,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemBulkUploadOutputModel);
   }
 
   /**
@@ -7446,7 +7466,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemClassificationOutputModel[]}
    */
   
-  createItemClassifications({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemClassificationInputModel[] }): Promise<Models.ItemClassificationOutputModel[]> {
+  createItemClassifications({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemClassificationInputModel[] }): Promise<Array<Models.ItemClassificationOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {}
@@ -7457,7 +7477,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemClassificationOutputModel>);
   }
 
   /**
@@ -7486,7 +7506,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemParameterModel[]}
    */
   
-  createItemParameters({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemParameterModel[] }): Promise<Models.ItemParameterModel[]> {
+  createItemParameters({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemParameterModel[] }): Promise<Array<Models.ItemParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {}
@@ -7497,7 +7517,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemParameterModel>);
   }
 
   /**
@@ -7523,7 +7543,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemModel[]}
    */
   
-  createItems({ companyId, model }: { companyId: number, model?: Models.ItemModel[] }): Promise<Models.ItemModel[]> {
+  createItems({ companyId, model }: { companyId: number, model?: Models.ItemModel[] }): Promise<Array<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {}
@@ -7534,7 +7554,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemModel>);
   }
 
   /**
@@ -7555,7 +7575,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemTagDetailOutputModel[]}
    */
   
-  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemTagDetailInputModel[] }): Promise<Models.ItemTagDetailOutputModel[]> {
+  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemTagDetailInputModel[] }): Promise<Array<Models.ItemTagDetailOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {}
@@ -7566,7 +7586,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemTagDetailOutputModel>);
   }
 
   /**
@@ -7599,7 +7619,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemTaxCodeClassificationRequestOutputModel);
   }
 
   /**
@@ -7631,7 +7651,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteCatalogueItem({ companyId, itemCode }: { companyId: number, itemCode: string }): Promise<Models.ErrorDetail[]> {
+  deleteCatalogueItem({ companyId, itemCode }: { companyId: number, itemCode: string }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/itemcatalogue/${itemCode}`,
       parameters: {}
@@ -7642,7 +7662,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7668,7 +7688,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteItem({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteItem({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${id}`,
       parameters: {}
@@ -7679,7 +7699,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7702,7 +7722,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteItemClassification({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteItemClassification({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications/${id}`,
       parameters: {}
@@ -7713,7 +7733,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7738,7 +7758,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteItemParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteItemParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters/${id}`,
       parameters: {}
@@ -7749,7 +7769,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7770,7 +7790,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteItemTag({ companyId, itemId, itemTagDetailId }: { companyId: number, itemId: number, itemTagDetailId: number }): Promise<Models.ErrorDetail[]> {
+  deleteItemTag({ companyId, itemId, itemTagDetailId }: { companyId: number, itemId: number, itemTagDetailId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags/${itemTagDetailId}`,
       parameters: {}
@@ -7781,7 +7801,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7801,7 +7821,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteItemTags({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Models.ErrorDetail[]> {
+  deleteItemTags({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {}
@@ -7812,7 +7832,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -7837,10 +7857,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>}
    */
   
-  getClassificationStatus({ companyId, includeClassificationDetails, filter, top, skip, orderBy }: { companyId: number, includeClassificationDetails?: boolean, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  getClassificationStatus({ companyId, includeClassificationDetails, filter, top, skip, orderBy }: { companyId: number, includeClassificationDetails?: boolean, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode`,
       parameters: {
@@ -7857,7 +7877,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>);
   }
 
   /**
@@ -7895,7 +7915,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemModel);
   }
 
   /**
@@ -7929,7 +7949,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemClassificationOutputModel);
   }
 
   /**
@@ -7965,7 +7985,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemParameterModel);
   }
 
   /**
@@ -7985,10 +8005,10 @@ export default class AvaTaxClient {
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* tagName
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-   * @return {object}
+   * @return {FetchResult<Models.ItemTagDetailOutputModel>}
    */
   
-  getItemTags({ companyId, itemId, filter, top, skip }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number }): Promise<object> {
+  getItemTags({ companyId, itemId, filter, top, skip }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number }): Promise<FetchResult<Models.ItemTagDetailOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {
@@ -8003,7 +8023,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemTagDetailOutputModel>);
   }
 
   /**
@@ -8042,7 +8062,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemPremiumClassificationOutputModel);
   }
 
   /**
@@ -8065,10 +8085,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>}
    */
   
-  getTaxCodeRecommendations({ companyId, requestId, filter, top, skip, orderBy }: { companyId: number, requestId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  getTaxCodeRecommendations({ companyId, requestId, filter, top, skip, orderBy }: { companyId: number, requestId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode/${requestId}/recommendations`,
       parameters: {
@@ -8084,7 +8104,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>);
   }
 
   /**
@@ -8112,10 +8132,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemRestrictionOutputModel>}
    */
   
-  listImportRestrictions({ companyId, itemCode, countryOfImport, top, skip, orderBy }: { companyId: number, itemCode: string, countryOfImport: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listImportRestrictions({ companyId, itemCode, countryOfImport, top, skip, orderBy }: { companyId: number, itemCode: string, countryOfImport: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemRestrictionOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemCode}/restrictions/import/${countryOfImport}`,
       parameters: {
@@ -8130,7 +8150,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemRestrictionOutputModel>);
   }
 
   /**
@@ -8156,10 +8176,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemClassificationOutputModel>}
    */
   
-  listItemClassifications({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listItemClassifications({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemClassificationOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {
@@ -8175,7 +8195,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemClassificationOutputModel>);
   }
 
   /**
@@ -8203,10 +8223,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemParameterModel>}
    */
   
-  listItemParameters({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listItemParameters({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {
@@ -8222,7 +8242,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemParameterModel>);
   }
 
   /**
@@ -8261,10 +8281,10 @@ export default class AvaTaxClient {
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
      * @param {string} tagName Tag Name on the basis of which you want to filter Items
-   * @return {object}
+   * @return {FetchResult<Models.ItemModel>}
    */
   
-  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string }): Promise<object> {
+  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string }): Promise<FetchResult<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {
@@ -8282,7 +8302,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemModel>);
   }
 
   /**
@@ -8310,10 +8330,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemModel>}
    */
   
-  queryItems({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryItems({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/items`,
       parameters: {
@@ -8330,7 +8350,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemModel>);
   }
 
   /**
@@ -8360,10 +8380,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.ItemModel>}
    */
   
-  queryItemsByTag({ companyId, tag, filter, include, top, skip, orderBy }: { companyId: number, tag: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryItemsByTag({ companyId, tag, filter, include, top, skip, orderBy }: { companyId: number, tag: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/bytags/${tag}`,
       parameters: {
@@ -8380,7 +8400,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemModel>);
   }
 
   /**
@@ -8415,7 +8435,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemCatalogueOutputModel);
   }
 
   /**
@@ -8455,7 +8475,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.SyncItemsResponseModel);
   }
 
   /**
@@ -8496,7 +8516,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemModel);
   }
 
   /**
@@ -8533,7 +8553,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemClassificationOutputModel);
   }
 
   /**
@@ -8570,7 +8590,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemParameterModel);
   }
 
   /**
@@ -8593,7 +8613,7 @@ export default class AvaTaxClient {
    * @return {Models.JurisdictionOverrideModel[]}
    */
   
-  createJurisdictionOverrides({ accountId, model }: { accountId: number, model?: Models.JurisdictionOverrideModel[] }): Promise<Models.JurisdictionOverrideModel[]> {
+  createJurisdictionOverrides({ accountId, model }: { accountId: number, model?: Models.JurisdictionOverrideModel[] }): Promise<Array<Models.JurisdictionOverrideModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides`,
       parameters: {}
@@ -8604,7 +8624,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.JurisdictionOverrideModel>);
   }
 
   /**
@@ -8622,7 +8642,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteJurisdictionOverride({ accountId, id }: { accountId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteJurisdictionOverride({ accountId, id }: { accountId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides/${id}`,
       parameters: {}
@@ -8633,7 +8653,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -8667,7 +8687,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.JurisdictionOverrideModel);
   }
 
   /**
@@ -8694,10 +8714,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.JurisdictionOverrideModel>}
    */
   
-  listJurisdictionOverridesByAccount({ accountId, filter, include, top, skip, orderBy }: { accountId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listJurisdictionOverridesByAccount({ accountId, filter, include, top, skip, orderBy }: { accountId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionOverrideModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides`,
       parameters: {
@@ -8714,7 +8734,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.JurisdictionOverrideModel>);
   }
 
   /**
@@ -8740,10 +8760,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.JurisdictionOverrideModel>}
    */
   
-  queryJurisdictionOverrides({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryJurisdictionOverrides({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionOverrideModel>> {
     var path = this.buildUrl({
       url: `/api/v2/jurisdictionoverrides`,
       parameters: {
@@ -8760,7 +8780,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.JurisdictionOverrideModel>);
   }
 
   /**
@@ -8790,7 +8810,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.JurisdictionOverrideModel);
   }
 
   /**
@@ -8819,7 +8839,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationParameterModel[]}
    */
   
-  createLocationParameters({ companyId, locationId, model }: { companyId: number, locationId: number, model?: Models.LocationParameterModel[] }): Promise<Models.LocationParameterModel[]> {
+  createLocationParameters({ companyId, locationId, model }: { companyId: number, locationId: number, model?: Models.LocationParameterModel[] }): Promise<Array<Models.LocationParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters`,
       parameters: {}
@@ -8830,7 +8850,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.LocationParameterModel>);
   }
 
   /**
@@ -8848,7 +8868,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationModel[]}
    */
   
-  createLocations({ companyId, model }: { companyId: number, model?: Models.LocationModel[] }): Promise<Models.LocationModel[]> {
+  createLocations({ companyId, model }: { companyId: number, model?: Models.LocationModel[] }): Promise<Array<Models.LocationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations`,
       parameters: {}
@@ -8859,7 +8879,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.LocationModel>);
   }
 
   /**
@@ -8877,7 +8897,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteLocation({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteLocation({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${id}`,
       parameters: {}
@@ -8888,7 +8908,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -8913,7 +8933,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteLocationParameter({ companyId, locationId, id }: { companyId: number, locationId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteLocationParameter({ companyId, locationId, id }: { companyId: number, locationId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters/${id}`,
       parameters: {}
@@ -8924,7 +8944,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -8942,7 +8962,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -8965,7 +8985,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.LocationModel);
   }
 
   /**
@@ -8980,7 +9000,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -9001,7 +9021,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.LocationParameterModel);
   }
 
   /**
@@ -9019,7 +9039,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -9029,10 +9049,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.LocationParameterModel>}
    */
   
-  listLocationParameters({ companyId, locationId, filter, top, skip, orderBy }: { companyId: number, locationId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listLocationParameters({ companyId, locationId, filter, top, skip, orderBy }: { companyId: number, locationId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.LocationParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters`,
       parameters: {
@@ -9048,7 +9068,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.LocationParameterModel>);
   }
 
   /**
@@ -9068,7 +9088,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -9078,10 +9098,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.LocationModel>}
    */
   
-  listLocationsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listLocationsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.LocationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations`,
       parameters: {
@@ -9098,7 +9118,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.LocationModel>);
   }
 
   /**
@@ -9119,7 +9139,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -9128,10 +9148,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.LocationModel>}
    */
   
-  queryLocations({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryLocations({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.LocationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/locations`,
       parameters: {
@@ -9148,7 +9168,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.LocationModel>);
   }
 
   /**
@@ -9180,7 +9200,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.LocationModel);
   }
 
   /**
@@ -9217,7 +9237,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.LocationParameterModel);
   }
 
   /**
@@ -9228,7 +9248,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -9248,7 +9268,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.LocationValidationModel);
   }
 
   /**
@@ -9299,7 +9319,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9350,7 +9370,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AuditMultiDocumentModel);
   }
 
   /**
@@ -9394,7 +9414,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9465,7 +9485,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9517,7 +9537,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9577,7 +9597,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9622,10 +9642,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.MultiDocumentModel>}
    */
   
-  listMultiDocumentTransactions({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listMultiDocumentTransactions({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.MultiDocumentModel>> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument`,
       parameters: {
@@ -9642,7 +9662,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.MultiDocumentModel>);
   }
 
   /**
@@ -9719,7 +9739,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9761,7 +9781,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9808,7 +9828,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.MultiDocumentModel);
   }
 
   /**
@@ -9844,7 +9864,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusModel[]}
    */
   
-  createNexus({ companyId, model }: { companyId: number, model?: Models.NexusModel[] }): Promise<Models.NexusModel[]> {
+  createNexus({ companyId, model }: { companyId: number, model?: Models.NexusModel[] }): Promise<Array<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus`,
       parameters: {}
@@ -9855,7 +9875,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.NexusModel>);
   }
 
   /**
@@ -9883,7 +9903,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusParameterDetailModel[]}
    */
   
-  createNexusParameters({ companyId, nexusId, model }: { companyId: number, nexusId: number, model?: Models.NexusParameterDetailModel[] }): Promise<Models.NexusParameterDetailModel[]> {
+  createNexusParameters({ companyId, nexusId, model }: { companyId: number, nexusId: number, model?: Models.NexusParameterDetailModel[] }): Promise<Array<Models.NexusParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters`,
       parameters: {}
@@ -9894,7 +9914,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.NexusParameterDetailModel>);
   }
 
   /**
@@ -9926,7 +9946,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusByAddressModel[]}
    */
   
-  declareNexusByAddress({ companyId, model }: { companyId: number, model?: Models.DeclareNexusByAddressModel[] }): Promise<Models.NexusByAddressModel[]> {
+  declareNexusByAddress({ companyId, model }: { companyId: number, model?: Models.DeclareNexusByAddressModel[] }): Promise<Array<Models.NexusByAddressModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/byaddress`,
       parameters: {}
@@ -9937,7 +9957,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.NexusByAddressModel>);
   }
 
   /**
@@ -9963,7 +9983,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNexus({ companyId, id, cascadeDelete }: { companyId: number, id: number, cascadeDelete?: boolean }): Promise<Models.ErrorDetail[]> {
+  deleteNexus({ companyId, id, cascadeDelete }: { companyId: number, id: number, cascadeDelete?: boolean }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${id}`,
       parameters: {
@@ -9976,7 +9996,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10000,7 +10020,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNexusParameter({ companyId, nexusId, id }: { companyId: number, nexusId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteNexusParameter({ companyId, nexusId, id }: { companyId: number, nexusId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters/${id}`,
       parameters: {}
@@ -10011,7 +10031,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10034,7 +10054,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNexusParameters({ companyId, nexusId }: { companyId: number, nexusId: number }): Promise<Models.ErrorDetail[]> {
+  deleteNexusParameters({ companyId, nexusId }: { companyId: number, nexusId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters`,
       parameters: {}
@@ -10045,7 +10065,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10084,7 +10104,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.NexusModel);
   }
 
   /**
@@ -10127,7 +10147,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.NexusByTaxFormModel);
   }
 
   /**
@@ -10162,7 +10182,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.NexusParameterDetailModel);
   }
 
   /**
@@ -10191,10 +10211,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus`,
       parameters: {
@@ -10211,7 +10231,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -10241,10 +10261,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  listNexusByCompanyAndTaxTypeGroup({ companyId, taxTypeGroup, filter, include, top, skip, orderBy }: { companyId: number, taxTypeGroup: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusByCompanyAndTaxTypeGroup({ companyId, taxTypeGroup, filter, include, top, skip, orderBy }: { companyId: number, taxTypeGroup: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/byTaxTypeGroup/${taxTypeGroup}`,
       parameters: {
@@ -10261,7 +10281,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -10288,10 +10308,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusParameterDetailModel>}
    */
   
-  listNexusParameters({ companyId, nexusId, filter, top, skip, orderBy }: { companyId: number, nexusId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNexusParameters({ companyId, nexusId, filter, top, skip, orderBy }: { companyId: number, nexusId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters`,
       parameters: {
@@ -10307,7 +10327,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusParameterDetailModel>);
   }
 
   /**
@@ -10335,10 +10355,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NexusModel>}
    */
   
-  queryNexus({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryNexus({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/nexus`,
       parameters: {
@@ -10355,7 +10375,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
   }
 
   /**
@@ -10403,7 +10423,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.NexusModel);
   }
 
   /**
@@ -10440,7 +10460,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.NexusParameterDetailModel);
   }
 
   /**
@@ -10469,7 +10489,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.NoticeResponsibilityModel);
   }
 
   /**
@@ -10498,7 +10518,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.NoticeRootCauseModel);
   }
 
   /**
@@ -10515,7 +10535,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNoticeResponsibilityType({ responsibilityId }: { responsibilityId: number }): Promise<Models.ErrorDetail[]> {
+  deleteNoticeResponsibilityType({ responsibilityId }: { responsibilityId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/notices/responsibilities/${responsibilityId}`,
       parameters: {}
@@ -10526,7 +10546,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10543,7 +10563,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNoticeRootCauseType({ rootCauseId }: { rootCauseId: number }): Promise<Models.ErrorDetail[]> {
+  deleteNoticeRootCauseType({ rootCauseId }: { rootCauseId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/notices/rootcauses/${rootCauseId}`,
       parameters: {}
@@ -10554,7 +10574,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10576,7 +10596,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -10595,7 +10615,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId }, Models.NotificationModel);
   }
 
   /**
@@ -10611,7 +10631,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -10630,7 +10650,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.NotificationModel);
   }
 
   /**
@@ -10649,7 +10669,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -10657,10 +10677,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.NotificationModel>}
    */
   
-  listNotifications({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listNotifications({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.NotificationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/notifications`,
       parameters: {
@@ -10676,7 +10696,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NotificationModel>);
   }
 
   /**
@@ -10719,7 +10739,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.NewAccountModel);
   }
 
   /**
@@ -10751,7 +10771,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.OfferModel);
   }
 
   /**
@@ -10772,7 +10792,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountModel[]}
    */
   
-  createAccount({ model }: { model?: Models.AccountModel }): Promise<Models.AccountModel[]> {
+  createAccount({ model }: { model?: Models.AccountModel }): Promise<Array<Models.AccountModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts`,
       parameters: {}
@@ -10783,7 +10803,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.AccountModel>);
   }
 
   /**
@@ -10813,7 +10833,7 @@ export default class AvaTaxClient {
    * @return {Models.NotificationModel[]}
    */
   
-  createNotifications({ model }: { model?: Models.NotificationModel[] }): Promise<Models.NotificationModel[]> {
+  createNotifications({ model }: { model?: Models.NotificationModel[] }): Promise<Array<Models.NotificationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/notifications`,
       parameters: {}
@@ -10824,7 +10844,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.NotificationModel>);
   }
 
   /**
@@ -10859,7 +10879,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.SubscriptionTypeModel);
   }
 
   /**
@@ -10881,7 +10901,7 @@ export default class AvaTaxClient {
    * @return {Models.SubscriptionModel[]}
    */
   
-  createSubscriptions({ accountId, model }: { accountId: number, model?: Models.SubscriptionModel[] }): Promise<Models.SubscriptionModel[]> {
+  createSubscriptions({ accountId, model }: { accountId: number, model?: Models.SubscriptionModel[] }): Promise<Array<Models.SubscriptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions`,
       parameters: {}
@@ -10892,7 +10912,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.SubscriptionModel>);
   }
 
   /**
@@ -10913,7 +10933,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteAccount({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteAccount({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}`,
       parameters: {}
@@ -10924,7 +10944,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10951,7 +10971,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteNotification({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteNotification({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/notifications/${id}`,
       parameters: {}
@@ -10962,7 +10982,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -10983,7 +11003,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteServiceType({ id }: { id: number }): Promise<Models.ErrorDetail[]> {
+  deleteServiceType({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/servicetypes/${id}`,
       parameters: {}
@@ -10994,7 +11014,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -11015,7 +11035,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteSubscription({ accountId, id }: { accountId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteSubscription({ accountId, id }: { accountId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions/${id}`,
       parameters: {}
@@ -11026,7 +11046,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -11049,10 +11069,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SubscriptionTypeModel>}
    */
   
-  listServiceTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listServiceTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SubscriptionTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/servicetypes/servicetypes`,
       parameters: {
@@ -11068,7 +11088,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SubscriptionTypeModel>);
   }
 
   /**
@@ -11093,7 +11113,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  resetPassword({ userId, isUndoMigrateRequest, model }: { userId: number, isUndoMigrateRequest?: boolean, model?: Models.SetPasswordModel }): Promise<string> {
+  resetPassword({ userId, isUndoMigrateRequest, model }: { userId: number, isUndoMigrateRequest?: boolean, model?: Models.SetPasswordModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/passwords/${userId}/reset`,
       parameters: {
@@ -11106,7 +11126,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -11138,7 +11158,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.AccountModel);
   }
 
   /**
@@ -11177,7 +11197,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.NotificationModel);
   }
 
   /**
@@ -11211,7 +11231,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.SubscriptionTypeModel);
   }
 
   /**
@@ -11248,7 +11268,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.SubscriptionModel);
   }
 
   /**
@@ -11278,7 +11298,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadReport({ id }: { id: number }): Promise<object> {
+  downloadReport({ id }: { id: number }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/reports/${id}/attachment`,
       parameters: {}
@@ -11289,7 +11309,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
   }
 
   /**
@@ -11323,7 +11343,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ReportModel);
   }
 
   /**
@@ -11360,7 +11380,7 @@ export default class AvaTaxClient {
    * @return {Models.ReportModel[]}
    */
   
-  initiateExportDocumentLineReport({ companyId, model }: { companyId: number, model?: Models.ExportDocumentLineModel }): Promise<Models.ReportModel[]> {
+  initiateExportDocumentLineReport({ companyId, model }: { companyId: number, model?: Models.ExportDocumentLineModel }): Promise<Array<Models.ReportModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/reports/exportdocumentline/initiate`,
       parameters: {}
@@ -11371,7 +11391,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ReportModel>);
   }
 
   /**
@@ -11398,10 +11418,10 @@ export default class AvaTaxClient {
      * @param {string} pageKey Provide a page key to retrieve the next page of results.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-   * @return {object}
+   * @return {FetchResult<Models.ReportModel>}
    */
   
-  listReports({ companyId, pageKey, skip, top }: { companyId?: number, pageKey?: string, skip?: number, top?: number }): Promise<object> {
+  listReports({ companyId, pageKey, skip, top }: { companyId?: number, pageKey?: string, skip?: number, top?: number }): Promise<FetchResult<Models.ReportModel>> {
     var path = this.buildUrl({
       url: `/api/v2/reports`,
       parameters: {
@@ -11417,7 +11437,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ReportModel>);
   }
 
   /**
@@ -11449,7 +11469,7 @@ export default class AvaTaxClient {
    * @return {Models.SettingModel[]}
    */
   
-  createSettings({ companyId, model }: { companyId: number, model?: Models.SettingModel[] }): Promise<Models.SettingModel[]> {
+  createSettings({ companyId, model }: { companyId: number, model?: Models.SettingModel[] }): Promise<Array<Models.SettingModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings`,
       parameters: {}
@@ -11460,7 +11480,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.SettingModel>);
   }
 
   /**
@@ -11487,7 +11507,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteSetting({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteSetting({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings/${id}`,
       parameters: {}
@@ -11498,7 +11518,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -11516,7 +11536,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -11536,7 +11556,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.SettingModel);
   }
 
   /**
@@ -11557,7 +11577,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -11567,10 +11587,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SettingModel>}
    */
   
-  listSettingsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listSettingsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SettingModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings`,
       parameters: {
@@ -11587,7 +11607,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SettingModel>);
   }
 
   /**
@@ -11608,7 +11628,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -11617,10 +11637,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SettingModel>}
    */
   
-  querySettings({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  querySettings({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SettingModel>> {
     var path = this.buildUrl({
       url: `/api/v2/settings`,
       parameters: {
@@ -11637,7 +11657,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SettingModel>);
   }
 
   /**
@@ -11680,7 +11700,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.SettingModel);
   }
 
   /**
@@ -11711,7 +11731,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.SubscriptionModel);
   }
 
   /**
@@ -11734,10 +11754,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SubscriptionModel>}
    */
   
-  listSubscriptionsByAccount({ accountId, filter, top, skip, orderBy }: { accountId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listSubscriptionsByAccount({ accountId, filter, top, skip, orderBy }: { accountId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SubscriptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions`,
       parameters: {
@@ -11753,7 +11773,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SubscriptionModel>);
   }
 
   /**
@@ -11775,10 +11795,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.SubscriptionModel>}
    */
   
-  querySubscriptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  querySubscriptions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SubscriptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/subscriptions`,
       parameters: {
@@ -11794,7 +11814,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SubscriptionModel>);
   }
 
   /**
@@ -11816,7 +11836,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxCodeModel[]}
    */
   
-  createTaxCodes({ companyId, model }: { companyId: number, model?: Models.TaxCodeModel[] }): Promise<Models.TaxCodeModel[]> {
+  createTaxCodes({ companyId, model }: { companyId: number, model?: Models.TaxCodeModel[] }): Promise<Array<Models.TaxCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes`,
       parameters: {}
@@ -11827,7 +11847,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.TaxCodeModel>);
   }
 
   /**
@@ -11845,7 +11865,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteTaxCode({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteTaxCode({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes/${id}`,
       parameters: {}
@@ -11856,7 +11876,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -11889,7 +11909,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxCodeModel);
   }
 
   /**
@@ -11915,10 +11935,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxCodeModel>}
    */
   
-  listTaxCodesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxCodesByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes`,
       parameters: {
@@ -11935,7 +11955,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxCodeModel>);
   }
 
   /**
@@ -11960,10 +11980,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxCodeModel>}
    */
   
-  queryTaxCodes({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryTaxCodes({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/taxcodes`,
       parameters: {
@@ -11980,7 +12000,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxCodeModel>);
   }
 
   /**
@@ -12016,7 +12036,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.TaxCodeModel);
   }
 
   /**
@@ -12047,7 +12067,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro.
    * Swagger Name: AvaTaxClient
    *
@@ -12056,7 +12076,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  buildTaxContentFile({ model }: { model?: Models.PointOfSaleDataRequestModel }): Promise<object> {
+  buildTaxContentFile({ model }: { model?: Models.PointOfSaleDataRequestModel }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/pointofsaledata/build`,
       parameters: {}
@@ -12067,7 +12087,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Object);
   }
 
   /**
@@ -12098,7 +12118,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro.
    * Swagger Name: AvaTaxClient
    *
@@ -12112,7 +12132,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  buildTaxContentFileForLocation({ companyId, id, date, format, partnerId, includeJurisCodes }: { companyId: number, id: number, date?: Date, format?: Enums.PointOfSaleFileType, partnerId?: Enums.PointOfSalePartnerId, includeJurisCodes?: boolean }): Promise<object> {
+  buildTaxContentFileForLocation({ companyId, id, date, format, partnerId, includeJurisCodes }: { companyId: number, id: number, date?: Date, format?: Enums.PointOfSaleFileType, partnerId?: Enums.PointOfSalePartnerId, includeJurisCodes?: boolean }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${id}/pointofsaledata`,
       parameters: {
@@ -12128,7 +12148,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
   }
 
   /**
@@ -12176,7 +12196,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -12185,7 +12205,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadTaxRatesByZipCode({ date, region }: { date: Date, region?: string }): Promise<object> {
+  downloadTaxRatesByZipCode({ date, region }: { date: Date, region?: string }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/taxratesbyzipcode/download/${date}`,
       parameters: {
@@ -12198,7 +12218,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
   }
 
   /**
@@ -12255,7 +12275,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxRateModel);
   }
 
   /**
@@ -12304,7 +12324,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxRateModel);
   }
 
   /**
@@ -12334,7 +12354,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxRuleModel[]}
    */
   
-  createTaxRules({ companyId, model }: { companyId: number, model?: Models.TaxRuleModel[] }): Promise<Models.TaxRuleModel[]> {
+  createTaxRules({ companyId, model }: { companyId: number, model?: Models.TaxRuleModel[] }): Promise<Array<Models.TaxRuleModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules`,
       parameters: {}
@@ -12345,7 +12365,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.TaxRuleModel>);
   }
 
   /**
@@ -12375,7 +12395,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteTaxRule({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteTaxRule({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules/${id}`,
       parameters: {}
@@ -12386,7 +12406,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -12427,7 +12447,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxRuleModel);
   }
 
   /**
@@ -12461,10 +12481,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxRuleModel>}
    */
   
-  listTaxRules({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTaxRules({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxRuleModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules`,
       parameters: {
@@ -12481,7 +12501,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxRuleModel>);
   }
 
   /**
@@ -12514,10 +12534,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TaxRuleModel>}
    */
   
-  queryTaxRules({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryTaxRules({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TaxRuleModel>> {
     var path = this.buildUrl({
       url: `/api/v2/taxrules`,
       parameters: {
@@ -12534,7 +12554,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TaxRuleModel>);
   }
 
   /**
@@ -12576,7 +12596,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.TaxRuleModel);
   }
 
   /**
@@ -12627,7 +12647,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -12691,7 +12711,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -12743,7 +12763,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AuditTransactionModel);
   }
 
   /**
@@ -12796,7 +12816,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.AuditTransactionModel);
   }
 
   /**
@@ -12831,7 +12851,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.BulkLockTransactionResult);
   }
 
   /**
@@ -12895,7 +12915,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -12957,7 +12977,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13021,7 +13041,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13092,7 +13112,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13140,7 +13160,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13167,7 +13187,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.VarianceResponseModel);
   }
 
   /**
@@ -13227,7 +13247,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13269,7 +13289,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13316,7 +13336,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13344,7 +13364,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.VarianceResponseModel);
   }
 
   /**
@@ -13393,10 +13413,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.TransactionModel>}
    */
   
-  listTransactionsByCompany({ companyCode, dataSourceId, include, filter, top, skip, orderBy }: { companyCode: string, dataSourceId?: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listTransactionsByCompany({ companyCode, dataSourceId, include, filter, top, skip, orderBy }: { companyCode: string, dataSourceId?: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.TransactionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions`,
       parameters: {
@@ -13414,7 +13434,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.TransactionModel>);
   }
 
   /**
@@ -13478,7 +13498,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13554,7 +13574,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13616,7 +13636,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13672,7 +13692,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13725,7 +13745,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: null, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13753,7 +13773,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.VarianceResponseModel);
   }
 
   /**
@@ -13814,7 +13834,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13877,7 +13897,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.TransactionModel);
   }
 
   /**
@@ -13897,7 +13917,7 @@ export default class AvaTaxClient {
    * @return {Models.UPCModel[]}
    */
   
-  createUPCs({ companyId, model }: { companyId: number, model?: Models.UPCModel[] }): Promise<Models.UPCModel[]> {
+  createUPCs({ companyId, model }: { companyId: number, model?: Models.UPCModel[] }): Promise<Array<Models.UPCModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs`,
       parameters: {}
@@ -13908,7 +13928,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.UPCModel>);
   }
 
   /**
@@ -13927,7 +13947,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteUPC({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteUPC({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs/${id}`,
       parameters: {}
@@ -13938,7 +13958,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -13969,7 +13989,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.UPCModel);
   }
 
   /**
@@ -13993,10 +14013,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UPCModel>}
    */
   
-  listUPCsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listUPCsByCompany({ companyId, filter, include, top, skip, orderBy }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UPCModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs`,
       parameters: {
@@ -14013,7 +14033,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UPCModel>);
   }
 
   /**
@@ -14036,10 +14056,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UPCModel>}
    */
   
-  queryUPCs({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryUPCs({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UPCModel>> {
     var path = this.buildUrl({
       url: `/api/v2/upcs`,
       parameters: {
@@ -14056,7 +14076,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UPCModel>);
   }
 
   /**
@@ -14090,7 +14110,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.UPCModel);
   }
 
   /**
@@ -14109,7 +14129,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteUserDefinedField({ companyId, id }: { companyId: number, id: number }): Promise<Models.ErrorDetail[]> {
+  deleteUserDefinedField({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/userdefinedfields/${id}`,
       parameters: {}
@@ -14120,14 +14140,14 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
    * 
    * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Required* (all): AvaTaxPro, BasicReturns.
    * Swagger Name: AvaTaxClient
    *
@@ -14135,10 +14155,10 @@ export default class AvaTaxClient {
      * @param {number} companyId 
      * @param {Enums.UserDefinedFieldType} udfType Document or Line level UDF (See UserDefinedFieldType::* for a list of allowable values)
      * @param {boolean} allowDefaults If true this will add defaulted UDFs to the list that are not named yet
-   * @return {object}
+   * @return {FetchResult<Models.CompanyUserDefinedFieldModel>}
    */
   
-  listUserDefinedFieldsByCompanyId({ companyId, udfType, allowDefaults }: { companyId: number, udfType?: Enums.UserDefinedFieldType, allowDefaults?: boolean }): Promise<object> {
+  listUserDefinedFieldsByCompanyId({ companyId, udfType, allowDefaults }: { companyId: number, udfType?: Enums.UserDefinedFieldType, allowDefaults?: boolean }): Promise<FetchResult<Models.CompanyUserDefinedFieldModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/userdefinedfields`,
       parameters: {
@@ -14152,7 +14172,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CompanyUserDefinedFieldModel>);
   }
 
   /**
@@ -14185,7 +14205,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CompanyUserDefinedFieldModel);
   }
 
   /**
@@ -14208,7 +14228,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  changePassword({ model }: { model?: Models.PasswordChangeModel }): Promise<string> {
+  changePassword({ model }: { model?: Models.PasswordChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/passwords`,
       parameters: {}
@@ -14219,7 +14239,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -14245,7 +14265,7 @@ export default class AvaTaxClient {
    * @return {Models.UserModel[]}
    */
   
-  createUsers({ accountId, model }: { accountId: number, model?: Models.UserModel[] }): Promise<Models.UserModel[]> {
+  createUsers({ accountId, model }: { accountId: number, model?: Models.UserModel[] }): Promise<Array<Models.UserModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users`,
       parameters: {}
@@ -14256,7 +14276,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.UserModel>);
   }
 
   /**
@@ -14279,7 +14299,7 @@ export default class AvaTaxClient {
    * @return {Models.ErrorDetail[]}
    */
   
-  deleteUser({ id, accountId }: { id: number, accountId: number }): Promise<Models.ErrorDetail[]> {
+  deleteUser({ id, accountId }: { id: number, accountId: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users/${id}`,
       parameters: {}
@@ -14290,7 +14310,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
   }
 
   /**
@@ -14304,7 +14324,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -14327,7 +14347,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.UserModel);
   }
 
   /**
@@ -14350,7 +14370,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -14370,7 +14390,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.UserEntitlementModel);
   }
 
   /**
@@ -14390,7 +14410,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -14400,10 +14420,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UserModel>}
    */
   
-  listUsersByAccount({ accountId, include, filter, top, skip, orderBy }: { accountId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  listUsersByAccount({ accountId, include, filter, top, skip, orderBy }: { accountId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UserModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users`,
       parameters: {
@@ -14420,7 +14440,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UserModel>);
   }
 
   /**
@@ -14442,7 +14462,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -14451,10 +14471,10 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {object}
+   * @return {FetchResult<Models.UserModel>}
    */
   
-  queryUsers({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<object> {
+  queryUsers({ include, filter, top, skip, orderBy }: { include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.UserModel>> {
     var path = this.buildUrl({
       url: `/api/v2/users`,
       parameters: {
@@ -14471,7 +14491,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.UserModel>);
   }
 
   /**
@@ -14504,7 +14524,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.UserModel);
   }
 
   /**
@@ -14535,7 +14555,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.SubscriptionModel);
   }
 
   /**
@@ -14551,10 +14571,10 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-   * @return {object}
+   * @return {FetchResult<Models.SubscriptionModel>}
    */
   
-  listMySubscriptions(): Promise<object> {
+  listMySubscriptions(): Promise<FetchResult<Models.SubscriptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/utilities/subscriptions`,
       parameters: {}
@@ -14565,7 +14585,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.SubscriptionModel>);
   }
 
   /**
@@ -14607,7 +14627,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.PingResultModel);
   }
 
   /**
@@ -14640,7 +14660,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.AgeVerifyResult);
   }
 
   /**
@@ -14677,7 +14697,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, null);
   }
 
   /**
@@ -14713,7 +14733,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.StoreIfVerifiedResult);
   }
 
   /**
@@ -14752,7 +14772,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId });
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.AgeVerifyResult);
   }
 
   /**
@@ -14787,7 +14807,7 @@ export default class AvaTaxClient {
    if ( x_avalara_version) {
      headerValues.set("x-avalara-version", x_avalara_version);
    }
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId, mapHeader: headerValues });
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId, mapHeader: headerValues }, null);
   }
 
   /**
@@ -14822,7 +14842,7 @@ export default class AvaTaxClient {
    if ( x_avalara_version) {
      headerValues.set("x-avalara-version", x_avalara_version);
    }
-    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues });
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues }, null);
   }
 
   /**
@@ -14857,7 +14877,7 @@ export default class AvaTaxClient {
    if ( x_avalara_version) {
      headerValues.set("x-avalara-version", x_avalara_version);
    }
-    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues });
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues }, Models.ShippingVerifyResult);
   }
 
   /**
@@ -14907,6 +14927,6 @@ export default class AvaTaxClient {
    if ( x_avalara_version) {
      headerValues.set("x-avalara-version", x_avalara_version);
    }
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId, mapHeader: headerValues });
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId, mapHeader: headerValues }, Models.ShippingVerifyResult);
   }
 }

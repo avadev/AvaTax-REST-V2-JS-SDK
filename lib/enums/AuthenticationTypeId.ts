@@ -10,9 +10,10 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
+
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 /**
 * @export
@@ -23,4 +24,14 @@
         UsernamePassword = 1,
         AccountIdLicenseKey = 2,
         OpenIdBearerToken = 3,
+}
+
+@JsonConverter
+export class AuthenticationTypeIdConverter implements JsonCustomConvert<AuthenticationTypeId> {
+    serialize(data: AuthenticationTypeId) {
+        return data;
+    }
+    deserialize(enumType: string): AuthenticationTypeId {
+        return AuthenticationTypeId[enumType as keyof typeof AuthenticationTypeId];
+    }
 }

@@ -10,37 +10,43 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { AvailableCycleModel } from "./AvailableCycleModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Frequency Available object
  * @export
- * @interface FrequencyAvailableModel
+ * @class FrequencyAvailableModel
  */
- export interface FrequencyAvailableModel {
+ @JsonObject("FrequencyAvailableModel")
+ export class FrequencyAvailableModel {
     /**
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   frequencyCode?: string;
+   @JsonProperty("frequencyCode", String, true)
+   frequencyCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   frequencyName?: string;
+   @JsonProperty("frequencyName", String, true)
+   frequencyName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof FrequencyAvailableModel
      */
-   reason?: string;
+   @JsonProperty("reason", String, true)
+   reason?: string | undefined = undefined;
     /**
-     * @type {Models.AvailableCycleModel[]}
+     * @type {AvailableCycleModel[]}
      * @memberof FrequencyAvailableModel
      */
-   availableCycles?: Models.AvailableCycleModel[];
+   @JsonProperty("availableCycles", [AvailableCycleModel], true)
+   availableCycles?: AvailableCycleModel[] | undefined = undefined;
  }

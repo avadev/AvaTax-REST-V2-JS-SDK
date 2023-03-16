@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * User Entitlement Model
  * @export
- * @interface UserEntitlementModel
+ * @class UserEntitlementModel
  */
- export interface UserEntitlementModel {
+ @JsonObject("UserEntitlementModel")
+ export class UserEntitlementModel {
     /**
      * @type {string[]}
      * @memberof UserEntitlementModel
      */
-   permissions?: string[];
+   @JsonProperty("permissions", [String], true)
+   permissions?: string[] | undefined = undefined;
     /**
      * @type {Enums.CompanyAccessLevel}
      * @memberof UserEntitlementModel
      */
-   accessLevel?: Enums.CompanyAccessLevel;
+   @JsonProperty("accessLevel", Enums.CompanyAccessLevelConverter, true)
+   accessLevel?: Enums.CompanyAccessLevel | undefined = undefined;
     /**
      * @type {number[]}
      * @memberof UserEntitlementModel
      */
-   companies?: number[];
+   @JsonProperty("companies", [Number], true)
+   companies?: number[] | undefined = undefined;
  }

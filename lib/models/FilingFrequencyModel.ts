@@ -10,27 +10,30 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * FilingFrequency Model
  * @export
- * @interface FilingFrequencyModel
+ * @class FilingFrequencyModel
  */
- export interface FilingFrequencyModel {
+ @JsonObject("FilingFrequencyModel")
+ export class FilingFrequencyModel {
     /**
      * @type {number}
      * @memberof FilingFrequencyModel
      */
-   id: number;
+   @JsonProperty("id", Number)
+   id: number = undefined;
     /**
      * @type {string}
      * @memberof FilingFrequencyModel
      */
-   description: string;
+   @JsonProperty("description", String)
+   description: string = undefined;
  }

@@ -10,27 +10,31 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { LocationQuestionModel } from "./LocationQuestionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Tells you whether this location object has been correctly set up to the local jurisdiction's standards
  * @export
- * @interface LocationValidationModel
+ * @class LocationValidationModel
  */
- export interface LocationValidationModel {
+ @JsonObject("LocationValidationModel")
+ export class LocationValidationModel {
     /**
      * @type {boolean}
      * @memberof LocationValidationModel
      */
-   settingsValidated?: boolean;
+   @JsonProperty("settingsValidated", Boolean, true)
+   settingsValidated?: boolean | undefined = undefined;
     /**
-     * @type {Models.LocationQuestionModel[]}
+     * @type {LocationQuestionModel[]}
      * @memberof LocationValidationModel
      */
-   requiredSettings?: Models.LocationQuestionModel[];
+   @JsonProperty("requiredSettings", [LocationQuestionModel], true)
+   requiredSettings?: LocationQuestionModel[] | undefined = undefined;
  }

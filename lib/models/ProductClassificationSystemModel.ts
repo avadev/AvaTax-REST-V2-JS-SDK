@@ -10,42 +10,49 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ProductSystemCountryModel } from "./ProductSystemCountryModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a product classification system.
  * @export
- * @interface ProductClassificationSystemModel
+ * @class ProductClassificationSystemModel
  */
- export interface ProductClassificationSystemModel {
+ @JsonObject("ProductClassificationSystemModel")
+ export class ProductClassificationSystemModel {
     /**
      * @type {number}
      * @memberof ProductClassificationSystemModel
      */
-   systemId?: number;
+   @JsonProperty("systemId", Number, true)
+   systemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   systemCode?: string;
+   @JsonProperty("systemCode", String, true)
+   systemCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ProductClassificationSystemModel
      */
-   customsValue?: string;
+   @JsonProperty("customsValue", String, true)
+   customsValue?: string | undefined = undefined;
     /**
-     * @type {Models.ProductSystemCountryModel[]}
+     * @type {ProductSystemCountryModel[]}
      * @memberof ProductClassificationSystemModel
      */
-   countries?: Models.ProductSystemCountryModel[];
+   @JsonProperty("countries", [ProductSystemCountryModel], true)
+   countries?: ProductSystemCountryModel[] | undefined = undefined;
  }

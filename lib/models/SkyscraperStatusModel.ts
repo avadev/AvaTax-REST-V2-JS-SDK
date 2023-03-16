@@ -10,57 +10,67 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { RequiredFilingCalendarDataFieldModel } from "./RequiredFilingCalendarDataFieldModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a list of statuses of returns available in skyscraper
  * @export
- * @interface SkyscraperStatusModel
+ * @class SkyscraperStatusModel
  */
- export interface SkyscraperStatusModel {
+ @JsonObject("SkyscraperStatusModel")
+ export class SkyscraperStatusModel {
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof SkyscraperStatusModel
      */
-   taxFormCodes?: string[];
+   @JsonProperty("taxFormCodes", [String], true)
+   taxFormCodes?: string[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {Enums.ScraperType}
      * @memberof SkyscraperStatusModel
      */
-   scraperType?: Enums.ScraperType;
+   @JsonProperty("scraperType", Enums.ScraperTypeConverter, true)
+   scraperType?: Enums.ScraperType | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof SkyscraperStatusModel
      */
-   isAvailable?: boolean;
+   @JsonProperty("isAvailable", Boolean, true)
+   isAvailable?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   expectedResponseTime?: string;
+   @JsonProperty("expectedResponseTime", String, true)
+   expectedResponseTime?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof SkyscraperStatusModel
      */
-   message?: string;
+   @JsonProperty("message", String, true)
+   message?: string | undefined = undefined;
     /**
-     * @type {Models.requiredFilingCalendarDataFieldModel[]}
+     * @type {requiredFilingCalendarDataFieldModel[]}
      * @memberof SkyscraperStatusModel
      */
-   requiredFilingCalendarDataFields?: Models.requiredFilingCalendarDataFieldModel[];
+   @JsonProperty("requiredFilingCalendarDataFields", [RequiredFilingCalendarDataFieldModel], true)
+   requiredFilingCalendarDataFields?: RequiredFilingCalendarDataFieldModel[] | undefined = undefined;
  }

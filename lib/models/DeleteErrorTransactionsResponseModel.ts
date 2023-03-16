@@ -10,22 +10,25 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { DeleteErrorTransactionResponseModel } from "./DeleteErrorTransactionResponseModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Response model of error transaction batch delete
  * @export
- * @interface DeleteErrorTransactionsResponseModel
+ * @class DeleteErrorTransactionsResponseModel
  */
- export interface DeleteErrorTransactionsResponseModel {
+ @JsonObject("DeleteErrorTransactionsResponseModel")
+ export class DeleteErrorTransactionsResponseModel {
     /**
-     * @type {Models.DeleteErrorTransactionResponseModel[]}
+     * @type {DeleteErrorTransactionResponseModel[]}
      * @memberof DeleteErrorTransactionsResponseModel
      */
-   results?: Models.DeleteErrorTransactionResponseModel[];
+   @JsonProperty("results", [DeleteErrorTransactionResponseModel], true)
+   results?: DeleteErrorTransactionResponseModel[] | undefined = undefined;
  }

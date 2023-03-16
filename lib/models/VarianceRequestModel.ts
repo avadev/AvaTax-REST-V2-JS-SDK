@@ -10,77 +10,93 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { VarianceLine } from "./VarianceLine";
+import { VarianceUnit } from "./VarianceUnit";
+import { VarianceDetail } from "./VarianceDetail";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Request model used as input for Variance API.
  * @export
- * @interface VarianceRequestModel
+ * @class VarianceRequestModel
  */
- export interface VarianceRequestModel {
+ @JsonObject("VarianceRequestModel")
+ export class VarianceRequestModel {
     /**
      * @type {number}
      * @memberof VarianceRequestModel
      */
-   documentId?: number;
+   @JsonProperty("documentId", Number, true)
+   documentId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof VarianceRequestModel
      */
-   documentCode?: string;
+   @JsonProperty("documentCode", String, true)
+   documentCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof VarianceRequestModel
      */
-   purchaseOrderNo?: string;
+   @JsonProperty("purchaseOrderNo", String, true)
+   purchaseOrderNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof VarianceRequestModel
      */
-   referenceNo?: string;
+   @JsonProperty("referenceNo", String, true)
+   referenceNo?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof VarianceRequestModel
      */
-   exchangeRate?: number;
+   @JsonProperty("exchangeRate", Number, true)
+   exchangeRate?: number | undefined = undefined;
     /**
-     * @type {Models.VarianceLine[]}
+     * @type {VarianceLine[]}
      * @memberof VarianceRequestModel
      */
-   lines?: Models.VarianceLine[];
+   @JsonProperty("lines", [VarianceLine], true)
+   lines?: VarianceLine[] | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceRequestModel
      */
-   amount?: Models.VarianceUnit;
+   @JsonProperty("amount", VarianceUnit, true)
+   amount?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceRequestModel
      */
-   taxableAmount?: Models.VarianceUnit;
+   @JsonProperty("taxableAmount", VarianceUnit, true)
+   taxableAmount?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceRequestModel
      */
-   dutyPaid?: Models.VarianceUnit;
+   @JsonProperty("dutyPaid", VarianceUnit, true)
+   dutyPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceRequestModel
      */
-   taxPaid?: Models.VarianceUnit;
+   @JsonProperty("taxPaid", VarianceUnit, true)
+   taxPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceUnit}
+     * @type {VarianceUnit}
      * @memberof VarianceRequestModel
      */
-   totalTaxPaid?: Models.VarianceUnit;
+   @JsonProperty("totalTaxPaid", VarianceUnit, true)
+   totalTaxPaid?: VarianceUnit | undefined = undefined;
     /**
-     * @type {Models.VarianceDetail[]}
+     * @type {VarianceDetail[]}
      * @memberof VarianceRequestModel
      */
-   details?: Models.VarianceDetail[];
+   @JsonProperty("details", [VarianceDetail], true)
+   details?: VarianceDetail[] | undefined = undefined;
  }

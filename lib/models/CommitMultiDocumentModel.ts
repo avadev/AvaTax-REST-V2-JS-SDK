@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Commit this MultiDocument object so that all transactions within it can be reported on a tax filing.
  * @export
- * @interface CommitMultiDocumentModel
+ * @class CommitMultiDocumentModel
  */
- export interface CommitMultiDocumentModel {
+ @JsonObject("CommitMultiDocumentModel")
+ export class CommitMultiDocumentModel {
     /**
      * @type {string}
      * @memberof CommitMultiDocumentModel
      */
-   code: string;
+   @JsonProperty("code", String)
+   code: string = undefined;
     /**
      * @type {Enums.DocumentType}
      * @memberof CommitMultiDocumentModel
      */
-   type?: Enums.DocumentType;
+   @JsonProperty("type", Enums.DocumentTypeConverter, true)
+   type?: Enums.DocumentType | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof CommitMultiDocumentModel
      */
-   commit: boolean;
+   @JsonProperty("commit", Boolean)
+   commit: boolean = undefined;
  }

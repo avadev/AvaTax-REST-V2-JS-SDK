@@ -10,52 +10,60 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A request to upload a file to Resource Files
  * @export
- * @interface ResourceFileUploadRequestModel
+ * @class ResourceFileUploadRequestModel
  */
- export interface ResourceFileUploadRequestModel {
+ @JsonObject("ResourceFileUploadRequestModel")
+ export class ResourceFileUploadRequestModel {
     /**
      * @type {string}
      * @memberof ResourceFileUploadRequestModel
      */
-   content: string;
+   @JsonProperty("content", String)
+   content: string = undefined;
     /**
      * @type {string}
      * @memberof ResourceFileUploadRequestModel
      */
-   username?: string;
+   @JsonProperty("username", String, true)
+   username?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ResourceFileUploadRequestModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
      */
-   resourceFileTypeId?: number;
+   @JsonProperty("resourceFileTypeId", Number, true)
+   resourceFileTypeId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
      */
-   length?: number;
+   @JsonProperty("length", Number, true)
+   length?: number | undefined = undefined;
  }

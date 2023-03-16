@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a service that this account has subscribed to.
  * @export
- * @interface SubscriptionModel
+ * @class SubscriptionModel
  */
- export interface SubscriptionModel {
+ @JsonObject("SubscriptionModel")
+ export class SubscriptionModel {
     /**
      * @type {number}
      * @memberof SubscriptionModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof SubscriptionModel
      */
-   accountId?: number;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof SubscriptionModel
      */
-   subscriptionTypeId?: number;
+   @JsonProperty("subscriptionTypeId", Number, true)
+   subscriptionTypeId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof SubscriptionModel
      */
-   subscriptionDescription?: string;
+   @JsonProperty("subscriptionDescription", String, true)
+   subscriptionDescription?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof SubscriptionModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof SubscriptionModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof SubscriptionModel
      */
-   createdDate?: Date;
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof SubscriptionModel
      */
-   createdUserId?: number;
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof SubscriptionModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof SubscriptionModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

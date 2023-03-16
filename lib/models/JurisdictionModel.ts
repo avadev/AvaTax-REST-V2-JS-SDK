@@ -10,107 +10,126 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents information about a single legal taxing jurisdiction
  * @export
- * @interface JurisdictionModel
+ * @class JurisdictionModel
  */
- export interface JurisdictionModel {
+ @JsonObject("JurisdictionModel")
+ export class JurisdictionModel {
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   code: string;
+   @JsonProperty("code", String)
+   code: string = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof JurisdictionModel
      */
-   type: Enums.JurisdictionType;
+   @JsonProperty("type", Enums.JurisdictionTypeConverter)
+   type: Enums.JurisdictionType = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionModel
      */
-   rate?: number;
+   @JsonProperty("rate", Number, true)
+   rate?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionModel
      */
-   salesRate?: number;
+   @JsonProperty("salesRate", Number, true)
+   salesRate?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   signatureCode: string;
+   @JsonProperty("signatureCode", String)
+   signatureCode: string = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionModel
      */
-   useRate?: number;
+   @JsonProperty("useRate", Number, true)
+   useRate?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   county?: string;
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   shortName?: string;
+   @JsonProperty("shortName", String, true)
+   shortName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   stateFips?: string;
+   @JsonProperty("stateFips", String, true)
+   stateFips?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   countyFips?: string;
+   @JsonProperty("countyFips", String, true)
+   countyFips?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof JurisdictionModel
      */
-   placeFips?: string;
+   @JsonProperty("placeFips", String, true)
+   placeFips?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof JurisdictionModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof JurisdictionModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

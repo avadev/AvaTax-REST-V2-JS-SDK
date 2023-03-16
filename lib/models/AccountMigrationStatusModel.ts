@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * An AvaTax account.
  * @export
- * @interface AccountMigrationStatusModel
+ * @class AccountMigrationStatusModel
  */
- export interface AccountMigrationStatusModel {
+ @JsonObject("AccountMigrationStatusModel")
+ export class AccountMigrationStatusModel {
     /**
      * @type {number}
      * @memberof AccountMigrationStatusModel
      */
-   accountId: number;
+   @JsonProperty("accountId", Number)
+   accountId: number = undefined;
     /**
      * @type {string}
      * @memberof AccountMigrationStatusModel
      */
-   accountName?: string;
+   @JsonProperty("accountName", String, true)
+   accountName?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AccountMigrationStatusModel
      */
-   modifiedDate?: Date;
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountMigrationStatusModel
      */
-   modifiedUserId?: number;
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof AccountMigrationStatusModel
      */
-   accountMigrationStatusId?: number;
+   @JsonProperty("accountMigrationStatusId", Number, true)
+   accountMigrationStatusId?: number | undefined = undefined;
  }

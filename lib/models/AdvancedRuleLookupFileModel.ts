@@ -10,67 +10,78 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Model representing a lookup file for a company
  * @export
- * @interface AdvancedRuleLookupFileModel
+ * @class AdvancedRuleLookupFileModel
  */
- export interface AdvancedRuleLookupFileModel {
+ @JsonObject("AdvancedRuleLookupFileModel")
+ export class AdvancedRuleLookupFileModel {
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   lookupFileId?: string;
+   @JsonProperty("lookupFileId", String, true)
+   lookupFileId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   id?: string;
+   @JsonProperty("id", String, true)
+   id?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   content: string;
+   @JsonProperty("content", String)
+   content: string = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   fileExtension: string;
+   @JsonProperty("fileExtension", String)
+   fileExtension: string = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleLookupFileModel
      */
-   isTest?: boolean;
+   @JsonProperty("isTest", Boolean, true)
+   isTest?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleLookupFileModel
      */
-   inUse?: boolean;
+   @JsonProperty("inUse", Boolean, true)
+   inUse?: boolean | undefined = undefined;
     /**
      * @type {number}
      * @memberof AdvancedRuleLookupFileModel
      */
-   version?: number;
+   @JsonProperty("version", Number, true)
+   version?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   createdDate?: string;
+   @JsonProperty("createdDate", String, true)
+   createdDate?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleLookupFileModel
      */
-   modifiedDate?: string;
+   @JsonProperty("modifiedDate", String, true)
+   modifiedDate?: string | undefined = undefined;
  }

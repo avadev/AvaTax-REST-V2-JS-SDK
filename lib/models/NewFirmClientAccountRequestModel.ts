@@ -10,67 +10,79 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CompanyAddress } from "./CompanyAddress";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents a request for a new account with Avalara for a new Firm client.
  * @export
- * @interface NewFirmClientAccountRequestModel
+ * @class NewFirmClientAccountRequestModel
  */
- export interface NewFirmClientAccountRequestModel {
+ @JsonObject("NewFirmClientAccountRequestModel")
+ export class NewFirmClientAccountRequestModel {
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   accountName: string;
+   @JsonProperty("accountName", String)
+   accountName: string = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   firstName: string;
+   @JsonProperty("firstName", String)
+   firstName: string = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   lastName: string;
+   @JsonProperty("lastName", String)
+   lastName: string = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   title?: string;
+   @JsonProperty("title", String, true)
+   title?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   phoneNumber?: string;
+   @JsonProperty("phoneNumber", String, true)
+   phoneNumber?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   email: string;
+   @JsonProperty("email", String)
+   email: string = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   companyCode?: string;
+   @JsonProperty("companyCode", String, true)
+   companyCode?: string | undefined = undefined;
     /**
-     * @type {Models.CompanyAddress}
+     * @type {CompanyAddress}
      * @memberof NewFirmClientAccountRequestModel
      */
-   companyAddress: Models.CompanyAddress;
+   @JsonProperty("companyAddress", CompanyAddress)
+   companyAddress: CompanyAddress = undefined;
     /**
      * @type {string}
      * @memberof NewFirmClientAccountRequestModel
      */
-   taxPayerIdNumber?: string;
+   @JsonProperty("taxPayerIdNumber", String, true)
+   taxPayerIdNumber?: string | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof NewFirmClientAccountRequestModel
      */
-   properties?: string[];
+   @JsonProperty("properties", [String], true)
+   properties?: string[] | undefined = undefined;
  }

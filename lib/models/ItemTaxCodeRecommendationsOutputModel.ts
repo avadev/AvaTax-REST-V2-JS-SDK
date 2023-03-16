@@ -10,32 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ItemTaxCodeModel } from "./ItemTaxCodeModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents item tax code recommendations model
  * @export
- * @interface ItemTaxCodeRecommendationsOutputModel
+ * @class ItemTaxCodeRecommendationsOutputModel
  */
- export interface ItemTaxCodeRecommendationsOutputModel {
+ @JsonObject("ItemTaxCodeRecommendationsOutputModel")
+ export class ItemTaxCodeRecommendationsOutputModel {
     /**
      * @type {string}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   itemCode?: string;
+   @JsonProperty("itemCode", String, true)
+   itemCode?: string | undefined = undefined;
     /**
-     * @type {Models.ItemTaxCodeModel[]}
+     * @type {ItemTaxCodeModel[]}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   recommendations?: Models.ItemTaxCodeModel[];
+   @JsonProperty("recommendations", [ItemTaxCodeModel], true)
+   recommendations?: ItemTaxCodeModel[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxCodeRecommendationsOutputModel
      */
-   url?: string;
+   @JsonProperty("url", String, true)
+   url?: string | undefined = undefined;
  }

@@ -10,47 +10,56 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { ReconstructedApiRequestResponseModel } from "./ReconstructedApiRequestResponseModel";
+import { OriginalApiRequestResponseModel } from "./OriginalApiRequestResponseModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Information about a previously created transaction
  * @export
- * @interface AuditTransactionModel
+ * @class AuditTransactionModel
  */
- export interface AuditTransactionModel {
+ @JsonObject("AuditTransactionModel")
+ export class AuditTransactionModel {
     /**
      * @type {number}
      * @memberof AuditTransactionModel
      */
-   companyId?: number;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
-     * @type {Models.ReconstructedApiRequestResponseModel}
+     * @type {ReconstructedApiRequestResponseModel}
      * @memberof AuditTransactionModel
      */
-   reconstructed?: Models.ReconstructedApiRequestResponseModel;
-    /**
-     * @type {Date}
-     * @memberof AuditTransactionModel
-     */
-   serverTimestamp?: Date;
+   @JsonProperty("reconstructed", ReconstructedApiRequestResponseModel, true)
+   reconstructed?: ReconstructedApiRequestResponseModel | undefined = undefined;
     /**
      * @type {Date}
      * @memberof AuditTransactionModel
      */
-   serverDuration?: Date;
+   @JsonProperty("serverTimestamp", DateConverter, true)
+   serverTimestamp?: Date | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof AuditTransactionModel
+     */
+   @JsonProperty("serverDuration", DateConverter, true)
+   serverDuration?: Date | undefined = undefined;
     /**
      * @type {Enums.ApiCallStatus}
      * @memberof AuditTransactionModel
      */
-   apiCallStatus?: Enums.ApiCallStatus;
+   @JsonProperty("apiCallStatus", Enums.ApiCallStatusConverter, true)
+   apiCallStatus?: Enums.ApiCallStatus | undefined = undefined;
     /**
-     * @type {Models.OriginalApiRequestResponseModel}
+     * @type {OriginalApiRequestResponseModel}
      * @memberof AuditTransactionModel
      */
-   original?: Models.OriginalApiRequestResponseModel;
+   @JsonProperty("original", OriginalApiRequestResponseModel, true)
+   original?: OriginalApiRequestResponseModel | undefined = undefined;
  }

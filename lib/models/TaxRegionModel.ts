@@ -10,87 +10,103 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { DenormalizedJurisModel } from "./DenormalizedJurisModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * The tax region model.
  * @export
- * @interface TaxRegionModel
+ * @class TaxRegionModel
  */
- export interface TaxRegionModel {
+ @JsonObject("TaxRegionModel")
+ export class TaxRegionModel {
     /**
      * @type {number}
      * @memberof TaxRegionModel
      */
-   id?: number;
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   code?: string;
+   @JsonProperty("code", String, true)
+   code?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   name?: string;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   county?: string;
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   city?: string;
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   serCode?: string;
+   @JsonProperty("serCode", String, true)
+   serCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TaxRegionModel
      */
-   signatureCode?: string;
+   @JsonProperty("signatureCode", String, true)
+   signatureCode?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRegionModel
      */
-   effectiveDate?: Date;
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
      * @memberof TaxRegionModel
      */
-   endDate?: Date;
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxRegionModel
      */
-   isAcm?: boolean;
+   @JsonProperty("isAcm", Boolean, true)
+   isAcm?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof TaxRegionModel
      */
-   isSst?: boolean;
+   @JsonProperty("isSst", Boolean, true)
+   isSst?: boolean | undefined = undefined;
     /**
-     * @type {Models.DenormalizedJurisModel[]}
+     * @type {DenormalizedJurisModel[]}
      * @memberof TaxRegionModel
      */
-   jurisdictions?: Models.DenormalizedJurisModel[];
+   @JsonProperty("jurisdictions", [DenormalizedJurisModel], true)
+   jurisdictions?: DenormalizedJurisModel[] | undefined = undefined;
  }

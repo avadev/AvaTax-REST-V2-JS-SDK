@@ -10,37 +10,42 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Represents everything downloaded from resource files
  * @export
- * @interface ResourceFileDownloadResult
+ * @class ResourceFileDownloadResult
  */
- export interface ResourceFileDownloadResult {
+ @JsonObject("ResourceFileDownloadResult")
+ export class ResourceFileDownloadResult {
     /**
      * @type {boolean}
      * @memberof ResourceFileDownloadResult
      */
-   success?: boolean;
+   @JsonProperty("success", Boolean, true)
+   success?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   bytes?: string;
+   @JsonProperty("bytes", String, true)
+   bytes?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   filename?: string;
+   @JsonProperty("filename", String, true)
+   filename?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ResourceFileDownloadResult
      */
-   contentType?: string;
+   @JsonProperty("contentType", String, true)
+   contentType?: string | undefined = undefined;
  }

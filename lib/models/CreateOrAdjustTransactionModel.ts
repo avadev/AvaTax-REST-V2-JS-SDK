@@ -10,32 +10,37 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { CreateTransactionModel } from "./CreateTransactionModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Create or adjust transaction model
  * @export
- * @interface CreateOrAdjustTransactionModel
+ * @class CreateOrAdjustTransactionModel
  */
- export interface CreateOrAdjustTransactionModel {
+ @JsonObject("CreateOrAdjustTransactionModel")
+ export class CreateOrAdjustTransactionModel {
     /**
      * @type {Enums.AdjustmentReason}
      * @memberof CreateOrAdjustTransactionModel
      */
-   adjustmentReason?: Enums.AdjustmentReason;
+   @JsonProperty("adjustmentReason", Enums.AdjustmentReasonConverter, true)
+   adjustmentReason?: Enums.AdjustmentReason | undefined = undefined;
     /**
      * @type {string}
      * @memberof CreateOrAdjustTransactionModel
      */
-   adjustmentDescription?: string;
+   @JsonProperty("adjustmentDescription", String, true)
+   adjustmentDescription?: string | undefined = undefined;
     /**
-     * @type {Models.CreateTransactionModel}
+     * @type {CreateTransactionModel}
      * @memberof CreateOrAdjustTransactionModel
      */
-   createTransactionModel: Models.CreateTransactionModel;
+   @JsonProperty("createTransactionModel", CreateTransactionModel)
+   createTransactionModel: CreateTransactionModel = undefined;
  }

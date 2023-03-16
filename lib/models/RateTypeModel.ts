@@ -10,32 +10,36 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Rate type Model
  * @export
- * @interface RateTypeModel
+ * @class RateTypeModel
  */
- export interface RateTypeModel {
+ @JsonObject("RateTypeModel")
+ export class RateTypeModel {
     /**
      * @type {string}
      * @memberof RateTypeModel
      */
-   id?: string;
+   @JsonProperty("id", String, true)
+   id?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof RateTypeModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof RateTypeModel
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
  }

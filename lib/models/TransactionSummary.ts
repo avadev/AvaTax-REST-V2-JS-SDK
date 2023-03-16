@@ -10,112 +10,132 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Summary information about an overall transaction.
  * @export
- * @interface TransactionSummary
+ * @class TransactionSummary
  */
- export interface TransactionSummary {
+ @JsonObject("TransactionSummary")
+ export class TransactionSummary {
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   country?: string;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   region?: string;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
     /**
      * @type {Enums.JurisdictionType}
      * @memberof TransactionSummary
      */
-   jurisType?: Enums.JurisdictionType;
+   @JsonProperty("jurisType", Enums.JurisdictionTypeConverter, true)
+   jurisType?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   jurisCode?: string;
+   @JsonProperty("jurisCode", String, true)
+   jurisCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   jurisName?: string;
+   @JsonProperty("jurisName", String, true)
+   jurisName?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   taxAuthorityType?: number;
+   @JsonProperty("taxAuthorityType", Number, true)
+   taxAuthorityType?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   stateAssignedNo?: string;
+   @JsonProperty("stateAssignedNo", String, true)
+   stateAssignedNo?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxType?: string;
+   @JsonProperty("taxType", String, true)
+   taxType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxSubType?: string;
+   @JsonProperty("taxSubType", String, true)
+   taxSubType?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxName?: string;
+   @JsonProperty("taxName", String, true)
+   taxName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   taxGroup?: string;
+   @JsonProperty("taxGroup", String, true)
+   taxGroup?: string | undefined = undefined;
     /**
      * @type {Enums.RateType}
      * @memberof TransactionSummary
      */
-   rateType?: Enums.RateType;
+   @JsonProperty("rateType", Enums.RateTypeConverter, true)
+   rateType?: Enums.RateType | undefined = undefined;
     /**
      * @type {string}
      * @memberof TransactionSummary
      */
-   rateTypeCode?: string;
+   @JsonProperty("rateTypeCode", String, true)
+   rateTypeCode?: string | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   taxable?: number;
+   @JsonProperty("taxable", Number, true)
+   taxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   rate?: number;
+   @JsonProperty("rate", Number, true)
+   rate?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   tax?: number;
+   @JsonProperty("tax", Number, true)
+   tax?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   taxCalculated?: number;
+   @JsonProperty("taxCalculated", Number, true)
+   taxCalculated?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   nonTaxable?: number;
+   @JsonProperty("nonTaxable", Number, true)
+   nonTaxable?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof TransactionSummary
      */
-   exemption?: number;
+   @JsonProperty("exemption", Number, true)
+   exemption?: number | undefined = undefined;
  }

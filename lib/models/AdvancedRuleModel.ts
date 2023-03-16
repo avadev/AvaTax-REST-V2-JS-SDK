@@ -10,42 +10,48 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as Enums from '../enums/index';
-import * as Models from './index';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
 
 /**
  * A generic global advanced rule encapsulating a script
  * @export
- * @interface AdvancedRuleModel
+ * @class AdvancedRuleModel
  */
- export interface AdvancedRuleModel {
+ @JsonObject("AdvancedRuleModel")
+ export class AdvancedRuleModel {
     /**
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   ruleId?: string;
+   @JsonProperty("ruleId", String, true)
+   ruleId?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   name: string;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   description?: string;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleModel
      */
-   arEntitlementRequired?: boolean;
+   @JsonProperty("arEntitlementRequired", Boolean, true)
+   arEntitlementRequired?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleModel
      */
-   executionPosition?: string;
+   @JsonProperty("executionPosition", String, true)
+   executionPosition?: string | undefined = undefined;
  }
