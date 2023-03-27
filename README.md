@@ -116,8 +116,8 @@ As of version 22.11.0, Typescript support is included in the SDK. Models and Enu
 
 Models and Enums can be imported into Typescript projects as follows:
 ```typescript
-import { AddressResolutionModel } from 'avatax/models';
-import { AddressCategoryId } from 'avatax/enums';
+import { AddressResolutionModel } from 'avatax/lib/models';
+import { AddressCategoryId } from 'avatax/lib/enums';
 ```
 
 ## SDK Development
