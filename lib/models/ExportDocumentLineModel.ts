@@ -144,4 +144,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("reportSource", Enums.ReportSourceConverter, true)
    reportSource?: Enums.ReportSource | undefined = undefined;
+    /**
+     * @type {Enums.Compression}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("compression", Enums.CompressionConverter, true)
+   compression?: Enums.Compression | undefined = undefined;
  }

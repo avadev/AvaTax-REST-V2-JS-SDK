@@ -138,4 +138,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("taxSubType", String, true)
    taxSubType?: string | undefined = undefined;
+    /**
+     * @type {Enums.Compression}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("compression", Enums.CompressionConverter, true)
+   compression?: Enums.Compression | undefined = undefined;
  }
