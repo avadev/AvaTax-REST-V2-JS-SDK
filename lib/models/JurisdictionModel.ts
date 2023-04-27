@@ -132,4 +132,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("endDate", DateConverter, true)
    endDate?: Date | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("isAcm", Boolean, true)
+   isAcm?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("isSst", Boolean, true)
+   isSst?: boolean | undefined = undefined;
  }

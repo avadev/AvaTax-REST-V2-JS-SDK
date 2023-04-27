@@ -36,4 +36,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("description", String)
    description: string = undefined;
+    /**
+     * @type {number}
+     * @memberof SubscriptionTypeModel
+     */
+   @JsonProperty("taxTypeGroupIdSK", Number, true)
+   taxTypeGroupIdSK?: number | undefined = undefined;
  }
