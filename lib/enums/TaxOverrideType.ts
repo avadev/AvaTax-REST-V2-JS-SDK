@@ -28,6 +28,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         DeriveTaxable = 5,
         OutOfHarbor = 6,
         TaxAmountByTaxType = 7,
+        VendorChargedTax = 8,
 }
 
 @JsonConverter

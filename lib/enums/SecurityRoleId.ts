@@ -46,7 +46,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         FirmUser = 23,
         FirmAdmin = 24,
         BatchServiceAdmin = 25,
-        ECMUser = 26,
+        ECMAccountUser = 26,
+        ECMCompanyUser = 27,
 }
 
 @JsonConverter

@@ -28,6 +28,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         SellerRemitsTax = 6,
         MarketplaceRemitsTax = 7,
         NonPhysical = 8,
+        Vendor = 9,
 }
 
 @JsonConverter

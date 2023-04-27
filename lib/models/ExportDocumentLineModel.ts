@@ -150,4 +150,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("compression", Enums.CompressionConverter, true)
    compression?: Enums.Compression | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("includeDocumentLineDetails", Boolean, true)
+   includeDocumentLineDetails?: boolean | undefined = undefined;
  }
