@@ -48,4 +48,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("sortOrder", Number, true)
    sortOrder?: number | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof NoticeStatusModel
+     */
+   @JsonProperty("activeFlag", Boolean, true)
+   activeFlag?: boolean | undefined = undefined;
  }

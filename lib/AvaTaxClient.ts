@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.4.1
+ * @version    23.5.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '23.4.1';
+  private apiVersion: string = '23.5.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -263,7 +263,7 @@ export default class AvaTaxClient {
    * @return {Models.LicenseKeyModel}
    */
   
-  accountResetLicenseKey({ id, model }: { id: number, model?: Models.ResetLicenseKeyModel }): Promise<Models.LicenseKeyModel> {
+  accountResetLicenseKey({ id, model }: { id: number, model: Models.ResetLicenseKeyModel }): Promise<Models.LicenseKeyModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/resetlicensekey`,
       parameters: {}
@@ -301,7 +301,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountModel}
    */
   
-  activateAccount({ id, model }: { id: number, model?: Models.ActivateAccountModel }): Promise<Models.AccountModel> {
+  activateAccount({ id, model }: { id: number, model: Models.ActivateAccountModel }): Promise<Models.AccountModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/activate`,
       parameters: {}
@@ -389,7 +389,7 @@ export default class AvaTaxClient {
    * @return {Models.LicenseKeyModel}
    */
   
-  createLicenseKey({ id, model }: { id: number, model?: Models.AccountLicenseKeyModel }): Promise<Models.LicenseKeyModel> {
+  createLicenseKey({ id, model }: { id: number, model: Models.AccountLicenseKeyModel }): Promise<Models.LicenseKeyModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/licensekey`,
       parameters: {}
@@ -640,7 +640,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountConfigurationModel[]}
    */
   
-  setAccountConfiguration({ id, model }: { id: number, model?: Models.AccountConfigurationModel[] }): Promise<Array<Models.AccountConfigurationModel>> {
+  setAccountConfiguration({ id, model }: { id: number, model: Models.AccountConfigurationModel[] }): Promise<Array<Models.AccountConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}/configuration`,
       parameters: {}
@@ -729,7 +729,7 @@ export default class AvaTaxClient {
    * @return {Models.AddressResolutionModel}
    */
   
-  resolveAddressPost({ model }: { model?: Models.AddressValidationInfo }): Promise<Models.AddressResolutionModel> {
+  resolveAddressPost({ model }: { model: Models.AddressValidationInfo }): Promise<Models.AddressResolutionModel> {
     var path = this.buildUrl({
       url: `/api/v2/addresses/resolve`,
       parameters: {}
@@ -755,7 +755,7 @@ export default class AvaTaxClient {
    * @return {Models.AdvancedRuleLookupFileModel}
    */
   
-  createCompanyLookupFile({ accountId, companyId, model }: { accountId: number, companyId: number, model?: Models.AdvancedRuleLookupFileModel }): Promise<Models.AdvancedRuleLookupFileModel> {
+  createCompanyLookupFile({ accountId, companyId, model }: { accountId: number, companyId: number, model: Models.AdvancedRuleLookupFileModel }): Promise<Models.AdvancedRuleLookupFileModel> {
     var path = this.buildUrl({
       url: `/api/v2/advancedrules/accounts/${accountId}/companies/${companyId}/lookupFiles`,
       parameters: {}
@@ -856,7 +856,7 @@ export default class AvaTaxClient {
    * @return {Models.AdvancedRuleLookupFileModel}
    */
   
-  updateLookupFile({ accountId, id, model }: { accountId: number, id: string, model?: Models.AdvancedRuleLookupFileModel }): Promise<Models.AdvancedRuleLookupFileModel> {
+  updateLookupFile({ accountId, id, model }: { accountId: number, id: string, model: Models.AdvancedRuleLookupFileModel }): Promise<Models.AdvancedRuleLookupFileModel> {
     var path = this.buildUrl({
       url: `/api/v2/advancedrules/accounts/${accountId}/lookupFiles/${id}`,
       parameters: {}
@@ -886,7 +886,7 @@ export default class AvaTaxClient {
    * @return {Models.AvaFileFormModel[]}
    */
   
-  createAvaFileForms({ model }: { model?: Models.AvaFileFormModel[] }): Promise<Array<Models.AvaFileFormModel>> {
+  createAvaFileForms({ model }: { model: Models.AvaFileFormModel[] }): Promise<Array<Models.AvaFileFormModel>> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms`,
       parameters: {}
@@ -1013,7 +1013,7 @@ export default class AvaTaxClient {
    * @return {Models.AvaFileFormModel}
    */
   
-  updateAvaFileForm({ id, model }: { id: number, model?: Models.AvaFileFormModel }): Promise<Models.AvaFileFormModel> {
+  updateAvaFileForm({ id, model }: { id: number, model: Models.AvaFileFormModel }): Promise<Models.AvaFileFormModel> {
     var path = this.buildUrl({
       url: `/api/v2/avafileforms/${id}`,
       parameters: {}
@@ -1100,7 +1100,7 @@ export default class AvaTaxClient {
    * @return {Models.BatchModel[]}
    */
   
-  createBatches({ companyId, model }: { companyId: number, model?: Models.BatchModel[] }): Promise<Array<Models.BatchModel>> {
+  createBatches({ companyId, model }: { companyId: number, model: Models.BatchModel[] }): Promise<Array<Models.BatchModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches`,
       parameters: {}
@@ -1145,7 +1145,7 @@ export default class AvaTaxClient {
    * @return {Models.CreateTransactionBatchResponseModel}
    */
   
-  createTransactionBatch({ companyId, model }: { companyId: number, model?: Models.CreateTransactionBatchRequestModel }): Promise<Models.CreateTransactionBatchResponseModel> {
+  createTransactionBatch({ companyId, model }: { companyId: number, model: Models.CreateTransactionBatchRequestModel }): Promise<Models.CreateTransactionBatchResponseModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/batches/transactions`,
       parameters: {}
@@ -1415,7 +1415,7 @@ export default class AvaTaxClient {
    * @return {Models.CertExpressInvitationStatusModel[]}
    */
   
-  createCertExpressInvitation({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CreateCertExpressInvitationModel[] }): Promise<Array<Models.CertExpressInvitationStatusModel>> {
+  createCertExpressInvitation({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.CreateCertExpressInvitationModel[] }): Promise<Array<Models.CertExpressInvitationStatusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certexpressinvites`,
       parameters: {}
@@ -1568,7 +1568,7 @@ export default class AvaTaxClient {
    * @return {Models.CertificateModel[]}
    */
   
-  createCertificates({ companyId, preValidatedExemptionReason, model }: { companyId: number, preValidatedExemptionReason?: boolean, model?: Models.CertificateModel[] }): Promise<Array<Models.CertificateModel>> {
+  createCertificates({ companyId, preValidatedExemptionReason, model }: { companyId: number, preValidatedExemptionReason?: boolean, model: Models.CertificateModel[] }): Promise<Array<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates`,
       parameters: {
@@ -1788,7 +1788,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  linkAttributesToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
+  linkAttributesToCertificate({ companyId, id, model }: { companyId: number, id: number, model: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attributes/link`,
       parameters: {}
@@ -1833,7 +1833,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CustomerModel>}
    */
   
-  linkCustomersToCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
+  linkCustomersToCertificate({ companyId, id, model }: { companyId: number, id: number, model: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers/link`,
       parameters: {}
@@ -2059,7 +2059,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CertificateAttributeModel>}
    */
   
-  unlinkAttributesFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
+  unlinkAttributesFromCertificate({ companyId, id, model }: { companyId: number, id: number, model: Models.CertificateAttributeModel[] }): Promise<FetchResult<Models.CertificateAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attributes/unlink`,
       parameters: {}
@@ -2105,7 +2105,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CustomerModel>}
    */
   
-  unlinkCustomersFromCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
+  unlinkCustomersFromCertificate({ companyId, id, model }: { companyId: number, id: number, model: Models.LinkCustomersModel }): Promise<FetchResult<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/customers/unlink`,
       parameters: {}
@@ -2146,7 +2146,7 @@ export default class AvaTaxClient {
    * @return {Models.CertificateModel}
    */
   
-  updateCertificate({ companyId, id, model }: { companyId: number, id: number, model?: Models.CertificateModel }): Promise<Models.CertificateModel> {
+  updateCertificate({ companyId, id, model }: { companyId: number, id: number, model: Models.CertificateModel }): Promise<Models.CertificateModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}`,
       parameters: {}
@@ -2281,7 +2281,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model?: Models.FilingStatusChangeModel }): Promise<String> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2320,7 +2320,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyModel}
    */
   
-  companyInitialize({ model }: { model?: Models.CompanyInitializationModel }): Promise<Models.CompanyModel> {
+  companyInitialize({ model }: { model: Models.CompanyInitializationModel }): Promise<Models.CompanyModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/initialize`,
       parameters: {}
@@ -2352,7 +2352,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyModel[]}
    */
   
-  createCompanies({ model }: { model?: Models.CompanyModel[] }): Promise<Array<Models.CompanyModel>> {
+  createCompanies({ model }: { model: Models.CompanyModel[] }): Promise<Array<Models.CompanyModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies`,
       parameters: {}
@@ -2391,7 +2391,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyParameterDetailModel[]}
    */
   
-  createCompanyParameters({ companyId, model }: { companyId: number, model?: Models.CompanyParameterDetailModel[] }): Promise<Array<Models.CompanyParameterDetailModel>> {
+  createCompanyParameters({ companyId, model }: { companyId: number, model: Models.CompanyParameterDetailModel[] }): Promise<Array<Models.CompanyParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters`,
       parameters: {}
@@ -2432,7 +2432,7 @@ export default class AvaTaxClient {
    * @return {Models.FundingStatusModel}
    */
   
-  createFundingRequest({ id, businessUnit, subscriptionType, model }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType, model?: Models.FundingInitiateModel }): Promise<Models.FundingStatusModel> {
+  createFundingRequest({ id, businessUnit, subscriptionType, model }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType, model: Models.FundingInitiateModel }): Promise<Models.FundingStatusModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/funding/setup`,
       parameters: {
@@ -2957,7 +2957,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyConfigurationModel[]}
    */
   
-  setCompanyConfiguration({ id, model }: { id: number, model?: Models.CompanyConfigurationModel[] }): Promise<Array<Models.CompanyConfigurationModel>> {
+  setCompanyConfiguration({ id, model }: { id: number, model: Models.CompanyConfigurationModel[] }): Promise<Array<Models.CompanyConfigurationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/configuration`,
       parameters: {}
@@ -3063,7 +3063,7 @@ export default class AvaTaxClient {
    * @return {Models.ContactModel[]}
    */
   
-  createContacts({ companyId, model }: { companyId: number, model?: Models.ContactModel[] }): Promise<Array<Models.ContactModel>> {
+  createContacts({ companyId, model }: { companyId: number, model: Models.ContactModel[] }): Promise<Array<Models.ContactModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts`,
       parameters: {}
@@ -3238,7 +3238,7 @@ export default class AvaTaxClient {
    * @return {Models.ContactModel}
    */
   
-  updateContact({ companyId, id, model }: { companyId: number, id: number, model?: Models.ContactModel }): Promise<Models.ContactModel> {
+  updateContact({ companyId, id, model }: { companyId: number, id: number, model: Models.ContactModel }): Promise<Models.ContactModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/contacts/${id}`,
       parameters: {}
@@ -3282,7 +3282,7 @@ export default class AvaTaxClient {
    * @return {Models.CustomerModel[]}
    */
   
-  createCustomers({ companyId, model }: { companyId: number, model?: Models.CustomerModel[] }): Promise<Array<Models.CustomerModel>> {
+  createCustomers({ companyId, model }: { companyId: number, model: Models.CustomerModel[] }): Promise<Array<Models.CustomerModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers`,
       parameters: {}
@@ -3418,7 +3418,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CustomerAttributeModel>}
    */
   
-  linkAttributesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
+  linkAttributesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/attributes/link`,
       parameters: {}
@@ -3460,7 +3460,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CertificateModel>}
    */
   
-  linkCertificatesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
+  linkCertificatesToCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates/link`,
       parameters: {}
@@ -3503,7 +3503,7 @@ export default class AvaTaxClient {
    * @return {Models.CustomerModel}
    */
   
-  linkShipToCustomersToBillCustomer({ companyId, code, model }: { companyId: number, code: string, model?: Models.LinkCustomersModel }): Promise<Models.CustomerModel> {
+  linkShipToCustomersToBillCustomer({ companyId, code, model }: { companyId: number, code: string, model: Models.LinkCustomersModel }): Promise<Models.CustomerModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/billto/${code}/shipto/link`,
       parameters: {}
@@ -3746,7 +3746,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CustomerAttributeModel>}
    */
   
-  unlinkAttributesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
+  unlinkAttributesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.CustomerAttributeModel[] }): Promise<FetchResult<Models.CustomerAttributeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/attributes/unlink`,
       parameters: {}
@@ -3788,7 +3788,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.CertificateModel>}
    */
   
-  unlinkCertificatesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
+  unlinkCertificatesFromCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.LinkCertificatesModel }): Promise<FetchResult<Models.CertificateModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}/certificates/unlink`,
       parameters: {}
@@ -3830,7 +3830,7 @@ export default class AvaTaxClient {
    * @return {Models.CustomerModel}
    */
   
-  updateCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.CustomerModel }): Promise<Models.CustomerModel> {
+  updateCustomer({ companyId, customerCode, model }: { companyId: number, customerCode: string, model: Models.CustomerModel }): Promise<Models.CustomerModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/customers/${customerCode}`,
       parameters: {}
@@ -3860,7 +3860,7 @@ export default class AvaTaxClient {
    * @return {Models.DataSourceModel[]}
    */
   
-  createDataSources({ companyId, model }: { companyId: number, model?: Models.DataSourceModel[] }): Promise<Array<Models.DataSourceModel>> {
+  createDataSources({ companyId, model }: { companyId: number, model: Models.DataSourceModel[] }): Promise<Array<Models.DataSourceModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources`,
       parameters: {}
@@ -4029,7 +4029,7 @@ export default class AvaTaxClient {
    * @return {Models.DataSourceModel}
    */
   
-  updateDataSource({ companyId, id, model }: { companyId: number, id: number, model?: Models.DataSourceModel }): Promise<Models.DataSourceModel> {
+  updateDataSource({ companyId, id, model }: { companyId: number, id: number, model: Models.DataSourceModel }): Promise<Models.DataSourceModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/datasources/${id}`,
       parameters: {}
@@ -5471,7 +5471,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isOpen, sortOrder
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* isOpen, sortOrder, activeFlag
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -5721,17 +5721,19 @@ export default class AvaTaxClient {
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {boolean} includeExpiredPostalCodes If set to true, returns expired postal codes. Defaults to false
    * @return {FetchResult<Models.PostalCodeModel>}
    */
   
-  listPostalCodes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.PostalCodeModel>> {
+  listPostalCodes({ filter, top, skip, orderBy, includeExpiredPostalCodes }: { filter?: string, top?: number, skip?: number, orderBy?: string, includeExpiredPostalCodes?: boolean }): Promise<FetchResult<Models.PostalCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/postalcodes`,
       parameters: {
         $filter: filter,
         $top: top,
         $skip: skip,
-        $orderBy: orderBy
+        $orderBy: orderBy,
+        includeExpiredPostalCodes: includeExpiredPostalCodes
       }
     });
 	 var strClientId =
@@ -6322,7 +6324,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -6674,7 +6676,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyDistanceThresholdModel[]}
    */
   
-  createDistanceThreshold({ companyId, model }: { companyId: number, model?: Models.CompanyDistanceThresholdModel[] }): Promise<Array<Models.CompanyDistanceThresholdModel>> {
+  createDistanceThreshold({ companyId, model }: { companyId: number, model: Models.CompanyDistanceThresholdModel[] }): Promise<Array<Models.CompanyDistanceThresholdModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds`,
       parameters: {}
@@ -6865,7 +6867,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyDistanceThresholdModel}
    */
   
-  updateDistanceThreshold({ companyId, id, model }: { companyId: number, id: number, model?: Models.CompanyDistanceThresholdModel }): Promise<Models.CompanyDistanceThresholdModel> {
+  updateDistanceThreshold({ companyId, id, model }: { companyId: number, id: number, model: Models.CompanyDistanceThresholdModel }): Promise<Models.CompanyDistanceThresholdModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/distancethresholds/${id}`,
       parameters: {}
@@ -6896,7 +6898,7 @@ export default class AvaTaxClient {
    * @return {Models.ECommerceTokenOutputModel}
    */
   
-  createECommerceToken({ companyId, model }: { companyId: number, model?: Models.CreateECommerceTokenInputModel }): Promise<Models.ECommerceTokenOutputModel> {
+  createECommerceToken({ companyId, model }: { companyId: number, model: Models.CreateECommerceTokenInputModel }): Promise<Models.ECommerceTokenOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/ecommercetokens`,
       parameters: {}
@@ -6927,7 +6929,7 @@ export default class AvaTaxClient {
    * @return {FetchResult<Models.ECommerceTokenOutputModel>}
    */
   
-  refreshECommerceToken({ companyId, model }: { companyId: number, model?: Models.RefreshECommerceTokenInputModel }): Promise<FetchResult<Models.ECommerceTokenOutputModel>> {
+  refreshECommerceToken({ companyId, model }: { companyId: number, model: Models.RefreshECommerceTokenInputModel }): Promise<FetchResult<Models.ECommerceTokenOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/ecommercetokens`,
       parameters: {}
@@ -6992,7 +6994,7 @@ export default class AvaTaxClient {
    * @return {Models.FirmClientLinkageOutputModel}
    */
   
-  createAndLinkNewFirmClientAccount({ model }: { model?: Models.NewFirmClientAccountRequestModel }): Promise<Models.FirmClientLinkageOutputModel> {
+  createAndLinkNewFirmClientAccount({ model }: { model: Models.NewFirmClientAccountRequestModel }): Promise<Models.FirmClientLinkageOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/firmclientlinkages/createandlinkclient`,
       parameters: {}
@@ -7020,7 +7022,7 @@ export default class AvaTaxClient {
    * @return {Models.FirmClientLinkageOutputModel}
    */
   
-  createFirmClientLinkage({ model }: { model?: Models.FirmClientLinkageInputModel }): Promise<Models.FirmClientLinkageOutputModel> {
+  createFirmClientLinkage({ model }: { model: Models.FirmClientLinkageInputModel }): Promise<Models.FirmClientLinkageOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/firmclientlinkages`,
       parameters: {}
@@ -7227,7 +7229,7 @@ export default class AvaTaxClient {
    * @return {Models.NewAccountModel}
    */
   
-  requestFreeTrial({ model }: { model?: Models.FreeTrialRequestModel }): Promise<Models.NewAccountModel> {
+  requestFreeTrial({ model }: { model: Models.FreeTrialRequestModel }): Promise<Models.NewAccountModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/freetrials/request`,
       parameters: {}
@@ -7420,7 +7422,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemBulkUploadOutputModel}
    */
   
-  bulkUploadItems({ companyId, model }: { companyId: number, model?: Models.ItemBulkUploadInputModel }): Promise<Models.ItemBulkUploadOutputModel> {
+  bulkUploadItems({ companyId, model }: { companyId: number, model: Models.ItemBulkUploadInputModel }): Promise<Models.ItemBulkUploadOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/upload`,
       parameters: {}
@@ -7456,7 +7458,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemClassificationOutputModel[]}
    */
   
-  createItemClassifications({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemClassificationInputModel[] }): Promise<Array<Models.ItemClassificationOutputModel>> {
+  createItemClassifications({ companyId, itemId, model }: { companyId: number, itemId: number, model: Models.ItemClassificationInputModel[] }): Promise<Array<Models.ItemClassificationOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {}
@@ -7496,7 +7498,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemParameterModel[]}
    */
   
-  createItemParameters({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemParameterModel[] }): Promise<Array<Models.ItemParameterModel>> {
+  createItemParameters({ companyId, itemId, model }: { companyId: number, itemId: number, model: Models.ItemParameterModel[] }): Promise<Array<Models.ItemParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {}
@@ -7533,7 +7535,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemModel[]}
    */
   
-  createItems({ companyId, model }: { companyId: number, model?: Models.ItemModel[] }): Promise<Array<Models.ItemModel>> {
+  createItems({ companyId, model }: { companyId: number, model: Models.ItemModel[] }): Promise<Array<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {}
@@ -7565,7 +7567,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemTagDetailOutputModel[]}
    */
   
-  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemTagDetailInputModel[] }): Promise<Array<Models.ItemTagDetailOutputModel>> {
+  createItemTags({ companyId, itemId, model }: { companyId: number, itemId: number, model: Models.ItemTagDetailInputModel[] }): Promise<Array<Models.ItemTagDetailOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {}
@@ -7598,7 +7600,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemTaxCodeClassificationRequestOutputModel}
    */
   
-  createTaxCodeClassificationRequest({ companyId, model }: { companyId: number, model?: Models.ItemTaxCodeClassificationRequestInputModel }): Promise<Models.ItemTaxCodeClassificationRequestOutputModel> {
+  createTaxCodeClassificationRequest({ companyId, model }: { companyId: number, model: Models.ItemTaxCodeClassificationRequestInputModel }): Promise<Models.ItemTaxCodeClassificationRequestOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode`,
       parameters: {}
@@ -8414,7 +8416,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemCatalogueOutputModel}
    */
   
-  syncItemCatalogue({ companyId, model }: { companyId: number, model?: Models.ItemCatalogueInputModel[] }): Promise<Models.ItemCatalogueOutputModel> {
+  syncItemCatalogue({ companyId, model }: { companyId: number, model: Models.ItemCatalogueInputModel[] }): Promise<Models.ItemCatalogueOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/itemcatalogue`,
       parameters: {}
@@ -8454,7 +8456,7 @@ export default class AvaTaxClient {
    * @return {Models.SyncItemsResponseModel}
    */
   
-  syncItems({ companyId, model }: { companyId: number, model?: Models.SyncItemsRequestModel }): Promise<Models.SyncItemsResponseModel> {
+  syncItems({ companyId, model }: { companyId: number, model: Models.SyncItemsRequestModel }): Promise<Models.SyncItemsResponseModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/sync`,
       parameters: {}
@@ -8495,7 +8497,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemModel}
    */
   
-  updateItem({ companyId, id, model }: { companyId: number, id: number, model?: Models.ItemModel }): Promise<Models.ItemModel> {
+  updateItem({ companyId, id, model }: { companyId: number, id: number, model: Models.ItemModel }): Promise<Models.ItemModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${id}`,
       parameters: {}
@@ -8532,7 +8534,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemClassificationOutputModel}
    */
   
-  updateItemClassification({ companyId, itemId, id, model }: { companyId: number, itemId: number, id: number, model?: Models.ItemClassificationInputModel }): Promise<Models.ItemClassificationOutputModel> {
+  updateItemClassification({ companyId, itemId, id, model }: { companyId: number, itemId: number, id: number, model: Models.ItemClassificationInputModel }): Promise<Models.ItemClassificationOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications/${id}`,
       parameters: {}
@@ -8569,7 +8571,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemParameterModel}
    */
   
-  updateItemParameter({ companyId, itemId, id, model }: { companyId: number, itemId: number, id: number, model?: Models.ItemParameterModel }): Promise<Models.ItemParameterModel> {
+  updateItemParameter({ companyId, itemId, id, model }: { companyId: number, itemId: number, id: number, model: Models.ItemParameterModel }): Promise<Models.ItemParameterModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters/${id}`,
       parameters: {}
@@ -8603,7 +8605,7 @@ export default class AvaTaxClient {
    * @return {Models.JurisdictionOverrideModel[]}
    */
   
-  createJurisdictionOverrides({ accountId, model }: { accountId: number, model?: Models.JurisdictionOverrideModel[] }): Promise<Array<Models.JurisdictionOverrideModel>> {
+  createJurisdictionOverrides({ accountId, model }: { accountId: number, model: Models.JurisdictionOverrideModel[] }): Promise<Array<Models.JurisdictionOverrideModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides`,
       parameters: {}
@@ -8789,7 +8791,7 @@ export default class AvaTaxClient {
    * @return {Models.JurisdictionOverrideModel}
    */
   
-  updateJurisdictionOverride({ accountId, id, model }: { accountId: number, id: number, model?: Models.JurisdictionOverrideModel }): Promise<Models.JurisdictionOverrideModel> {
+  updateJurisdictionOverride({ accountId, id, model }: { accountId: number, id: number, model: Models.JurisdictionOverrideModel }): Promise<Models.JurisdictionOverrideModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/jurisdictionoverrides/${id}`,
       parameters: {}
@@ -8829,7 +8831,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationParameterModel[]}
    */
   
-  createLocationParameters({ companyId, locationId, model }: { companyId: number, locationId: number, model?: Models.LocationParameterModel[] }): Promise<Array<Models.LocationParameterModel>> {
+  createLocationParameters({ companyId, locationId, model }: { companyId: number, locationId: number, model: Models.LocationParameterModel[] }): Promise<Array<Models.LocationParameterModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters`,
       parameters: {}
@@ -8858,7 +8860,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationModel[]}
    */
   
-  createLocations({ companyId, model }: { companyId: number, model?: Models.LocationModel[] }): Promise<Array<Models.LocationModel>> {
+  createLocations({ companyId, model }: { companyId: number, model: Models.LocationModel[] }): Promise<Array<Models.LocationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations`,
       parameters: {}
@@ -9179,7 +9181,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationModel}
    */
   
-  updateLocation({ companyId, id, model }: { companyId: number, id: number, model?: Models.LocationModel }): Promise<Models.LocationModel> {
+  updateLocation({ companyId, id, model }: { companyId: number, id: number, model: Models.LocationModel }): Promise<Models.LocationModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${id}`,
       parameters: {}
@@ -9216,7 +9218,7 @@ export default class AvaTaxClient {
    * @return {Models.LocationParameterModel}
    */
   
-  updateLocationParameter({ companyId, locationId, id, model }: { companyId: number, locationId: number, id: number, model?: Models.LocationParameterModel }): Promise<Models.LocationParameterModel> {
+  updateLocationParameter({ companyId, locationId, id, model }: { companyId: number, locationId: number, id: number, model: Models.LocationParameterModel }): Promise<Models.LocationParameterModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/locations/${locationId}/parameters/${id}`,
       parameters: {}
@@ -9296,7 +9298,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  adjustMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model?: Models.AdjustMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  adjustMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model: Models.AdjustMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}/adjust`,
       parameters: {
@@ -9393,7 +9395,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  commitMultiDocumentTransaction({ model }: { model?: Models.CommitMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  commitMultiDocumentTransaction({ model }: { model: Models.CommitMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/commit`,
       parameters: {}
@@ -9462,7 +9464,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  createMultiDocumentTransaction({ include, model }: { include?: string, model?: Models.CreateMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  createMultiDocumentTransaction({ include, model }: { include?: string, model: Models.CreateMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument`,
       parameters: {
@@ -9716,7 +9718,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  refundMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model?: Models.RefundTransactionModel }): Promise<Models.MultiDocumentModel> {
+  refundMultiDocumentTransaction({ code, type, include, model }: { code: string, type: Enums.DocumentType, include?: string, model: Models.RefundTransactionModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}/refund`,
       parameters: {
@@ -9760,7 +9762,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  verifyMultiDocumentTransaction({ model }: { model?: Models.VerifyMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
+  verifyMultiDocumentTransaction({ model }: { model: Models.VerifyMultiDocumentModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/verify`,
       parameters: {}
@@ -9807,7 +9809,7 @@ export default class AvaTaxClient {
    * @return {Models.MultiDocumentModel}
    */
   
-  voidMultiDocumentTransaction({ code, type, model }: { code: string, type: Enums.DocumentType, model?: Models.VoidTransactionModel }): Promise<Models.MultiDocumentModel> {
+  voidMultiDocumentTransaction({ code, type, model }: { code: string, type: Enums.DocumentType, model: Models.VoidTransactionModel }): Promise<Models.MultiDocumentModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/multidocument/${code}/type/${type}/void`,
       parameters: {}
@@ -9854,7 +9856,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusModel[]}
    */
   
-  createNexus({ companyId, model }: { companyId: number, model?: Models.NexusModel[] }): Promise<Array<Models.NexusModel>> {
+  createNexus({ companyId, model }: { companyId: number, model: Models.NexusModel[] }): Promise<Array<Models.NexusModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus`,
       parameters: {}
@@ -9893,7 +9895,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusParameterDetailModel[]}
    */
   
-  createNexusParameters({ companyId, nexusId, model }: { companyId: number, nexusId: number, model?: Models.NexusParameterDetailModel[] }): Promise<Array<Models.NexusParameterDetailModel>> {
+  createNexusParameters({ companyId, nexusId, model }: { companyId: number, nexusId: number, model: Models.NexusParameterDetailModel[] }): Promise<Array<Models.NexusParameterDetailModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters`,
       parameters: {}
@@ -9936,7 +9938,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusByAddressModel[]}
    */
   
-  declareNexusByAddress({ companyId, model }: { companyId: number, model?: Models.DeclareNexusByAddressModel[] }): Promise<Array<Models.NexusByAddressModel>> {
+  declareNexusByAddress({ companyId, model }: { companyId: number, model: Models.DeclareNexusByAddressModel[] }): Promise<Array<Models.NexusByAddressModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/byaddress`,
       parameters: {}
@@ -10402,7 +10404,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusModel}
    */
   
-  updateNexus({ companyId, id, model }: { companyId: number, id: number, model?: Models.NexusModel }): Promise<Models.NexusModel> {
+  updateNexus({ companyId, id, model }: { companyId: number, id: number, model: Models.NexusModel }): Promise<Models.NexusModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${id}`,
       parameters: {}
@@ -10439,7 +10441,7 @@ export default class AvaTaxClient {
    * @return {Models.NexusParameterDetailModel}
    */
   
-  updateNexusParameter({ companyId, nexusId, id, model }: { companyId: number, nexusId: number, id: number, model?: Models.NexusParameterDetailModel }): Promise<Models.NexusParameterDetailModel> {
+  updateNexusParameter({ companyId, nexusId, id, model }: { companyId: number, nexusId: number, id: number, model: Models.NexusParameterDetailModel }): Promise<Models.NexusParameterDetailModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/nexus/${nexusId}/parameters/${id}`,
       parameters: {}
@@ -10468,7 +10470,7 @@ export default class AvaTaxClient {
    * @return {Models.NoticeResponsibilityModel}
    */
   
-  createNoticeResponsibilityType({ model }: { model?: Models.CreateNoticeResponsibilityTypeModel }): Promise<Models.NoticeResponsibilityModel> {
+  createNoticeResponsibilityType({ model }: { model: Models.CreateNoticeResponsibilityTypeModel }): Promise<Models.NoticeResponsibilityModel> {
     var path = this.buildUrl({
       url: `/api/v2/notices/responsibilities`,
       parameters: {}
@@ -10497,7 +10499,7 @@ export default class AvaTaxClient {
    * @return {Models.NoticeRootCauseModel}
    */
   
-  createNoticeRootCauseType({ model }: { model?: Models.CreateNoticeRootCauseTypeModel }): Promise<Models.NoticeRootCauseModel> {
+  createNoticeRootCauseType({ model }: { model: Models.CreateNoticeRootCauseTypeModel }): Promise<Models.NoticeRootCauseModel> {
     var path = this.buildUrl({
       url: `/api/v2/notices/rootcauses`,
       parameters: {}
@@ -10718,7 +10720,7 @@ export default class AvaTaxClient {
    * @return {Models.NewAccountModel}
    */
   
-  requestNewAccount({ model }: { model?: Models.NewAccountRequestModel }): Promise<Models.NewAccountModel> {
+  requestNewAccount({ model }: { model: Models.NewAccountRequestModel }): Promise<Models.NewAccountModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/request`,
       parameters: {}
@@ -10782,7 +10784,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountModel[]}
    */
   
-  createAccount({ model }: { model?: Models.AccountModel }): Promise<Array<Models.AccountModel>> {
+  createAccount({ model }: { model: Models.AccountModel }): Promise<Array<Models.AccountModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts`,
       parameters: {}
@@ -10823,7 +10825,7 @@ export default class AvaTaxClient {
    * @return {Models.NotificationModel[]}
    */
   
-  createNotifications({ model }: { model?: Models.NotificationModel[] }): Promise<Array<Models.NotificationModel>> {
+  createNotifications({ model }: { model: Models.NotificationModel[] }): Promise<Array<Models.NotificationModel>> {
     var path = this.buildUrl({
       url: `/api/v2/notifications`,
       parameters: {}
@@ -10858,7 +10860,7 @@ export default class AvaTaxClient {
    * @return {Models.SubscriptionTypeModel}
    */
   
-  createServiceTypes({ model }: { model?: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
+  createServiceTypes({ model }: { model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
     var path = this.buildUrl({
       url: `/api/v2/servicetypes`,
       parameters: {}
@@ -10891,7 +10893,7 @@ export default class AvaTaxClient {
    * @return {Models.SubscriptionModel[]}
    */
   
-  createSubscriptions({ accountId, model }: { accountId: number, model?: Models.SubscriptionModel[] }): Promise<Array<Models.SubscriptionModel>> {
+  createSubscriptions({ accountId, model }: { accountId: number, model: Models.SubscriptionModel[] }): Promise<Array<Models.SubscriptionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions`,
       parameters: {}
@@ -11103,7 +11105,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  resetPassword({ userId, isUndoMigrateRequest, model }: { userId: number, isUndoMigrateRequest?: boolean, model?: Models.SetPasswordModel }): Promise<String> {
+  resetPassword({ userId, isUndoMigrateRequest, model }: { userId: number, isUndoMigrateRequest?: boolean, model: Models.SetPasswordModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/passwords/${userId}/reset`,
       parameters: {
@@ -11137,7 +11139,7 @@ export default class AvaTaxClient {
    * @return {Models.AccountModel}
    */
   
-  updateAccount({ id, model }: { id: number, model?: Models.AccountModel }): Promise<Models.AccountModel> {
+  updateAccount({ id, model }: { id: number, model: Models.AccountModel }): Promise<Models.AccountModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${id}`,
       parameters: {}
@@ -11176,7 +11178,7 @@ export default class AvaTaxClient {
    * @return {Models.NotificationModel}
    */
   
-  updateNotification({ id, model }: { id: number, model?: Models.NotificationModel }): Promise<Models.NotificationModel> {
+  updateNotification({ id, model }: { id: number, model: Models.NotificationModel }): Promise<Models.NotificationModel> {
     var path = this.buildUrl({
       url: `/api/v2/notifications/${id}`,
       parameters: {}
@@ -11210,7 +11212,7 @@ export default class AvaTaxClient {
    * @return {Models.SubscriptionTypeModel}
    */
   
-  updateServiceType({ id, model }: { id: number, model?: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
+  updateServiceType({ id, model }: { id: number, model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
     var path = this.buildUrl({
       url: `/api/v2/servicetypes/${id}`,
       parameters: {}
@@ -11247,7 +11249,7 @@ export default class AvaTaxClient {
    * @return {Models.SubscriptionModel}
    */
   
-  updateSubscription({ accountId, id, model }: { accountId: number, id: number, model?: Models.SubscriptionModel }): Promise<Models.SubscriptionModel> {
+  updateSubscription({ accountId, id, model }: { accountId: number, id: number, model: Models.SubscriptionModel }): Promise<Models.SubscriptionModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/subscriptions/${id}`,
       parameters: {}
@@ -11370,7 +11372,7 @@ export default class AvaTaxClient {
    * @return {Models.ReportModel[]}
    */
   
-  initiateExportDocumentLineReport({ companyId, model }: { companyId: number, model?: Models.ExportDocumentLineModel }): Promise<Array<Models.ReportModel>> {
+  initiateExportDocumentLineReport({ companyId, model }: { companyId: number, model: Models.ExportDocumentLineModel }): Promise<Array<Models.ReportModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/reports/exportdocumentline/initiate`,
       parameters: {}
@@ -11459,7 +11461,7 @@ export default class AvaTaxClient {
    * @return {Models.SettingModel[]}
    */
   
-  createSettings({ companyId, model }: { companyId: number, model?: Models.SettingModel[] }): Promise<Array<Models.SettingModel>> {
+  createSettings({ companyId, model }: { companyId: number, model: Models.SettingModel[] }): Promise<Array<Models.SettingModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings`,
       parameters: {}
@@ -11679,7 +11681,7 @@ export default class AvaTaxClient {
    * @return {Models.SettingModel}
    */
   
-  updateSetting({ companyId, id, model }: { companyId: number, id: number, model?: Models.SettingModel }): Promise<Models.SettingModel> {
+  updateSetting({ companyId, id, model }: { companyId: number, id: number, model: Models.SettingModel }): Promise<Models.SettingModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/settings/${id}`,
       parameters: {}
@@ -11826,7 +11828,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxCodeModel[]}
    */
   
-  createTaxCodes({ companyId, model }: { companyId: number, model?: Models.TaxCodeModel[] }): Promise<Array<Models.TaxCodeModel>> {
+  createTaxCodes({ companyId, model }: { companyId: number, model: Models.TaxCodeModel[] }): Promise<Array<Models.TaxCodeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes`,
       parameters: {}
@@ -11879,7 +11881,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -11915,7 +11917,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -11961,7 +11963,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -12015,7 +12017,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxCodeModel}
    */
   
-  updateTaxCode({ companyId, id, model }: { companyId: number, id: number, model?: Models.TaxCodeModel }): Promise<Models.TaxCodeModel> {
+  updateTaxCode({ companyId, id, model }: { companyId: number, id: number, model: Models.TaxCodeModel }): Promise<Models.TaxCodeModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxcodes/${id}`,
       parameters: {}
@@ -12066,7 +12068,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  buildTaxContentFile({ model }: { model?: Models.PointOfSaleDataRequestModel }): Promise<Object> {
+  buildTaxContentFile({ model }: { model: Models.PointOfSaleDataRequestModel }): Promise<Object> {
     var path = this.buildUrl({
       url: `/api/v2/pointofsaledata/build`,
       parameters: {}
@@ -12219,8 +12221,10 @@ export default class AvaTaxClient {
      * This API assumes that you are selling general tangible personal property at a retail point-of-sale
      * location in the United States only.
      *  
-     * For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-     * which supports features including, but not limited to:
+     * Please be advised that this endpoint is designed for approximate tax rate estimation only and 
+     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the 
+     * `CreateTransaction` API, which offers a variety of advanced features including, but not limited
+     * to:
      *  
      * * Nexus declarations
      * * Taxability based on product/service type
@@ -12278,8 +12282,10 @@ export default class AvaTaxClient {
      * This API assumes that you are selling general tangible personal property at a retail point-of-sale
      * location in the United States only.
      *  
-     * For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-     * which supports features including, but not limited to:
+     * Please be advised that this endpoint is designed for approximate tax rate estimation only and 
+     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the 
+     * `CreateTransaction` API, which offers a variety of advanced features including, but not limited
+     * to:
      *  
      * * Nexus declarations
      * * Taxability based on product/service type
@@ -12344,7 +12350,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxRuleModel[]}
    */
   
-  createTaxRules({ companyId, model }: { companyId: number, model?: Models.TaxRuleModel[] }): Promise<Array<Models.TaxRuleModel>> {
+  createTaxRules({ companyId, model }: { companyId: number, model: Models.TaxRuleModel[] }): Promise<Array<Models.TaxRuleModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules`,
       parameters: {}
@@ -12575,7 +12581,7 @@ export default class AvaTaxClient {
    * @return {Models.TaxRuleModel}
    */
   
-  updateTaxRule({ companyId, id, model }: { companyId: number, id: number, model?: Models.TaxRuleModel }): Promise<Models.TaxRuleModel> {
+  updateTaxRule({ companyId, id, model }: { companyId: number, id: number, model: Models.TaxRuleModel }): Promise<Models.TaxRuleModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/taxrules/${id}`,
       parameters: {}
@@ -12624,7 +12630,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  addLines({ include, model }: { include?: string, model?: Models.AddTransactionLineModel }): Promise<Models.TransactionModel> {
+  addLines({ include, model }: { include?: string, model: Models.AddTransactionLineModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/transactions/lines/add`,
       parameters: {
@@ -12687,7 +12693,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  adjustTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.AdjustTransactionModel }): Promise<Models.TransactionModel> {
+  adjustTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.AdjustTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/adjust`,
       parameters: {
@@ -12830,7 +12836,7 @@ export default class AvaTaxClient {
    * @return {Models.BulkLockTransactionResult}
    */
   
-  bulkLockTransaction({ model }: { model?: Models.BulkLockTransactionModel }): Promise<Models.BulkLockTransactionResult> {
+  bulkLockTransaction({ model }: { model: Models.BulkLockTransactionModel }): Promise<Models.BulkLockTransactionResult> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/lock`,
       parameters: {}
@@ -12891,7 +12897,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  changeTransactionCode({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.ChangeTransactionCodeModel }): Promise<Models.TransactionModel> {
+  changeTransactionCode({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.ChangeTransactionCodeModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/changecode`,
       parameters: {
@@ -12953,7 +12959,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  commitTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.CommitTransactionModel }): Promise<Models.TransactionModel> {
+  commitTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.CommitTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/commit`,
       parameters: {
@@ -12985,6 +12991,8 @@ export default class AvaTaxClient {
      *  
      * To generate a refund for a transaction, use the `RefundTransaction` API.
      *  
+     * An address is required for calculation. If no address is provided at the line level, the document level address will be used.
+     * 
      * If you don't specify the field `type` in your request, you will get an estimate of type `SalesOrder`, which will not be recorded in the database.
      *  
      * A transaction represents a unique potentially taxable action that your company has recorded, and transactions include actions like
@@ -13018,7 +13026,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  createOrAdjustTransaction({ include, model }: { include?: string, model?: Models.CreateOrAdjustTransactionModel }): Promise<Models.TransactionModel> {
+  createOrAdjustTransaction({ include, model }: { include?: string, model: Models.CreateOrAdjustTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/createoradjust`,
       parameters: {
@@ -13051,6 +13059,8 @@ export default class AvaTaxClient {
      *  
      * To generate a refund for a transaction, use the `RefundTransaction` API.
      *  
+     * An address is required for calculation. If no address is provided at the line level, the document level address will be used.
+     * 
      * The field `type` identifies the kind of transaction - for example, a sale, purchase, or refund. If you do not specify
      * a `type` value, you will receive an estimate of type `SalesOrder`, which will not be recorded.
      *  
@@ -13089,7 +13099,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  createTransaction({ include, model }: { include?: string, model?: Models.CreateTransactionModel }): Promise<Models.TransactionModel> {
+  createTransaction({ include, model }: { include?: string, model: Models.CreateTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/transactions/create`,
       parameters: {
@@ -13137,7 +13147,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  deleteLines({ include, model }: { include?: string, model?: Models.RemoveTransactionLineModel }): Promise<Models.TransactionModel> {
+  deleteLines({ include, model }: { include?: string, model: Models.RemoveTransactionLineModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/transactions/lines/delete`,
       parameters: {
@@ -13474,7 +13484,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  lockTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.LockTransactionModel }): Promise<Models.TransactionModel> {
+  lockTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.LockTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/lock`,
       parameters: {
@@ -13549,7 +13559,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  refundTransaction({ companyCode, transactionCode, include, documentType, useTaxDateOverride, model }: { companyCode: string, transactionCode: string, include?: string, documentType?: Enums.DocumentType, useTaxDateOverride?: boolean, model?: Models.RefundTransactionModel }): Promise<Models.TransactionModel> {
+  refundTransaction({ companyCode, transactionCode, include, documentType, useTaxDateOverride, model }: { companyCode: string, transactionCode: string, include?: string, documentType?: Enums.DocumentType, useTaxDateOverride?: boolean, model: Models.RefundTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/refund`,
       parameters: {
@@ -13612,7 +13622,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  settleTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.SettleTransactionModel }): Promise<Models.TransactionModel> {
+  settleTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.SettleTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/settle`,
       parameters: {
@@ -13752,7 +13762,7 @@ export default class AvaTaxClient {
    * @return {Models.VarianceResponseModel}
    */
   
-  varianceReport({ companyCode, model }: { companyCode: string, model?: Models.VarianceRequestModel[] }): Promise<Models.VarianceResponseModel> {
+  varianceReport({ companyCode, model }: { companyCode: string, model: Models.VarianceRequestModel[] }): Promise<Models.VarianceResponseModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/variance`,
       parameters: {}
@@ -13810,7 +13820,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  verifyTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.VerifyTransactionModel }): Promise<Models.TransactionModel> {
+  verifyTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.VerifyTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/verify`,
       parameters: {
@@ -13873,7 +13883,7 @@ export default class AvaTaxClient {
    * @return {Models.TransactionModel}
    */
   
-  voidTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model?: Models.VoidTransactionModel }): Promise<Models.TransactionModel> {
+  voidTransaction({ companyCode, transactionCode, documentType, include, model }: { companyCode: string, transactionCode: string, documentType?: Enums.DocumentType, include?: string, model: Models.VoidTransactionModel }): Promise<Models.TransactionModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyCode}/transactions/${transactionCode}/void`,
       parameters: {
@@ -13907,7 +13917,7 @@ export default class AvaTaxClient {
    * @return {Models.UPCModel[]}
    */
   
-  createUPCs({ companyId, model }: { companyId: number, model?: Models.UPCModel[] }): Promise<Array<Models.UPCModel>> {
+  createUPCs({ companyId, model }: { companyId: number, model: Models.UPCModel[] }): Promise<Array<Models.UPCModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs`,
       parameters: {}
@@ -14089,7 +14099,7 @@ export default class AvaTaxClient {
    * @return {Models.UPCModel}
    */
   
-  updateUPC({ companyId, id, model }: { companyId: number, id: number, model?: Models.UPCModel }): Promise<Models.UPCModel> {
+  updateUPC({ companyId, id, model }: { companyId: number, id: number, model: Models.UPCModel }): Promise<Models.UPCModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/upcs/${id}`,
       parameters: {}
@@ -14182,7 +14192,7 @@ export default class AvaTaxClient {
    * @return {Models.CompanyUserDefinedFieldModel}
    */
   
-  updateUserDefinedField({ companyId, id, model }: { companyId: number, id?: number, model?: Models.CompanyUserDefinedFieldModel }): Promise<Models.CompanyUserDefinedFieldModel> {
+  updateUserDefinedField({ companyId, id, model }: { companyId: number, id?: number, model: Models.CompanyUserDefinedFieldModel }): Promise<Models.CompanyUserDefinedFieldModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/userdefinedfields`,
       parameters: {
@@ -14218,7 +14228,7 @@ export default class AvaTaxClient {
    * @return {string}
    */
   
-  changePassword({ model }: { model?: Models.PasswordChangeModel }): Promise<String> {
+  changePassword({ model }: { model: Models.PasswordChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/passwords`,
       parameters: {}
@@ -14255,7 +14265,7 @@ export default class AvaTaxClient {
    * @return {Models.UserModel[]}
    */
   
-  createUsers({ accountId, model }: { accountId: number, model?: Models.UserModel[] }): Promise<Array<Models.UserModel>> {
+  createUsers({ accountId, model }: { accountId: number, model: Models.UserModel[] }): Promise<Array<Models.UserModel>> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users`,
       parameters: {}
@@ -14503,7 +14513,7 @@ export default class AvaTaxClient {
    * @return {Models.UserModel}
    */
   
-  updateUser({ id, accountId, model }: { id: number, accountId: number, model?: Models.UserModel }): Promise<Models.UserModel> {
+  updateUser({ id, accountId, model }: { id: number, accountId: number, model: Models.UserModel }): Promise<Models.UserModel> {
     var path = this.buildUrl({
       url: `/api/v2/accounts/${accountId}/users/${id}`,
       parameters: {}
