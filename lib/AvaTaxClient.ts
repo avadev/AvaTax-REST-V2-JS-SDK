@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.5.0
+ * @version    23.6.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '23.5.0';
+  private apiVersion: string = '23.6.1';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -8164,7 +8164,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The company id.
      * @param {number} itemId The item id.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* productCode, systemCode
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* productCode, systemCode, IsPremium
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -10840,41 +10840,6 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Create Avalara-supported subscription (ServiceTypes)
-   * For Registrar Use Only
-     * This API is for use by Avalara Registrar administrative users only.
-     *  
-     * Create one service/subscription object.
-     *  
-     * Returns the newly created Avalara-supported subscription (service) type.
-     * This API is intended to be useful for adding new Avalara-supported subscription type (service type).
-     * You may always contact Avalara's sales department for information on available products or services.
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {Models.SubscriptionTypeModel} model The subscription type object you wish to create.
-   * @return {Models.SubscriptionTypeModel}
-   */
-  
-  createServiceTypes({ model }: { model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
-    var path = this.buildUrl({
-      url: `/api/v2/servicetypes`,
-      parameters: {}
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.SubscriptionTypeModel);
-  }
-
-  /**
    * Create a new subscription
    * This API is for use by Avalara Registrar administrative users only.
      *  
@@ -10966,38 +10931,6 @@ export default class AvaTaxClient {
   deleteNotification({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/notifications/${id}`,
-      parameters: {}
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
-  }
-
-  /**
-   * Delete a single Subscription (ServiceTypes) object
-   * For Registrar Use Only
-     * This API is for use by Avalara Registrar administrative users only.
-     *  
-     * Marks the Subscription (ServiceTypes) object identified by this URL as deleted.
-     * This API is useful for deleting an existing Avalara-supported subscription type (service type).
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {number} id The unique ID number of the Subscription object you wish to delete.
-   * @return {Models.ErrorDetail[]}
-   */
-  
-  deleteServiceType({ id }: { id: number }): Promise<Array<Models.ErrorDetail>> {
-    var path = this.buildUrl({
-      url: `/api/v2/servicetypes/${id}`,
       parameters: {}
     });
 	 var strClientId =
@@ -11190,40 +11123,6 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.NotificationModel);
-  }
-
-  /**
-   * Update existing Avalara-supported subscription (ServiceTypes)
-   * For Registrar Use Only
-     * This API is for use by Avalara Registrar administrative users only.
-     *  
-     * Returns the updated Avalara-supported service types.
-     * This API is intended to be useful for updating an existing subscription(service) type detail.
-     * You may always contact Avalara's sales department for information on available products or services.
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: BatchServiceAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {number} id The unique ID number of the existing subscription type object to replace.
-     * @param {Models.SubscriptionTypeModel} model The subscription type object to update.
-   * @return {Models.SubscriptionTypeModel}
-   */
-  
-  updateServiceType({ id, model }: { id: number, model: Models.SubscriptionTypeModel }): Promise<Models.SubscriptionTypeModel> {
-    var path = this.buildUrl({
-      url: `/api/v2/servicetypes/${id}`,
-      parameters: {}
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.SubscriptionTypeModel);
   }
 
   /**
