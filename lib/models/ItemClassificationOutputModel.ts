@@ -54,4 +54,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("systemCode", String, true)
    systemCode?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ItemClassificationOutputModel
+     */
+   @JsonProperty("isPremium", Boolean, true)
+   isPremium?: boolean | undefined = undefined;
  }

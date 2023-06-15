@@ -318,6 +318,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidSystemCode = 1735,
         NoItemsForClassification = 1736,
         InvalidFileName = 1737,
+        NoClassificationForSameHsCode = 1738,
         UnsupportedFileFormat = 1800,
         UnsupportedOutputFileType = 1801,
         TaxProfileNotProvided = 1900,

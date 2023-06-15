@@ -22,6 +22,15 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
  export enum DeliveryTerms {
         DAP = 1,
         DDP = 2,
+        FOB = 3,
+        FCA = 4,
+        FAS = 5,
+        EXW = 6,
+        DPU = 7,
+        CPT = 8,
+        CIP = 9,
+        CIF = 10,
+        CFR = 11,
 }
 
 @JsonConverter
