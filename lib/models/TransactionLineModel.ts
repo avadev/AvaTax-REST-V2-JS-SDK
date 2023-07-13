@@ -291,6 +291,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {TransactionLineDetailModel[]}
      * @memberof TransactionLineModel
      */
+   @JsonProperty("accountPayableSalesTaxDetails", [TransactionLineDetailModel], true)
+   accountPayableSalesTaxDetails?: TransactionLineDetailModel[] | undefined = undefined;
+    /**
+     * @type {TransactionLineDetailModel[]}
+     * @memberof TransactionLineModel
+     */
    @JsonProperty("nonPassthroughDetails", [TransactionLineDetailModel], true)
    nonPassthroughDetails?: TransactionLineDetailModel[] | undefined = undefined;
     /**
