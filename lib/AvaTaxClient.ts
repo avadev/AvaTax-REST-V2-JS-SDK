@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.6.1
+ * @version    23.7.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '23.6.1';
+  private apiVersion: string = '23.7.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -5656,7 +5656,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values, valueDescriptions
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -12223,6 +12223,40 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Create new Country Coefficients. If already exist update them.
+   * Create one or more Country Coefficients for particular country.
+     *  
+     * We would like to use country coefficients during Cross-Border calculations to slightly increase or decrease
+     * a calculation for a line based on the tax-subtype and Country of destination for a transaction.
+     *  
+     * This will allow AvaTax to minimize the variance caused between actual transaction taken place on ground Vs Tax
+     * Calculated by AvaTax.
+     *  
+     * Make sure to use the same API to update the country coefficients that is already present in the database.
+     * This will make existing entry for specific country as ineffective for that date. And new entry created will get applicable
+     * to the newer transactions.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {Models.CountryCoefficientsRequestEntity} model The Country Coefficients for specific country you wish to create.
+   * @return {Models.CountryCoefficientsResponseModel[]}
+   */
+  
+  createCountryCoefficients({ model }: { model?: Models.CountryCoefficientsRequestEntity }): Promise<Array<Models.CountryCoefficientsResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/countryCoefficients`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Array<Models.CountryCoefficientsResponseModel>);
+  }
+
+  /**
    * Create a new tax rule
    * Create one or more custom tax rules attached to this company.
      *  
@@ -12343,6 +12377,44 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxRuleModel);
+  }
+
+  /**
+   * Retrieve country coefficients for specific country
+   * Retrieve all or any specific records of Country Coefficients based on the filters(optional) for specific country.
+     *  
+     *  Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+     *  Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} country Country for which data need to be pulled for.
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* CoefficientsId, AccountId, ModifiedUserId, CreatedUserId
+     * @param {string} include A comma separated list of additional data to retrieve.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CountryCoefficientsEntity>}
+   */
+  
+  listCountryCoefficients({ country, filter, include, top, skip, orderBy }: { country: string, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CountryCoefficientsEntity>> {
+    var path = this.buildUrl({
+      url: `/api/v2/${country}/CountryCoefficients`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CountryCoefficientsEntity>);
   }
 
   /**
@@ -12510,6 +12582,7 @@ export default class AvaTaxClient {
      *  
      *  * Lines
      *  * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      *  * Summary (implies details)
      *  * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -12563,6 +12636,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -12767,6 +12841,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -12830,6 +12905,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -12900,6 +12976,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -12972,6 +13049,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13027,6 +13105,7 @@ export default class AvaTaxClient {
      *  
      *  * Lines
      *  * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      *  * Summary (implies details)
      *  * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13105,6 +13184,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13204,6 +13284,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13285,6 +13366,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13354,6 +13436,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13427,6 +13510,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13493,6 +13577,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13549,6 +13634,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13602,6 +13688,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13690,6 +13777,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
@@ -13753,6 +13841,7 @@ export default class AvaTaxClient {
      *  
      * * Lines
      * * Details (implies lines)
+     * * AccountPayableSalesTaxDetails (implies lines - only for Account Payable transaction)
      * * Summary (implies details)
      * * Addresses
      * * SummaryOnly (omit lines and details - reduces API response size)
