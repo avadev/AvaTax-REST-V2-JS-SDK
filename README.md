@@ -32,7 +32,7 @@ const config = {
   appName: 'your-app',
   appVersion: '1.0',
   environment: 'sandbox',
-  machineName: 'your-machine-name'
+  machineName: 'your-machine-name',
   timeout: 5000, // optional, default 20 min
   logOptions: {
     logEnabled: true, // toggle logging on or off, by default its off.
