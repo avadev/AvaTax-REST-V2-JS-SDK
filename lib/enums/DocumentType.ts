@@ -32,6 +32,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ReverseChargeInvoice = 9,
         CustomsInvoice = 10,
         CustomsOrder = 11,
+        InventoryTransferOutboundInvoice = 12,
+        InventoryTransferOutboundOrder = 13,
         Any = -1,
 }
 

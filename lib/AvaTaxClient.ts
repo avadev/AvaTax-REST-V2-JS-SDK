@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    23.8.1
+ * @version    23.10.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '23.8.1';
+  private apiVersion: string = '23.10.1';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -65,7 +65,7 @@ export default class AvaTaxClient {
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
   constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false }, enableStrictTypeConversion = false } : 
-    { appName: string, appVersion: string, machineName: string, environment: string, timeout?: number, customHttpAgent?: https.Agent, logOptions?: LogOptions, enableStrictTypeConversion?: boolean }) {
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions, enableStrictTypeConversion?: boolean }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
@@ -868,6 +868,125 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.AdvancedRuleLookupFileModel);
+  }
+
+  /**
+   * Create new rule
+   * 
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this AP Config Setting object
+     * @param {Models.APConfigSettingRequestModel} model The AP Config Setting you wish to create.
+   * @return {Models.APConfigSettingSuccessResponseModel}
+   */
+  
+  createAPConfigSetting({ companyid, model }: { companyid: number, model?: Models.APConfigSettingRequestModel }): Promise<Models.APConfigSettingSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/apconfigsetting`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.APConfigSettingSuccessResponseModel);
+  }
+
+  /**
+   * Retrieve rule for this company
+   * 
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that defined this rule
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, varianceForIgnore, varianceForAccrue, variancePercent
+     * @param {string} include A comma separated list of additional data to retrieve.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.APConfigSettingSuccessResponseModel>}
+   */
+  
+  getAPConfigSettingByCompany({ companyid, filter, include, top, skip, orderBy }: { companyid: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.APConfigSettingSuccessResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/apconfigsetting`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.APConfigSettingSuccessResponseModel>);
+  }
+
+  /**
+   * Retrieve all rules
+   * 
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, varianceForIgnore, varianceForAccrue, variancePercent
+     * @param {string} include A comma separated list of additional data to retrieve.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.APConfigSettingSuccessResponseModel>}
+   */
+  
+  queryAPConfigSetting({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.APConfigSettingSuccessResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/apconfigsetting`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.APConfigSettingSuccessResponseModel>);
+  }
+
+  /**
+   * Update a AP config setting
+   * 
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this AP config setting object
+     * @param {Models.APConfigSettingRequestModel} model The AP config setting object you wish to update.
+   * @return {Models.APConfigSettingSuccessResponseModel}
+   */
+  
+  updateAPConfigSetting({ companyid, model }: { companyid: number, model?: Models.APConfigSettingRequestModel }): Promise<Models.APConfigSettingSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/apconfigsetting`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.APConfigSettingSuccessResponseModel);
   }
 
   /**
@@ -3250,6 +3369,203 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ContactModel);
+  }
+
+  /**
+   * Bulk upload cost centers
+   * Allows bulk upload of cost centers for the specified company. Use the companyId path parameter to identify the company for which the cost centers should be uploaded.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this cost center object
+     * @param {Models.CostCenterBulkUploadInputModel} model The cost center bulk upload model.
+   * @return {Models.CostCenterBulkUploadOutputModel}
+   */
+  
+  bulkUploadCostCenters({ companyid, model }: { companyid: number, model?: Models.CostCenterBulkUploadInputModel }): Promise<Models.CostCenterBulkUploadOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters/$upload`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CostCenterBulkUploadOutputModel);
+  }
+
+  /**
+   * Create new cost center
+   * Creates one or more new item objects attached to this company.
+     * 
+     * Costcenter is defined as function or department within a company which is not directly going to generate revenues and profits to the company but is still incurring expenses to the company for its operations.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this cost center object
+     * @param {Models.CostCenterRequestModel} model The cost center you wish to create.
+   * @return {Models.CostCenterSuccessResponseModel}
+   */
+  
+  createCostCenter({ companyid, model }: { companyid: number, model?: Models.CostCenterRequestModel }): Promise<Models.CostCenterSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CostCenterSuccessResponseModel);
+  }
+
+  /**
+   * Delete cost center for the given id
+   * Deletes a cost center with the specified costcenterId that belongs to the company.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this cost center object
+     * @param {number} costcenterid The primary key of this cost center
+   * @return {Models.TaxProfileErrorResponseModel}
+   */
+  
+  deleteCostCenter({ companyid, costcenterid }: { companyid: number, costcenterid: number }): Promise<Models.TaxProfileErrorResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters/${costcenterid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Models.TaxProfileErrorResponseModel);
+  }
+
+  /**
+   * Retrieve a single cost center
+   * Retrieves details of a single cost center identified by costcenterId, which is owned by the company.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this cost center object
+     * @param {number} costcenterid The primary key of this cost center
+   * @return {Models.CostCenterSuccessResponseModel}
+   */
+  
+  getCostCenterById({ companyid, costcenterid }: { companyid: number, costcenterid: number }): Promise<Models.CostCenterSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters/${costcenterid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CostCenterSuccessResponseModel);
+  }
+
+  /**
+   * Retrieve cost centers for this company
+   * Retrieves a list of cost centers attached to this company. You can apply filters to retrieve specific records.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that defined these cost centers
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, meta, defaultItem
+     * @param {string} include A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CostCenterSuccessResponseModel>}
+   */
+  
+  listCostCentersByCompany({ companyid, filter, include, top, skip, orderBy }: { companyid: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CostCenterSuccessResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CostCenterSuccessResponseModel>);
+  }
+
+  /**
+   * Retrieve all cost centers
+   * Retrieves all cost centers available. You can apply filters to retrieve specific records.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, meta, defaultItem
+     * @param {string} include A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CostCenterSuccessResponseModel>}
+   */
+  
+  queryCostCenters({ filter, include, top, skip, orderBy }: { filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CostCenterSuccessResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/costcenters`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.CostCenterSuccessResponseModel>);
+  }
+
+  /**
+   * Update a single cost center
+   * Updates a single cost center owned by the company. Use the costcenterId path parameter to identify the cost center to update.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this cost center object
+     * @param {number} costcenterid The primary key of this cost center
+     * @param {Models.CostCenterRequestModel} model The cost center object you wish to update.
+   * @return {Models.CostCenterSuccessResponseModel}
+   */
+  
+  updateCostCenter({ companyid, costcenterid, model }: { companyid: number, costcenterid: number, model?: Models.CostCenterRequestModel }): Promise<Models.CostCenterSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/costcenters/${costcenterid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CostCenterSuccessResponseModel);
   }
 
   /**
@@ -5876,7 +6192,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {string} country The country to examine for rate types
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* country
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -14916,5 +15232,97 @@ export default class AvaTaxClient {
      headerValues.set("x-avalara-version", x_avalara_version);
    }
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId, mapHeader: headerValues }, Models.ShippingVerifyResult);
+  }
+
+  /**
+   * Enqueues a batch of AvaTax transactions to be deregistered by ASV
+   * 
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {string} companyCode The company code of the company that recorded the transaction
+     * @param {string} batchCode The batch code of generated by AvaTax batch transaction upload
+     * @param {string} api_version (Optional): API version that should satisfy the request. If omitted, defaults to 2.2
+     * @param {string} x_avalara_version (Optional): API version that should satisfy the request. If omitted, defaults to 2.2. Header takes precendence if both header and query parameters are present.
+   * @return {}
+   */
+  
+  enqueueBatchDeregistration({ companyCode, batchCode, api_version= "", x_avalara_version= "" }: { companyCode: string, batchCode: string, api_version?: string, x_avalara_version?: string }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/asv/companies/${companyCode}/batches/${batchCode}/deregister`,
+      parameters: {
+        'api-version': api_version
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+   var headerValues = new Map();
+   if ( x_avalara_version) {
+     headerValues.set("x-avalara-version", x_avalara_version);
+   }
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues }, null);
+  }
+
+  /**
+   * Enqueues a batch of AvaTax transactions to be registered by ASV
+   * 
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {string} companyCode The company code of the company that recorded the transaction
+     * @param {string} batchCode The batch code generated by AvaTax for batch transaction upload process
+     * @param {string} api_version (Optional): API version that should satisfy the request. If omitted, defaults to 2.2
+     * @param {string} x_avalara_version (Optional): API version that should satisfy the request. If omitted, defaults to 2.2. Header takes precendence if both header and query parameters are present.
+   * @return {}
+   */
+  
+  enqueueBatchRegistration({ companyCode, batchCode, api_version= "", x_avalara_version= "" }: { companyCode: string, batchCode: string, api_version?: string, x_avalara_version?: string }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/asv/companies/${companyCode}/batches/${batchCode}/register`,
+      parameters: {
+        'api-version': api_version
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+   var headerValues = new Map();
+   if ( x_avalara_version) {
+     headerValues.set("x-avalara-version", x_avalara_version);
+   }
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId, mapHeader: headerValues }, null);
+  }
+
+  /**
+   * Gets records for current and previously processed batch registration jobs
+   * 
+   * Swagger Name: AvaTaxBeverageClient
+   *
+   * 
+     * @param {string} accountId (Optional): For users with access to multiple accounts, filters results to those associated with the specified Account ID. If not specified, the Account ID defaults to the one associated with the account
+   * @return {Models.GetBatchesResult}
+   */
+  
+  getBatchRegistrationData({ accountId }: { accountId?: string }): Promise<Models.GetBatchesResult> {
+    var path = this.buildUrl({
+      url: `/api/v2/asv/batches`,
+      parameters: {
+        accountId: accountId
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.GetBatchesResult);
   }
 }
