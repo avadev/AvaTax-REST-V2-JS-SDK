@@ -191,6 +191,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         MissingLine = 311,
         InvalidAddressTextCase = 312,
         DocumentNotCommitted = 313,
+        LineFetchLimitExceeded = 314,
         InvalidDocumentTypesToFetch = 315,
         TimeoutRequested = 316,
         InvalidPostalCode = 317,
@@ -319,6 +320,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         NoItemsForClassification = 1736,
         InvalidFileName = 1737,
         NoClassificationForSameHsCode = 1738,
+        InvalidValueError = 1739,
         UnsupportedFileFormat = 1800,
         UnsupportedOutputFileType = 1801,
         TaxProfileNotProvided = 1900,
@@ -383,6 +385,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ContentAccessDenied = 2810,
         ContentNotFound = 2811,
         RegistrationNumberNotFound = 2812,
+        InvalidCostCenter = 2813,
 }
 
 @JsonConverter
