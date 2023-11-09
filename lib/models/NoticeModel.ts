@@ -211,6 +211,18 @@ they are called "Notices".
    @JsonProperty("createdByUserName", String, true)
    createdByUserName?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof NoticeModel
+     */
+   @JsonProperty("modifiedUserName", String, true)
+   modifiedUserName?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof NoticeModel
+     */
+   @JsonProperty("closedByUserName", String, true)
+   closedByUserName?: string | undefined = undefined;
+    /**
      * @type {number}
      * @memberof NoticeModel
      */
