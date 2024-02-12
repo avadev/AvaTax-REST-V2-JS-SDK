@@ -92,6 +92,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("resourceFileId", Number, true)
    resourceFileId?: number | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof NoticeCommentModel
+     */
+   @JsonProperty("documentId", Number, true)
+   documentId?: number | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof NoticeCommentModel
      */

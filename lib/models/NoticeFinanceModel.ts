@@ -122,6 +122,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("resourceFileId", Number, true)
    resourceFileId?: number | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof NoticeFinanceModel
+     */
+   @JsonProperty("documentId", Number, true)
+   documentId?: number | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof NoticeFinanceModel
      */
