@@ -29,6 +29,12 @@ a destination location such as a customer, please specify the `shipFrom` and `sh
             
 In the United States, some jurisdictions recognize the address types `pointOfOrderOrigin` and `pointOfOrderAcceptance`.
 These address types affect the sourcing models of some transactions.
+
+VAT transactions support a `goodsPlaceOrServiceRendered` address, which indicates where goods are located or where services 
+are rendered. VAT transactions also support an `import` address, which specifies the address of the buyer importing a good 
+from another country.
+
+India GST transactions support a `billTo` address, which specifies where invoices and other billing-related information are sent to the buyer.
             
 If latitude and longitude information is provided for any of these addresses along with line, city, region, country and postal code information,
 we will be using only latitude and longitude and will discard line, city, region, country and postal code information for the transaction.

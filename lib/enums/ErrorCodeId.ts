@@ -386,6 +386,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ContentNotFound = 2811,
         RegistrationNumberNotFound = 2812,
         InvalidCostCenter = 2813,
+        InvalidHTTPHeader = 3000,
 }
 
 @JsonConverter

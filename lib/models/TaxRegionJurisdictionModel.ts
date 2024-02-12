@@ -84,4 +84,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("endDate", DateConverter, true)
    endDate?: Date | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof TaxRegionJurisdictionModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

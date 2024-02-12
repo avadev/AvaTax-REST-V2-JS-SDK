@@ -19,25 +19,19 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum DocumentStatus {
-        Temporary = 0,
-        Saved = 1,
-        Posted = 2,
-        Committed = 3,
-        Cancelled = 4,
-        Adjusted = 5,
-        Queued = 6,
-        PendingApproval = 7,
-        Uncommitted = 12,
-        Any = -1,
+ export enum StackAggregationOption {
+        NoStackAggregation = 0,
+        FullStackAggregation = 1,
+        AggregateStateAndCounty = 2,
+        AggregateCityAndCounty = 3,
 }
 
 @JsonConverter
-export class DocumentStatusConverter implements JsonCustomConvert<DocumentStatus> {
-    serialize(data: DocumentStatus) {
+export class StackAggregationOptionConverter implements JsonCustomConvert<StackAggregationOption> {
+    serialize(data: StackAggregationOption) {
         return data;
     }
-    deserialize(enumType: string): DocumentStatus {
-        return DocumentStatus[enumType as keyof typeof DocumentStatus];
+    deserialize(enumType: string): StackAggregationOption {
+        return StackAggregationOption[enumType as keyof typeof StackAggregationOption];
     }
 }

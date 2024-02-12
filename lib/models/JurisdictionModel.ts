@@ -144,4 +144,28 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isSst", Boolean, true)
    isSst?: boolean | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("createDate", DateConverter, true)
+   createDate?: Date | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("isLocalAdmin", Boolean, true)
+   isLocalAdmin?: boolean | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof JurisdictionModel
+     */
+   @JsonProperty("taxAuthorityTypeId", Number, true)
+   taxAuthorityTypeId?: number | undefined = undefined;
  }
