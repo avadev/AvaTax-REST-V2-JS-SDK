@@ -49,9 +49,27 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("names", [String], true)
    names?: string[] | undefined = undefined;
     /**
+     * @type {string[]}
+     * @memberof DeterminationFactorModel
+     */
+   @JsonProperty("createdBy", [String], true)
+   createdBy?: string[] | undefined = undefined;
+    /**
      * @type {string}
      * @memberof DeterminationFactorModel
      */
-   @JsonProperty("createdBy", String, true)
-   createdBy?: string | undefined = undefined;
+   @JsonProperty("entityUseCode", String, true)
+   entityUseCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof DeterminationFactorModel
+     */
+   @JsonProperty("exemptCertId", String, true)
+   exemptCertId?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof DeterminationFactorModel
+     */
+   @JsonProperty("exemptNo", String, true)
+   exemptNo?: string | undefined = undefined;
  }

@@ -42,4 +42,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("taxName", String, true)
    taxName?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof JurisdictionNexusModel
+     */
+   @JsonProperty("taxableNexus", Boolean, true)
+   taxableNexus?: boolean | undefined = undefined;
  }

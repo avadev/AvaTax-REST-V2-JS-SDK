@@ -275,4 +275,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("supplierandcustomers", [CustomerSupplierModel], true)
    supplierandcustomers?: CustomerSupplierModel[] | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CompanyModel
+     */
+   @JsonProperty("isDeleted", Boolean, true)
+   isDeleted?: boolean | undefined = undefined;
  }

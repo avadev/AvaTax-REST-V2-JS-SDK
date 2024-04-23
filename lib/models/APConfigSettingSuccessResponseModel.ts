@@ -67,4 +67,76 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("variancePercent", Number, true)
    variancePercent?: number | undefined = undefined;
+    /**
+     * @type {Enums.ApConfigToleranceType}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("apConfigToleranceType", Enums.ApConfigToleranceTypeConverter, true)
+   apConfigToleranceType?: Enums.ApConfigToleranceType | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("payAsBilledNoAccrual", Number, true)
+   payAsBilledNoAccrual?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("payAsBilledAccrueUndercharge", Number, true)
+   payAsBilledAccrueUndercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("shortPayItemsAccrueUndercharge", Number, true)
+   shortPayItemsAccrueUndercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("markForReviewUndercharge", Number, true)
+   markForReviewUndercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("rejectUndercharge", Number, true)
+   rejectUndercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("payAsBilledOvercharge", Number, true)
+   payAsBilledOvercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("shortPayAvalaraCalculated", Number, true)
+   shortPayAvalaraCalculated?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("shortPayItemsAccrueOvercharge", Number, true)
+   shortPayItemsAccrueOvercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("markForReviewOvercharge", Number, true)
+   markForReviewOvercharge?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("rejectOvercharge", Number, true)
+   rejectOvercharge?: number | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
+   @JsonProperty("isActive", Boolean, true)
+   isActive?: boolean | undefined = undefined;
  }

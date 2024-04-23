@@ -120,4 +120,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("suppressNewUserEmail", Boolean, true)
    suppressNewUserEmail?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof UserModel
+     */
+   @JsonProperty("isDeleted", Boolean, true)
+   isDeleted?: boolean | undefined = undefined;
  }

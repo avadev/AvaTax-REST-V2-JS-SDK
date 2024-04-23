@@ -14,32 +14,27 @@
  */
 
 import * as Enums from '../enums/index';
+import { AdvancedRuleExecutionModel } from "./AdvancedRuleExecutionModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * 
+ * Input model for the Advanced Rules bulk import API
  * @export
- * @class UnitOfBasisModel
+ * @class AdvancedRuleBulkImportModel
  */
- @JsonObject("UnitOfBasisModel")
- export class UnitOfBasisModel {
-    /**
-     * @type {number}
-     * @memberof UnitOfBasisModel
-     */
-   @JsonProperty("unitOfBasisId", Number, true)
-   unitOfBasisId?: number | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof UnitOfBasisModel
-     */
-   @JsonProperty("unitOfBasis", String, true)
-   unitOfBasis?: string | undefined = undefined;
+ @JsonObject("AdvancedRuleBulkImportModel")
+ export class AdvancedRuleBulkImportModel {
     /**
      * @type {boolean}
-     * @memberof UnitOfBasisModel
+     * @memberof AdvancedRuleBulkImportModel
      */
-   @JsonProperty("isFee", Boolean, true)
-   isFee?: boolean | undefined = undefined;
+   @JsonProperty("replaceExisting", Boolean, true)
+   replaceExisting?: boolean | undefined = undefined;
+    /**
+     * @type {AdvancedRuleExecutionModel[]}
+     * @memberof AdvancedRuleBulkImportModel
+     */
+   @JsonProperty("executions", [AdvancedRuleExecutionModel])
+   executions: AdvancedRuleExecutionModel[] = undefined;
  }

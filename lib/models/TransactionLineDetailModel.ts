@@ -85,6 +85,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("exemptReasonId", Number, true)
    exemptReasonId?: number | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("exemptRuleId", Number, true)
+   exemptRuleId?: number | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof TransactionLineDetailModel
      */

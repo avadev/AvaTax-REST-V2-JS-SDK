@@ -110,4 +110,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isSamlEnabled", Boolean, true)
    isSamlEnabled?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof AccountModel
+     */
+   @JsonProperty("isDeleted", Boolean, true)
+   isDeleted?: boolean | undefined = undefined;
  }

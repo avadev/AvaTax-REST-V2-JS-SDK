@@ -127,11 +127,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("country", String, true)
    country?: string | undefined = undefined;
     /**
-     * @type {number}
+     * @type {boolean}
      * @memberof ComplianceStateConfigModel
      */
-   @JsonProperty("isJaasEnabled", Number, true)
-   isJaasEnabled?: number | undefined = undefined;
+   @JsonProperty("isJaasEnabled", Boolean, true)
+   isJaasEnabled?: boolean | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ComplianceStateConfigModel

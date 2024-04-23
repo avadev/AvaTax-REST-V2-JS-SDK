@@ -90,4 +90,34 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("rateTypeTaxTypeMappingId", Number, true)
    rateTypeTaxTypeMappingId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ComplianceTaxRateModel
+     */
+   @JsonProperty("createDate", DateConverter, true)
+   createDate?: Date | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ComplianceTaxRateModel
+     */
+   @JsonProperty("source", String, true)
+   source?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ComplianceTaxRateModel
+     */
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof ComplianceTaxRateModel
+     */
+   @JsonProperty("uomId", Number, true)
+   uomId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ComplianceTaxRateModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

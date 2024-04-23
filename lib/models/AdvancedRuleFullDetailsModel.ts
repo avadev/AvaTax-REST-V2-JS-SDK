@@ -28,24 +28,6 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel
      */
-   @JsonProperty("script", String)
-   script: string = undefined;
-    /**
-     * @type {string}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("customerDataValidatorScript", String, true)
-   customerDataValidatorScript?: string | undefined = undefined;
-    /**
-     * @type {boolean}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("isApproved", Boolean, true)
-   isApproved?: boolean | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
    @JsonProperty("createdBy", String, true)
    createdBy?: string | undefined = undefined;
     /**
@@ -54,24 +36,6 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("createdOn", String, true)
    createdOn?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("modifiedBy", String, true)
-   modifiedBy?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("modifiedOn", String, true)
-   modifiedOn?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("approvedBy", String, true)
-   approvedBy?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof AdvancedRuleFullDetailsModel
@@ -102,12 +66,6 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("version", Number, true)
    version?: number | undefined = undefined;
-    /**
-     * @type {number[]}
-     * @memberof AdvancedRuleFullDetailsModel
-     */
-   @JsonProperty("accountsVisibleFor", [Number], true)
-   accountsVisibleFor?: number[] | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleFullDetailsModel

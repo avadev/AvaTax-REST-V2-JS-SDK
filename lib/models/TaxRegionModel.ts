@@ -109,4 +109,22 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("jurisdictions", [DenormalizedJurisModel], true)
    jurisdictions?: DenormalizedJurisModel[] | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof TaxRegionModel
+     */
+   @JsonProperty("createDate", DateConverter, true)
+   createDate?: Date | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof TaxRegionModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TaxRegionModel
+     */
+   @JsonProperty("foodSERCode", String, true)
+   foodSERCode?: string | undefined = undefined;
  }

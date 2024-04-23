@@ -18,28 +18,28 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * 
+ * Represents TaxType1703 Model
  * @export
- * @class UnitOfBasisModel
+ * @class TaxType1703Model
  */
- @JsonObject("UnitOfBasisModel")
- export class UnitOfBasisModel {
+ @JsonObject("TaxType1703Model")
+ export class TaxType1703Model {
     /**
      * @type {number}
-     * @memberof UnitOfBasisModel
+     * @memberof TaxType1703Model
      */
-   @JsonProperty("unitOfBasisId", Number, true)
-   unitOfBasisId?: number | undefined = undefined;
+   @JsonProperty("taxTypeIdSK", Number, true)
+   taxTypeIdSK?: number | undefined = undefined;
     /**
      * @type {string}
-     * @memberof UnitOfBasisModel
+     * @memberof TaxType1703Model
      */
-   @JsonProperty("unitOfBasis", String, true)
-   unitOfBasis?: string | undefined = undefined;
+   @JsonProperty("taxTypeId", String, true)
+   taxTypeId?: string | undefined = undefined;
     /**
-     * @type {boolean}
-     * @memberof UnitOfBasisModel
+     * @type {string}
+     * @memberof TaxType1703Model
      */
-   @JsonProperty("isFee", Boolean, true)
-   isFee?: boolean | undefined = undefined;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
  }
