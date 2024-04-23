@@ -85,4 +85,28 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("customerDataId", String, true)
    customerDataId?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof AdvancedRuleExecutionModel
+     */
+   @JsonProperty("createdBy", String, true)
+   createdBy?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof AdvancedRuleExecutionModel
+     */
+   @JsonProperty("createdOn", String, true)
+   createdOn?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof AdvancedRuleExecutionModel
+     */
+   @JsonProperty("modifiedBy", String, true)
+   modifiedBy?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof AdvancedRuleExecutionModel
+     */
+   @JsonProperty("modifiedOn", String, true)
+   modifiedOn?: string | undefined = undefined;
  }

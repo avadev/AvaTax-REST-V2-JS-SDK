@@ -393,4 +393,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("deliveryTerms", Enums.DeliveryTermsConverter, true)
    deliveryTerms?: Enums.DeliveryTerms | undefined = undefined;
+    /**
+     * @type {Enums.APStatus}
+     * @memberof TransactionModel
+     */
+   @JsonProperty("apStatusCode", Enums.APStatusConverter, true)
+   apStatusCode?: Enums.APStatus | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TransactionModel
+     */
+   @JsonProperty("apStatus", String, true)
+   apStatus?: string | undefined = undefined;
  }
