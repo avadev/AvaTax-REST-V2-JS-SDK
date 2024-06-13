@@ -14,20 +14,21 @@
  */
 
 import * as Enums from '../enums/index';
+import { GLAccountRequestModel } from "./GLAccountRequestModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a tax code classification request input model
+ * Represents a bulk upload input model.
  * @export
- * @class ItemTaxCodeClassificationRequestInputModel
+ * @class GLAccountBulkUploadInputModel
  */
- @JsonObject("ItemTaxCodeClassificationRequestInputModel")
- export class ItemTaxCodeClassificationRequestInputModel {
+ @JsonObject("GLAccountBulkUploadInputModel")
+ export class GLAccountBulkUploadInputModel {
     /**
-     * @type {number[]}
-     * @memberof ItemTaxCodeClassificationRequestInputModel
+     * @type {GLAccountRequestModel[]}
+     * @memberof GLAccountBulkUploadInputModel
      */
-   @JsonProperty("itemIds", [Number], true)
-   itemIds?: number[] | undefined = undefined;
+   @JsonProperty("glAccounts", [GLAccountRequestModel], true)
+   glAccounts?: GLAccountRequestModel[] | undefined = undefined;
  }

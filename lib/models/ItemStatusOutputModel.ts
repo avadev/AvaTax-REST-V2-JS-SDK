@@ -18,16 +18,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a tax code classification request input model
+ * Output model for item status
  * @export
- * @class ItemTaxCodeClassificationRequestInputModel
+ * @class ItemStatusOutputModel
  */
- @JsonObject("ItemTaxCodeClassificationRequestInputModel")
- export class ItemTaxCodeClassificationRequestInputModel {
+ @JsonObject("ItemStatusOutputModel")
+ export class ItemStatusOutputModel {
     /**
-     * @type {number[]}
-     * @memberof ItemTaxCodeClassificationRequestInputModel
+     * @type {string}
+     * @memberof ItemStatusOutputModel
      */
-   @JsonProperty("itemIds", [Number], true)
-   itemIds?: number[] | undefined = undefined;
+   @JsonProperty("status", String, true)
+   status?: string | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemStatusOutputModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

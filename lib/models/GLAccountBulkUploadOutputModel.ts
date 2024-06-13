@@ -14,20 +14,27 @@
  */
 
 import * as Enums from '../enums/index';
+import { GLAccountUploadErrorModel } from "./GLAccountUploadErrorModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a tax code classification request input model
+ * Represents a bulk upload response model.
  * @export
- * @class ItemTaxCodeClassificationRequestInputModel
+ * @class GLAccountBulkUploadOutputModel
  */
- @JsonObject("ItemTaxCodeClassificationRequestInputModel")
- export class ItemTaxCodeClassificationRequestInputModel {
+ @JsonObject("GLAccountBulkUploadOutputModel")
+ export class GLAccountBulkUploadOutputModel {
     /**
-     * @type {number[]}
-     * @memberof ItemTaxCodeClassificationRequestInputModel
+     * @type {number}
+     * @memberof GLAccountBulkUploadOutputModel
      */
-   @JsonProperty("itemIds", [Number], true)
-   itemIds?: number[] | undefined = undefined;
+   @JsonProperty("total", Number, true)
+   total?: number | undefined = undefined;
+    /**
+     * @type {GLAccountUploadErrorModel[]}
+     * @memberof GLAccountBulkUploadOutputModel
+     */
+   @JsonProperty("failed", [GLAccountUploadErrorModel], true)
+   failed?: GLAccountUploadErrorModel[] | undefined = undefined;
  }

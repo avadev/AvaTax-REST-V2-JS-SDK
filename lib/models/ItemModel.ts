@@ -17,6 +17,8 @@ import * as Enums from '../enums/index';
 import { ClassificationModel } from "./ClassificationModel";
 import { ItemParameterModel } from "./ItemParameterModel";
 import { ItemTagDetailInputModel } from "./ItemTagDetailInputModel";
+import { ItemStatusOutputModel } from "./ItemStatusOutputModel";
+import { TaxCodeRecommendationStatusOutputModel } from "./TaxCodeRecommendationStatusOutputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -115,8 +117,20 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ItemModel
      */
+   @JsonProperty("itemType", String, true)
+   itemType?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemModel
+     */
    @JsonProperty("upc", String, true)
    upc?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemModel
+     */
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
     /**
      * @type {ClassificationModel[]}
      * @memberof ItemModel
@@ -141,4 +155,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("properties", Object, true)
    properties?: object | undefined = undefined;
+    /**
+     * @type {ItemStatusOutputModel[]}
+     * @memberof ItemModel
+     */
+   @JsonProperty("itemStatus", [ItemStatusOutputModel], true)
+   itemStatus?: ItemStatusOutputModel[] | undefined = undefined;
+    /**
+     * @type {TaxCodeRecommendationStatusOutputModel}
+     * @memberof ItemModel
+     */
+   @JsonProperty("taxCodeRecommendationStatus", TaxCodeRecommendationStatusOutputModel, true)
+   taxCodeRecommendationStatus?: TaxCodeRecommendationStatusOutputModel | undefined = undefined;
  }

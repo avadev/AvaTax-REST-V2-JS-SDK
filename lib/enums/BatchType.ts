@@ -36,6 +36,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         CustomerSupplierImport = 13,
         VarianceImport = 14,
         CostCenterImport = 15,
+        GLAccountImport = 16,
 }
 
 @JsonConverter

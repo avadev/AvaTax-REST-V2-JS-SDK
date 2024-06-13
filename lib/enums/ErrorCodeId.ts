@@ -322,6 +322,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         NoClassificationForSameHsCode = 1738,
         InvalidValueError = 1739,
         ItemDualWriteParameterValueMismatchError = 1740,
+        DuplicateItemIdsInTaxCodeClassificationRequest = 1741,
+        TooManyItemIdsInTaxCodeClassificationRequest = 1742,
         UnsupportedFileFormat = 1800,
         UnsupportedOutputFileType = 1801,
         TaxProfileNotProvided = 1900,
@@ -388,6 +390,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ContentNotFound = 2811,
         RegistrationNumberNotFound = 2812,
         InvalidCostCenter = 2813,
+        TooManyItemsInSyncFlowRequest = 2814,
+        InvalidTaxCodeIdInRecommendationStatusUpdate = 2815,
         InvalidHTTPHeader = 3000,
 }
 
