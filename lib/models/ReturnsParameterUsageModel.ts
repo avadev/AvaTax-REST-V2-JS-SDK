@@ -58,6 +58,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ReturnsParameterUsageModel
      */
+   @JsonProperty("attributeSubType", String, true)
+   attributeSubType?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ReturnsParameterUsageModel
+     */
    @JsonProperty("name", String, true)
    name?: string | undefined = undefined;
     /**

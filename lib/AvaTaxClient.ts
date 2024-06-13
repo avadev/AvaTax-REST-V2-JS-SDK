@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    24.4.2
+ * @version    24.6.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '24.4.2';
+  private apiVersion: string = '24.6.1';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -4724,7 +4724,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* attributeSubType, values
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -5101,6 +5101,56 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.FilingFrequencyModel>);
+  }
+
+  /**
+   * List of all recommendation status which can be assigned to an item
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+   * @return {Models.ItemTaxCodeRecommendationStatusModel[]}
+   */
+  
+  listItemsRecommendationsStatus(): Promise<Array<Models.ItemTaxCodeRecommendationStatusModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/items/recommendationstatus`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.ItemTaxCodeRecommendationStatusModel>);
+  }
+
+  /**
+   * List of all possible status which can be assigned to an item
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+   * @return {Models.ItemStatusModel[]}
+   */
+  
+  listItemsStatus(): Promise<Array<Models.ItemStatusModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/items/status`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.ItemStatusModel>);
   }
 
   /**
@@ -5990,7 +6040,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, attributeSubType, values
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6023,7 +6073,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} accountId The ID of the account to retrieve the parameters.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, attributeSubType, values
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6074,7 +6124,7 @@ export default class AvaTaxClient {
    * 
      * @param {string} companyCode Company code.
      * @param {string} itemCode Item code.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, attributeSubType, values
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6108,7 +6158,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values, valueDescriptions
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* attributeSubType, values, valueDescriptions
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -6498,39 +6548,6 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Retrieve the full list of Avalara-supported resource file types
-   * Returns the full list of Avalara-supported resource file types
-     * This API is intended to be useful to identify all the different resource file types.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
-     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {FetchResult<Models.ResourceFileTypeModel>}
-   */
-  
-  listResourceFileTypes({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ResourceFileTypeModel>> {
-    var path = this.buildUrl({
-      url: `/api/v2/definitions/resourcefiletypes`,
-      parameters: {
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ResourceFileTypeModel>);
-  }
-
-  /**
    * Retrieve the full list of Avalara-supported usage of parameters used for returns.
    * Returns the full list of Avalara-supported usage of extra parameters for the returns.
      * This list of parameters is available for use with Returns.
@@ -6538,7 +6555,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* values
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* attributeSubType, values
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -7821,6 +7838,169 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Bulk upload GL accounts
+   * Allows a bulk upload of GL accounts for the specified company. Use the companyid path parameter to identify the company for which the GL accounts should be uploaded.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this GL account object
+     * @param {Models.GLAccountBulkUploadInputModel} model The GL account bulk upload model.
+   * @return {Models.GLAccountBulkUploadOutputModel}
+   */
+  
+  bulkUploadGLAccounts({ companyid, model }: { companyid: number, model?: Models.GLAccountBulkUploadInputModel }): Promise<Models.GLAccountBulkUploadOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts/$upload`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.GLAccountBulkUploadOutputModel);
+  }
+
+  /**
+   * Create a new GL account
+   * Creates one or more new GL account objects attached to this company.
+     * 
+     * A GL account is a general ledger account that can be passed to transactions at the line level to apply the multiple rules of the transactions, including exemptions, allocations, etc. to a specific general ledger.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this GL Account object
+     * @param {Models.GLAccountRequestModel} model The GL Account you want to create
+   * @return {Models.GLAccountSuccessResponseModel}
+   */
+  
+  createGLAccount({ companyid, model }: { companyid: number, model?: Models.GLAccountRequestModel }): Promise<Models.GLAccountSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.GLAccountSuccessResponseModel);
+  }
+
+  /**
+   * Delete the GL account associated with the given company ID and GL account ID
+   * Deletes the GL account associated with the specified `glaccountid` and `companyid`
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this GL account object
+     * @param {number} glaccountid The primary key of this GL account
+   * @return {Models.TaxProfileErrorResponseModel}
+   */
+  
+  deleteGLAccount({ companyid, glaccountid }: { companyid: number, glaccountid: number }): Promise<Models.TaxProfileErrorResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts/${glaccountid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Models.TaxProfileErrorResponseModel);
+  }
+
+  /**
+   * Retrieve a single GL account
+   * Retrieve details of a single GL account identified by its `glaccountid` and `companyid`
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this GL account object
+     * @param {number} glaccountid The primary key of this GL account
+   * @return {Models.GLAccountSuccessResponseModel}
+   */
+  
+  getGLAccountById({ companyid, glaccountid }: { companyid: number, glaccountid: number }): Promise<Models.GLAccountSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts/${glaccountid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.GLAccountSuccessResponseModel);
+  }
+
+  /**
+   * Retrieve GL accounts for this company
+   * Retrieves a list of GL accounts attached to this company. You can apply filters to retrieve specific records.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns these GL accounts
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* companyId, meta, defaultItem
+     * @param {string} include A comma separated list of objects to fetch underneath this company. Any object with a URL path underneath this company can be fetched by specifying its name.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.GLAccountSuccessResponseModel>}
+   */
+  
+  listGLAccountsByCompany({ companyid, filter, include, top, skip, orderBy }: { companyid: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.GLAccountSuccessResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts`,
+      parameters: {
+        $filter: filter,
+        $include: include,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.GLAccountSuccessResponseModel>);
+  }
+
+  /**
+   * Update a single GL account
+   * Updates a single GL account owned by the company. Use the glaccountid path parameter to identify the GL account to update.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyid The ID of the company that owns this GL Account object
+     * @param {number} glaccountid The primary key of this GL Account
+     * @param {Models.GLAccountRequestModel} model The GL account object you want to update
+   * @return {Models.GLAccountSuccessResponseModel}
+   */
+  
+  updateGLAccount({ companyid, glaccountid, model }: { companyid: number, glaccountid: number, model?: Models.GLAccountRequestModel }): Promise<Models.GLAccountSuccessResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyid}/glaccounts/${glaccountid}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.GLAccountSuccessResponseModel);
+  }
+
+  /**
    * Delete all classifications for an item
    * Delete all the classifications for a given item.
      *  
@@ -8020,14 +8200,17 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that owns this item.
+     * @param {boolean} processRecommendationsSynchronously If true then Indix api will be called synchronously to get tax code recommendations.
      * @param {Models.ItemModel[]} model The item you wish to create.
    * @return {Models.ItemModel[]}
    */
   
-  createItems({ companyId, model }: { companyId: number, model: Models.ItemModel[] }): Promise<Array<Models.ItemModel>> {
+  createItems({ companyId, processRecommendationsSynchronously, model }: { companyId: number, processRecommendationsSynchronously?: boolean, model: Models.ItemModel[] }): Promise<Array<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
-      parameters: {}
+      parameters: {
+        processRecommendationsSynchronously: processRecommendationsSynchronously
+      }
     });
 	 var strClientId =
       this.appNM +
@@ -8089,7 +8272,7 @@ export default class AvaTaxClient {
    * @return {Models.ItemTaxCodeClassificationRequestOutputModel}
    */
   
-  createTaxCodeClassificationRequest({ companyId, model }: { companyId: number, model: Models.ItemTaxCodeClassificationRequestInputModel }): Promise<Models.ItemTaxCodeClassificationRequestOutputModel> {
+  createTaxCodeClassificationRequest({ companyId, model }: { companyId: number, model?: Models.ItemTaxCodeClassificationRequestInputModel }): Promise<Models.ItemTaxCodeClassificationRequestOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/classificationrequests/taxcode`,
       parameters: {}
@@ -8317,51 +8500,6 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Get status of classification requests of a company
-   * Get status of tax code classification requests of a company.
-     *  
-     * Avalara AvaTax system tax codes represent various goods and services classified by industry or consumer categories and
-     * major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes
-     * allowing them to take advantage of thousands of tax rules in the AvaTax engine resulting in accurate taxability determinations.
-     *  
-     * Enable includeClassificationDetails flag to get details of classification request status.
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {number} companyId The ID of the company that defined these items
-     * @param {boolean} includeClassificationDetails A boolean field to get detailed classification status.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* classificationDetails, totalItems
-     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>}
-   */
-  
-  getClassificationStatus({ companyId, includeClassificationDetails, filter, top, skip, orderBy }: { companyId: number, includeClassificationDetails?: boolean, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>> {
-    var path = this.buildUrl({
-      url: `/api/v2/companies/${companyId}/classificationrequests/taxcode`,
-      parameters: {
-        $includeClassificationDetails: includeClassificationDetails,
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemTaxCodeClassificationRequestStatusOutputModel>);
-  }
-
-  /**
    * Retrieve a single item
    * Get the `Item` object identified by this URL.
      *  
@@ -8508,6 +8646,35 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Get Item TaxCode Recommendations
+   * Provides at least three tax-code recommendations for the given company ID and item ID
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId 
+     * @param {number} itemId 
+   * @return {Models.TaxCodeRecommendationsOutputModel}
+   */
+  
+  getItemTaxCodeRecommendations({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Models.TaxCodeRecommendationsOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/taxcoderecommendations`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxCodeRecommendationsOutputModel);
+  }
+
+  /**
    * Retrieve premium classification for a company's item based on its ItemCode and SystemCode.
    * Retrieves the premium classification for an ItemCode and SystemCode.
      *  
@@ -8544,48 +8711,6 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemPremiumClassificationOutputModel);
-  }
-
-  /**
-   * Get tax code recommendations
-   * Get tax code recommendations.
-     *  
-     * Avalara AvaTax system tax codes represent various goods and services classified by industry or consumer categories and
-     * major physical similarities. Taxability rules are associated with tax codes. Customers can map their Items to tax codes
-     * allowing them to take advantage of thousands of tax rules in the AvaTax engine resulting in accurate taxability determinations.
-     * 
-     * ### Security Policies
-     * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {number} companyId The ID of the company that defined these items
-     * @param {number} requestId The ID of the classification request
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* recommendations, url
-     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>}
-   */
-  
-  getTaxCodeRecommendations({ companyId, requestId, filter, top, skip, orderBy }: { companyId: number, requestId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>> {
-    var path = this.buildUrl({
-      url: `/api/v2/companies/${companyId}/classificationrequests/taxcode/${requestId}/recommendations`,
-      parameters: {
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemTaxCodeRecommendationsOutputModel>);
   }
 
   /**
@@ -8742,6 +8867,10 @@ export default class AvaTaxClient {
      *  
      * You may specify Tag Name in the `tagName` query parameter if you want to filter items on the basis of tagName
      *  
+     * You may specify comma seperated item status in the `itemStatus` query parameter if you want to filter items on the basis of item status
+     *  
+     * You may specify Tax Code recommendation status in the `taxCodeRecommendationStatus` query parameter if you want to filter items on the basis of tax code recommendation status
+     *  
      * You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
      *  
      * * Parameters
@@ -8756,16 +8885,18 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, upc, classifications, parameters, tags, properties
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
      * @param {string} tagName Tag Name on the basis of which you want to filter Items
+     * @param {string} itemStatus A comma separated list of item status on the basis of which you want to filter Items
+     * @param {string} taxCodeRecommendationStatus Tax code recommendation status on the basis of which you want to filter Items
    * @return {FetchResult<Models.ItemModel>}
    */
   
-  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string }): Promise<FetchResult<Models.ItemModel>> {
+  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName, itemStatus, taxCodeRecommendationStatus }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string, itemStatus?: string, taxCodeRecommendationStatus?: string }): Promise<FetchResult<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {
@@ -8774,7 +8905,9 @@ export default class AvaTaxClient {
         $top: top,
         $skip: skip,
         $orderBy: orderBy,
-        tagName: tagName
+        tagName: tagName,
+        itemStatus: itemStatus,
+        taxCodeRecommendationStatus: taxCodeRecommendationStatus
       }
     });
 	 var strClientId =
@@ -8806,7 +8939,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, upc, classifications, parameters, tags, properties
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -8835,6 +8968,53 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve items for this company based on System Code and filter criteria(optional) provided
+   * Retrieve items based on System Code
+     *  
+     * Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
+     * can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
+     * and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
+     * from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
+     * team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+     *  
+     * Search for specific objects by passing the `$filter` criteria in the body; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+     *  
+     * Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that defined these items
+     * @param {string} systemCode System code on the basis of which you want to filter Items
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {Models.FilterModel} model A filter statement to select specific records, as defined by https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md#97-filtering .
+   * @return {FetchResult<Models.ItemModel>}
+   */
+  
+  queryItemsBySystemCode({ companyId, systemCode, top, skip, orderBy, model }: { companyId: number, systemCode: string, top?: number, skip?: number, orderBy?: string, model?: Models.FilterModel }): Promise<FetchResult<Models.ItemModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/internal/bySystemCode/${systemCode}`,
+      parameters: {
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, FetchResult<Models.ItemModel>);
+  }
+
+  /**
    * Retrieve all items associated with given tag
    * Get multiple item objects associated with given tag.
      *  
@@ -8856,7 +9036,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, upc, classifications, parameters, tags, properties
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.

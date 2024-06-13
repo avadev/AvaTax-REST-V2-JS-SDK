@@ -58,12 +58,6 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {number}
      * @memberof ResourceFileUploadRequestModel
      */
-   @JsonProperty("resourceFileTypeId", Number, true)
-   resourceFileTypeId?: number | undefined = undefined;
-    /**
-     * @type {number}
-     * @memberof ResourceFileUploadRequestModel
-     */
    @JsonProperty("length", Number, true)
    length?: number | undefined = undefined;
  }

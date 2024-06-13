@@ -48,20 +48,26 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
-   @JsonProperty("summary", String, true)
-   summary?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof ItemCatalogueInputModel
-     */
    @JsonProperty("taxCode", String, true)
    taxCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel
      */
+   @JsonProperty("itemType", String, true)
+   itemType?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemCatalogueInputModel
+     */
    @JsonProperty("upc", String, true)
    upc?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemCatalogueInputModel
+     */
+   @JsonProperty("summary", String, true)
+   summary?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemCatalogueInputModel

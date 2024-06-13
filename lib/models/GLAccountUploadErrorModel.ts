@@ -18,16 +18,28 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a tax code classification request input model
+ * Represents a GL account upload error model
  * @export
- * @class ItemTaxCodeClassificationRequestInputModel
+ * @class GLAccountUploadErrorModel
  */
- @JsonObject("ItemTaxCodeClassificationRequestInputModel")
- export class ItemTaxCodeClassificationRequestInputModel {
+ @JsonObject("GLAccountUploadErrorModel")
+ export class GLAccountUploadErrorModel {
     /**
-     * @type {number[]}
-     * @memberof ItemTaxCodeClassificationRequestInputModel
+     * @type {number}
+     * @memberof GLAccountUploadErrorModel
      */
-   @JsonProperty("itemIds", [Number], true)
-   itemIds?: number[] | undefined = undefined;
+   @JsonProperty("rowIndex", Number, true)
+   rowIndex?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof GLAccountUploadErrorModel
+     */
+   @JsonProperty("glAccountCode", String, true)
+   glAccountCode?: string | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof GLAccountUploadErrorModel
+     */
+   @JsonProperty("errors", [String], true)
+   errors?: string[] | undefined = undefined;
  }

@@ -91,6 +91,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("attributeType", String, true)
    attributeType?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof ParameterModel
+     */
+   @JsonProperty("attributeSubType", String, true)
+   attributeSubType?: string | undefined = undefined;
+    /**
      * @type {string[]}
      * @memberof ParameterModel
      */
