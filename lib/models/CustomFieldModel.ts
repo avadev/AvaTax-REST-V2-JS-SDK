@@ -30,11 +30,41 @@ For more information about custom fields, see the [Avalara Help Center article a
  @JsonObject("CustomFieldModel")
  export class CustomFieldModel {
     /**
+     * @type {number}
+     * @memberof CustomFieldModel
+     */
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
+    /**
      * @type {string}
      * @memberof CustomFieldModel
      */
    @JsonProperty("name", String, true)
    name?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CustomFieldModel
+     */
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CustomFieldModel
+     */
+   @JsonProperty("possibleValues", String, true)
+   possibleValues?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CustomFieldModel
+     */
+   @JsonProperty("usesDataEntry", Boolean, true)
+   usesDataEntry?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CustomFieldModel
+     */
+   @JsonProperty("requiredInDataEntry", Boolean, true)
+   requiredInDataEntry?: boolean | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomFieldModel

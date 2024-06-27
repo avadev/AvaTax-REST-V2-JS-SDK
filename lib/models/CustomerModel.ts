@@ -18,6 +18,11 @@ import { CertificateModel } from "./CertificateModel";
 import { CustomFieldModel } from "./CustomFieldModel";
 import { ExposureZoneModel } from "./ExposureZoneModel";
 import { CustomerAttributeModel } from "./CustomerAttributeModel";
+import { ActiveCertificateModel } from "./ActiveCertificateModel";
+import { HistoryModel } from "./HistoryModel";
+import { CustomerJobModel } from "./CustomerJobModel";
+import { CertificateLogModel } from "./CertificateLogModel";
+import { StateModel } from "./StateModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -182,6 +187,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {CustomerModel[]}
      * @memberof CustomerModel
      */
+   @JsonProperty("billTos", [CustomerModel], true)
+   billTos?: CustomerModel[] | undefined = undefined;
+    /**
+     * @type {CustomerModel[]}
+     * @memberof CustomerModel
+     */
    @JsonProperty("shipTos", [CustomerModel], true)
    shipTos?: CustomerModel[] | undefined = undefined;
     /**
@@ -190,4 +201,34 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("attributes", [CustomerAttributeModel], true)
    attributes?: CustomerAttributeModel[] | undefined = undefined;
+    /**
+     * @type {ActiveCertificateModel[]}
+     * @memberof CustomerModel
+     */
+   @JsonProperty("activeCertificates", [ActiveCertificateModel], true)
+   activeCertificates?: ActiveCertificateModel[] | undefined = undefined;
+    /**
+     * @type {HistoryModel[]}
+     * @memberof CustomerModel
+     */
+   @JsonProperty("histories", [HistoryModel], true)
+   histories?: HistoryModel[] | undefined = undefined;
+    /**
+     * @type {CustomerJobModel[]}
+     * @memberof CustomerModel
+     */
+   @JsonProperty("jobs", [CustomerJobModel], true)
+   jobs?: CustomerJobModel[] | undefined = undefined;
+    /**
+     * @type {CertificateLogModel[]}
+     * @memberof CustomerModel
+     */
+   @JsonProperty("logs", [CertificateLogModel], true)
+   logs?: CertificateLogModel[] | undefined = undefined;
+    /**
+     * @type {StateModel[]}
+     * @memberof CustomerModel
+     */
+   @JsonProperty("shipToStates", [StateModel], true)
+   shipToStates?: StateModel[] | undefined = undefined;
  }

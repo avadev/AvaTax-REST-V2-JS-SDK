@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    24.6.1
+ * @version    24.6.3
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '24.6.1';
+  private apiVersion: string = '24.6.3';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -1990,7 +1990,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID number of the company to search
      * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmsId, ecmsStatus, pdf, pages
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -4002,7 +4002,7 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
      * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmsId, ecmsStatus, pdf, pages
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -4104,7 +4104,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} include OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* shipTos
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -8016,10 +8016,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that owns this item.
      * @param {number} itemId The ID of the item you wish to delete the classifications.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.AssociatedObjectDeletedErrorDetailsModel[]}
    */
   
-  batchDeleteItemClassifications({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
+  batchDeleteItemClassifications({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
       parameters: {}
@@ -8030,7 +8030,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.AssociatedObjectDeletedErrorDetailsModel>);
   }
 
   /**
@@ -8051,10 +8051,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that owns this item.
      * @param {number} itemId The ID of the item you wish to delete the parameters.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.AssociatedObjectDeletedErrorDetailsModel[]}
    */
   
-  batchDeleteItemParameters({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
+  batchDeleteItemParameters({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters`,
       parameters: {}
@@ -8065,7 +8065,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.AssociatedObjectDeletedErrorDetailsModel>);
   }
 
   /**
@@ -8312,10 +8312,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that owns this item.
      * @param {string} itemCode The code of the item you want to delete.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.ObjectDeletedErrorModel[]}
    */
   
-  deleteCatalogueItem({ companyId, itemCode }: { companyId: number, itemCode: string }): Promise<Array<Models.ErrorDetail>> {
+  deleteCatalogueItem({ companyId, itemCode }: { companyId: number, itemCode: string }): Promise<Array<Models.ObjectDeletedErrorModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/itemcatalogue/${itemCode}`,
       parameters: {}
@@ -8326,7 +8326,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -8349,10 +8349,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that owns this item.
      * @param {number} id The ID of the item you wish to delete.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.ObjectDeletedErrorModel[]}
    */
   
-  deleteItem({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
+  deleteItem({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${id}`,
       parameters: {}
@@ -8363,7 +8363,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -8383,10 +8383,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The company id.
      * @param {number} itemId The item id.
      * @param {number} id The item classification id.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.ObjectDeletedErrorModel[]}
    */
   
-  deleteItemClassification({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
+  deleteItemClassification({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications/${id}`,
       parameters: {}
@@ -8397,7 +8397,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -8419,10 +8419,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The company id
      * @param {number} itemId The item id
      * @param {number} id The parameter id
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.ObjectDeletedErrorModel[]}
    */
   
-  deleteItemParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
+  deleteItemParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/parameters/${id}`,
       parameters: {}
@@ -8433,7 +8433,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -8451,10 +8451,10 @@ export default class AvaTaxClient {
      * @param {number} companyId The ID of the company that defined these items
      * @param {number} itemId The ID of the item as defined by the company that owns this tag.
      * @param {number} itemTagDetailId The ID of the item tag detail you wish to delete.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.ObjectDeletedErrorModel[]}
    */
   
-  deleteItemTag({ companyId, itemId, itemTagDetailId }: { companyId: number, itemId: number, itemTagDetailId: number }): Promise<Array<Models.ErrorDetail>> {
+  deleteItemTag({ companyId, itemId, itemTagDetailId }: { companyId: number, itemId: number, itemTagDetailId: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags/${itemTagDetailId}`,
       parameters: {}
@@ -8465,7 +8465,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -8482,10 +8482,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {number} itemId The ID of the item as defined by the company that owns this tag.
-   * @return {Models.ErrorDetail[]}
+   * @return {Models.AssociatedObjectDeletedErrorDetailsModel[]}
    */
   
-  deleteItemTags({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.ErrorDetail>> {
+  deleteItemTags({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/tags`,
       parameters: {}
@@ -8496,7 +8496,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.AssociatedObjectDeletedErrorDetailsModel>);
   }
 
   /**
@@ -8657,10 +8657,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId 
      * @param {number} itemId 
-   * @return {Models.TaxCodeRecommendationsOutputModel}
+   * @return {Models.TaxCodeRecommendationOutputModel[]}
    */
   
-  getItemTaxCodeRecommendations({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Models.TaxCodeRecommendationsOutputModel> {
+  getItemTaxCodeRecommendations({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.TaxCodeRecommendationOutputModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/taxcoderecommendations`,
       parameters: {}
@@ -8671,7 +8671,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.TaxCodeRecommendationsOutputModel);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.TaxCodeRecommendationOutputModel>);
   }
 
   /**
@@ -8877,6 +8877,7 @@ export default class AvaTaxClient {
      * * Classifications
      * * Tags
      * * Properties
+     * * TaxCodeRecommendationStatus
      * 
      * ### Security Policies
      * 
@@ -8885,7 +8886,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -8939,7 +8940,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9036,7 +9037,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9162,14 +9163,17 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that this item belongs to.
      * @param {number} id The ID of the item you wish to update
+     * @param {boolean} isRecommendationSelected If true then Set recommendation status to RecommendationSelected
      * @param {Models.ItemModel} model The item object you wish to update.
    * @return {Models.ItemModel}
    */
   
-  updateItem({ companyId, id, model }: { companyId: number, id: number, model: Models.ItemModel }): Promise<Models.ItemModel> {
+  updateItem({ companyId, id, isRecommendationSelected, model }: { companyId: number, id: number, isRecommendationSelected?: boolean, model: Models.ItemModel }): Promise<Models.ItemModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${id}`,
-      parameters: {}
+      parameters: {
+        isRecommendationSelected: isRecommendationSelected
+      }
     });
 	 var strClientId =
       this.appNM +

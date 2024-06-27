@@ -19,6 +19,11 @@ import { CustomerModel } from "./CustomerModel";
 import { PoNumberModel } from "./PoNumberModel";
 import { ExposureZoneModel } from "./ExposureZoneModel";
 import { CertificateAttributeModel } from "./CertificateAttributeModel";
+import { HistoryModel } from "./HistoryModel";
+import { CustomerJobModel } from "./CustomerJobModel";
+import { CertificateLogModel } from "./CertificateLogModel";
+import { CertificateInvalidReasonModel } from "./CertificateInvalidReasonModel";
+import { CustomFieldModel } from "./CustomFieldModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -117,6 +122,12 @@ log onto the administrative website for the product you purchased.
    @JsonProperty("status", String, true)
    status?: string | undefined = undefined;
     /**
+     * @type {Enums.CertificateEcmStatus}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("ecmStatus", Enums.CertificateEcmStatusConverter, true)
+   ecmStatus?: Enums.CertificateEcmStatus | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof CertificateModel
      */
@@ -170,6 +181,36 @@ log onto the administrative website for the product you purchased.
      */
    @JsonProperty("attributes", [CertificateAttributeModel], true)
    attributes?: CertificateAttributeModel[] | undefined = undefined;
+    /**
+     * @type {HistoryModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("histories", [HistoryModel], true)
+   histories?: HistoryModel[] | undefined = undefined;
+    /**
+     * @type {CustomerJobModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("jobs", [CustomerJobModel], true)
+   jobs?: CustomerJobModel[] | undefined = undefined;
+    /**
+     * @type {CertificateLogModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("logs", [CertificateLogModel], true)
+   logs?: CertificateLogModel[] | undefined = undefined;
+    /**
+     * @type {CertificateInvalidReasonModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("invalidReasons", [CertificateInvalidReasonModel], true)
+   invalidReasons?: CertificateInvalidReasonModel[] | undefined = undefined;
+    /**
+     * @type {CustomFieldModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("customFields", [CustomFieldModel], true)
+   customFields?: CustomFieldModel[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof CertificateModel
