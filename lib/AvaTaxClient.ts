@@ -65,7 +65,7 @@ export default class AvaTaxClient {
    * @param {LogOptions} logOptions Specify the logging options to be utilized by the SDK.
    */
   constructor({ appName, appVersion, machineName, environment, timeout = 1200000, customHttpAgent, logOptions = { logEnabled: false }, enableStrictTypeConversion = false } : 
-    { appName: string, appVersion: string, machineName: string, environment: string, timeout: number, customHttpAgent?: https.Agent, logOptions?: LogOptions, enableStrictTypeConversion?: boolean }) {
+    { appName: string, appVersion: string, machineName: string, environment: string, timeout?: number, customHttpAgent?: https.Agent, logOptions?: LogOptions, enableStrictTypeConversion?: boolean }) {
     this.appNM = appName;
 	  this.appVer = appVersion;
 	  this.machineNM = machineName;
