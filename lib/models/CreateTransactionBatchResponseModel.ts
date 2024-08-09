@@ -35,6 +35,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof CreateTransactionBatchResponseModel
      */
+   @JsonProperty("options", String, true)
+   options?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CreateTransactionBatchResponseModel
+     */
    @JsonProperty("name", String)
    name: string = undefined;
     /**
