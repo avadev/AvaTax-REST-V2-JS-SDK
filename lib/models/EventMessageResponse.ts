@@ -14,33 +14,32 @@
  */
 
 import * as Enums from '../enums/index';
-import { TransactionBatchItemModel } from "./TransactionBatchItemModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a create transaction batch request model.
+ * Encloses event message details
  * @export
- * @class CreateTransactionBatchRequestModel
+ * @class EventMessageResponse
  */
- @JsonObject("CreateTransactionBatchRequestModel")
- export class CreateTransactionBatchRequestModel {
+ @JsonObject("EventMessageResponse")
+ export class EventMessageResponse {
     /**
      * @type {string}
-     * @memberof CreateTransactionBatchRequestModel
+     * @memberof EventMessageResponse
      */
-   @JsonProperty("name", String)
-   name: string = undefined;
-    /**
-     * @type {TransactionBatchItemModel[]}
-     * @memberof CreateTransactionBatchRequestModel
-     */
-   @JsonProperty("transactions", [TransactionBatchItemModel])
-   transactions: TransactionBatchItemModel[] = undefined;
+   @JsonProperty("body", String, true)
+   body?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateTransactionBatchRequestModel
+     * @memberof EventMessageResponse
      */
-   @JsonProperty("options", String, true)
-   options?: string | undefined = undefined;
+   @JsonProperty("messageId", String, true)
+   messageId?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof EventMessageResponse
+     */
+   @JsonProperty("receiptHandle", String, true)
+   receiptHandle?: string | undefined = undefined;
  }
