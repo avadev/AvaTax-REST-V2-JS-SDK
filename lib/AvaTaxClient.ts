@@ -167,6 +167,22 @@ export default class AvaTaxClient {
           return null;
         }
       }
+
+      if(contentType && (contentType.includes('application/pdf') || contentType.includes('application/octet-stream') || contentType.includes('image/jpeg'))){
+        return res.blob().then(function (blob) {
+            logObject.populateResponseInfo(res, null);
+            res.blob = function () { return Promise.resolve(blob); };
+            return res;
+          }).catch(function (error) {
+            var ex = new AvalaraError('The server returned the response is in an unexpected format');
+            ex.code = 'FormatException';
+            ex.details = error;
+            logObject.populateErrorInfo(res, ex);
+            throw ex;
+          }).finally(function(){
+            this.createLogEntry(logObject);
+          })
+      }
       return res.json().catch((error) => {
         let ex = new AvalaraError('The server returned the response is in an unexpected format');
         ex.code = 'FormatException';
@@ -1682,7 +1698,7 @@ export default class AvaTaxClient {
    * @return {object}
    */
   
-  downloadCertificateImage({ companyId, id, page, type }: { companyId: number, id: number, page?: number, type?: Enums.CertificatePreviewType }): Promise<Object> {
+  downloadCertificateImage({ companyId, id, page, type }: { companyId: number, id: number, page?: number, type?: Enums.CertificatePreviewType }): Promise<Response> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/certificates/${id}/attachment`,
       parameters: {
