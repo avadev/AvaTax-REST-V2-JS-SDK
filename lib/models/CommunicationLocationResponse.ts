@@ -14,33 +14,38 @@
  */
 
 import * as Enums from '../enums/index';
-import { TransactionBatchItemModel } from "./TransactionBatchItemModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a create transaction batch request model.
+ * Encloses communication location details
  * @export
- * @class CreateTransactionBatchRequestModel
+ * @class CommunicationLocationResponse
  */
- @JsonObject("CreateTransactionBatchRequestModel")
- export class CreateTransactionBatchRequestModel {
+ @JsonObject("CommunicationLocationResponse")
+ export class CommunicationLocationResponse {
     /**
      * @type {string}
-     * @memberof CreateTransactionBatchRequestModel
+     * @memberof CommunicationLocationResponse
      */
-   @JsonProperty("name", String)
-   name: string = undefined;
-    /**
-     * @type {TransactionBatchItemModel[]}
-     * @memberof CreateTransactionBatchRequestModel
-     */
-   @JsonProperty("transactions", [TransactionBatchItemModel])
-   transactions: TransactionBatchItemModel[] = undefined;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateTransactionBatchRequestModel
+     * @memberof CommunicationLocationResponse
      */
-   @JsonProperty("options", String, true)
-   options?: string | undefined = undefined;
+   @JsonProperty("state", String, true)
+   state?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CommunicationLocationResponse
+     */
+   @JsonProperty("county", String, true)
+   county?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CommunicationLocationResponse
+     */
+   @JsonProperty("city", String, true)
+   city?: string | undefined = undefined;
  }

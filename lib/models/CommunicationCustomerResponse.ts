@@ -18,34 +18,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * The reason the certificate is invalid.
+ * Encloses communication certificate customer
  * @export
- * @class CertificateInvalidReasonModel
+ * @class CommunicationCustomerResponse
  */
- @JsonObject("CertificateInvalidReasonModel")
- export class CertificateInvalidReasonModel {
+ @JsonObject("CommunicationCustomerResponse")
+ export class CommunicationCustomerResponse {
     /**
      * @type {number}
-     * @memberof CertificateInvalidReasonModel
+     * @memberof CommunicationCustomerResponse
      */
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CertificateInvalidReasonModel
+     * @memberof CommunicationCustomerResponse
      */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CertificateInvalidReasonModel
-     */
-   @JsonProperty("description", String, true)
-   description?: string | undefined = undefined;
-    /**
-     * @type {boolean}
-     * @memberof CertificateInvalidReasonModel
-     */
-   @JsonProperty("systemCode", Boolean, true)
-   systemCode?: boolean | undefined = undefined;
+   @JsonProperty("customerNumber", String, true)
+   customerNumber?: string | undefined = undefined;
  }

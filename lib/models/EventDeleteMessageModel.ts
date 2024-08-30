@@ -14,32 +14,21 @@
  */
 
 import * as Enums from '../enums/index';
+import { EventDeleteBatchMessageModel } from "./EventDeleteBatchMessageModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Customer job model. This is exposed in the URL's `$includes`.
+ * Encloses the delete message command.
  * @export
- * @class CustomerJobModel
+ * @class EventDeleteMessageModel
  */
- @JsonObject("CustomerJobModel")
- export class CustomerJobModel {
+ @JsonObject("EventDeleteMessageModel")
+ export class EventDeleteMessageModel {
     /**
-     * @type {number}
-     * @memberof CustomerJobModel
+     * @type {EventDeleteBatchMessageModel[]}
+     * @memberof EventDeleteMessageModel
      */
-   @JsonProperty("id", Number, true)
-   id?: number | undefined = undefined;
-    /**
-     * @type {number}
-     * @memberof CustomerJobModel
-     */
-   @JsonProperty("jobNumber", Number, true)
-   jobNumber?: number | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CustomerJobModel
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
+   @JsonProperty("eventDeleteBatchMessageCommands", [EventDeleteBatchMessageModel], true)
+   eventDeleteBatchMessageCommands?: EventDeleteBatchMessageModel[] | undefined = undefined;
  }

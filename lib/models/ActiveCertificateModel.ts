@@ -21,7 +21,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Certificate with exemption reason and exposure zone. Exposed in url $includes
+ * Certificate with exemption reason and exposure zone. This is exposed in the URL's `$includes`.
  * @export
  * @class ActiveCertificateModel
  */

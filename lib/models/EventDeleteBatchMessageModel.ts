@@ -18,28 +18,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Customer job model. This is exposed in the URL's `$includes`.
+ * Model to delete message
  * @export
- * @class CustomerJobModel
+ * @class EventDeleteBatchMessageModel
  */
- @JsonObject("CustomerJobModel")
- export class CustomerJobModel {
-    /**
-     * @type {number}
-     * @memberof CustomerJobModel
-     */
-   @JsonProperty("id", Number, true)
-   id?: number | undefined = undefined;
-    /**
-     * @type {number}
-     * @memberof CustomerJobModel
-     */
-   @JsonProperty("jobNumber", Number, true)
-   jobNumber?: number | undefined = undefined;
+ @JsonObject("EventDeleteBatchMessageModel")
+ export class EventDeleteBatchMessageModel {
     /**
      * @type {string}
-     * @memberof CustomerJobModel
+     * @memberof EventDeleteBatchMessageModel
      */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
+   @JsonProperty("receiptHandle", String, true)
+   receiptHandle?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof EventDeleteBatchMessageModel
+     */
+   @JsonProperty("messageId", String, true)
+   messageId?: string | undefined = undefined;
  }
