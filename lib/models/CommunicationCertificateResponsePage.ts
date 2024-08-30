@@ -14,32 +14,27 @@
  */
 
 import * as Enums from '../enums/index';
+import { CommunicationCertificateResponse } from "./CommunicationCertificateResponse";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Customer job model. This is exposed in the URL's `$includes`.
+ * Encloses count and model value details
  * @export
- * @class CustomerJobModel
+ * @class CommunicationCertificateResponsePage
  */
- @JsonObject("CustomerJobModel")
- export class CustomerJobModel {
+ @JsonObject("CommunicationCertificateResponsePage")
+ export class CommunicationCertificateResponsePage {
     /**
      * @type {number}
-     * @memberof CustomerJobModel
+     * @memberof CommunicationCertificateResponsePage
      */
-   @JsonProperty("id", Number, true)
-   id?: number | undefined = undefined;
+   @JsonProperty("count", Number, true)
+   count?: number | undefined = undefined;
     /**
-     * @type {number}
-     * @memberof CustomerJobModel
+     * @type {CommunicationCertificateResponse[]}
+     * @memberof CommunicationCertificateResponsePage
      */
-   @JsonProperty("jobNumber", Number, true)
-   jobNumber?: number | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CustomerJobModel
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
+   @JsonProperty("value", [CommunicationCertificateResponse], true)
+   value?: CommunicationCertificateResponse[] | undefined = undefined;
  }

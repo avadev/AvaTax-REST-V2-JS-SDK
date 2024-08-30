@@ -38,17 +38,17 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("batchAgent", String, true)
    batchAgent?: string | undefined = undefined;
     /**
-     * @type {string}
-     * @memberof BatchModel
-     */
-   @JsonProperty("options", String, true)
-   options?: string | undefined = undefined;
-    /**
      * @type {number}
      * @memberof BatchModel
      */
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof BatchModel
+     */
+   @JsonProperty("options", String, true)
+   options?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof BatchModel

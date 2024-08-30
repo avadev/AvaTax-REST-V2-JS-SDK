@@ -392,6 +392,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidCostCenter = 2813,
         TooManyItemsInSyncFlowRequest = 2814,
         InvalidTaxCodeIdInRecommendationStatusUpdate = 2815,
+        CommunicationCertificatesError = 2816,
+        InvalidCurrencyAggrementType = 2817,
         InvalidHTTPHeader = 3000,
 }
 

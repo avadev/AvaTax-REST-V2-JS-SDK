@@ -366,6 +366,18 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("appliedCarryOverCredits", FilingReturnCreditModel, true)
    appliedCarryOverCredits?: FilingReturnCreditModel | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof FilingReturnModel
+     */
+   @JsonProperty("liabilityCurrencyCode", String, true)
+   liabilityCurrencyCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FilingReturnModel
+     */
+   @JsonProperty("filingCalendarCurrencyCode", String, true)
+   filingCalendarCurrencyCode?: string | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof FilingReturnModel
      */

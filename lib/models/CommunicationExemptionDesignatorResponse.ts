@@ -18,40 +18,28 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * The certificate log for a customer. This is exposed in the URL's `$includes`.
+ * Encloses Communication exemption designator details
  * @export
- * @class CertificateLogModel
+ * @class CommunicationExemptionDesignatorResponse
  */
- @JsonObject("CertificateLogModel")
- export class CertificateLogModel {
+ @JsonObject("CommunicationExemptionDesignatorResponse")
+ export class CommunicationExemptionDesignatorResponse {
     /**
      * @type {number}
-     * @memberof CertificateLogModel
+     * @memberof CommunicationExemptionDesignatorResponse
      */
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
     /**
-     * @type {number}
-     * @memberof CertificateLogModel
+     * @type {string}
+     * @memberof CommunicationExemptionDesignatorResponse
      */
-   @JsonProperty("certificateId", Number, true)
-   certificateId?: number | undefined = undefined;
+   @JsonProperty("type", String, true)
+   type?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CertificateLogModel
+     * @memberof CommunicationExemptionDesignatorResponse
      */
-   @JsonProperty("account", String, true)
-   account?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CertificateLogModel
-     */
-   @JsonProperty("entry", String, true)
-   entry?: string | undefined = undefined;
-    /**
-     * @type {Date}
-     * @memberof CertificateLogModel
-     */
-   @JsonProperty("created", DateConverter, true)
-   created?: Date | undefined = undefined;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
  }

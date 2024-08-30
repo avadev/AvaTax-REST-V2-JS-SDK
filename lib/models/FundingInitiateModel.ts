@@ -42,4 +42,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("requestWidget", Boolean, true)
    requestWidget?: boolean | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FundingInitiateModel
+     */
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FundingInitiateModel
+     */
+   @JsonProperty("agreementType", String, true)
+   agreementType?: string | undefined = undefined;
  }
