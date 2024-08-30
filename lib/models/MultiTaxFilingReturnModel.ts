@@ -122,6 +122,18 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("type", String, true)
    type?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof MultiTaxFilingReturnModel
+     */
+   @JsonProperty("liabilityCurrencyCode", String, true)
+   liabilityCurrencyCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof MultiTaxFilingReturnModel
+     */
+   @JsonProperty("filingCalendarCurrencyCode", String, true)
+   filingCalendarCurrencyCode?: string | undefined = undefined;
+    /**
      * @type {FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingReturnModel
      */

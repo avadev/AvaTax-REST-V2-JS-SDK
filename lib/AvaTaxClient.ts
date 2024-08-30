@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    24.6.3
+ * @version    24.8.2
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '24.6.3';
+  private apiVersion: string = '24.8.2';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -159,6 +159,22 @@ export default class AvaTaxClient {
           this.createLogEntry(logObject);
         });
       }
+
+      if (contentType && (contentType === 'application/octet-stream' ||  contentType === 'application/pdf' || contentType === 'image/jpeg')) {
+        return res.buffer().then((buffer: Buffer) => {
+            logObject.populateResponseInfo(res, 'Binary file received');
+            res.buffer = () => Promise.resolve(buffer);
+            return res;
+        }).catch((error) => {
+            let ex = new AvalaraError('The server returned the response is in an unexpected format');
+            ex.code = 'FormatException';
+            ex.details = error;
+            logObject.populateErrorInfo(res, ex);
+            throw ex;
+        }).finally(() => {
+            this.createLogEntry(logObject);
+        });
+     }
 
       if (contentType && contentType.includes('application/json')) {
         if ((contentLength === "0" && Math.trunc(res.status / 100) === 2) || res.status === 204){
@@ -1713,6 +1729,11 @@ export default class AvaTaxClient {
      * * customers - Retrieves the list of customers linked to the certificate.
      * * po_numbers - Retrieves all PO numbers tied to the certificate.
      * * attributes - Retrieves all attributes applied to the certificate.
+     * * histories - Retrieves the certificate update history
+     * * jobs - Retrieves the jobs for this certificate
+     * * logs - Retrieves the certificate log
+     * * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
+     * * custom_fields - Retrieves custom fields set for this certificate
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
@@ -1728,7 +1749,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
    * @return {Models.CertificateModel}
    */
   
@@ -1975,7 +1996,12 @@ export default class AvaTaxClient {
      * * customers - Retrieves the list of customers linked to the certificate.
      * * po_numbers - Retrieves all PO numbers tied to the certificate.
      * * attributes - Retrieves all attributes applied to the certificate.
-     *  
+     * * histories - Retrieves the certificate update history
+     * * jobs - Retrieves the jobs for this certificate
+     * * logs - Retrieves the certificate log
+     * * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
+     * * custom_fields - Retrieves custom fields set for this certificate
+     * 
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -1989,7 +2015,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID number of the company to search
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -2227,6 +2253,76 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: file, clientId: strClientId, isMultiPart: true }, String);
+  }
+
+  /**
+   * Retrieve a single communication certificate.
+   * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPremiumComms, ECMProComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID number of the company to search
+     * @param {number} certificateId The ID number of the certifificate to search
+   * @return {Models.CommunicationCertificateResponse}
+   */
+  
+  getCommunicationCertificate({ companyId, certificateId }: { companyId: number, certificateId: number }): Promise<Models.CommunicationCertificateResponse> {
+    var path = this.buildUrl({
+      url: `/companies/${companyId}/communication-certificates/${certificateId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CommunicationCertificateResponse);
+  }
+
+  /**
+   * Retrieve all communication certificates.
+   * List all account objects that can be seen by the current user.
+     *  
+     * This API lists all accounts you are allowed to see. In general, most users will only be able to see their own account.
+     *  
+     * Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+     * Paginate your results using the `$top`, `$skip`, and `$orderby` parameters. 
+     * For more information about filtering in REST, please see the documentation at http://developer.avalara.com/avatax/filtering-in-rest/ .
+     * 
+     * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPremiumComms, ECMProComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* EffectiveDate, ExpirationDate, TaxNumber, Exemptions
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {number} companyId The ID number of the company to search
+   * @return {Models.CommunicationCertificateResponsePage}
+   */
+  
+  listCommunicationCertificates({ filter, top, skip, orderBy, companyId }: { filter?: string, top?: number, skip?: number, orderBy?: string, companyId: number }): Promise<Models.CommunicationCertificateResponsePage> {
+    var path = this.buildUrl({
+      url: `/companies/${companyId}/communication-certificates`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CommunicationCertificateResponsePage);
   }
 
   /**
@@ -3370,7 +3466,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that owns these contacts
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* scsContactId
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3411,7 +3507,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* scsContactId
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -3765,9 +3861,16 @@ export default class AvaTaxClient {
      *  
      * You can use the `$include` parameter to fetch the following additional objects for expansion:
      *  
-     * * Certificates - Fetch a list of certificates linked to this customer.
-     * * CustomFields - Fetch a list of custom fields associated to this customer.
+     * * certificates - Fetch a list of certificates linked to this customer.
      * * attributes - Retrieves all attributes applied to the customer.
+     * * active_certificates - Retrieves all the active certificates linked to this customer
+     * * histories - Retrieves the update history for this customer
+     * * logs - Retrieves customer logs
+     * * jobs - Retrieves customer jobs
+     * * billTos - Retrieves bill-tos linked with this customer
+     * * shipTos - Retrieves ship-tos linked with this customer
+     * * shipToStates - Retrieves ship-to states for this customer
+     * * custom_fields - Retrieves custom fields set for this customer
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
@@ -4001,7 +4104,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -4087,9 +4190,17 @@ export default class AvaTaxClient {
      *  
      * You can use the `$include` parameter to fetch the following additional objects for expansion:
      *  
-     * * Certificates - Fetch a list of certificates linked to this customer.
+     * * certificates - Fetch a list of certificates linked to this customer.
      * * attributes - Retrieves all attributes applied to the customer.
-     *  
+     * * active_certificates - Retrieves all the active certificates linked to this customer
+     * * histories - Retrieves the update history for this customer
+     * * logs - Retrieves customer logs
+     * * jobs - Retrieves customer jobs
+     * * billTos - Retrieves bill-tos linked with this customer
+     * * shipTos - Retrieves ship-tos linked with this customer
+     * * shipToStates - Retrieves ship-to states for this customer
+     * * custom_fields - Retrieves custom fields set for this customer
+     * 
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -4103,7 +4214,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The unique ID number of the company that recorded this customer
-     * @param {string} include OPTIONAL - You can specify the value `certificates` to fetch information about certificates linked to the customer.
+     * @param {string} include OPTIONAL - You can specify any of the values in `certificates`, `attributes`, `active_certificates`, `histories`, `logs`, `jobs`, `billTos`, `shipTos`, `shipToStates`, and `custom_fields` to fetch additional information for this certificate.
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -7425,6 +7536,116 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Delete AFC event notifications.
+   * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPremiumComms, ECMProComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {boolean} isDlq Specify `true` to delete event notifications from the dead letter queue; otherwise, specify `false`.
+     * @param {Models.EventDeleteMessageModel} model Details of the event you want to delete.
+   * @return {FetchResult<Models.EventMessageResponse>}
+   */
+  
+  deleteAfcEventNotifications({ isDlq, model }: { isDlq?: boolean, model: Models.EventDeleteMessageModel }): Promise<FetchResult<Models.EventMessageResponse>> {
+    var path = this.buildUrl({
+      url: `/api/v2/event-notifications/afc`,
+      parameters: {
+        isDlq: isDlq
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: model, clientId: strClientId }, FetchResult<Models.EventMessageResponse>);
+  }
+
+  /**
+   * Delete company event notifications
+   * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPro, ECMPremium.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded these event notifications.
+     * @param {Models.EventDeleteMessageModel} model Details of the event you want to delete.
+   * @return {FetchResult<Models.EventMessageResponse>}
+   */
+  
+  deleteEventNotifications({ companyId, model }: { companyId: number, model: Models.EventDeleteMessageModel }): Promise<FetchResult<Models.EventMessageResponse>> {
+    var path = this.buildUrl({
+      url: `/api/v2/event-notifications/companies/${companyId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: model, clientId: strClientId }, FetchResult<Models.EventMessageResponse>);
+  }
+
+  /**
+   * Retrieve company event notifications.
+   * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPro, ECMPremium.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded these event notifications.
+   * @return {FetchResult<Models.EventMessageResponse>}
+   */
+  
+  getEventNotifications({ companyId }: { companyId: number }): Promise<FetchResult<Models.EventMessageResponse>> {
+    var path = this.buildUrl({
+      url: `/api/v2/event-notifications/companies/${companyId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.EventMessageResponse>);
+  }
+
+  /**
+   * Retrieve AFC event notifications
+   * ### Security Policies
+     * 
+     * * This API depends on the following active services:*Required* (all): ECMPremiumComms, ECMProComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {boolean} isDlq Specify `true` to retrieve event notifications from the dead letter queue; otherwise, specify `false`.
+   * @return {FetchResult<Models.EventMessageResponse>}
+   */
+  
+  listAfcEventNotifications({ isDlq }: { isDlq?: boolean }): Promise<FetchResult<Models.EventMessageResponse>> {
+    var path = this.buildUrl({
+      url: `/api/v2/event-notifications/afc`,
+      parameters: {
+        isDlq: isDlq
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.EventMessageResponse>);
+  }
+
+  /**
    * Create a new eCommerce token.
    * Creates a new eCommerce token.
      *  
@@ -8918,6 +9139,46 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemModel>);
+  }
+
+  /**
+   * Retrieve the parameters by companyId and itemId.
+   * Returns the list of parameters based on the company's service types and the item code.
+     * Ignores nexus if a service type is configured in the 'IgnoreNexusForServiceTypes' configuration section.
+     * Ignores nexus for the AvaAlcohol service type.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId Company Identifier.
+     * @param {number} itemId Item Identifier.
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* serviceTypes, regularExpression, attributeSubType, values
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.ParameterModel>}
+   */
+  
+  listRecommendedParameterByCompanyIdAndItemId({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ParameterModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/companies/${companyId}/items/${itemId}/parameters`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ParameterModel>);
   }
 
   /**

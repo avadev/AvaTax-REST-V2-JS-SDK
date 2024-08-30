@@ -14,45 +14,51 @@
  */
 
 import * as Enums from '../enums/index';
-import { CreditTransactionDetails } from "./CreditTransactionDetails";
+import { CreditTransactionDetailLines } from "./CreditTransactionDetailLines";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * An attachment associated with a filing return
+ * Credit Transaction Details
  * @export
- * @class FilingReturnCreditModel
+ * @class CreditTransactionDetails
  */
- @JsonObject("FilingReturnCreditModel")
- export class FilingReturnCreditModel {
+ @JsonObject("CreditTransactionDetails")
+ export class CreditTransactionDetails {
     /**
-     * @type {number}
-     * @memberof FilingReturnCreditModel
+     * @type {string}
+     * @memberof CreditTransactionDetails
      */
-   @JsonProperty("totalSales", Number, true)
-   totalSales?: number | undefined = undefined;
+   @JsonProperty("docCode", String, true)
+   docCode?: string | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof CreditTransactionDetails
+     */
+   @JsonProperty("docDate", DateConverter, true)
+   docDate?: Date | undefined = undefined;
     /**
      * @type {number}
-     * @memberof FilingReturnCreditModel
+     * @memberof CreditTransactionDetails
      */
    @JsonProperty("totalExempt", Number, true)
    totalExempt?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof FilingReturnCreditModel
+     * @memberof CreditTransactionDetails
      */
    @JsonProperty("totalTaxable", Number, true)
    totalTaxable?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof FilingReturnCreditModel
+     * @memberof CreditTransactionDetails
      */
    @JsonProperty("totalTax", Number, true)
    totalTax?: number | undefined = undefined;
     /**
-     * @type {CreditTransactionDetails[]}
-     * @memberof FilingReturnCreditModel
+     * @type {CreditTransactionDetailLines[]}
+     * @memberof CreditTransactionDetails
      */
-   @JsonProperty("transactionDetails", [CreditTransactionDetails], true)
-   transactionDetails?: CreditTransactionDetails[] | undefined = undefined;
+   @JsonProperty("lines", [CreditTransactionDetailLines], true)
+   lines?: CreditTransactionDetailLines[] | undefined = undefined;
  }

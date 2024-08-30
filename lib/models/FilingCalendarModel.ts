@@ -410,4 +410,10 @@ Only used if you subscribe to Avalara Returns.
      */
    @JsonProperty("autoLockOverrideDay", Number, true)
    autoLockOverrideDay?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FilingCalendarModel
+     */
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
  }
