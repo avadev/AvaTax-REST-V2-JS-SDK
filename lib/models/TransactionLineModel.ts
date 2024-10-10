@@ -365,4 +365,22 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("summary", String, true)
    summary?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineModel
+     */
+   @JsonProperty("recoverabilityPercentage", Number, true)
+   recoverabilityPercentage?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineModel
+     */
+   @JsonProperty("recoverableAmount", Number, true)
+   recoverableAmount?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineModel
+     */
+   @JsonProperty("nonRecoverableAmount", Number, true)
+   nonRecoverableAmount?: number | undefined = undefined;
  }
