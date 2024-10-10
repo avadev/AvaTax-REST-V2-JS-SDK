@@ -20,6 +20,7 @@ import { ItemTagDetailInputModel } from "./ItemTagDetailInputModel";
 import { ItemStatusOutputModel } from "./ItemStatusOutputModel";
 import { TaxCodeRecommendationStatusOutputModel } from "./TaxCodeRecommendationStatusOutputModel";
 import { TaxCodeRecommendationOutputModel } from "./TaxCodeRecommendationOutputModel";
+import { ItemTaxCodeDetailsOutputModel } from "./ItemTaxCodeDetailsOutputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -174,4 +175,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("taxCodeRecommendations", [TaxCodeRecommendationOutputModel], true)
    taxCodeRecommendations?: TaxCodeRecommendationOutputModel[] | undefined = undefined;
+    /**
+     * @type {ItemTaxCodeDetailsOutputModel}
+     * @memberof ItemModel
+     */
+   @JsonProperty("taxCodeDetails", ItemTaxCodeDetailsOutputModel, true)
+   taxCodeDetails?: ItemTaxCodeDetailsOutputModel | undefined = undefined;
  }

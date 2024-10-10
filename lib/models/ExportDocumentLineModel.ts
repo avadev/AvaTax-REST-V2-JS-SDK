@@ -156,4 +156,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("includeDocumentLineDetails", Boolean, true)
    includeDocumentLineDetails?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("includeMultiTaxLineDetails", Boolean, true)
+   includeMultiTaxLineDetails?: boolean | undefined = undefined;
  }

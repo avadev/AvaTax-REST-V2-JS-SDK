@@ -22,6 +22,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
  export enum ReportSource {
         SNOWFLAKE = 0,
         MONGODB = 1,
+        RETURNSAPI = 2,
 }
 
 @JsonConverter

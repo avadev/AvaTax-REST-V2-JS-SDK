@@ -150,4 +150,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("includeDocumentLineDetails", Boolean, true)
    includeDocumentLineDetails?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("includeMultiTaxLineDetails", Boolean, true)
+   includeMultiTaxLineDetails?: boolean | undefined = undefined;
  }

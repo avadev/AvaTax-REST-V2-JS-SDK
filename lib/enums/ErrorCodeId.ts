@@ -394,7 +394,13 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidTaxCodeIdInRecommendationStatusUpdate = 2815,
         CommunicationCertificatesError = 2816,
         InvalidCurrencyAggrementType = 2817,
+        InvalidTaxCodeRecommendationStatusUpdate = 2818,
+        DuplicateFilingRequest = 2819,
         InvalidHTTPHeader = 3000,
+        SCSServiceUnreachable = 3001,
+        DuplicateContactCode = 3002,
+        SCSServerError = 3003,
+        UserReconciliationError = 3004,
 }
 
 @JsonConverter

@@ -342,4 +342,22 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("avtUserBIN", String, true)
    avtUserBIN?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("recoverabilityPercentage", Number, true)
+   recoverabilityPercentage?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("recoverableAmount", Number, true)
+   recoverableAmount?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("nonRecoverableAmount", Number, true)
+   nonRecoverableAmount?: number | undefined = undefined;
  }
