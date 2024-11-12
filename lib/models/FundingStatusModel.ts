@@ -121,4 +121,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("templateRequestId", Number, true)
    templateRequestId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FundingStatusModel
+     */
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FundingStatusModel
+     */
+   @JsonProperty("agreementType", String, true)
+   agreementType?: string | undefined = undefined;
  }

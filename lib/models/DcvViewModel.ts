@@ -61,28 +61,4 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("emailId", String, true)
    emailId?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof DcvViewModel
-     */
-   @JsonProperty("createdOn", String, true)
-   createdOn?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof DcvViewModel
-     */
-   @JsonProperty("createdBy", String, true)
-   createdBy?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof DcvViewModel
-     */
-   @JsonProperty("updatedOn", String, true)
-   updatedOn?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof DcvViewModel
-     */
-   @JsonProperty("updatedBy", String, true)
-   updatedBy?: string | undefined = undefined;
  }

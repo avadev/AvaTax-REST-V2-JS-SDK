@@ -75,6 +75,8 @@ export * from './CompanyFilingStatus';
 export * from './FirmClientLinkageStatus';
 export * from './ItemCatalogueResultEvent';
 export * from './BoundaryLevel';
+export * from './ReturnsLiabilityType';
+export * from './ReturnsReportType';
 export * from './MarketplaceLiabilityType';
 export * from './AddressTypeId';
 export * from './AddressCategoryId';
