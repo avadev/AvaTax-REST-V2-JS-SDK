@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { LiabilityParametersModel } from "./LiabilityParametersModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -138,6 +139,12 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("taxSubType", String, true)
    taxSubType?: string | undefined = undefined;
+    /**
+     * @type {LiabilityParametersModel}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("liabilityParameters", LiabilityParametersModel, true)
+   liabilityParameters?: LiabilityParametersModel | undefined = undefined;
     /**
      * @type {Enums.Compression}
      * @memberof ReportParametersModel

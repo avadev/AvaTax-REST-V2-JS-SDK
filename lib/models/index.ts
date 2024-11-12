@@ -235,6 +235,7 @@ export * from './JurisdictionModel';
 export * from './JurisdictionNexusModel';
 export * from './JurisdictionOverrideModel';
 export * from './JurisdictionRateTypeTaxTypeMappingModel';
+export * from './LiabilityParametersModel';
 export * from './LicenseKeyModel';
 export * from './LineItemModel';
 export * from './LinkCertificatesModel';

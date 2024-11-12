@@ -35,6 +35,6 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {VarianceResponseEntity[]}
      * @memberof VarianceResponseModel
      */
-   @JsonProperty("varianceResponses", [VarianceResponseEntity], true)
-   varianceResponses?: VarianceResponseEntity[] | undefined = undefined;
+   @JsonProperty("variance", [VarianceResponseEntity], true)
+   variance?: VarianceResponseEntity[] | undefined = undefined;
  }
