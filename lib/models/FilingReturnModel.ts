@@ -129,6 +129,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof FilingReturnModel
      */
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof FilingReturnModel
+     */
    @JsonProperty("description", String, true)
    description?: string | undefined = undefined;
     /**

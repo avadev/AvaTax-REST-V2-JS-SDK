@@ -82,14 +82,14 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   @JsonProperty("country", String, true)
-   country?: string | undefined = undefined;
+   @JsonProperty("country", String)
+   country: string = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
      */
-   @JsonProperty("region", String, true)
-   region?: string | undefined = undefined;
+   @JsonProperty("region", String)
+   region: string = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -136,8 +136,8 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   @JsonProperty("taxPeriod", String, true)
-   taxPeriod?: string | undefined = undefined;
+   @JsonProperty("taxPeriod", String)
+   taxPeriod: string = undefined;
     /**
      * @type {number}
      * @memberof NoticeModel
@@ -256,8 +256,8 @@ they are called "Notices".
      * @type {string}
      * @memberof NoticeModel
      */
-   @JsonProperty("taxFormCode", String, true)
-   taxFormCode?: string | undefined = undefined;
+   @JsonProperty("taxFormCode", String)
+   taxFormCode: string = undefined;
     /**
      * @type {string}
      * @memberof NoticeModel
