@@ -83,6 +83,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof MultiTaxFilingReturnModel
      */
+   @JsonProperty("taxFormCode", String, true)
+   taxFormCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof MultiTaxFilingReturnModel
+     */
    @JsonProperty("description", String, true)
    description?: string | undefined = undefined;
     /**

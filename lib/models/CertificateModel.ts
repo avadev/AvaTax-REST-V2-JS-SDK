@@ -59,8 +59,8 @@ log onto the administrative website for the product you purchased.
      * @type {Date}
      * @memberof CertificateModel
      */
-   @JsonProperty("expirationDate", DateConverter)
-   expirationDate: Date = undefined;
+   @JsonProperty("expirationDate", DateConverter, true)
+   expirationDate?: Date | undefined = undefined;
     /**
      * @type {string}
      * @memberof CertificateModel

@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    24.11.2
+ * @version    24.12.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '24.11.2';
+  private apiVersion: string = '24.12.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -8057,15 +8057,19 @@ export default class AvaTaxClient {
      * @param {number} id The unique ID number of this funding request
      * @param {Enums.POABusinessUnit} businessUnit The company's business unit (See POABusinessUnit::* for a list of allowable values)
      * @param {Enums.POASubscriptionType} subscriptionType The company's subscription type (See POASubscriptionType::* for a list of allowable values)
+     * @param {string} currency Currency
+     * @param {string} agreementType Agreement Type
    * @return {Models.FundingStatusModel}
    */
   
-  activateFundingRequest({ id, businessUnit, subscriptionType }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType }): Promise<Models.FundingStatusModel> {
+  activateFundingRequest({ id, businessUnit, subscriptionType, currency, agreementType }: { id: number, businessUnit?: Enums.POABusinessUnit, subscriptionType?: Enums.POASubscriptionType, currency?: string, agreementType?: string }): Promise<Models.FundingStatusModel> {
     var path = this.buildUrl({
       url: `/api/v2/fundingrequests/${id}/widget`,
       parameters: {
         businessUnit: businessUnit,
-        subscriptionType: subscriptionType
+        subscriptionType: subscriptionType,
+        currency: currency,
+        agreementType: agreementType
       }
     });
 	 var strClientId =
