@@ -18,28 +18,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a premium classification associated with an item's HS code for a system code.
+ * Item HSCode Classification Status Output Model
  * @export
- * @class ItemPremiumClassificationInputModel
+ * @class ItemHSCodeClassificationStatusOutputModel
  */
- @JsonObject("ItemPremiumClassificationInputModel")
- export class ItemPremiumClassificationInputModel {
+ @JsonObject("ItemHSCodeClassificationStatusOutputModel")
+ export class ItemHSCodeClassificationStatusOutputModel {
     /**
      * @type {string}
-     * @memberof ItemPremiumClassificationInputModel
+     * @memberof ItemHSCodeClassificationStatusOutputModel
      */
-   @JsonProperty("hsCode", String)
-   hsCode: string = undefined;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof ItemPremiumClassificationInputModel
+     * @memberof ItemHSCodeClassificationStatusOutputModel
      */
-   @JsonProperty("justification", String)
-   justification: string = undefined;
-    /**
-     * @type {string}
-     * @memberof ItemPremiumClassificationInputModel
-     */
-   @JsonProperty("country", String, true)
-   country?: string | undefined = undefined;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
  }

@@ -25,6 +25,12 @@ import { DateConverter } from "../utils/dateConverter";
  @JsonObject("ClassificationModel")
  export class ClassificationModel {
     /**
+     * @type {number}
+     * @memberof ClassificationModel
+     */
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
+    /**
      * @type {string}
      * @memberof ClassificationModel
      */
@@ -36,6 +42,12 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("systemCode", String, true)
    systemCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClassificationModel
+     */
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof ClassificationModel

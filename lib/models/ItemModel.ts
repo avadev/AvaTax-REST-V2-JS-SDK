@@ -21,6 +21,7 @@ import { ItemStatusOutputModel } from "./ItemStatusOutputModel";
 import { TaxCodeRecommendationStatusOutputModel } from "./TaxCodeRecommendationStatusOutputModel";
 import { TaxCodeRecommendationOutputModel } from "./TaxCodeRecommendationOutputModel";
 import { ItemTaxCodeDetailsOutputModel } from "./ItemTaxCodeDetailsOutputModel";
+import { ItemHSCodeClassificationStatusModel } from "./ItemHSCodeClassificationStatusModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -181,4 +182,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("taxCodeDetails", ItemTaxCodeDetailsOutputModel, true)
    taxCodeDetails?: ItemTaxCodeDetailsOutputModel | undefined = undefined;
+    /**
+     * @type {ItemHSCodeClassificationStatusModel[]}
+     * @memberof ItemModel
+     */
+   @JsonProperty("hsCodeClassificationStatus", [ItemHSCodeClassificationStatusModel], true)
+   hsCodeClassificationStatus?: ItemHSCodeClassificationStatusModel[] | undefined = undefined;
  }
