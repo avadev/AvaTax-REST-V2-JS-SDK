@@ -72,4 +72,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("createdUserId", Number, true)
    createdUserId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemPremiumClassificationOutputModel
+     */
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
  }

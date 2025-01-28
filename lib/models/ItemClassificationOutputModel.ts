@@ -55,9 +55,21 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("systemCode", String, true)
    systemCode?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof ItemClassificationOutputModel
+     */
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof ItemClassificationOutputModel
      */
    @JsonProperty("isPremium", Boolean, true)
    isPremium?: boolean | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemClassificationOutputModel
+     */
+   @JsonProperty("classificationEvent", String, true)
+   classificationEvent?: string | undefined = undefined;
  }

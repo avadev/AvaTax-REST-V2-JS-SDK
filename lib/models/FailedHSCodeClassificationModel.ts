@@ -14,32 +14,27 @@
  */
 
 import * as Enums from '../enums/index';
+import { HSCodeClassificationError } from "./HSCodeClassificationError";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Product classification input model.
+ * Failed HS code classification model.
  * @export
- * @class ItemClassificationInputModel
+ * @class FailedHSCodeClassificationModel
  */
- @JsonObject("ItemClassificationInputModel")
- export class ItemClassificationInputModel {
+ @JsonObject("FailedHSCodeClassificationModel")
+ export class FailedHSCodeClassificationModel {
     /**
-     * @type {string}
-     * @memberof ItemClassificationInputModel
+     * @type {number}
+     * @memberof FailedHSCodeClassificationModel
      */
-   @JsonProperty("productCode", String)
-   productCode: string = undefined;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
-     * @type {string}
-     * @memberof ItemClassificationInputModel
+     * @type {HSCodeClassificationError[]}
+     * @memberof FailedHSCodeClassificationModel
      */
-   @JsonProperty("systemCode", String, true)
-   systemCode?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof ItemClassificationInputModel
-     */
-   @JsonProperty("country", String, true)
-   country?: string | undefined = undefined;
+   @JsonProperty("errors", [HSCodeClassificationError], true)
+   errors?: HSCodeClassificationError[] | undefined = undefined;
  }

@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    24.12.0
+ * @version    25.1.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '24.12.0';
+  private apiVersion: string = '25.1.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -535,7 +535,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id The ID of the account to retrieve
-     * @param {string} licensekeyname The ID of the account to retrieve
+     * @param {string} licensekeyname The license key name to be retrieved
    * @return {Models.AccountLicenseKeyModel}
    */
   
@@ -1085,7 +1085,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1132,7 +1132,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1177,7 +1177,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1215,7 +1215,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: BatchServiceAdmin, CSPAdmin, CSPTester, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+     * * This API requires one of the following user roles: BatchServiceAdmin, CSPAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1244,7 +1244,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1288,7 +1288,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1337,7 +1337,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -1393,7 +1393,7 @@ export default class AvaTaxClient {
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -2016,7 +2016,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID number of the company to search
      * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -4105,7 +4105,7 @@ export default class AvaTaxClient {
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
      * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmStatus, ecmsId, ecmsStatus, pdf, pages
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, status, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -5212,6 +5212,31 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.FilingFrequencyModel>);
+  }
+
+  /**
+   * List of all HS code classification statuses that can be assigned to an Item.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+   * @return {Models.ItemHSCodeClassificationStatusOutputModel[]}
+   */
+  
+  listItemHSCodeClassificationStatus(): Promise<Array<Models.ItemHSCodeClassificationStatusOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/items/hscode-classification-status`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.ItemHSCodeClassificationStatusOutputModel>);
   }
 
   /**
@@ -8787,6 +8812,38 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Dismiss the `Status` and `Details` values of the given ItemHSCodeClassificationStatus.
+   * Dismiss the existing `Status` and `Details` of the ItemHSCodeClassificationStatus object at this URL with an updated object.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company to which this item belongs.
+     * @param {number} itemId The ID of the item whose classification status you want to update.
+     * @param {string} country The country of the HS code classification request status record that is to be updated.
+   * @return {Models.ItemHSCodeClassificationStatusModel}
+   */
+  
+  dismissHSCodeClassificationStatus({ companyId, itemId, country }: { companyId: number, itemId: number, country: string }): Promise<Models.ItemHSCodeClassificationStatusModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/hscode-classifications-status/$dismiss`,
+      parameters: {
+        country: country
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: null, clientId: strClientId }, Models.ItemHSCodeClassificationStatusModel);
+  }
+
+  /**
    * Retrieve a single item
    * Get the `Item` object identified by this URL.
      *  
@@ -8983,13 +9040,16 @@ export default class AvaTaxClient {
      * @param {number} companyId The ID of the company that owns this item object
      * @param {string} itemCode The ItemCode of the item for which you want to retrieve premium classification
      * @param {string} systemCode The SystemCode for which you want to retrieve premium classification
+     * @param {string} country Optional: Provide the country for which you want to retrieve the premium classification.
    * @return {Models.ItemPremiumClassificationOutputModel}
    */
   
-  getPremiumClassification({ companyId, itemCode, systemCode }: { companyId: number, itemCode: string, systemCode: string }): Promise<Models.ItemPremiumClassificationOutputModel> {
+  getPremiumClassification({ companyId, itemCode, systemCode, country }: { companyId: number, itemCode: string, systemCode: string, country?: string }): Promise<Models.ItemPremiumClassificationOutputModel> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemCode}/premiumClassification/${systemCode}`,
-      parameters: {}
+      parameters: {
+        country: country
+      }
     });
 	 var strClientId =
       this.appNM +
@@ -8998,6 +9058,33 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemPremiumClassificationOutputModel);
+  }
+
+  /**
+   * Create an HS code classification request.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company for which you want to create this HS code classification request.
+     * @param {Models.ItemHSCodeClassificationInputModel[]} model Item HSCodeClassification input Model
+   * @return {Models.ItemHSCodeClassificationOutputModel[]}
+   */
+  
+  initiateHSCodeClassification({ companyId, model }: { companyId: number, model?: Models.ItemHSCodeClassificationInputModel[] }): Promise<Array<Models.ItemHSCodeClassificationOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/$initiate-hscode-classification`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemHSCodeClassificationOutputModel>);
   }
 
   /**
@@ -9065,7 +9152,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The company id.
      * @param {number} itemId The item id.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* productCode, systemCode, IsPremium
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* productCode, systemCode, country, IsPremium, ClassificationEvent
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -9139,6 +9226,53 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve premium classification for an item based on its `companyId` and `itemCode`.
+   * Retrieve the premium classification for an Item based on its `itemCode` and `companyId`.
+     *  
+     * NOTE: If your item code contains any of these characters /, +, ?,",' ,% or #, please use the following encoding before making a request:
+     * * Replace '/' with '\_-ava2f-\_' For example: 'Item/Code' becomes 'Item_-ava2f-_Code'
+     * * Replace '+' with '\_-ava2b-\_' For example: 'Item+Code' becomes 'Item_-ava2b-_Code'
+     * * Replace '?' with '\_-ava3f-\_' For example: 'Item?Code' becomes 'Item_-ava3f-_Code'
+     * * Replace '%' with '\_-ava25-\_' For example: 'Item%Code' becomes 'Item_-ava25-_Code'
+     * * Replace '#' with '\_-ava23-\_' For example: 'Item#Code' becomes 'Item_-ava23-_Code'
+     * * Replace ''' with '\_-ava27-\_' For example: 'Item'Code' becomes 'Item_-ava27-_Code'
+     * * Replace '"' with '\_-ava22-\_' For example: 'Item"Code' becomes 'Item_-ava22-_Code'
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this item object.
+     * @param {string} itemCode The item code of the item for which you want to retrieve premium classification.
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* HsCode, justification, createdDate, createdUserId
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+   * @return {FetchResult<Models.ItemPremiumClassificationOutputModel>}
+   */
+  
+  listItemPremiumClassifications({ companyId, itemCode, filter, skip, orderBy, top }: { companyId: number, itemCode: string, filter?: string, skip?: number, orderBy?: string, top?: number }): Promise<FetchResult<Models.ItemPremiumClassificationOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemCode}/premiumClassifications`,
+      parameters: {
+        $filter: filter,
+        $skip: skip,
+        $orderBy: orderBy,
+        $top: top
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.ItemPremiumClassificationOutputModel>);
+  }
+
+  /**
    * Retrieve items for this company
    * List all items defined for the current company.
      *  
@@ -9158,6 +9292,12 @@ export default class AvaTaxClient {
      *  
      * You may specify Tax Code recommendation status in the `taxCodeRecommendationStatus` query parameter if you want to filter items on the basis of tax code recommendation status
      *  
+     * You can specify an HS code classification status in the `hsCodeClassificationStatus` query parameter if you want to filter items based on an HS code classification status.
+     *  
+     * You can specify a comma-separated list of countries in the `hsCodeExistsInCountries` query parameter if you want to filter items based on whether an HS code exists for the provided countries.
+     *  
+     * You can specify a comma-separated list of countries in the `hsCodeDoesNotExistsInCountries` query parameter if you want to filter items on the basis of whether an HS code does not exist for the provided countries.
+     *  
      * You may specify one or more of the following values in the `$include` parameter to fetch additional nested data, using commas to separate multiple values:
      *  
      * * Parameters
@@ -9165,6 +9305,7 @@ export default class AvaTaxClient {
      * * Tags
      * * Properties
      * * TaxCodeRecommendationStatus
+     * * HsCodeClassificationStatus
      * * TaxCodeDetails
      * 
      * ### Security Policies
@@ -9174,7 +9315,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9182,10 +9323,13 @@ export default class AvaTaxClient {
      * @param {string} tagName Tag Name on the basis of which you want to filter Items
      * @param {string} itemStatus A comma separated list of item status on the basis of which you want to filter Items
      * @param {string} taxCodeRecommendationStatus Tax code recommendation status on the basis of which you want to filter Items
+     * @param {string} hsCodeClassificationStatus HS code classification status on the basis of which you want to filter items.
+     * @param {string} hsCodeExistsInCountries A comma-separated list of countries for which the HS code is assigned and based on which you want to filter the items.
+     * @param {string} hsCodeDoesNotExistsInCountries A comma-separated list of countries for which the HS code is not assigned and based on which you want to filter the items.
    * @return {FetchResult<Models.ItemModel>}
    */
   
-  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName, itemStatus, taxCodeRecommendationStatus }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string, itemStatus?: string, taxCodeRecommendationStatus?: string }): Promise<FetchResult<Models.ItemModel>> {
+  listItemsByCompany({ companyId, filter, include, top, skip, orderBy, tagName, itemStatus, taxCodeRecommendationStatus, hsCodeClassificationStatus, hsCodeExistsInCountries, hsCodeDoesNotExistsInCountries }: { companyId: number, filter?: string, include?: string, top?: number, skip?: number, orderBy?: string, tagName?: string, itemStatus?: string, taxCodeRecommendationStatus?: string, hsCodeClassificationStatus?: string, hsCodeExistsInCountries?: string, hsCodeDoesNotExistsInCountries?: string }): Promise<FetchResult<Models.ItemModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items`,
       parameters: {
@@ -9196,7 +9340,10 @@ export default class AvaTaxClient {
         $orderBy: orderBy,
         tagName: tagName,
         itemStatus: itemStatus,
-        taxCodeRecommendationStatus: taxCodeRecommendationStatus
+        taxCodeRecommendationStatus: taxCodeRecommendationStatus,
+        hsCodeClassificationStatus: hsCodeClassificationStatus,
+        hsCodeExistsInCountries: hsCodeExistsInCountries,
+        hsCodeDoesNotExistsInCountries: hsCodeDoesNotExistsInCountries
       }
     });
 	 var strClientId =
@@ -9249,6 +9396,47 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Patch a single item
+   * Update the existing item object at this URL with the specified patch changes.
+     *  
+     * Items are a way of separating your tax calculation process from your tax configuration details. If you choose, you
+     * can provide `itemCode` values for each `CreateTransaction()` API call rather than specifying tax codes, parameters, descriptions,
+     * and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
+     * from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
+     * team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+     *  
+     * Only specified fields in the existing object will be updated with the data you provide via PATCH.
+     * To set a field's value to null, you can either set the field to null explicitly or omit it from the PATCH request.
+     *  
+     * The tax code takes precedence over the tax code ID if both are provided.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that this item belongs to.
+     * @param {number} id The ID of the item you want to update.
+     * @param {Models.Operation[]} model A JSON patch (refer to https://datatracker.ietf.org/doc/html/rfc6902).
+   * @return {Models.ItemModel}
+   */
+  
+  patchItem({ companyId, id, model }: { companyId: number, id: number, model?: Models.Operation[] }): Promise<Models.ItemModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'patch', payload: model, clientId: strClientId }, Models.ItemModel);
+  }
+
+  /**
    * Retrieve all items
    * Get multiple item objects across all companies.
      *  
@@ -9268,7 +9456,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9365,7 +9553,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9586,6 +9774,42 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemParameterModel);
+  }
+
+  /**
+   * Add/update item classifications.
+   * Add/update classifications to an item.
+     *  
+     * A classification is the code for a product in a particular tax system. Classifications enable an item to be used in multiple tax systems that may have different tax rates for a product.
+     *  
+     * When an item is used in a transaction, the applicable classification will be used to determine the appropriate tax rate.
+     *  
+     * An item may only have one classification per tax system per country.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company ID.
+     * @param {number} itemId The item ID.
+     * @param {Models.ItemClassificationInputModel[]} model The item classifications you want to create.
+   * @return {Models.ItemClassificationOutputModel[]}
+   */
+  
+  upsertItemClassifications({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemClassificationInputModel[] }): Promise<Array<Models.ItemClassificationOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Array<Models.ItemClassificationOutputModel>);
   }
 
   /**
@@ -13117,14 +13341,11 @@ export default class AvaTaxClient {
 
   /**
    * Sales tax rates for a specified address
-   * Usage of this API is subject to rate limits. Users who exceed the rate limit will receive HTTP
-     * response code 429 - `Too Many Requests`.
-     *  
-     * This API assumes that you are selling general tangible personal property at a retail point-of-sale
+   * This API assumes that you are selling general tangible personal property at a retail point-of-sale
      * location in the United States only.
      *  
-     * Please be advised that this endpoint is designed for approximate tax rate estimation only and 
-     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the 
+     * Please be advised that this endpoint is designed for approximate tax rate estimation only and
+     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the
      * `CreateTransaction` API, which offers a variety of advanced features including, but not limited
      * to:
      *  
@@ -13184,8 +13405,8 @@ export default class AvaTaxClient {
      * This API assumes that you are selling general tangible personal property at a retail point-of-sale
      * location in the United States only.
      *  
-     * Please be advised that this endpoint is designed for approximate tax rate estimation only and 
-     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the 
+     * Please be advised that this endpoint is designed for approximate tax rate estimation only and
+     * may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the
      * `CreateTransaction` API, which offers a variety of advanced features including, but not limited
      * to:
      *  
