@@ -140,6 +140,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("filingCalendarCurrencyCode", String, true)
    filingCalendarCurrencyCode?: string | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof MultiTaxFilingReturnModel
+     */
+   @JsonProperty("canUnlock", Boolean, true)
+   canUnlock?: boolean | undefined = undefined;
+    /**
      * @type {FilingsTaxSummaryModel}
      * @memberof MultiTaxFilingReturnModel
      */
