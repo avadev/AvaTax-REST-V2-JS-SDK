@@ -217,6 +217,7 @@ export * from './ItemClassificationInputModel';
 export * from './ItemClassificationOutputModel';
 export * from './ItemHSCodeClassificationInputModel';
 export * from './ItemHSCodeClassificationOutputModel';
+export * from './ItemHSCodeClassificationSlaOutputModel';
 export * from './ItemHSCodeClassificationStatusInputModel';
 export * from './ItemHSCodeClassificationStatusModel';
 export * from './ItemHSCodeClassificationStatusOutputModel';

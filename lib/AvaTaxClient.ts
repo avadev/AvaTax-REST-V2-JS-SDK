@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.2.2
+ * @version    25.3.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.2.2';
+  private apiVersion: string = '25.3.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -8915,6 +8915,36 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve the HS code classification SLA details for a company.
+   * This endpoint returns the SLA details for HS code classification for the
+     * specified company. The response includes information about processing times,
+     * service commitments, and other relevant SLA terms.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company for which to retrieve the SLA details.
+   * @return {Models.ItemHSCodeClassificationSlaOutputModel}
+   */
+  
+  getHSCodeClassificationSLA({ companyId }: { companyId: number }): Promise<Models.ItemHSCodeClassificationSlaOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/hscode-classification/$get-sla`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemHSCodeClassificationSlaOutputModel);
+  }
+
+  /**
    * Retrieve a single item
    * Get the `Item` object identified by this URL.
      *  
@@ -14685,7 +14715,7 @@ export default class AvaTaxClient {
      * @param {string} companyCode The company code of the company that recorded this transaction
      * @param {number} dataSourceId Optionally filter transactions to those from a specific data source.
      * @param {string} include Specifies objects to include in this fetch call
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, userDefinedFields, messages, invoiceMessages, isFakeTransaction, deliveryTerms, apStatusCode, apStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exchangeRateCurrencyCode, totalDiscount, lines, addresses, locationTypes, summary, taxDetailsByTaxType, parameters, userDefinedFields, messages, invoiceMessages, isFakeTransaction, deliveryTerms, apStatusCode, apStatus, vendorName, varianceAmount
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
