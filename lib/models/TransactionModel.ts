@@ -405,4 +405,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("apStatus", String, true)
    apStatus?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TransactionModel
+     */
+   @JsonProperty("vendorName", String, true)
+   vendorName?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionModel
+     */
+   @JsonProperty("varianceAmount", Number, true)
+   varianceAmount?: number | undefined = undefined;
  }
