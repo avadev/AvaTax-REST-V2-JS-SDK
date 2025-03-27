@@ -2544,10 +2544,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} id 
      * @param {Models.FilingStatusChangeModel} model 
-   * @return {Enums.CompanyFilingStatus}
+   * @return {String}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<Enums.CompanyFilingStatus> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2558,7 +2558,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Enums.CompanyFilingStatus);
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -2985,10 +2985,10 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id 
-   * @return {Enums.CompanyFilingStatus}
+   * @return {String}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<Enums.CompanyFilingStatus> {
+  getFilingStatus({ id }: { id: number }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2999,7 +2999,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Enums.CompanyFilingStatus);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
   }
 
   /**
