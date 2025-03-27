@@ -19,27 +19,33 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Input model for the Advanced Rules bulk import API
+ * Represents a create advanced rules batch request model.
  * @export
- * @class AdvancedRuleBulkImportModel
+ * @class CreateAdvancedRulesBatchRequestModel
  */
- @JsonObject("AdvancedRuleBulkImportModel")
- export class AdvancedRuleBulkImportModel {
+ @JsonObject("CreateAdvancedRulesBatchRequestModel")
+ export class CreateAdvancedRulesBatchRequestModel {
+    /**
+     * @type {string}
+     * @memberof CreateAdvancedRulesBatchRequestModel
+     */
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {boolean}
-     * @memberof AdvancedRuleBulkImportModel
+     * @memberof CreateAdvancedRulesBatchRequestModel
      */
    @JsonProperty("replaceExisting", Boolean, true)
    replaceExisting?: boolean | undefined = undefined;
     /**
-     * @type {boolean}
-     * @memberof AdvancedRuleBulkImportModel
+     * @type {string}
+     * @memberof CreateAdvancedRulesBatchRequestModel
      */
-   @JsonProperty("doNotReorder", Boolean, true)
-   doNotReorder?: boolean | undefined = undefined;
+   @JsonProperty("options", String, true)
+   options?: string | undefined = undefined;
     /**
      * @type {AdvancedRuleExecutionModel[]}
-     * @memberof AdvancedRuleBulkImportModel
+     * @memberof CreateAdvancedRulesBatchRequestModel
      */
    @JsonProperty("executions", [AdvancedRuleExecutionModel])
    executions: AdvancedRuleExecutionModel[] = undefined;

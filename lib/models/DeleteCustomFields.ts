@@ -18,28 +18,16 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Encloses communication certificate customer
+ * Delete Custom Field request model
  * @export
- * @class CommunicationCustomerResponse
+ * @class DeleteCustomFields
  */
- @JsonObject("CommunicationCustomerResponse")
- export class CommunicationCustomerResponse {
+ @JsonObject("DeleteCustomFields")
+ export class DeleteCustomFields {
     /**
      * @type {number}
-     * @memberof CommunicationCustomerResponse
+     * @memberof DeleteCustomFields
      */
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CommunicationCustomerResponse
-     */
-   @JsonProperty("customerNumber", String, true)
-   customerNumber?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CommunicationCustomerResponse
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
  }

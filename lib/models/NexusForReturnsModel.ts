@@ -67,11 +67,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("nexusTaxTypeGroup", String, true)
    nexusTaxTypeGroup?: string | undefined = undefined;
     /**
-     * @type {string}
+     * @type {Enums.NexusTypeId}
      * @memberof NexusForReturnsModel
      */
-   @JsonProperty("nexusTypeId", String, true)
-   nexusTypeId?: string | undefined = undefined;
+   @JsonProperty("nexusTypeId", Enums.NexusTypeIdConverter, true)
+   nexusTypeId?: Enums.NexusTypeId | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof NexusForReturnsModel

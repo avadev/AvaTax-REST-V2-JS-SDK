@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.3.0
+ * @version    25.3.2
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.3.0';
+  private apiVersion: string = '25.3.2';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -1109,6 +1109,45 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Create a new Advanced Rules batch
+   * Create a new Advanced Rules batch objects attached to this company.
+     *  
+     * When an Advanced Rules batch is created, it is added to the AvaTax Batch v2 Queue and will be
+     * processed as quickly as possible in the order it was received. To check the
+     * status of a batch, fetch the batch and retrieve the results of the batch
+     * operation.
+     *  
+     * The maximum content length of the request body is limited to 28.6 MB. If this limit
+     * is exceeded, a 404 Not Found status will be returned (possibly with a CORS error if
+     * the API is called from a browser). In this situation, please split the request into
+     * smaller batches.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this batch.
+     * @param {Models.CreateAdvancedRulesBatchRequestModel} model The Advanced Rules batch you wish to create.
+   * @return {Models.CreateAdvancedRulesBatchResponseModel}
+   */
+  
+  createAdvancedRulesBatch({ companyId, model }: { companyId: number, model: Models.CreateAdvancedRulesBatchRequestModel }): Promise<Models.CreateAdvancedRulesBatchResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/batches/advancedrules`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CreateAdvancedRulesBatchResponseModel);
+  }
+
+  /**
    * Create a new batch
    * Create one or more new batch objects attached to this company.
      *  
@@ -1668,6 +1707,42 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Delete Certificate Custom Fields
+   * Deletes custom fields for a specified certificate.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this certificate
+     * @param {number} id The unique ID number of this certificate
+     * @param {Models.DeleteCustomFields[]} model Delete custom fields request model
+   * @return {}
+   */
+  
+  deleteCertificateCustomFields({ companyId, id, model }: { companyId: number, id: number, model?: Models.DeleteCustomFields[] }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/certificates/${id}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: model, clientId: strClientId }, null);
+  }
+
+  /**
    * Download an image for this certificate
    * Download an image or PDF file for this certificate.
      *  
@@ -1983,6 +2058,40 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieve Certificate Custom Fields
+   * This API is used to retrieve custom fields for a certificate.
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this certificate
+     * @param {number} id The unique ID number of this certificate
+   * @return {Models.ExemptionStatusModel}
+   */
+  
+  listCustomFieldsForCertificate({ companyId, id }: { companyId: number, id: number }): Promise<Models.ExemptionStatusModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/certificates/${id}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ExemptionStatusModel);
+  }
+
+  /**
    * List all certificates for a company
    * List all certificates recorded by a company
      *  
@@ -2001,7 +2110,7 @@ export default class AvaTaxClient {
      * * logs - Retrieves the certificate log
      * * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
      * * custom_fields - Retrieves custom fields set for this certificate
-     * 
+     *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -2212,6 +2321,42 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Update Certificate Custom Fields
+   * Updates the values of custom fields for a certificate
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this certificate
+     * @param {number} id The unique ID number of this certificate
+     * @param {Models.UpdateCustomFieldsModel} model The request model containing updated custom field values
+   * @return {}
+   */
+  
+  updateCertificateCustomFields({ companyId, id, model }: { companyId: number, id: number, model?: Models.UpdateCustomFieldsModel }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/certificates/${id}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, null);
+  }
+
+  /**
    * Upload an image or PDF attachment for this certificate
    * Upload an image or PDF attachment for this certificate.
      *  
@@ -2399,10 +2544,10 @@ export default class AvaTaxClient {
    * 
      * @param {number} id 
      * @param {Models.FilingStatusChangeModel} model 
-   * @return {string}
+   * @return {Enums.CompanyFilingStatus}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<Enums.CompanyFilingStatus> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2413,7 +2558,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Enums.CompanyFilingStatus);
   }
 
   /**
@@ -2840,10 +2985,10 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} id 
-   * @return {string}
+   * @return {Enums.CompanyFilingStatus}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<String> {
+  getFilingStatus({ id }: { id: number }): Promise<Enums.CompanyFilingStatus> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2854,7 +2999,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Enums.CompanyFilingStatus);
   }
 
   /**
@@ -3850,6 +3995,42 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Delete custom fields
+   * Deletes the value of the custom field.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this customer
+     * @param {string} customerCode The unique code representing this customer
+     * @param {Models.DeleteCustomFields[]} model Delete custom fields request model
+   * @return {}
+   */
+  
+  deleteCustomFields({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.DeleteCustomFields[] }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/customers/${customerCode}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: model, clientId: strClientId }, null);
+  }
+
+  /**
    * Retrieve a single customer
    * Retrieve the customer identified by this URL.
      *  
@@ -4039,7 +4220,7 @@ export default class AvaTaxClient {
   /**
    * Retrieves a list of active certificates for a specified customer within a company.
    * This API is intended to identify whether a customer has any active certificates.
-     * 
+     *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -4168,10 +4349,44 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Retrieves a list of inactive certificates for a specified customer within a company.
-   * This API is used to retrieve inactive certificates for a customer. Inactive certificates may include expired, 
-     * revoked, or otherwise non-compliant certificates.
+   * Retrieves a list of custom fields for a specified customer within a company.
+   * This API is used to retrieve custom field for a customer.
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
      * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this customer
+     * @param {string} customerCode The unique code representing this customer
+   * @return {Models.ExemptionStatusModel}
+   */
+  
+  listCustomFieldsForCustomer({ companyId, customerCode }: { companyId: number, customerCode: string }): Promise<Models.ExemptionStatusModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/customers/${customerCode}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ExemptionStatusModel);
+  }
+
+  /**
+   * Retrieves a list of inactive certificates for a specified customer within a company.
+   * This API is used to retrieve inactive certificates for a customer. Inactive certificates may include expired,
+     * revoked, or otherwise non-compliant certificates.
+     *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -4271,7 +4486,7 @@ export default class AvaTaxClient {
      * * shipTos - Retrieves ship-tos linked with this customer
      * * shipToStates - Retrieves ship-to states for this customer
      * * custom_fields - Retrieves custom fields set for this customer
-     * 
+     *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -4440,6 +4655,42 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CustomerModel);
+  }
+
+  /**
+   * Update custom fields
+   * Update the value of the custom field.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this customer
+     * @param {string} customerCode The unique code representing this customer
+     * @param {Models.UpdateCustomFieldsModel} model Update custom fields request model
+   * @return {}
+   */
+  
+  updateCustomFields({ companyId, customerCode, model }: { companyId: number, customerCode: string, model?: Models.UpdateCustomFieldsModel }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/customers/${customerCode}/custom-fields`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, null);
   }
 
   /**
@@ -13282,7 +13533,7 @@ export default class AvaTaxClient {
      * This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
      * file for a single location at a time, please use `BuildTaxContentFileForLocation`.
      *  
-     * NOTE: This API does not work for Tennessee tax holiday scenarios.
+     * NOTE: This API does not work for sales tax holiday scenarios.
      * 
      * ### Security Policies
      * 
@@ -13333,7 +13584,7 @@ export default class AvaTaxClient {
      * This API builds the file on demand, and is limited to files with no more than 7500 scenarios. To build a tax content
      * file for a multiple locations in a single file, please use `BuildTaxContentFile`.
      *  
-     * NOTE: This API does not work for Tennessee tax holiday scenarios.
+     * NOTE: This API does not work for sales tax holiday scenarios.
      * 
      * ### Security Policies
      * 

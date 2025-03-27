@@ -425,6 +425,10 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ClientDisconnected = 4013,
         ServiceDisconnected = 4014,
         ServiceTimeout = 4015,
+        UnsupportedMediaType = 4016,
+        InvalidMediaType = 4017,
+        FileSizeLimitExceeded = 4018,
+        InvalidImage = 4019,
         UnexpectedError = -1,
 }
 
