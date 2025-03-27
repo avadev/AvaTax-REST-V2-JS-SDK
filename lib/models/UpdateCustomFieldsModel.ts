@@ -14,32 +14,21 @@
  */
 
 import * as Enums from '../enums/index';
+import { UpdateCustomFields } from "./UpdateCustomFields";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Encloses communication certificate customer
+ * UpdateCustomFieldsModel with list of UpdateCustomFields
  * @export
- * @class CommunicationCustomerResponse
+ * @class UpdateCustomFieldsModel
  */
- @JsonObject("CommunicationCustomerResponse")
- export class CommunicationCustomerResponse {
+ @JsonObject("UpdateCustomFieldsModel")
+ export class UpdateCustomFieldsModel {
     /**
-     * @type {number}
-     * @memberof CommunicationCustomerResponse
+     * @type {UpdateCustomFields[]}
+     * @memberof UpdateCustomFieldsModel
      */
-   @JsonProperty("id", Number, true)
-   id?: number | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CommunicationCustomerResponse
-     */
-   @JsonProperty("customerNumber", String, true)
-   customerNumber?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CommunicationCustomerResponse
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
+   @JsonProperty("customFields", [UpdateCustomFields], true)
+   customFields?: UpdateCustomFields[] | undefined = undefined;
  }

@@ -18,28 +18,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Encloses communication certificate customer
+ * Update custom fields model
  * @export
- * @class CommunicationCustomerResponse
+ * @class UpdateCustomFields
  */
- @JsonObject("CommunicationCustomerResponse")
- export class CommunicationCustomerResponse {
+ @JsonObject("UpdateCustomFields")
+ export class UpdateCustomFields {
     /**
      * @type {number}
-     * @memberof CommunicationCustomerResponse
+     * @memberof UpdateCustomFields
      */
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CommunicationCustomerResponse
+     * @memberof UpdateCustomFields
      */
-   @JsonProperty("customerNumber", String, true)
-   customerNumber?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CommunicationCustomerResponse
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
+   @JsonProperty("value", String, true)
+   value?: string | undefined = undefined;
  }

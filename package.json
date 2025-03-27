@@ -1,6 +1,6 @@
 {
   "name": "avatax",
-  "version": "25.3.0",
+  "version": "25.3.2",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "types": "index.d.ts",
