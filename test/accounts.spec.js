@@ -3,7 +3,7 @@
  * file: test/accounts.spec.js
  */
 
-import Avatax from '../';
+import Avatax from 'avatax';
 import { account } from './test_creds';
 import nock from 'nock';
 import accountResponse from './fixtures/account_response';

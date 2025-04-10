@@ -139,7 +139,7 @@ export default class AvaTaxClient {
     }
     const logObject = new LogObject(this.logger.logRequestAndResponseInfo);
     logObject.populateRequestInfo(url, options, payload);
-    return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
+    return withTimeout(this.timeout, url, options).then((res: Response) => {
 	    logObject.populateElapsedTime();
       const contentType = res.headers.get('content-type');
       const contentLength = res.headers.get('content-length');
@@ -212,7 +212,7 @@ export default class AvaTaxClient {
       }).finally(() => {
         this.createLogEntry(logObject);
       });      
-    });      
+    });
   }
 
   /**
