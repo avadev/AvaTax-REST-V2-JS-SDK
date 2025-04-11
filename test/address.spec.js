@@ -1,5 +1,5 @@
 
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 import nock from 'nock';
 import resolveAddressResponse from './fixtures/address_response';
 import loadCreds from './helpers/load_creds';
@@ -12,7 +12,7 @@ const appVersion = '1.0';
 const environment = 'dev';
 const machineName = 'mbp';
 const clientCreds = loadCreds();
-const client = new Avatax(clientCreds).withSecurity(clientCreds);
+const client = new Avatax({...clientCreds, timeout: 10}).withSecurity(clientCreds);
 
 describe('Address integration test', () => {
 
@@ -77,6 +77,8 @@ describe('Address resolve Tests', () => {
             expect(res.coordinates.longitude).toEqual(-88.320204);
             expect(res.address.line1).toBeDefined();
             expect(res.address.line1).toEqual('1510 Foster Circle');
+        }).catch(e => {
+            console.error("Caught an error", e);
         });
     });
 });

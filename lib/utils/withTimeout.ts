@@ -1,10 +1,19 @@
-export function withTimeout(msecs, promise) {
+export function withTimeout(msecs: number, url: string, options: any) {
+  // Create an AbortController instance
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  // Incorporate the abort signal into the fetch options
+  const fetchPromise = fetch(url, { ...options, signal });
+
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
-      reject(new Error('timeout'))
-    }, msecs)
+      // Abort the ongoing fetch request
+      controller.abort();
+      reject(new Error('timeout'));
+    }, msecs);
 
-    promise
+    fetchPromise
       .then(value => {
         clearTimeout(timer);
         resolve(value);
@@ -12,6 +21,6 @@ export function withTimeout(msecs, promise) {
       .catch(reason => {
         clearTimeout(timer);
         reject(reason);
-      })
-  })
+      });
+  });
 }

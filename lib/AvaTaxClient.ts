@@ -15,9 +15,9 @@
  */
 
 import * as https from 'https';
-import fetch, { Response } from 'node-fetch';
+import { Response } from 'node-fetch';
 import { ReadStream } from 'fs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { JsonConvert, PropertyMatchingRule } from "json2typescript"
 
 import { createBasicAuthHeader } from './utils/basic_auth';
@@ -26,7 +26,7 @@ import * as Models from './models/index';
 import * as Enums from './enums/index';
 import Logger, { LogLevel, LogOptions } from './utils/logger';
 import LogObject from './utils/logObject';
-import { FetchResult } from './utils/fetch_result';
+import { createFetchResultClass, FetchResult } from './utils/fetch_result';
 
 export class AvalaraError extends Error {
   code: string;
@@ -139,7 +139,7 @@ export default class AvaTaxClient {
     }
     const logObject = new LogObject(this.logger.logRequestAndResponseInfo);
     logObject.populateRequestInfo(url, options, payload);
-    return withTimeout(this.timeout, fetch(url, options)).then((res: Response) => {
+    return withTimeout(this.timeout, url, options).then((res: Response) => {
 	    logObject.populateElapsedTime();
       const contentType = res.headers.get('content-type');
       const contentLength = res.headers.get('content-length');
@@ -204,15 +204,16 @@ export default class AvaTaxClient {
             if (typeof json === 'string') {
               return json;
             }
+            json = JSON.parse(JSON.stringify(json));
             const jsonConvert = new JsonConvert(null, null, null, PropertyMatchingRule.CASE_INSENSITIVE);
-            return jsonConvert.deserializeObject<T>(json, toType);
+            return jsonConvert.deserialize<T>(json, toType);
           }
           return json;
         }
       }).finally(() => {
         this.createLogEntry(logObject);
       });      
-    });      
+    });
   }
 
   /**
@@ -11945,8 +11946,8 @@ export default class AvaTaxClient {
       '; ' +
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
+      this.machineNM;  
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.NexusModel));
   }
 
   /**

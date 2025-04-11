@@ -3,7 +3,7 @@
  * file: test/client.spec.js
  */
 
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 
 describe('Avatax Client', () => {
   

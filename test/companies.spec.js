@@ -3,7 +3,7 @@
  * file: test/companies.spec.js
  */
 
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 import moment from 'moment';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';

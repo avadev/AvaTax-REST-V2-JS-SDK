@@ -18,3 +18,12 @@ export class FetchResult<T> {
   @JsonProperty("nextLink", String, true)
   nextLink?: string = '';
 }
+
+export function createFetchResultClass<T>(Model: { new (): T }): { new (): FetchResult<T> } {
+  @JsonObject(`FetchResult<${Model.name}>`)
+  class FetchResultSubclass extends FetchResult<T> {
+    @JsonProperty("value", [Model])
+    value: T[] = [];
+  }
+  return FetchResultSubclass;
+}
