@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Jest Tests",
+        "type": "node",
+        "request": "launch",
+        "runtimeExecutable": "node",
+        "runtimeArgs": [
+          "./node_modules/jest/bin/jest.js",
+          "nexus.spec.ts",
+          "--runInBand"
+        ],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "skipFiles": [
+          "<node_internals>/**"
+        ]
+      }
+    ]
+  }
