@@ -26,7 +26,7 @@ import * as Models from './models/index';
 import * as Enums from './enums/index';
 import Logger, { LogLevel, LogOptions } from './utils/logger';
 import LogObject from './utils/logObject';
-import { FetchResult } from './utils/fetch_result';
+import { createFetchResultClass, FetchResult } from './utils/fetch_result';
 
 export class AvalaraError extends Error {
   code: string;
@@ -11946,8 +11946,8 @@ export default class AvaTaxClient {
       '; ' +
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, FetchResult<Models.NexusModel>);
+      this.machineNM;  
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.NexusModel));
   }
 
   /**

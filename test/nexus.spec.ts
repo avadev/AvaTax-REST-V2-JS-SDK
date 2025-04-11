@@ -19,9 +19,9 @@ const client = new AvaTaxClient({...clientCreds, enableStrictTypeConversion: tru
 
 describe('Nexus should list', () => {
     it('should resolve queryNexus', async () => {
-        const nexuses = await client.queryNexus({ top: 1} );
+        const nexuses = await client.queryNexus({ top: 20} );
         const effectiveNexus = nexuses.value.find(n => n.effectiveDate);
         // console.log("Type of nexus date", typeof effectiveNexus.effectiveDate)
-        // console.log("Nexues", effectiveNexus);
+        console.log("Nexues", effectiveNexus);
     });
 });
