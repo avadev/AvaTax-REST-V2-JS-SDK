@@ -15,9 +15,9 @@
  */
 
 import * as https from 'https';
-import fetch, { Response } from 'node-fetch';
+import { Response } from 'node-fetch';
 import { ReadStream } from 'fs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { JsonConvert, PropertyMatchingRule } from "json2typescript"
 
 import { createBasicAuthHeader } from './utils/basic_auth';
@@ -204,7 +204,6 @@ export default class AvaTaxClient {
             if (typeof json === 'string') {
               return json;
             }
-            // Re-Parse JSON to fix context issues which can arise (Array prototype issues from node-fetch)
             json = JSON.parse(JSON.stringify(json));
             const jsonConvert = new JsonConvert(null, null, null, PropertyMatchingRule.CASE_INSENSITIVE);
             return jsonConvert.deserialize<T>(json, toType);
@@ -214,7 +213,7 @@ export default class AvaTaxClient {
       }).finally(() => {
         this.createLogEntry(logObject);
       });      
-    });      
+    });
   }
 
   /**

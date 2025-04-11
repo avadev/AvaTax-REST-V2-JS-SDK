@@ -4,7 +4,7 @@
  */
 
 /*Import sample data and expected responses*/
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import transactionRequest from './fixtures/transaction_request';
