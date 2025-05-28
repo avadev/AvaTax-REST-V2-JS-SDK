@@ -110,6 +110,8 @@ export * from './CreateAdvancedRulesBatchRequestModel';
 export * from './CreateAdvancedRulesBatchResponseModel';
 export * from './CreateCertExpressInvitationModel';
 export * from './CreateECommerceTokenInputModel';
+export * from './CreateItemImportBatchRequestModel';
+export * from './CreateItemImportBatchResponseModel';
 export * from './CreateMultiDocumentModel';
 export * from './CreateNoticeResponsibilityTypeModel';
 export * from './CreateNoticeRootCauseTypeModel';

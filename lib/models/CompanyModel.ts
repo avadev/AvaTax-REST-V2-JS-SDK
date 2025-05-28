@@ -281,4 +281,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isDeleted", Boolean, true)
    isDeleted?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CompanyModel
+     */
+   @JsonProperty("isAdvSave", Boolean, true)
+   isAdvSave?: boolean | undefined = undefined;
  }
