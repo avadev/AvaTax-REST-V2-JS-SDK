@@ -3,7 +3,7 @@
  * Jest test file for testing creation, adjustment, and voiding of a transaction in the REST API
  */
 
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 import loadCreds from './helpers/load_creds';
 import nock from 'nock';
 import batchCreateRequest from './fixtures/batch_create_request';

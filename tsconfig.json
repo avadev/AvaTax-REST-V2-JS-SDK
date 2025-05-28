@@ -7,6 +7,8 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "allowJs": true,
     "outDir": ".build",
     "lib": [
       "es6",
