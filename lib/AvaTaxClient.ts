@@ -15,9 +15,9 @@
  */
 
 import * as https from 'https';
-import fetch, { Response } from 'node-fetch';
+import { Response } from 'node-fetch';
 import { ReadStream } from 'fs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { JsonConvert, PropertyMatchingRule } from "json2typescript"
 
 import { createBasicAuthHeader } from './utils/basic_auth';
@@ -214,7 +214,7 @@ export default class AvaTaxClient {
       }).finally(() => {
         this.createLogEntry(logObject);
       });      
-    });      
+    });
   }
 
   /**
@@ -2549,7 +2549,7 @@ export default class AvaTaxClient {
    * @return {Enums.CompanyFilingStatus}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<string> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2560,7 +2560,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, string);
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -2990,7 +2990,7 @@ export default class AvaTaxClient {
    * @return {Enums.CompanyFilingStatus}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<string> {
+  getFilingStatus({ id }: { id: number }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -3001,7 +3001,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, string);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
   }
 
   /**
@@ -11983,7 +11983,7 @@ export default class AvaTaxClient {
       '; ' +
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
+      this.machineNM;  
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.NexusModel));
   }
 

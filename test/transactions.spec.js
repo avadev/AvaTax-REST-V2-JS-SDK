@@ -3,7 +3,7 @@
  * file: test/transactions.spec.js
  */
 
-import Avatax from '../lib/AvaTaxClient';
+import Avatax from 'avatax';
 import nock from 'nock';
 import transactionRequest from './fixtures/transaction_request';
 import transactionResponse from './fixtures/transaction_response';
