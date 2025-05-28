@@ -429,6 +429,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidMediaType = 4017,
         FileSizeLimitExceeded = 4018,
         InvalidImage = 4019,
+        ImageAlreadyLinked = 4020,
+        ItemIdMismatch = 4021,
         UnexpectedError = -1,
 }
 

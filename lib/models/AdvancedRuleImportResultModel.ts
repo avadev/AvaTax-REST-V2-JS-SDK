@@ -31,11 +31,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("name", String, true)
    name?: string | undefined = undefined;
     /**
-     * @type {string}
+     * @type {Enums.BulkImportStatus}
      * @memberof AdvancedRuleImportResultModel
      */
-   @JsonProperty("importResult", String, true)
-   importResult?: string | undefined = undefined;
+   @JsonProperty("importResult", Enums.BulkImportStatusConverter, true)
+   importResult?: Enums.BulkImportStatus | undefined = undefined;
     /**
      * @type {string}
      * @memberof AdvancedRuleImportResultModel

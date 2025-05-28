@@ -49,11 +49,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("year", Number, true)
    year?: number | undefined = undefined;
     /**
-     * @type {object}
+     * @type {number}
      * @memberof LiabilityParametersModel
      */
-   @JsonProperty("month", Object, true)
-   month?: object | undefined = undefined;
+   @JsonProperty("month", Number, true)
+   month?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof LiabilityParametersModel
