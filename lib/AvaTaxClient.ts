@@ -2588,7 +2588,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * @return {Enums.CompanyFilingStatus}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<string> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2599,7 +2599,7 @@ This endpoint is secured and requires appropriate subscription and permission le
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, string);
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
   }
 
   /**
@@ -3029,7 +3029,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * @return {Enums.CompanyFilingStatus}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<string> {
+  getFilingStatus({ id }: { id: number }): Promise<String> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -3040,7 +3040,7 @@ This endpoint is secured and requires appropriate subscription and permission le
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, string);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
   }
 
   /**
