@@ -10,14 +10,14 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.5.1
+ * @version    25.6.2
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
 import * as https from 'https';
-import { Response } from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 import { ReadStream } from 'fs';
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 import { JsonConvert, PropertyMatchingRule } from "json2typescript"
 
 import { createBasicAuthHeader } from './utils/basic_auth';
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.5.1';
+  private apiVersion: string = '25.6.2';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -214,7 +214,7 @@ export default class AvaTaxClient {
       }).finally(() => {
         this.createLogEntry(logObject);
       });      
-    });
+    });      
   }
 
   /**
@@ -2403,6 +2403,45 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Retrieves a list of location records associated with the specified company.
+This endpoint is secured and requires appropriate subscription and permission levels.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique identifier of the company whose locations are being requested.
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.ClerkLocationModel>}
+   */
+  
+  listLocationByCompany({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ClerkLocationModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/clerk/locations`,
+      parameters: {
+        $include: include,
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.ClerkLocationModel));
+  }
+
+  /**
    * Retrieve a single communication certificate.
    * ### Security Policies
      * 
@@ -2549,7 +2588,7 @@ export default class AvaTaxClient {
    * @return {Enums.CompanyFilingStatus}
    */
   
-  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<String> {
+  changeFilingStatus({ id, model }: { id: number, model: Models.FilingStatusChangeModel }): Promise<string> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -2560,7 +2599,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, String);
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, string);
   }
 
   /**
@@ -2990,7 +3029,7 @@ export default class AvaTaxClient {
    * @return {Enums.CompanyFilingStatus}
    */
   
-  getFilingStatus({ id }: { id: number }): Promise<String> {
+  getFilingStatus({ id }: { id: number }): Promise<string> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${id}/filingstatus`,
       parameters: {}
@@ -3001,7 +3040,7 @@ export default class AvaTaxClient {
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, String);
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, string);
   }
 
   /**
@@ -7248,7 +7287,7 @@ export default class AvaTaxClient {
    * Retrieves the list of Avalara-supported system tax codes.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      * 
      * ### Security Policies
@@ -9037,6 +9076,42 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Delete the image associated with an item.
+   * Delete the image associated with an item.
+     *  
+     * Permanently deletes both the image and its association with the specified item.
+     * This endpoint allows users to manage product visual representations by removing outdated or incorrect images,
+     * and cleaning up unused resources in the system.
+     * Once deleted, the image association cannot be recovered. To use the image again, it must be re-uploaded and
+     * re-linked with the item.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} itemId The unique ID of the item.
+     * @param {string} imageId The unique ID of the image to delete.
+   * @return {Models.AssociatedObjectDeletedErrorDetailsModel[]}
+   */
+  
+  deleteItemImage({ companyId, itemId, imageId }: { companyId: number, itemId: number, imageId: string }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/images/${imageId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.AssociatedObjectDeletedErrorDetailsModel>);
+  }
+
+  /**
    * Delete a single item parameter
    * Delete a single item parameter.
      *  
@@ -9415,6 +9490,39 @@ export default class AvaTaxClient {
   }
 
   /**
+   * Get the image associated with an item.
+   * Get the image file for the specified image ID linked to the item.
+     *  
+     * This endpoint allows users to retrieve and display product images in user interfaces or to verify the current
+     * image associated with a specific item.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} itemId The unique ID of the item.
+     * @param {string} imageId The unique ID of the image to retrieve.
+   * @return {Models.ItemImageDetailOutputModel}
+   */
+  
+  getProductImage({ companyId, itemId, imageId }: { companyId: number, itemId: number, imageId: string }): Promise<Models.ItemImageDetailOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/images/${imageId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemImageDetailOutputModel);
+  }
+
+  /**
    * Create an HS code classification request.
    * ### Security Policies
      * 
@@ -9669,7 +9777,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9810,7 +9918,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9907,7 +10015,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -10008,6 +10116,40 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.SyncItemsResponseModel);
+  }
+
+  /**
+   * Update an existing image for an item.
+   * This endpoint allows users to update the existing image associated with a specific item by uploading a new image file.
+     *  
+     * The updated image serves as the item's visual representation and will be used for tax code recommendation purposes.
+     *  
+     * Restrictions:
+     * - Supported formats: JPEG, GIF, PNG
+     * - Maximum file size: 10MB
+     * - Maximum file name length allowed: 200 characters
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} itemId The unique ID of the item.
+     * @param {string} imageId The unique ID of the image to update.
+     * @param {ReadStream} imageFile 
+   * @return {Models.ItemImageDetailsModel}
+   */
+  
+  updateImage({ companyId, itemId, imageId, imageFile }: { companyId: number, itemId: number, imageId: string, imageFile: ReadStream }): Promise<Models.ItemImageDetailsModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/images/${imageId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: imageFile, clientId: strClientId, isMultiPart: true }, Models.ItemImageDetailsModel);
   }
 
   /**
@@ -10128,6 +10270,39 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemParameterModel);
+  }
+
+  /**
+   * Upload an image for an item.
+   * This endpoint allows users to upload an image file for a specific item.
+     *  
+     * The uploaded image serves as the item's visual representation and will be used for tax code recommendation purposes.
+     *  
+     * Restrictions:
+     * - Supported formats: JPEG, GIF, PNG
+     * - Maximum file size: 10MB
+     * - Maximum file name length allowed: 200 characters
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} itemId The unique ID of the item.
+     * @param {ReadStream} imageFile 
+   * @return {Models.ItemImageDetailsModel}
+   */
+  
+  uploadImage({ companyId, itemId, imageFile }: { companyId: number, itemId: number, imageFile: ReadStream }): Promise<Models.ItemImageDetailsModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/images`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: imageFile, clientId: strClientId, isMultiPart: true }, Models.ItemImageDetailsModel);
   }
 
   /**
@@ -11983,7 +12158,7 @@ export default class AvaTaxClient {
       '; ' +
       this.appVer +
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;  
+      this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.NexusModel));
   }
 
@@ -13330,7 +13505,7 @@ export default class AvaTaxClient {
    * Create one or more new taxcode objects attached to this company.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      * 
      * ### Security Policies
@@ -13392,7 +13567,7 @@ export default class AvaTaxClient {
    * Get the taxcode object identified by this URL.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      * 
      * ### Security Policies
@@ -13425,7 +13600,7 @@ export default class AvaTaxClient {
    * List all taxcode objects attached to this company.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      *  
      * Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -13471,7 +13646,7 @@ export default class AvaTaxClient {
    * Get multiple taxcode objects across all companies.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      *  
      * Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
@@ -13516,7 +13691,7 @@ export default class AvaTaxClient {
    * Replace the existing taxcode object at this URL with an updated object.
      * A 'TaxCode' represents a uniquely identified type of product, good, or service.
      * Avalara supports correct tax rates and taxability rules for all TaxCodes in all supported jurisdictions.
-     * If you identify your products by tax code in your 'Create Transacion' API calls, Avalara will correctly calculate tax rates and
+     * If you identify your products by tax code in your 'Create Transaction' API calls, Avalara will correctly calculate tax rates and
      * taxability rules for this product in all supported jurisdictions.
      * All data from the existing object will be replaced with data in the object you PUT.
      * To set a field's value to null, you may either set its value to null or omit that field from the object you post.

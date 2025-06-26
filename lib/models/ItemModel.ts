@@ -22,6 +22,7 @@ import { TaxCodeRecommendationStatusOutputModel } from "./TaxCodeRecommendationS
 import { TaxCodeRecommendationOutputModel } from "./TaxCodeRecommendationOutputModel";
 import { ItemTaxCodeDetailsOutputModel } from "./ItemTaxCodeDetailsOutputModel";
 import { ItemHSCodeClassificationStatusModel } from "./ItemHSCodeClassificationStatusModel";
+import { ItemImageDetailsModel } from "./ItemImageDetailsModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -188,4 +189,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("hsCodeClassificationStatus", [ItemHSCodeClassificationStatusModel], true)
    hsCodeClassificationStatus?: ItemHSCodeClassificationStatusModel[] | undefined = undefined;
+    /**
+     * @type {ItemImageDetailsModel}
+     * @memberof ItemModel
+     */
+   @JsonProperty("image", ItemImageDetailsModel, true)
+   image?: ItemImageDetailsModel | undefined = undefined;
  }
