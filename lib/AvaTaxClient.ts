@@ -15,9 +15,9 @@
  */
 
 import * as https from 'https';
-import fetch, { Response } from 'node-fetch';
+import { Response } from 'node-fetch';
 import { ReadStream } from 'fs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { JsonConvert, PropertyMatchingRule } from "json2typescript"
 
 import { createBasicAuthHeader } from './utils/basic_auth';
