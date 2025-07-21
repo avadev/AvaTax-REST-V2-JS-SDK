@@ -14,7 +14,6 @@
  */
 
 import * as Enums from '../enums/index';
-import { StateModel } from "./StateModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -47,14 +46,14 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ClerkLocationModel
      */
-   @JsonProperty("address_line1", String, true)
-   address_line1?: string | undefined = undefined;
+   @JsonProperty("addressLine1", String, true)
+   addressLine1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ClerkLocationModel
      */
-   @JsonProperty("address_line2", String, true)
-   address_line2?: string | undefined = undefined;
+   @JsonProperty("addressLine2", String, true)
+   addressLine2?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ClerkLocationModel
@@ -68,9 +67,57 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("zip", String, true)
    zip?: string | undefined = undefined;
     /**
-     * @type {StateModel}
+     * @type {number}
      * @memberof ClerkLocationModel
      */
-   @JsonProperty("state", StateModel, true)
-   state?: StateModel | undefined = undefined;
+   @JsonProperty("stateId", Number, true)
+   stateId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("stateName", String, true)
+   stateName?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("stateInitials", String, true)
+   stateInitials?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("countryId", Number, true)
+   countryId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("countryName", String, true)
+   countryName?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("countryInitials", String, true)
+   countryInitials?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("clientId", Number, true)
+   clientId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("clientName", String, true)
+   clientName?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ClerkLocationModel
+     */
+   @JsonProperty("avataxCompanyId", String, true)
+   avataxCompanyId?: string | undefined = undefined;
  }

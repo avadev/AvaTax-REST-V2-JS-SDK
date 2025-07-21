@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.6.2
+ * @version    25.7.1
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.6.2';
+  private apiVersion: string = '25.7.1';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -1194,6 +1194,45 @@ export default class AvaTaxClient {
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.BatchModel>);
+  }
+
+  /**
+   * Create item import batch.
+   * Create a new item import batch objects attached to this company.
+     *  
+     * When an item import batch is created, it is added to the AvaTax Batch v2 Queue and will be
+     * processed in the order it was received. To check the
+     * status of a batch, fetch the batch and retrieve the results of the batch
+     * operation.
+     *  
+     * The maximum content length of the request body is limited to 28.6 MB. If this limit
+     * exceeds then a 404 Not Found status is returned (possibly with a CORS error if
+     * the API is called from a browser). In this situation, please split the request into
+     * smaller batches.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this batch.
+     * @param {Models.CreateItemImportBatchRequestModel} model The item import batch you wish to create.
+   * @return {Models.CreateItemImportBatchResponseModel}
+   */
+  
+  createItemImportBatch({ companyId, model }: { companyId: number, model: Models.CreateItemImportBatchRequestModel }): Promise<Models.CreateItemImportBatchResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/batches/items`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CreateItemImportBatchResponseModel);
   }
 
   /**
@@ -2403,7 +2442,7 @@ export default class AvaTaxClient {
   }
 
   /**
-   * Retrieves a list of location records associated with the specified company.
+   * Retrieves a list of location records associated with the specified account.
 This endpoint is secured and requires appropriate subscription and permission levels.
    * ### Security Policies
      * 
@@ -2412,7 +2451,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {number} companyId The unique identifier of the company whose locations are being requested.
+     * @param {number} accountId The unique identifier of the account whose locations are being requested.
      * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
@@ -2421,9 +2460,9 @@ This endpoint is secured and requires appropriate subscription and permission le
    * @return {FetchResult<Models.ClerkLocationModel>}
    */
   
-  listLocationByCompany({ companyId, include, filter, top, skip, orderBy }: { companyId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ClerkLocationModel>> {
+  listLocationByAccount({ accountId, include, filter, top, skip, orderBy }: { accountId: number, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ClerkLocationModel>> {
     var path = this.buildUrl({
-      url: `/api/v2/companies/${companyId}/clerk/locations`,
+      url: `/api/v2/companies/${accountId}/clerk/locations`,
       parameters: {
         $include: include,
         $filter: filter,
