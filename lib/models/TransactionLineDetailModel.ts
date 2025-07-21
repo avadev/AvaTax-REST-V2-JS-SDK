@@ -360,4 +360,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("nonRecoverableAmount", Number, true)
    nonRecoverableAmount?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("vatCode", String, true)
+   vatCode?: string | undefined = undefined;
  }

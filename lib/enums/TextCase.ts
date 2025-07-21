@@ -20,8 +20,9 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @enum {string}
 */
  export enum TextCase {
-        Upper = 0,
-        Mixed = 1,
+        Default = 0,
+        Upper = 1,
+        Mixed = 2,
 }
 
 @JsonConverter
