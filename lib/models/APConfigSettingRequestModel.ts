@@ -34,6 +34,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {number}
      * @memberof APConfigSettingRequestModel
      */
+   @JsonProperty("amountToMarkForReview", Number, true)
+   amountToMarkForReview?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingRequestModel
+     */
    @JsonProperty("varianceForIgnore", Number, true)
    varianceForIgnore?: number | undefined = undefined;
     /**

@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.7.1
+ * @version    25.9.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.7.1';
+  private apiVersion: string = '25.9.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -826,7 +826,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyid The ID of the company that defined this rule
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -860,7 +860,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3654,7 +3654,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -3686,7 +3686,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -3728,7 +3728,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 

@@ -432,6 +432,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ImageAlreadyLinked = 4020,
         ItemIdMismatch = 4021,
         InvalidFileNameLength = 4022,
+        RequiredParametersNotFound = 4023,
+        NoClassificationsFound = 4024,
         UnexpectedError = -1,
 }
 
