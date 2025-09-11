@@ -238,12 +238,6 @@ they are called "Notices".
      * @type {number}
      * @memberof NoticeModel
      */
-   @JsonProperty("avaFileFormId", Number, true)
-   avaFileFormId?: number | undefined = undefined;
-    /**
-     * @type {number}
-     * @memberof NoticeModel
-     */
    @JsonProperty("revenueContactId", Number, true)
    revenueContactId?: number | undefined = undefined;
     /**

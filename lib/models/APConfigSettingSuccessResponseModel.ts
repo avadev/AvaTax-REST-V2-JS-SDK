@@ -53,6 +53,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {number}
      * @memberof APConfigSettingSuccessResponseModel
      */
+   @JsonProperty("amountToMarkForReview", Number, true)
+   amountToMarkForReview?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof APConfigSettingSuccessResponseModel
+     */
    @JsonProperty("varianceForIgnore", Number, true)
    varianceForIgnore?: number | undefined = undefined;
     /**

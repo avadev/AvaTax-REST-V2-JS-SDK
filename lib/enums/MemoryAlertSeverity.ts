@@ -19,20 +19,18 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum AuthenticationTypeId {
-        None = 0,
-        UsernamePassword = 1,
-        AccountIdLicenseKey = 2,
-        OpenIdBearerToken = 3,
-        ClientMtlsCertificate = 4,
+ export enum MemoryAlertSeverity {
+        Info = 0,
+        Warning = 1,
+        Critical = 2,
 }
 
 @JsonConverter
-export class AuthenticationTypeIdConverter implements JsonCustomConvert<AuthenticationTypeId> {
-    serialize(data: AuthenticationTypeId) {
+export class MemoryAlertSeverityConverter implements JsonCustomConvert<MemoryAlertSeverity> {
+    serialize(data: MemoryAlertSeverity) {
         return data;
     }
-    deserialize(enumType: string): AuthenticationTypeId {
-        return AuthenticationTypeId[enumType as keyof typeof AuthenticationTypeId];
+    deserialize(enumType: string): MemoryAlertSeverity {
+        return MemoryAlertSeverity[enumType as keyof typeof MemoryAlertSeverity];
     }
 }
