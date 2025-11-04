@@ -19,11 +19,25 @@ export class FetchResult<T> {
   nextLink?: string = '';
 }
 
+// Cache to store created FetchResult subclasses by model name
+const fetchResultCache = new Map<string, any>();
+
 export function createFetchResultClass<T>(Model: { new (): T }): { new (): FetchResult<T> } {
-  @JsonObject(`FetchResult<${Model.name}>`)
+  const modelName = Model.name;
+  
+  // Return cached class if it already exists
+  if (fetchResultCache.has(modelName)) {
+    return fetchResultCache.get(modelName);
+  }
+  
+  @JsonObject(`FetchResult<${modelName}>`)
   class FetchResultSubclass extends FetchResult<T> {
     @JsonProperty("value", [Model])
     value: T[] = [];
   }
+  
+  // Cache the created class for future use
+  fetchResultCache.set(modelName, FetchResultSubclass);
+  
   return FetchResultSubclass;
 }
