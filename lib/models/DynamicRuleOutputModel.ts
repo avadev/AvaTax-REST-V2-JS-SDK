@@ -82,12 +82,6 @@ be linked to one or more traditional custom Tax Rules.
    @JsonProperty("continueOnError", Boolean, true)
    continueOnError?: boolean | undefined = undefined;
     /**
-     * @type {boolean}
-     * @memberof DynamicRuleOutputModel
-     */
-   @JsonProperty("isDeleted", Boolean, true)
-   isDeleted?: boolean | undefined = undefined;
-    /**
      * @type {number}
      * @memberof DynamicRuleOutputModel
      */

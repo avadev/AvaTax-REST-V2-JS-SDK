@@ -37,6 +37,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("description", String)
    description: string = undefined;
     /**
+     * @type {string}
+     * @memberof SubscriptionTypeModel
+     */
+   @JsonProperty("system", String, true)
+   system?: string | undefined = undefined;
+    /**
      * @type {number}
      * @memberof SubscriptionTypeModel
      */

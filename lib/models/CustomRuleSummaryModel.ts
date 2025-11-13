@@ -58,6 +58,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string[]}
      * @memberof CustomRuleSummaryModel
      */
+   @JsonProperty("subtypeDescription", [String], true)
+   subtypeDescription?: string[] | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
    @JsonProperty("country", [String], true)
    country?: string[] | undefined = undefined;
     /**

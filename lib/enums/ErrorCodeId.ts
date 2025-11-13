@@ -289,6 +289,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         AdvancedRuleRequestRuleError = 1602,
         AdvancedRuleResponseRuleError = 1603,
         AdvancedRuleError = 1605,
+        DynamicRuleError = 1620,
+        RuleValidationError = 1621,
         TaxRuleRequiresNexus = 1701,
         UPCCodeNotUnique = 1702,
         TaxCodeAssociatedWithItemCodeNotFound = 1704,
@@ -434,6 +436,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         InvalidFileNameLength = 4022,
         RequiredParametersNotFound = 4023,
         NoClassificationsFound = 4024,
+        InvalidAddressOrGeoCoordinates = 4025,
         UnexpectedError = -1,
 }
 
