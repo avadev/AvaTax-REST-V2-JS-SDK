@@ -429,6 +429,8 @@ export * from './VarianceResponseEntity';
 export * from './VarianceResponseLine';
 export * from './VarianceResponseModel';
 export * from './VarianceUnit';
+export * from './VendorCertificateModel';
+export * from './VendorModel';
 export * from './VerifyMultiDocumentModel';
 export * from './VerifyTransactionModel';
 export * from './VoidTransactionModel';

@@ -73,8 +73,8 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {string}
      * @memberof LocationModel
      */
-   @JsonProperty("line1", String)
-   line1: string = undefined;
+   @JsonProperty("line1", String, true)
+   line1?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
@@ -109,14 +109,26 @@ Some jurisdictions may require you to list all locations where your company does
      * @type {string}
      * @memberof LocationModel
      */
-   @JsonProperty("postalCode", String)
-   postalCode: string = undefined;
+   @JsonProperty("postalCode", String, true)
+   postalCode?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof LocationModel
      */
-   @JsonProperty("country", String)
-   country: string = undefined;
+   @JsonProperty("country", String, true)
+   country?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof LocationModel
+     */
+   @JsonProperty("latitude", Number, true)
+   latitude?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof LocationModel
+     */
+   @JsonProperty("longitude", Number, true)
+   longitude?: number | undefined = undefined;
     /**
      * @type {boolean}
      * @memberof LocationModel
