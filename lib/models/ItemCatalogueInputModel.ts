@@ -16,6 +16,7 @@
 import * as Enums from '../enums/index';
 import { ClassificationModel } from "./ClassificationModel";
 import { ItemParameterModel } from "./ItemParameterModel";
+import { ItemCustomParametersModel } from "./ItemCustomParametersModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -110,4 +111,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("parameters", [ItemParameterModel], true)
    parameters?: ItemParameterModel[] | undefined = undefined;
+    /**
+     * @type {ItemCustomParametersModel[]}
+     * @memberof ItemCatalogueInputModel
+     */
+   @JsonProperty("customParameters", [ItemCustomParametersModel], true)
+   customParameters?: ItemCustomParametersModel[] | undefined = undefined;
  }

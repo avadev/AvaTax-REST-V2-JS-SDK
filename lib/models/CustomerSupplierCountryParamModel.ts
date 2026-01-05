@@ -72,4 +72,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isRegisteredThroughFiscalRep", Boolean, true)
    isRegisteredThroughFiscalRep?: boolean | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CustomerSupplierCountryParamModel
+     */
+   @JsonProperty("vatNumber", String, true)
+   vatNumber?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof CustomerSupplierCountryParamModel
+     */
+   @JsonProperty("vatNumberStatus", Number, true)
+   vatNumberStatus?: number | undefined = undefined;
  }

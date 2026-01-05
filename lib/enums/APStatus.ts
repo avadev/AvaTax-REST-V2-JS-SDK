@@ -47,6 +47,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         PendingShortPayItemsUndercharge = 24,
         PendingShortPayItemsMatch = 25,
         PendingShortPayItemsOvercharge = 26,
+        NoAccrualExemptedMapping = 27,
         ShortPayItemsAccrueMatch = -1,
         MarkForReviewMatch = -1,
         RejectMatch = -1,

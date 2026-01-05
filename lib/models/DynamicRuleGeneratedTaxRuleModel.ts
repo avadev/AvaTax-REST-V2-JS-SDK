@@ -181,4 +181,10 @@ This model mirrors structure of a standard tax rule with relevant fields.
      */
    @JsonProperty("tariffCode", String, true)
    tariffCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof DynamicRuleGeneratedTaxRuleModel
+     */
+   @JsonProperty("unitOfBasis", String, true)
+   unitOfBasis?: string | undefined = undefined;
  }
