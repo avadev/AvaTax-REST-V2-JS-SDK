@@ -16,6 +16,7 @@
 import * as Enums from '../enums/index';
 import { ClassificationModel } from "./ClassificationModel";
 import { ItemParameterModel } from "./ItemParameterModel";
+import { ItemCustomParametersModel } from "./ItemCustomParametersModel";
 import { ItemTagDetailInputModel } from "./ItemTagDetailInputModel";
 import { ItemStatusOutputModel } from "./ItemStatusOutputModel";
 import { TaxCodeRecommendationStatusOutputModel } from "./TaxCodeRecommendationStatusOutputModel";
@@ -147,6 +148,12 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("parameters", [ItemParameterModel], true)
    parameters?: ItemParameterModel[] | undefined = undefined;
+    /**
+     * @type {ItemCustomParametersModel[]}
+     * @memberof ItemModel
+     */
+   @JsonProperty("customParameters", [ItemCustomParametersModel], true)
+   customParameters?: ItemCustomParametersModel[] | undefined = undefined;
     /**
      * @type {ItemTagDetailInputModel[]}
      * @memberof ItemModel

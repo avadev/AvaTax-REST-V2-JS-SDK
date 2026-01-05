@@ -51,6 +51,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         TaxRuleBaseOverride = 28,
         TaxRuleProductTaxability = 29,
         TaxRuleExemptEntity = 30,
+        CustomTax = 31,
 }
 
 @JsonConverter

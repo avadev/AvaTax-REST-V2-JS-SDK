@@ -60,6 +60,7 @@ export * from './DynamicRuleComponentSubtype';
 export * from './ExemptCertTypeId';
 export * from './ExemptCertStatusId';
 export * from './ExemptCertReviewStatusId';
+export * from './ErrorTargetCode';
 export * from './ReportFormat';
 export * from './ReportDateFilter';
 export * from './ReportDocType';

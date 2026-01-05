@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.11.0
+ * @version    25.12.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.11.0';
+  private apiVersion: string = '25.12.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -8727,6 +8727,52 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Parse natural language query into structured filters
+   * Parse natural language queries into structured API filters. This endpoint forwards the query to NLQ (Natural Language Query)
+     * service for interpretation and returns only the intent and structured filters.
+     *  
+     * Example queries:
+     * - "give me items created in last 1 week which are having status complete"
+     * - "show me all items with item code CERMUG"
+     * - "find items containing 'mug' in description"
+     *  
+     * Response format:
+     * {
+     *  "intent": "GET",
+     *  "filters": {
+     *  "createdDate": { "value": "from: 2025-09-12 to: 2025-09-19" },
+     *  "itemStatus": { "value": ["Complete"] }
+     *  }
+     * }
+     *  
+     * Raw NLQ responses are logged for debugging purposes.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns these items
+     * @param {Models.NaturalLanguageSearchRequestModel} model Natural language search request
+   * @return {Models.NaturalLanguageSearchResponseModel}
+   */
+  
+  aIsearch({ companyId, model }: { companyId: number, model?: Models.NaturalLanguageSearchRequestModel }): Promise<Models.NaturalLanguageSearchResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/nlq/$parse`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.NaturalLanguageSearchResponseModel);
+  }
+
+  /**
    * Delete all classifications for an item
    * Delete all the classifications for a given item.
      *  
@@ -8748,6 +8794,41 @@ This endpoint is secured and requires appropriate subscription and permission le
   batchDeleteItemClassifications({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/items/${itemId}/classifications`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.AssociatedObjectDeletedErrorDetailsModel>);
+  }
+
+  /**
+   * Delete all custom parameters for an item
+   * Delete all the custom parameters for a given item.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this item.
+     * @param {number} itemId The ID of the item you wish to delete the custom parameters.
+   * @return {Models.AssociatedObjectDeletedErrorDetailsModel[]}
+   */
+  
+  batchDeleteItemCustomParameters({ companyId, itemId }: { companyId: number, itemId: number }): Promise<Array<Models.AssociatedObjectDeletedErrorDetailsModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters`,
       parameters: {}
     });
 	 var strClientId =
@@ -8809,6 +8890,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
      *  
      * The tax code takes precedence over the tax code id if both are provided.
+     *  
+     * Please provide all the countries of destination values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 
@@ -8872,6 +8956,42 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Add custom parameters to an item.
+   * Add custom parameters to an item.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this item custom parameter.
+     * @param {number} itemId The item id.
+     * @param {Models.ItemCustomParametersModel[]} model The item custom parameters you wish to create.
+   * @return {Models.ItemCustomParametersModel[]}
+   */
+  
+  createItemCustomParameters({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemCustomParametersModel[] }): Promise<Array<Models.ItemCustomParametersModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemCustomParametersModel>);
+  }
+
+  /**
    * Add parameters to an item.
    * Add parameters to an item.
      *  
@@ -8884,6 +9004,8 @@ This endpoint is secured and requires appropriate subscription and permission le
      * To see available parameters for this item, call `/api/v2/definitions/parameters?$filter=attributeType eq Product`
      *  
      * Some parameters are only available for use if you have subscribed to specific AvaTax services. To see which parameters you are able to use, add the query parameter "$showSubscribed=true" to the parameter definition call above.
+     * Please provide all the countries parameter values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 
@@ -8924,6 +9046,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
      * from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
      * team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+     *  
+     * Please provide all the countries of destination values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      *  
      * The tax code takes precedence over the tax code id if both are provided.
      * 
@@ -9135,6 +9260,42 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Delete a single item custom parameter
+   * Delete a single item custom parameter.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company id
+     * @param {number} itemId The item id
+     * @param {number} id The custom parameter id
+   * @return {Models.ObjectDeletedErrorModel[]}
+   */
+  
+  deleteItemCustomParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
+  }
+
+  /**
    * Delete the image associated with an item.
    * Delete the image associated with an item.
      *  
@@ -9302,6 +9463,34 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Fetch Additional HS Duty Details for items
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company for which you want to get additional HS Duty Details.
+     * @param {number} itemId 
+     * @param {Models.ItemAdditionalHSCodeDutyInputModel[]} model Additional HS Code Duty Details input Model
+   * @return {Models.ItemHSCodeDutyDetailModel[]}
+   */
+  
+  fetchAdditionalHSCodeDutyDetails({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemAdditionalHSCodeDutyInputModel[] }): Promise<Array<Models.ItemHSCodeDutyDetailModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/hsdutydetails/$fetch-additional-hsdutydetails`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemHSCodeDutyDetailModel>);
+  }
+
+  /**
    * Retrieve the HS code classification SLA details for a company.
    * This endpoint returns the SLA details for HS code classification for the
      * specified company. The response includes information about processing times,
@@ -9401,6 +9590,42 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemClassificationOutputModel);
+  }
+
+  /**
+   * Retrieve a single item custom parameter
+   * Retrieve a single item custom parameter.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company id
+     * @param {number} itemId The item id
+     * @param {number} id The custom parameter id
+   * @return {Models.ItemCustomParametersModel}
+   */
+  
+  getItemCustomParameter({ companyId, itemId, id }: { companyId: number, itemId: number, id: number }): Promise<Models.ItemCustomParametersModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemCustomParametersModel);
   }
 
   /**
@@ -9582,6 +9807,37 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Get the real-time tax code recommendations for the specified items without saving item data.
+   * Provides immediate tax code recommendations for item details submitted in the request. Item data is processed only for recommendation purposes and is not persisted.
+     *  
+     * Maximum items per request: 50 (subject to change).
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {Models.ItemTaxcodeRecommendationBatchesInputModel[]} model The list of items to analyze for tax code recommendations (maximum 50).
+   * @return {Models.ItemTaxcodeRecommendationBatchesOutputModel[]}
+   */
+  
+  getSyncTaxCodeRecommendations({ companyId, model }: { companyId: number, model: Models.ItemTaxcodeRecommendationBatchesInputModel[] }): Promise<Array<Models.ItemTaxcodeRecommendationBatchesOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/$taxcode-recommendations`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemTaxcodeRecommendationBatchesOutputModel>);
+  }
+
+  /**
    * Create an HS code classification request.
    * ### Security Policies
      * 
@@ -9697,6 +9953,53 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.ItemClassificationOutputModel));
+  }
+
+  /**
+   * Retrieve custom parameters for an item
+   * List custom parameters for an item.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     *  
+     * Search for specific objects using the criteria in the `$filter` parameter; full documentation is available on [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/) .
+     * Paginate your results using the `$top`, `$skip`, and `$orderby` parameters.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company id
+     * @param {number} itemId The item id
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* id, name, value
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.ItemCustomParametersModel>}
+   */
+  
+  listItemCustomParameters({ companyId, itemId, filter, top, skip, orderBy }: { companyId: number, itemId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.ItemCustomParametersModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.ItemCustomParametersModel));
   }
 
   /**
@@ -9836,7 +10139,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    *
    * 
      * @param {number} companyId The ID of the company that defined these items
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, customParameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -9977,7 +10280,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, customParameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -10074,7 +10377,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * 
      * @param {number} companyId The ID of the company that defined these items.
      * @param {string} tag The master tag to be associated with item.
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxCode, source, sourceEntityId, itemType, upc, summary, classifications, parameters, customParameters, tags, properties, itemStatus, taxCodeRecommendationStatus, taxCodeRecommendations, taxCodeDetails, hsCodeClassificationStatus, image
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -10115,6 +10418,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * system can use this to sync all their items from an ERP with Avalara.
      *  
      * Parameters and Classifications can be added with the Item.
+     *  
+     * Please provide all the countries parameter values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 
@@ -10155,6 +10461,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * and other data fields. AvaTax will automatically look up each `itemCode` and apply the correct tax codes and parameters
      * from the item table instead. This allows your CreateTransaction call to be as simple as possible, and your tax compliance
      * team can manage your item catalog and adjust the tax behavior of items without having to modify your software.
+     *  
+     * Please provide all the countries of destination values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 
@@ -10299,6 +10608,43 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Update an item custom parameter
+   * Update an item custom parameter.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company id.
+     * @param {number} itemId The item id
+     * @param {number} id The item custom parameter id
+     * @param {Models.ItemCustomParametersModel} model The item custom parameter object you wish to update.
+   * @return {Models.ItemCustomParametersModel}
+   */
+  
+  updateItemCustomParameter({ companyId, itemId, id, model }: { companyId: number, itemId: number, id: number, model?: Models.ItemCustomParametersModel }): Promise<Models.ItemCustomParametersModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.ItemCustomParametersModel);
+  }
+
+  /**
    * Update an item parameter
    * Update an item parameter.
      *  
@@ -10307,6 +10653,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
      *  
      * A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+     *  
+     * Please provide all the countries parameter values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 
@@ -10405,6 +10754,42 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Add/update an item custom parameter
+   * Add/update an item custom parameter.
+     *  
+     * Custom parameters provide extra information about an item that can be used for various business purposes.
+     * These parameters are stored as key-value pairs where the parameter name is the key and the value is the corresponding data.
+     *  
+     * Custom parameters can be used to store custom attributes, metadata, or any other supplementary information
+     * that doesn't fit into the standard item fields.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The company id.
+     * @param {number} itemId The item id
+     * @param {Models.ItemCustomParametersModel[]} model The item custom parameter object you wish to Upsert.
+   * @return {Models.ItemCustomParametersModel[]}
+   */
+  
+  upsertItemCustomParameter({ companyId, itemId, model }: { companyId: number, itemId: number, model?: Models.ItemCustomParametersModel[] }): Promise<Array<Models.ItemCustomParametersModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/custom-parameters`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Array<Models.ItemCustomParametersModel>);
+  }
+
+  /**
    * Add/update an item parameter.
    * Add/update an item parameter.
      *  
@@ -10413,6 +10798,9 @@ This endpoint is secured and requires appropriate subscription and permission le
      * A parameter added to an item will be used by default in tax calculation but will not show on the transaction line referencing the item .
      *  
      * A parameter specified on a transaction line will override an item parameter if they share the same parameter name.
+     *  
+     * Please provide all the countries parameter values as a valid two letter ISO-3166 country code.
+     * Refer to 'ListCountries' api to get valid country code for any country if needed.
      * 
      * ### Security Policies
      * 

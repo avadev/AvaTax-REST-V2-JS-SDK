@@ -19,21 +19,22 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum ReportSource {
-        SNOWFLAKE = 0,
-        MONGODB = 1,
-        RETURNSAPI = 2,
-        TAXREGION = 3,
-        APDOCUMENT = 4,
-        APDOCUMENTLINEDETAIL = 5,
+ export enum ErrorTargetCode {
+        Unknown = 0,
+        HttpRequest = 1,
+        HttpRequestHeaders = 2,
+        IncorrectData = 3,
+        AvaTaxApiServer = 10,
+        AvalaraIdentityServer = 11,
+        CustomerAccountSetup = 12,
 }
 
 @JsonConverter
-export class ReportSourceConverter implements JsonCustomConvert<ReportSource> {
-    serialize(data: ReportSource) {
+export class ErrorTargetCodeConverter implements JsonCustomConvert<ErrorTargetCode> {
+    serialize(data: ErrorTargetCode) {
         return data;
     }
-    deserialize(enumType: string): ReportSource {
-        return ReportSource[enumType as keyof typeof ReportSource];
+    deserialize(enumType: string): ErrorTargetCode {
+        return ErrorTargetCode[enumType as keyof typeof ErrorTargetCode];
     }
 }

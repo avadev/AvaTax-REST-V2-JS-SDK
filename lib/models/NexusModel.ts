@@ -70,8 +70,8 @@ by calling `ListNexus`.  If any data does not match, AvaTax may not recognize yo
      * @type {Enums.JurisdictionType}
      * @memberof NexusModel
      */
-   @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter, true)
-   jurisdictionTypeId?: Enums.JurisdictionType | undefined = undefined;
+   @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter)
+   jurisdictionTypeId: Enums.JurisdictionType = undefined;
     /**
      * @type {string}
      * @memberof NexusModel
