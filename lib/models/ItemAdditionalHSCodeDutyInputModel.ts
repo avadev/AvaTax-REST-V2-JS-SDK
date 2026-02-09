@@ -66,4 +66,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("hscode", String)
    hscode: string = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ItemAdditionalHSCodeDutyInputModel
+     */
+   @JsonProperty("isAdditionalDuty", Boolean)
+   isAdditionalDuty: boolean = undefined;
  }

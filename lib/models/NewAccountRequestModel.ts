@@ -171,6 +171,12 @@ Contains information about the account requested and the rate plan selected.
    @JsonProperty("accountType", Enums.AccountTypeIdConverter, true)
    accountType?: Enums.AccountTypeId | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof NewAccountRequestModel
+     */
+   @JsonProperty("isTest", Boolean, true)
+   isTest?: boolean | undefined = undefined;
+    /**
      * @type {string}
      * @memberof NewAccountRequestModel
      */

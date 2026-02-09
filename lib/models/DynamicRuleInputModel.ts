@@ -28,6 +28,12 @@ be linked to one or more traditional custom Tax Rules.
  @JsonObject("DynamicRuleInputModel")
  export class DynamicRuleInputModel {
     /**
+     * @type {number}
+     * @memberof DynamicRuleInputModel
+     */
+   @JsonProperty("id", Number, true)
+   id?: number | undefined = undefined;
+    /**
      * @type {DynamicRuleDefinitionInputModel}
      * @memberof DynamicRuleInputModel
      */

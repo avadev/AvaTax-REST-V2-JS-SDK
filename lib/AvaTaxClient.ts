@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    25.12.0
+ * @version    26.2.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '25.12.0';
+  private apiVersion: string = '26.2.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -826,7 +826,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyid The ID of the company that defined this rule
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, ignoreThresholdWhenVCTZero, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -860,7 +860,7 @@ export default class AvaTaxClient {
    * Swagger Name: AvaTaxClient
    *
    * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* meta, amount, amountToMarkForReview, ignoreThresholdWhenVCTZero, varianceForIgnore, varianceForAccrue, variancePercent, apConfigToleranceType, payAsBilledNoAccrual, payAsBilledAccrueUndercharge, shortPayItemsAccrueUndercharge, markForReviewUndercharge, rejectUndercharge, payAsBilledOvercharge, shortPayAvalaraCalculated, shortPayItemsAccrueOvercharge, markForReviewOvercharge, rejectOvercharge, isActive
      * @param {string} include A comma separated list of additional data to retrieve.
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -2922,6 +2922,44 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.FundingConfigurationModel>);
+  }
+
+  /**
+   * Retrieve all customers and suppliers with their country parameters for a company
+   * Retrieves all customers and suppliers for a company along with their country parameters. Records without country parameters will still be returned with null country parameter fields (LEFT JOIN behavior).
+     * Results are ordered by CustomerTypeId, CustomerCode, and Country.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId Company Id
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* CustomerId, CompanyId, CustomerTypeId, CustomerSupplierCountryParamId, Country, IsEstablished, IsRegisteredThroughFiscalRep, VatNumberStatus
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CustomerSupplierWithCountryParamModel>}
+   */
+  
+  getAllCustomersAndSuppliersWithCountryParams({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CustomerSupplierWithCountryParamModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/supplierandcustomers/withcountryparams`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.CustomerSupplierWithCountryParamModel));
   }
 
   /**
@@ -5364,9 +5402,13 @@ This endpoint is secured and requires appropriate subscription and permission le
 
   /**
    * List all ISO 3166 countries
-   * Returns a list of all ISO 3166 country codes, and their US English friendly names.
+   * Returns a list of ISO 3166 country codes based on the scope filter.
      * This API is intended to be useful when presenting a dropdown box in your website to allow customers to select a country for
      * a shipping address.
+     *  
+     * Scope options:
+     * - Custom: Return only countries for which there is a TaxTypeMapping with IsCustomContent = true (requires subscription)
+     * - All (default): Return all ISO 3166 countries
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -5374,17 +5416,19 @@ This endpoint is secured and requires appropriate subscription and permission le
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {Enums.ContentScope} scope Optional query parameter to filter by Custom or All countries (default: All) (See ContentScope::* for a list of allowable values)
    * @return {FetchResult<Models.IsoCountryModel>}
    */
   
-  listCountries({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.IsoCountryModel>> {
+  listCountries({ filter, top, skip, orderBy, scope }: { filter?: string, top?: number, skip?: number, orderBy?: string, scope?: Enums.ContentScope }): Promise<FetchResult<Models.IsoCountryModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/countries`,
       parameters: {
         $filter: filter,
         $top: top,
         $skip: skip,
-        $orderBy: orderBy
+        $orderBy: orderBy,
+        $scope: scope
       }
     });
 	 var strClientId =
@@ -7070,18 +7114,18 @@ This endpoint is secured and requires appropriate subscription and permission le
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-     * @param {boolean} includeCustomContent Optional query parameter to include custom content regions (default: false)
+     * @param {Enums.ContentScope} scope Optional query parameter to filter system, custom content or all regions (default: System) (See ContentScope::* for a list of allowable values)
    * @return {FetchResult<Models.IsoRegionModel>}
    */
   
-  listRegionsByCountryAndTaxTypeAndTaxSubTypeAndRateType({ companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, top, skip, orderBy, includeCustomContent }: { companyId: number, country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, jurisdictionTypeId: string, top?: number, skip?: number, orderBy?: string, includeCustomContent?: boolean }): Promise<FetchResult<Models.IsoRegionModel>> {
+  listRegionsByCountryAndTaxTypeAndTaxSubTypeAndRateType({ companyId, country, taxTypeId, taxSubTypeId, rateTypeId, jurisdictionTypeId, top, skip, orderBy, scope }: { companyId: number, country: string, taxTypeId: string, taxSubTypeId: string, rateTypeId: number, jurisdictionTypeId: string, top?: number, skip?: number, orderBy?: string, scope?: Enums.ContentScope }): Promise<FetchResult<Models.IsoRegionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/companies/${companyId}/countries/${country}/regions/taxtypes/${taxTypeId}/taxsubtypes/${taxSubTypeId}/rateTypeId/${rateTypeId}/jurisdictionTypeId/${jurisdictionTypeId}`,
       parameters: {
         $top: top,
         $skip: skip,
         $orderBy: orderBy,
-        $includeCustomContent: includeCustomContent
+        $scope: scope
       }
     });
 	 var strClientId =
@@ -7479,11 +7523,11 @@ This endpoint is secured and requires appropriate subscription and permission le
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-     * @param {boolean} includeCustomContent Optional query parameter to include custom content tax sub types (default: false)
+     * @param {Enums.ContentScope} scope Optional query parameter to filter by System, Custom or All tax sub types (default: System) (See ContentScope::* for a list of allowable values)
    * @return {FetchResult<Models.TaxSubTypeModel>}
    */
   
-  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, companyId, filter, top, skip, orderBy, includeCustomContent }: { country: string, taxTypeId: string, companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string, includeCustomContent?: boolean }): Promise<FetchResult<Models.TaxSubTypeModel>> {
+  listTaxSubTypesByCountryAndTaxType({ country, taxTypeId, companyId, filter, top, skip, orderBy, scope }: { country: string, taxTypeId: string, companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string, scope?: Enums.ContentScope }): Promise<FetchResult<Models.TaxSubTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxsubtypes/countries/${country}/taxtypes/${taxTypeId}`,
       parameters: {
@@ -7492,7 +7536,7 @@ This endpoint is secured and requires appropriate subscription and permission le
         $top: top,
         $skip: skip,
         $orderBy: orderBy,
-        $includeCustomContent: includeCustomContent
+        $scope: scope
       }
     });
 	 var strClientId =
@@ -7583,11 +7627,11 @@ This endpoint is secured and requires appropriate subscription and permission le
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-     * @param {boolean} includeCustomContent Optional query parameter to include custom content tax types (default: false)
+     * @param {Enums.ContentScope} scope Optional query parameter to filter by System, Custom or All tax types (default: System) (See ContentScope::* for a list of allowable values)
    * @return {FetchResult<Models.TaxTypeModel>}
    */
   
-  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy, includeCustomContent }: { country: string, companyId: number, top?: number, skip?: number, orderBy?: string, includeCustomContent?: boolean }): Promise<FetchResult<Models.TaxTypeModel>> {
+  listTaxTypesByNexusAndCountry({ country, companyId, top, skip, orderBy, scope }: { country: string, companyId: number, top?: number, skip?: number, orderBy?: string, scope?: Enums.ContentScope }): Promise<FetchResult<Models.TaxTypeModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/taxtypes/countries/${country}`,
       parameters: {
@@ -7595,7 +7639,7 @@ This endpoint is secured and requires appropriate subscription and permission le
         $top: top,
         $skip: skip,
         $orderBy: orderBy,
-        $includeCustomContent: includeCustomContent
+        $scope: scope
       }
     });
 	 var strClientId =
@@ -9471,7 +9515,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    *
    * 
      * @param {number} companyId The ID of the company for which you want to get additional HS Duty Details.
-     * @param {number} itemId 
+     * @param {number} itemId The unique ID of the item for which you want to get additional HS Duty Details.
      * @param {Models.ItemAdditionalHSCodeDutyInputModel[]} model Additional HS Code Duty Details input Model
    * @return {Models.ItemHSCodeDutyDetailModel[]}
    */
@@ -12704,7 +12748,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
    * Swagger Name: AvaTaxClient
    *
@@ -12733,7 +12777,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
    * Swagger Name: AvaTaxClient
    *
@@ -12762,7 +12806,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -12790,7 +12834,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16919,6 +16963,50 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.VendorCertificateModel));
+  }
+
+  /**
+   * Create vendors for this company
+   * Create one or more vendors for this company.
+     *  
+     * A vendor object defines information about a person or business that purchases products from your
+     * company. When you create a tax transaction in AvaTax, you can use the `vendorCode` from this
+     * record in your `CreateTransaction` API call. AvaTax will search for this `vendorCode` value and
+     * identify any certificates linked to this `vendor` object. If any certificate applies to the transaction,
+     * AvaTax will record the appropriate elements of the transaction as exempt and link it to the `certificate`.
+     *  
+     * A nested object such as CustomFields could be specified and created along with the vendor object. To fetch the
+     * nested object, please call 'GetVendor' API with appropriate $include parameters.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this vendor
+     * @param {Models.VendorModel[]} model The list of vendor objects to be created
+   * @return {Models.VendorModel[]}
+   */
+  
+  createVendors({ companyId, model }: { companyId: number, model: Models.VendorModel[] }): Promise<Array<Models.VendorModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vendors`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.VendorModel>);
   }
 
   /**

@@ -132,6 +132,7 @@ export * from './CustomerJobModel';
 export * from './CustomerModel';
 export * from './CustomerSupplierCountryParamModel';
 export * from './CustomerSupplierModel';
+export * from './CustomerSupplierWithCountryParamModel';
 export * from './CycleAddOptionModel';
 export * from './CycleEditOptionModel';
 export * from './CycleExpireModel';
