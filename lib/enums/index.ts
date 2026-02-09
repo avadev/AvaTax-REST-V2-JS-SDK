@@ -22,6 +22,7 @@ export * from './UserDefinedFieldType';
 export * from './POABusinessUnit';
 export * from './POASubscriptionType';
 export * from './StackAggregationOption';
+export * from './ContentScope';
 export * from './ApConfigToleranceType';
 export * from './AccountStatusId';
 export * from './AccountTypeId';

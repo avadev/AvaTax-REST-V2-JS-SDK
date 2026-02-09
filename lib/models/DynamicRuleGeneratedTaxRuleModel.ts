@@ -173,6 +173,12 @@ This model mirrors structure of a standard tax rule with relevant fields.
      * @type {string}
      * @memberof DynamicRuleGeneratedTaxRuleModel
      */
+   @JsonProperty("currencyCode", String, true)
+   currencyCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof DynamicRuleGeneratedTaxRuleModel
+     */
    @JsonProperty("options", String, true)
    options?: string | undefined = undefined;
     /**

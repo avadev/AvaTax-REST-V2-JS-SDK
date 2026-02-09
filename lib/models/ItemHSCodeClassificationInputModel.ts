@@ -73,6 +73,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("isExportControl", Boolean, true)
    isExportControl?: boolean | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof ItemHSCodeClassificationInputModel
+     */
+   @JsonProperty("isCompliance", Boolean)
+   isCompliance: boolean = undefined;
+    /**
      * @type {string}
      * @memberof ItemHSCodeClassificationInputModel
      */

@@ -37,6 +37,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("amountToMarkForReview", Number, true)
    amountToMarkForReview?: number | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof APConfigSettingRequestModel
+     */
+   @JsonProperty("ignoreThresholdWhenVCTZero", Boolean, true)
+   ignoreThresholdWhenVCTZero?: boolean | undefined = undefined;
+    /**
      * @type {number}
      * @memberof APConfigSettingRequestModel
      */
