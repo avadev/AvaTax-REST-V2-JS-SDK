@@ -287,4 +287,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isAdvSave", Boolean, true)
    isAdvSave?: boolean | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CompanyModel
+     */
+   @JsonProperty("companyUrl", String, true)
+   companyUrl?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CompanyModel
+     */
+   @JsonProperty("companyDescription", String, true)
+   companyDescription?: string | undefined = undefined;
  }

@@ -20,6 +20,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @enum {string}
 */
  export enum ReportDocType {
+        All = 65,
         ConsumerUse = 67,
         Sales = 83,
 }

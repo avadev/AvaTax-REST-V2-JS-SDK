@@ -437,6 +437,10 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         RequiredParametersNotFound = 4023,
         NoClassificationsFound = 4024,
         InvalidAddressOrGeoCoordinates = 4025,
+        QueryParsingError = 4026,
+        ValueMismatch = 4027,
+        InvalidStatusForHSVerification = 4028,
+        CannotVerifyHSCode = 4029,
         UnexpectedError = -1,
 }
 
