@@ -39,6 +39,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         GLAccountImport = 16,
         AdvancedRulesImport = 17,
         ItemImportV2 = 18,
+        VatValidationImport = 19,
 }
 
 @JsonConverter

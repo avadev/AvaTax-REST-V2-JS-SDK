@@ -26,6 +26,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         TAXREGION = 3,
         APDOCUMENT = 4,
         APDOCUMENTLINEDETAIL = 5,
+        DOCUMENTLINEDETAILALLTAXES = 6,
 }
 
 @JsonConverter

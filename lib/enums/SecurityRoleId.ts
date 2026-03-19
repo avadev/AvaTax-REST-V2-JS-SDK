@@ -56,6 +56,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         AvaTaxOnlyAccountUser = 33,
         AvaTaxOnlyCompanyAdmin = 34,
         AvaTaxOnlyCompanyUser = 35,
+        AvaTaxOnlyUserAdmin = 36,
 }
 
 @JsonConverter

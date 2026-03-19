@@ -37,6 +37,24 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("unitOfBasis", String, true)
    unitOfBasis?: string | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof UnitOfBasisModel
+     */
+   @JsonProperty("measurementTypeId", Number, true)
+   measurementTypeId?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof UnitOfBasisModel
+     */
+   @JsonProperty("measurementTypeCode", String, true)
+   measurementTypeCode?: string | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof UnitOfBasisModel
+     */
+   @JsonProperty("attributesUsed", [String], true)
+   attributesUsed?: string[] | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof UnitOfBasisModel
      */

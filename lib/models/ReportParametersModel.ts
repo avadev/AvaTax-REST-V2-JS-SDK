@@ -163,4 +163,46 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("includeMultiTaxLineDetails", Boolean, true)
    includeMultiTaxLineDetails?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("incorrectCurrencyOnly", Boolean, true)
+   incorrectCurrencyOnly?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("includeAdditionalAttributes", Boolean, true)
+   includeAdditionalAttributes?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("includeUserDefinedFields", Boolean, true)
+   includeUserDefinedFields?: boolean | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("importId", String, true)
+   importId?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("filterAtLineLevel", Boolean, true)
+   filterAtLineLevel?: boolean | undefined = undefined;
+    /**
+     * @type {object}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("udfFilter", Object, true)
+   udfFilter?: object | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("jurisdictionNames", [String], true)
+   jurisdictionNames?: string[] | undefined = undefined;
  }

@@ -37,6 +37,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("companyId", Number, true)
    companyId?: number | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
+    /**
      * @type {Enums.CustomRuleStatus}
      * @memberof CustomRuleSummaryModel
      */
@@ -73,6 +79,24 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("region", [String], true)
    region?: string[] | undefined = undefined;
     /**
+     * @type {Enums.JurisdictionType}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter, true)
+   jurisdictionTypeId?: Enums.JurisdictionType | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("jurisName", [String], true)
+   jurisName?: string[] | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("jurisCode", [String], true)
+   jurisCode?: string[] | undefined = undefined;
+    /**
      * @type {string[]}
      * @memberof CustomRuleSummaryModel
      */
@@ -88,8 +112,26 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string[]}
      * @memberof CustomRuleSummaryModel
      */
+   @JsonProperty("taxSubType", [String], true)
+   taxSubType?: string[] | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("rateTypeCode", [String], true)
+   rateTypeCode?: string[] | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
    @JsonProperty("entityUseCode", [String], true)
    entityUseCode?: string[] | undefined = undefined;
+    /**
+     * @type {string[]}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("companyLocationCode", [String], true)
+   companyLocationCode?: string[] | undefined = undefined;
     /**
      * @type {number}
      * @memberof CustomRuleSummaryModel
