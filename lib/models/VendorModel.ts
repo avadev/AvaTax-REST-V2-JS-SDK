@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { VendorAdditionalInfoModel } from "./VendorAdditionalInfoModel";
 import { CertificateModel } from "./CertificateModel";
 import { CustomFieldModel } from "./CustomFieldModel";
 import { ExposureZoneModel } from "./ExposureZoneModel";
@@ -41,6 +42,12 @@ This model inherits all properties from CustomerModel and adds vendor-specific f
      */
    @JsonProperty("isVendor", Boolean, true)
    isVendor?: boolean | undefined = undefined;
+    /**
+     * @type {VendorAdditionalInfoModel}
+     * @memberof VendorModel
+     */
+   @JsonProperty("vendorAdditionalInfo", VendorAdditionalInfoModel, true)
+   vendorAdditionalInfo?: VendorAdditionalInfoModel | undefined = undefined;
     /**
      * @type {number}
      * @memberof VendorModel

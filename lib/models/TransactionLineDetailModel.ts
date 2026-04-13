@@ -366,4 +366,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("vatCode", String, true)
    vatCode?: string | undefined = undefined;
+    /**
+     * @type {object[]}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("granularDutyDetails", [Object], true)
+   granularDutyDetails?: object[] | undefined = undefined;
  }
