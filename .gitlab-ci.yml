@@ -1,7 +1,7 @@
 include:
-  - project: sre/gitlab-templates
-    ref: v4
-    file:
-      - pipelines/common/security/sast.yml
-      - pipelines/common/stages/stages.yml
-      - pipelines/common/workflows/trunk.yml
+  - project: sre/gitlab-templates
+    ref: v4
+    file:
+      - pipelines/common/security/sast.yml
+      - pipelines/common/stages/stages.yml
+      - pipelines/common/workflows/trunk.yml
