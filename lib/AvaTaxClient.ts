@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    26.4.0
+ * @version    26.5.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '26.4.0';
+  private apiVersion: string = '26.5.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -2796,6 +2796,39 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Create VAT Numbers for a company
+   * Create one or more VAT number records for a company.
+     * Each record is validated synchronously against the ELR / Directory Search service
+     * (which proxies VIES). The response includes validation results:
+     * `vatNumberStatus`, `registeredBusinessName`, `businessNameStatus`, `validationDate`,
+     * and `validationSource`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyCompanyAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns these VAT numbers
+     * @param {Models.CustomerVatNumberModel[]} model The VAT number records you wish to create
+   * @return {Models.CustomerVatNumberModel[]}
+   */
+  
+  createVatNumbers({ companyId, model }: { companyId: number, model: Models.CustomerVatNumberModel[] }): Promise<Array<Models.CustomerVatNumberModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.CustomerVatNumberModel>);
+  }
+
+  /**
    * Delete a single company
    * Deleting a company will delete all child companies, and all users attached to this company.
      * 
@@ -2846,6 +2879,35 @@ This endpoint is secured and requires appropriate subscription and permission le
   deleteCompanyParameter({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
     var path = this.buildUrl({
       url: `/api/v2/companies/${companyId}/parameters/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ErrorDetail>);
+  }
+
+  /**
+   * Delete a single VAT Number
+   * Marks the VAT number record identified by this URL as deleted.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this VAT number
+     * @param {number} id The unique ID of the VAT number record to delete
+   * @return {Models.ErrorDetail[]}
+   */
+  
+  deleteVatNumber({ companyId, id }: { companyId: number, id: number }): Promise<Array<Models.ErrorDetail>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers/${id}`,
       parameters: {}
     });
 	 var strClientId =
@@ -3121,6 +3183,35 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Retrieve a single VAT Number
+   * Retrieve a single VAT Number record by its unique ID.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this VAT number
+     * @param {number} id The unique ID of the VAT number record
+   * @return {Models.CustomerVatNumberModel}
+   */
+  
+  getVatNumber({ companyId, id }: { companyId: number, id: number }): Promise<Models.CustomerVatNumberModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.CustomerVatNumberModel);
+  }
+
+  /**
    * Get ACH entry detail report for company and period
    * This API is available by invitation only.
      * Requires a subscription to Avalara Managed Returns or SST Certified Service Provider.
@@ -3259,6 +3350,58 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.MrsCompanyModel));
+  }
+
+  /**
+   * Retrieve VAT Numbers for a company
+   * Retrieve all VAT Numbers associated with this company.
+     *  
+     * A VAT Number represents a customer's VAT identification number that has been validated
+     * against VIES (VAT Information Exchange System).
+     *  
+     * Search for specific records using the `$filter` parameter. Supported filters include:
+     * * `vatNumber` - Filter by VAT number
+     * * `country` - Filter by country code (e.g., "GB", "DE")
+     * * `vatNumberStatus` - Filter by VAT number validation status (0=NotValidated, 1=Valid, 2=Invalid, 3=Error)
+     * * `businessNameStatus` - Filter by business name comparison status (0=NotValidated, 1=Valid, 2=Invalid, 3=Error)
+     * * `businessName` - Filter by business name
+     *  
+     * Order results using `$orderBy`. Common orderings:
+     * * `vatNumber ASC` - Order by VAT number ascending
+     * * `validationDate DESC` - Order by most recently validated first
+     * * `modifiedDate DESC` - Order by most recently modified first
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* createdDate, modifiedDate
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CustomerVatNumberModel>}
+   */
+  
+  listVatNumbers({ companyId, filter, top, skip, orderBy }: { companyId: number, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CustomerVatNumberModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers`,
+      parameters: {
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.CustomerVatNumberModel));
   }
 
   /**
@@ -3428,6 +3571,80 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CompanyParameterDetailModel);
+  }
+
+  /**
+   * Update a single VAT Number
+   * Replace the existing VAT number record with the data in the object you PUT.
+     *  
+     * Only `vatNumber`, `businessName`, and `country` fields can be updated. The
+     * validation-related fields (`vatNumberStatus`, `registeredBusinessName`,
+     * `businessNameStatus`, `validationDate`, `validationSource`) are managed by the
+     * system and are refreshed automatically: every successful PUT re-triggers a
+     * synchronous VAT validation against the ELR / Directory Search service (which
+     * proxies VIES). This makes "Fix" flows work as expected — correcting an
+     * invalid VAT number immediately updates its status.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyCompanyAdmin, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this VAT number
+     * @param {number} id The unique ID of the VAT number record to update
+     * @param {Models.CustomerVatNumberModel} model The VAT number object you wish to update
+   * @return {Models.CustomerVatNumberModel}
+   */
+  
+  updateVatNumber({ companyId, id, model }: { companyId: number, id: number, model: Models.CustomerVatNumberModel }): Promise<Models.CustomerVatNumberModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.CustomerVatNumberModel);
+  }
+
+  /**
+   * Validate a VAT Number without storing it
+   * Performs a synchronous VAT number validation against the ELR / Directory Search service
+     * (which proxies VIES) without persisting any record in the `CustomerVatNumber` table.
+     *  
+     * This is useful for UI flows that allow the user to "test" a VAT number before
+     * deciding whether to add it. The response payload mirrors the shape returned by
+     * the create/update endpoints, but `id`, `createdDate`, and `modifiedDate` are not set.
+     * Business-name comparison is not performed here; use the create endpoint to persist
+     * and obtain a `businessNameStatus`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company on whose behalf the validation is performed
+     * @param {Models.CustomerVatNumberModel} model The VAT number to validate (vatNumber, country)
+   * @return {Models.CustomerVatNumberModel}
+   */
+  
+  validateVatNumber({ companyId, model }: { companyId: number, model: Models.CustomerVatNumberModel }): Promise<Models.CustomerVatNumberModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vatnumbers/validate`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.CustomerVatNumberModel);
   }
 
   /**
@@ -5049,40 +5266,6 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
-   * Test whether a form supports online login verification
-   * This API is intended to be useful to identify whether the user should be allowed
-     * to automatically verify their login and password. This API will provide a result only if the form supports automatic online login verification.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {string} form The name of the form you would like to verify. This is the tax form code
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxFormCodes, scraperType, expectedResponseTime, requiredFilingCalendarDataFields
-     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {FetchResult<Models.SkyscraperStatusModel>}
-   */
-  
-  getLoginVerifierByForm({ form, filter, top, skip, orderBy }: { form: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SkyscraperStatusModel>> {
-    var path = this.buildUrl({
-      url: `/api/v2/definitions/filingcalendars/loginverifiers/${form}`,
-      parameters: {
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.SkyscraperStatusModel));
-  }
-
-  /**
    * List all market place locations.
    * List all market place locations.
    * Swagger Name: AvaTaxClient
@@ -6024,40 +6207,6 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.LocationQuestionModel));
-  }
-
-  /**
-   * List all forms where logins can be verified automatically
-   * List all forms where logins can be verified automatically.
-     * This API is intended to be useful to identify whether the user should be allowed
-     * to automatically verify their login and password.
-   * Swagger Name: AvaTaxClient
-   *
-   * 
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* taxFormCodes, scraperType, expectedResponseTime, requiredFilingCalendarDataFields
-     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
-     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
-     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
-   * @return {FetchResult<Models.SkyscraperStatusModel>}
-   */
-  
-  listLoginVerifiers({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.SkyscraperStatusModel>> {
-    var path = this.buildUrl({
-      url: `/api/v2/definitions/filingcalendars/loginverifiers`,
-      parameters: {
-        $filter: filter,
-        $top: top,
-        $skip: skip,
-        $orderBy: orderBy
-      }
-    });
-	 var strClientId =
-      this.appNM +
-      '; ' +
-      this.appVer +
-      '; JavascriptSdk; ' + this.apiVersion + '; ' +
-      this.machineNM;   
-    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.SkyscraperStatusModel));
   }
 
   /**
@@ -8227,6 +8376,58 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * List economic nexus threshold statuses for a company
+   * Returns precomputed economic nexus threshold statuses for a company, sourced from a cache
+     * refreshed weekly from Snowflake.
+     *  
+     * When the optional `region` query parameter is provided, only the matching jurisdiction row is included in `states`.
+     * If no row exists for that company and region, `states` is an empty array (still 200 OK).
+     *  
+     * TPS currently binds this filter as query parameter `state`; use the same value. If the public contract standardizes on `region`,
+     * TPS or api-gateway should accept or rewrite `region` so filtering still applies.
+     *  
+     * Production traffic is served by TPS; api-gateway should route this path to TPS.
+     *  
+     * This endpoint requires the `NexusFetch` permission. If EcoNexus is not configured in TPS or the cache has not loaded, TPS returns 503.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The Avalara company identifier.
+     * @param {string} region Optional two-letter US state/region postal code (case-insensitive), same meaning as the `state` column in the data store. When provided, `states` contains at most one item; if there is no data for that company and region, `states` is an empty array (200 OK).
+     * @param {string} include Standard Avalara `$include` query option (see other v2 list APIs).
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {Models.ThresholdStatusesModel}
+   */
+  
+  getEcoNexusThresholds({ companyId, region, include, filter, top, skip, orderBy }: { companyId: number, region?: string, include?: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<Models.ThresholdStatusesModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/econexusthresholds`,
+      parameters: {
+        region: region,
+        $include: include,
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ThresholdStatusesModel);
+  }
+
+  /**
    * Approves linkage to a firm for a client account
    * This API enables the account admin of a client account to approve linkage request by a firm.
      * 
@@ -8545,6 +8746,35 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.FirmClientLinkageOutputModel);
+  }
+
+  /**
+   * Resolves a form type to an extraction task identifier.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} form_type The form type to resolve (e.g., "W-9").
+   * @return {Models.FormTypeMappingModel}
+   */
+  
+  resolveFormTypeTask({ form_type }: { form_type?: string }): Promise<Models.FormTypeMappingModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/form-type-mappings/resolve-task`,
+      parameters: {
+        form_type: form_type
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.FormTypeMappingModel);
   }
 
   /**
@@ -9189,6 +9419,40 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Creates a batch to generate tax code recommendations asynchronously.
+   * Creates a new batch for asynchronous tax code recommendations processing.
+     * The batch is processed asynchronously, and you can check the status using the GetBatchTaxCodeRecommendations endpoint.
+     *  
+     * Maximum items created per request: 2,000 (subject to change).
+     *  
+     * Batches are automatically deleted after 1 day.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {Models.ItemTaxcodeRecommendationBatchesInputModel[]} model The list of items to include in the batch (maximum 2,000).
+   * @return {Models.TaxcodeBatchOutputModel[]}
+   */
+  
+  createTaxcodeBatch({ companyId, model }: { companyId: number, model: Models.ItemTaxcodeRecommendationBatchesInputModel[] }): Promise<Array<Models.TaxcodeBatchOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/taxcode-recommendations/batches`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.TaxcodeBatchOutputModel>);
+  }
+
+  /**
    * Create a new tax code classification request
    * Creates a new tax code classification request.
      *  
@@ -9219,6 +9483,37 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemTaxCodeClassificationRequestOutputModel);
+  }
+
+  /**
+   * Deletes a tax code recommendation batch.
+   * Deletes the specified tax code recommendation batch.
+     *  
+     * Returns '404 Not Found' if the batch is already deleted, does not exist, or belongs to a different company.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} batchId The unique ID of the batch to delete.
+   * @return {Models.ObjectDeletedErrorModel[]}
+   */
+  
+  deleteBatchTaxCodeRecommendations({ companyId, batchId }: { companyId: number, batchId: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/taxcode-recommendations/batches/${batchId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
   }
 
   /**
@@ -9262,6 +9557,34 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
+  }
+
+  /**
+   * Deletes HS Code classification status for the item by status id.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company to which this item belongs
+     * @param {number} itemId The ID of the item
+     * @param {string} id The HS Code classification status id.
+   * @return {}
+   */
+  
+  deleteHSCodeClassificationStatus({ companyId, itemId, id }: { companyId: number, itemId: number, id: string }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/${itemId}/hscode-classifications-status/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, null);
   }
 
   /**
@@ -9564,6 +9887,40 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ItemHSCodeDutyDetailModel>);
+  }
+
+  /**
+   * Retrieves the status and results of a tax code recommendation batch.
+   * Retrieves the status and results of a tax code recommendation batch for the specified company.
+     * If the batch status is "Completed", the response includes the tax code recommendations for all items in the batch.
+     * If the batch status is "Waiting", "Processing", or any other non-complete status, only the status information is returned.
+     * Returns '404 Not Found' if the batch has been deleted or does not exist.
+     *  
+     * Batches are automatically deleted after 1 day.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company.
+     * @param {number} batchId The unique ID of the recommendation batch.
+   * @return {Models.ItemTaxcodeRecommendationBatchStatusOutputModel}
+   */
+  
+  getBatchTaxCodeRecommendations({ companyId, batchId }: { companyId: number, batchId: number }): Promise<Models.ItemTaxcodeRecommendationBatchStatusOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/taxcode-recommendations/batches/${batchId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemTaxcodeRecommendationBatchStatusOutputModel);
   }
 
   /**
@@ -13349,7 +13706,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
      * * This API is available to Avalara system-level (registrar-level) users only.
    * Swagger Name: AvaTaxClient
    *
@@ -13485,6 +13842,35 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Download an audit log report
+   * Downloads the file associated with an audit log report.
+     * If the report is not yet complete, you will receive a `ReportNotFinished` error.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} id The unique ID of the audit log report
+   * @return {object}
+   */
+  
+  downloadAuditLogReport({ id }: { id: string }): Promise<Object> {
+    var path = this.buildUrl({
+      url: `/api/v2/reports/exportauditlogs/${id}/attachment`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
+  }
+
+  /**
    * Download a report
    * This API downloads the file associated with a report.
      *  
@@ -13523,6 +13909,62 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Object);
+  }
+
+  /**
+   * Initiate an ExportAuditLogs report task
+   * Begins running an `ExportAuditLogs` report task and returns the identity of the report.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {Models.ReportAuditLogModel} model Options to filter the audit log export.
+   * @return {Models.ReportAuditLogResponseModel[]}
+   */
+  
+  exportAuditLogs({ model }: { model: Models.ReportAuditLogModel }): Promise<Array<Models.ReportAuditLogResponseModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/reports/exportauditlogs`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Array<Models.ReportAuditLogResponseModel>);
+  }
+
+  /**
+   * Get an audit log report by id
+   * Retrieves the status and details of an audit log report task.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ProStoresOperator, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} id The unique ID of the audit log report
+   * @return {Models.ReportAuditLogResponseModel}
+   */
+  
+  getAuditLogReport({ id }: { id: string }): Promise<Models.ReportAuditLogResponseModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/reports/exportauditlogs/${id}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ReportAuditLogResponseModel);
   }
 
   /**
@@ -16561,7 +17003,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16597,7 +17039,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16631,7 +17073,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
+     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, Compliance Root User, CSPTester, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TreasuryAdmin.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16665,7 +17107,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16711,7 +17153,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16751,7 +17193,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16803,7 +17245,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, SystemOperator, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 
@@ -16844,7 +17286,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * 
      * ### Security Policies
      * 
-     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+     * * This API requires one of the following user roles: AccountAdmin, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, AvaTaxOnlyUserAdmin, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPTester, FirmAdmin, FirmUser, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
    * Swagger Name: AvaTaxClient
    *
    * 

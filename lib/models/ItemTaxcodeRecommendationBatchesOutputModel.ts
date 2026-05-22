@@ -14,7 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
-import { TaxCodeRecommendationOutputModel } from "./TaxCodeRecommendationOutputModel";
+import { ItemTaxcodeRecommendationBaseBatchOutputModel } from "./ItemTaxcodeRecommendationBaseBatchOutputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -56,9 +56,9 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("summary", String, true)
    summary?: string | undefined = undefined;
     /**
-     * @type {TaxCodeRecommendationOutputModel[]}
+     * @type {ItemTaxcodeRecommendationBaseBatchOutputModel[]}
      * @memberof ItemTaxcodeRecommendationBatchesOutputModel
      */
-   @JsonProperty("taxCodeRecommendations", [TaxCodeRecommendationOutputModel], true)
-   taxCodeRecommendations?: TaxCodeRecommendationOutputModel[] | undefined = undefined;
+   @JsonProperty("taxCodeRecommendations", [ItemTaxcodeRecommendationBaseBatchOutputModel], true)
+   taxCodeRecommendations?: ItemTaxcodeRecommendationBaseBatchOutputModel[] | undefined = undefined;
  }
