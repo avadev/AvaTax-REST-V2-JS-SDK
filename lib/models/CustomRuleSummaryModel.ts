@@ -18,7 +18,9 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Base model for custom rules that can be either DynamicRuleModel or AdvancedRuleExecutionModel or TaxRuleModel
+ * Model which can provide a summary of any custom rule variety.
+Custom rules is the umbrella term for traditional Tax Rules,
+legacy Advanced Rules (transaction rules), and the newest Dynamic Rules.
  * @export
  * @class CustomRuleSummaryModel
  */

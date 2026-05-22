@@ -104,7 +104,6 @@ export * from './CertCaptureProvisionStatus';
 export * from './RefundType';
 export * from './SendSalesOutputFileFormat';
 export * from './SendSalesFileType';
-export * from './ScraperType';
 export * from './TaxOverrideType';
 export * from './RateType';
 export * from './TaxRuleTypeId';
