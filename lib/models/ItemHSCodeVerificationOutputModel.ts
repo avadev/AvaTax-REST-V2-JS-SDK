@@ -1,0 +1,40 @@
+/*
+ * AvaTax Software Development Kit for JavaScript
+ *
+ * (c) 2004-2022 Avalara, Inc.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author     Jonathan Wenger <jonathan.wenger@avalara.com>
+ * @author     Sachin Baijal <sachin.baijal@avalara.com>
+ * @copyright  2004-2018 Avalara, Inc.
+ * @license    https://www.apache.org/licenses/LICENSE-2.0
+ * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
+ */
+
+import * as Enums from '../enums/index';
+import { ItemHSCodeVerificationFailedRowModel } from "./ItemHSCodeVerificationFailedRowModel";
+import { JsonObject, JsonProperty } from "json2typescript";
+import { DateConverter } from "../utils/dateConverter";
+
+/**
+ * Response for HS code verification batch requests. When Avalara.ItemMasterCoreService.Models.v2.ItemHSCodeVerificationOutputModel.failed is non-empty, no rows were persisted or published.
+ * @export
+ * @class ItemHSCodeVerificationOutputModel
+ */
+ @JsonObject("ItemHSCodeVerificationOutputModel")
+ export class ItemHSCodeVerificationOutputModel {
+    /**
+     * @type {number}
+     * @memberof ItemHSCodeVerificationOutputModel
+     */
+   @JsonProperty("total", Number, true)
+   total?: number | undefined = undefined;
+    /**
+     * @type {ItemHSCodeVerificationFailedRowModel[]}
+     * @memberof ItemHSCodeVerificationOutputModel
+     */
+   @JsonProperty("failed", [ItemHSCodeVerificationFailedRowModel], true)
+   failed?: ItemHSCodeVerificationFailedRowModel[] | undefined = undefined;
+ }

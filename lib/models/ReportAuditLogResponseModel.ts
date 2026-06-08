@@ -32,11 +32,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("id", Number, true)
    id?: number | undefined = undefined;
     /**
-     * @type {string}
+     * @type {number}
      * @memberof ReportAuditLogResponseModel
      */
-   @JsonProperty("reportType", String, true)
-   reportType?: string | undefined = undefined;
+   @JsonProperty("accountId", Number, true)
+   accountId?: number | undefined = undefined;
     /**
      * @type {ReportAuditLogParametersModel}
      * @memberof ReportAuditLogResponseModel

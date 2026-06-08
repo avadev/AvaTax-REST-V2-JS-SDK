@@ -10,7 +10,7 @@
  * @author     Sachin Baijal <sachin.baijal@avalara.com>
  * @copyright  2004-2018 Avalara, Inc.
  * @license    https://www.apache.org/licenses/LICENSE-2.0
- * @version    26.5.0
+ * @version    26.6.0
  * @link       https://github.com/avadev/AvaTax-REST-V2-JS-SDK
  */
 
@@ -50,7 +50,7 @@ export default class AvaTaxClient {
   public auth: string;
   public customHttpAgent: https.Agent;
   public enableStrictTypeConversion: boolean;
-  private apiVersion: string = '26.5.0';
+  private apiVersion: string = '26.6.0';
   private logger: Logger;
   /**
    * Construct a new AvaTaxClient 
@@ -1850,6 +1850,7 @@ export default class AvaTaxClient {
      * * logs - Retrieves the certificate log
      * * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
      * * custom_fields - Retrieves custom fields set for this certificate
+     * * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
@@ -1865,7 +1866,7 @@ export default class AvaTaxClient {
    * 
      * @param {number} companyId The ID number of the company that recorded this certificate
      * @param {number} id The unique ID number of this certificate
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
    * @return {Models.CertificateModel}
    */
   
@@ -2133,6 +2134,57 @@ export default class AvaTaxClient {
   }
 
   /**
+   * List local exempt jurisdictions for a given exposure zone and tax code
+   * Returns the list of jurisdictions that are valid for a given combination of exposure zone
+     * and exemption tax code. The returned jurisdictions can be used to add valid jurisdictions
+     * to a certificate.
+     *  
+     * Both `exposureZone` and `taxCode` are mandatory query parameters.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID number of the company
+     * @param {string} exposureZone Required. The exposure zone name used to filter valid jurisdictions (e.g., "California").
+     * @param {string} taxCode Required. The exemption tax code used to filter valid jurisdictions (e.g., "RESALE").
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* region, country, customerUsageType
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+   * @return {FetchResult<Models.CertificateJurisdictionListModel>}
+   */
+  
+  listLocalExemptJurisdictions({ companyId, exposureZone, taxCode, filter, top, skip, orderBy }: { companyId: number, exposureZone: string, taxCode: string, filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.CertificateJurisdictionListModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/jurisdictions`,
+      parameters: {
+        exposureZone: exposureZone,
+        taxCode: taxCode,
+        $filter: filter,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.CertificateJurisdictionListModel));
+  }
+
+  /**
    * List all certificates for a company
    * List all certificates recorded by a company
      *  
@@ -2151,6 +2203,7 @@ export default class AvaTaxClient {
      * * logs - Retrieves the certificate log
      * * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid
      * * custom_fields - Retrieves custom fields set for this certificate
+     * * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
@@ -2165,7 +2218,7 @@ export default class AvaTaxClient {
    *
    * 
      * @param {number} companyId The ID number of the company to search
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -3365,6 +3418,10 @@ This endpoint is secured and requires appropriate subscription and permission le
      * * `vatNumberStatus` - Filter by VAT number validation status (0=NotValidated, 1=Valid, 2=Invalid, 3=Error)
      * * `businessNameStatus` - Filter by business name comparison status (0=NotValidated, 1=Valid, 2=Invalid, 3=Error)
      * * `businessName` - Filter by business name
+     * * `validationSource` - Filter by validation source ('VIES' or 'ELR')
+     * * `validationDate` - Filter by last validation timestamp (e.g., `validationDate gt 2026-01-01`)
+     * * `createdDate` - Filter by record creation timestamp (e.g., `createdDate ge 2026-01-01`)
+     * * `modifiedDate` - Filter by record modification timestamp (e.g., `modifiedDate gt 2026-05-01T00:00:00Z`)
      *  
      * Order results using `$orderBy`. Common orderings:
      * * `vatNumber ASC` - Order by VAT number ascending
@@ -3378,7 +3435,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    *
    * 
      * @param {number} companyId The ID of the company
-     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* createdDate, modifiedDate
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
@@ -4655,7 +4712,7 @@ This endpoint is secured and requires appropriate subscription and permission le
    * 
      * @param {number} companyId The unique ID number of the company that recorded this customer
      * @param {string} customerCode The unique code representing this customer
-     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate
+     * @param {string} include OPTIONAL: A comma separated list of special fetch options. You can specify one or more of the following:      * customers - Retrieves the list of customers linked to the certificate.   * po_numbers - Retrieves all PO numbers tied to the certificate.   * attributes - Retrieves all attributes applied to the certificate.   * histories - Retrieves the certificate update history   * jobs - Retrieves the jobs for this certificate   * logs - Retrieves the certificate log   * invalid_reasons - Retrieves invalid reasons for this certificate if the certificate is invalid   * custom_fields - Retrieves custom fields set for this certificate   * jurisdictions - Retrieves the list of jurisdictions associated with the certificate
      * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* exemptionNumber, ecmsId, ecmsStatus, pdf, pages
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
@@ -5901,6 +5958,31 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * List of all event types that can be subscribed to for Item reverse sync webhook registrations.
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+   * @return {Models.ItemReverseSyncEventDefinitionOutputModel[]}
+   */
+  
+  listItemReverseSyncEvents(): Promise<Array<Models.ItemReverseSyncEventDefinitionOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/items/events`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Array<Models.ItemReverseSyncEventDefinitionOutputModel>);
+  }
+
+  /**
    * List of all recommendation status which can be assigned to an item
    * ### Security Policies
      * 
@@ -5965,17 +6047,19 @@ This endpoint is secured and requires appropriate subscription and permission le
      * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
      * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
      * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {number} companyId Optional query parameter; when set, the result set is restricted to jurisdictions in regions   where the company has nexus. When omitted, all jurisdiction rows are eligible before filter is applied.
    * @return {FetchResult<Models.JurisdictionModel>}
    */
   
-  listJurisdictions({ filter, top, skip, orderBy }: { filter?: string, top?: number, skip?: number, orderBy?: string }): Promise<FetchResult<Models.JurisdictionModel>> {
+  listJurisdictions({ filter, top, skip, orderBy, companyId }: { filter?: string, top?: number, skip?: number, orderBy?: string, companyId?: number }): Promise<FetchResult<Models.JurisdictionModel>> {
     var path = this.buildUrl({
       url: `/api/v2/definitions/jurisdictions`,
       parameters: {
         $filter: filter,
         $top: top,
         $skip: skip,
-        $orderBy: orderBy
+        $orderBy: orderBy,
+        companyId: companyId
       }
     });
 	 var strClientId =
@@ -6121,6 +6205,57 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.JurisdictionHierarchyModel));
+  }
+
+  /**
+   * List tax types, subtypes, and rate types applicable for a given jurisdiction
+   * Returns a list of tax type and subtype groups, and optionally the available rate types for each group, applicable for a given jurisdiction.
+     *  
+     * This API lets you filter tax types and rate types based on whether they may apply in a given jurisdiction and provides a description of each.
+     * 
+     * If a company ID is provided, then only the tax types for which the company has nexus are shown.
+     * 
+     * If custom content is included, then all available custom tax types are included in the result if the calling user has the appropriate subscription
+     * and the tax types are available in the jurisdiction's country.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {string} country ISO country code (e.g. `US`)
+     * @param {string} region ISO region or state/province code (e.g. `CA` for California)
+     * @param {string} jurisdictionTypeId Jurisdiction type identifier (e.g. `STA` for state)
+     * @param {string} jurisdictionCode Code identifying a specific jurisdiction
+     * @param {number} companyId Optional query parameter. When set, tax type/subtype pairs are filtered to those which correspond to the company's   configured nexus. When omitted, no nexus-based filtering is applied.
+     * @param {Date} effectiveDate Optional query parameter. When companyId is not provided, this is the date used to filter  effective tax types and rate types. Defaults to the current date.
+     * @param {number} top If nonzero, return no more than this number of results. Used with `$skip` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 1,000 records.
+     * @param {number} skip If nonzero, skip this number of results before returning data. Used with `$top` to provide pagination for large datasets.
+     * @param {string} orderBy A comma separated list of sort statements in the format `(fieldname) [ASC|DESC]`, for example `id ASC`.
+     * @param {string} filter A filter statement to identify specific records to retrieve. For more information on filtering, see [Filtering in REST](http://developer.avalara.com/avatax/filtering-in-rest/).<br />*Not filterable:* rateTypes
+     * @param {boolean} includeCustomContent When true, merges in potentially applicable custom tax types and subtypes into result (i.e. for which no system content is defined). Defaults to false.
+     * @param {boolean} includeRateTypes Query parameter `$includeRateTypes`. When true (default), returns the rate types available for each tax type + subtype pair in the result.
+   * @return {FetchResult<Models.JurisdictionTaxTypesAndSubTypesModel>}
+   */
+  
+  listJurisdictionTaxTypesAndSubTypes({ country, region, jurisdictionTypeId, jurisdictionCode, companyId, effectiveDate, top, skip, orderBy, filter, includeCustomContent, includeRateTypes }: { country: string, region: string, jurisdictionTypeId: string, jurisdictionCode: string, companyId?: number, effectiveDate?: Date, top?: number, skip?: number, orderBy?: string, filter?: string, includeCustomContent?: boolean, includeRateTypes?: boolean }): Promise<FetchResult<Models.JurisdictionTaxTypesAndSubTypesModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/definitions/jurisdictions/${country}/${region}/${jurisdictionTypeId}/${jurisdictionCode}/taxTypesAndSubTypes`,
+      parameters: {
+        companyId: companyId,
+        effectiveDate: effectiveDate,
+        $top: top,
+        $skip: skip,
+        $orderBy: orderBy,
+        $filter: filter,
+        $includeCustomContent: includeCustomContent,
+        $includeRateTypes: includeRateTypes
+      }
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.JurisdictionTaxTypesAndSubTypesModel));
   }
 
   /**
@@ -11259,6 +11394,183 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Array<Models.ItemParameterModel>);
+  }
+
+  /**
+   * Verify the HSCode to be valid/invalid
+   * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID of the company
+     * @param {Models.ItemHSCodeVerificationInputModel[]} model The request model for HS Code Verification
+   * @return {Models.ItemHSCodeVerificationOutputModel}
+   */
+  
+  verifyHSCode({ companyId, model }: { companyId: number, model?: Models.ItemHSCodeVerificationInputModel[] }): Promise<Models.ItemHSCodeVerificationOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/items/hscodes/$verify`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemHSCodeVerificationOutputModel);
+  }
+
+  /**
+   * Create a webhook registration for a company.
+   * Creates a webhook registration for the specified company. The registration defines a
+     * connector, callback URL, registration type, and subscribed events.
+     *  
+     * The customer must pass the connector name in `connectorName`; this value is also
+     * used as the OAuth scope for the registration.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company for which you want to create the registration.
+     * @param {Models.ItemReverseSyncRegistrationInputModel} model The webhook registration details to create.
+   * @return {Models.ItemReverseSyncRegistrationOutputModel}
+   */
+  
+  createReverseSyncRegistration({ companyId, model }: { companyId: number, model: Models.ItemReverseSyncRegistrationInputModel }): Promise<Models.ItemReverseSyncRegistrationOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/connector-sync/companies/${companyId}/registrations`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'post', payload: model, clientId: strClientId }, Models.ItemReverseSyncRegistrationOutputModel);
+  }
+
+  /**
+   * Delete a webhook registration.
+   * Deletes the webhook registration identified by the specified registration ID for the given company.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this registration.
+     * @param {number} registrationId The ID of the registration to delete.
+   * @return {Models.ObjectDeletedErrorModel[]}
+   */
+  
+  deleteReverseSyncRegistration({ companyId, registrationId }: { companyId: number, registrationId: number }): Promise<Array<Models.ObjectDeletedErrorModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/connector-sync/companies/${companyId}/registrations/${registrationId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, Array<Models.ObjectDeletedErrorModel>);
+  }
+
+  /**
+   * Retrieve a webhook registration.
+   * Returns the webhook registration identified by the specified registration ID for the given company.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this registration.
+     * @param {number} registrationId The ID of the registration.
+   * @return {Models.ItemReverseSyncRegistrationOutputModel}
+   */
+  
+  getReverseSyncRegistration({ companyId, registrationId }: { companyId: number, registrationId: number }): Promise<Models.ItemReverseSyncRegistrationOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/connector-sync/companies/${companyId}/registrations/${registrationId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, Models.ItemReverseSyncRegistrationOutputModel);
+  }
+
+  /**
+   * List webhook registrations for a company.
+   * Returns all webhook registrations for the specified company.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPAdmin, CSPTester, ReturnsOnlyAccountAdmin, ReturnsOnlyAccountUser, ReturnsOnlyCompanyAdmin, ReturnsOnlyCompanyUser, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns the webhook registrations.
+   * @return {FetchResult<Models.ItemReverseSyncRegistrationOutputModel>}
+   */
+  
+  listReverseSyncRegistrations({ companyId }: { companyId: number }): Promise<FetchResult<Models.ItemReverseSyncRegistrationOutputModel>> {
+    var path = this.buildUrl({
+      url: `/api/v2/connector-sync/companies/${companyId}/registrations`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.ItemReverseSyncRegistrationOutputModel));
+  }
+
+  /**
+   * Update a webhook registration.
+   * Updates the webhook registration with the provided fields. Only the fields included in the
+     * request body are updated.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AvaTaxOnlyAccountAdmin, AvaTaxOnlyCompanyAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The ID of the company that owns this registration.
+     * @param {number} registrationId The ID of the registration to update.
+     * @param {Models.ItemReverseSyncRegistrationUpdateModel} model The registration fields to update.
+   * @return {Models.ItemReverseSyncRegistrationOutputModel}
+   */
+  
+  updateReverseSyncRegistration({ companyId, registrationId, model }: { companyId: number, registrationId: number, model: Models.ItemReverseSyncRegistrationUpdateModel }): Promise<Models.ItemReverseSyncRegistrationOutputModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/connector-sync/companies/${companyId}/registrations/${registrationId}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'patch', payload: model, clientId: strClientId }, Models.ItemReverseSyncRegistrationOutputModel);
   }
 
   /**
@@ -17521,6 +17833,44 @@ This endpoint is secured and requires appropriate subscription and permission le
   }
 
   /**
+   * Delete a vendor record
+   * Deletes the vendor object referenced by this URL.
+     *  
+     * A vendor object defines information about a person or business that you purchase products from.
+     * The same CertCapture customer resource is used for vendors (isVendor flag). Deleting removes the record.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this vendor
+     * @param {string} vendorCode The unique code representing this vendor
+   * @return {}
+   */
+  
+  deleteVendor({ companyId, vendorCode }: { companyId: number, vendorCode: string }): Promise<null> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vendors/${vendorCode}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'delete', payload: null, clientId: strClientId }, null);
+  }
+
+  /**
    * Retrieve a single vendor
    * Retrieve the vendor identified by this URL.
      *  
@@ -17542,7 +17892,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * * shipTos - Retrieves ship-tos linked with this vendor
      * * shipToStates - Retrieves ship-to states for this vendor
      * * custom_fields - Retrieves custom fields set for this vendor
-     *  
+     * * vendorAdditionalInfo - Retrieves vendorAdditionalInfo for this vendor
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
      * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
@@ -17654,6 +18004,7 @@ This endpoint is secured and requires appropriate subscription and permission le
      * * shipTos - Retrieves ship-tos linked with this vendor
      * * shipToStates - Retrieves ship-to states for this vendor
      * * custom_fields - Retrieves custom fields set for this vendor
+     * * vendorAdditionalInfo - Retrieves vendorAdditionalInfo for vendors
      *  
      * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
      * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
@@ -17696,6 +18047,47 @@ This endpoint is secured and requires appropriate subscription and permission le
       '; JavascriptSdk; ' + this.apiVersion + '; ' +
       this.machineNM;   
     return this.restCall({ url: path, verb: 'get', payload: null, clientId: strClientId }, createFetchResultClass(Models.VendorModel));
+  }
+
+  /**
+   * Update a single vendor
+   * Replace the vendor object with a new record.
+     *  
+     * A vendor object defines information about a person or business that you purchase products from.
+     * When you create a tax transaction in AvaTax, you can use the `vendorCode` from this
+     * record. AvaTax will search for this `vendorCode` value and identify any certificates
+     * linked to this vendor object.
+     *  
+     * Before you can use any exemption certificates endpoints, you must set up your company for exemption certificate data storage.
+     * Companies that do not have this storage system set up will see `CertCaptureNotConfiguredError` when they call exemption
+     * certificate related APIs. To check if this is set up for a company, call `GetCertificateSetup`. To request setup of exemption
+     * certificate storage for this company, call `RequestCertificateSetup`.
+     * 
+     * ### Security Policies
+     * 
+     * * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, AvaTaxOnlyAccountAdmin, AvaTaxOnlyAccountUser, AvaTaxOnlyCompanyAdmin, AvaTaxOnlyCompanyUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, CSPTester, SSTAdmin, TechnicalSupportAdmin.
+     * * This API depends on the following active services:*Required* (all): AvaTaxPro, ECMEssentials, ECMPro, ECMPremium, VEMPro, VEMPremium, ECMProComms, ECMPremiumComms.
+   * Swagger Name: AvaTaxClient
+   *
+   * 
+     * @param {number} companyId The unique ID number of the company that recorded this vendor
+     * @param {string} vendorCode The unique code representing this vendor
+     * @param {Models.VendorModel} model The new vendor model that will replace the existing record at this URL
+   * @return {Models.VendorModel}
+   */
+  
+  updateVendor({ companyId, vendorCode, model }: { companyId: number, vendorCode: string, model: Models.VendorModel }): Promise<Models.VendorModel> {
+    var path = this.buildUrl({
+      url: `/api/v2/companies/${companyId}/vendors/${vendorCode}`,
+      parameters: {}
+    });
+	 var strClientId =
+      this.appNM +
+      '; ' +
+      this.appVer +
+      '; JavascriptSdk; ' + this.apiVersion + '; ' +
+      this.machineNM;   
+    return this.restCall({ url: path, verb: 'put', payload: model, clientId: strClientId }, Models.VendorModel);
   }
 
   /**

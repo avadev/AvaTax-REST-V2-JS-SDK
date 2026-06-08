@@ -18,6 +18,7 @@ import { ExemptionReasonModel } from "./ExemptionReasonModel";
 import { CustomerModel } from "./CustomerModel";
 import { PoNumberModel } from "./PoNumberModel";
 import { ExposureZoneModel } from "./ExposureZoneModel";
+import { CertificateJurisdictionModel } from "./CertificateJurisdictionModel";
 import { CertificateAttributeModel } from "./CertificateAttributeModel";
 import { HistoryModel } from "./HistoryModel";
 import { CustomerJobModel } from "./CustomerJobModel";
@@ -181,6 +182,12 @@ log onto the administrative website for the product you purchased.
      */
    @JsonProperty("exposureZoneName", String, true)
    exposureZoneName?: string | undefined = undefined;
+    /**
+     * @type {CertificateJurisdictionModel[]}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("jurisdictions", [CertificateJurisdictionModel], true)
+   jurisdictions?: CertificateJurisdictionModel[] | undefined = undefined;
     /**
      * @type {CertificateAttributeModel[]}
      * @memberof CertificateModel

@@ -14,7 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
-import { ReportAuditLogOperationInputModel } from "./ReportAuditLogOperationInputModel";
+import { ReportAuditLogReportInputModel } from "./ReportAuditLogReportInputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -26,11 +26,17 @@ import { DateConverter } from "../utils/dateConverter";
  @JsonObject("ReportAuditLogModel")
  export class ReportAuditLogModel {
     /**
-     * @type {ReportAuditLogOperationInputModel[]}
+     * @type {string}
      * @memberof ReportAuditLogModel
      */
-   @JsonProperty("operations", [ReportAuditLogOperationInputModel], true)
-   operations?: ReportAuditLogOperationInputModel[] | undefined = undefined;
+   @JsonProperty("reportType", String, true)
+   reportType?: string | undefined = undefined;
+    /**
+     * @type {ReportAuditLogReportInputModel[]}
+     * @memberof ReportAuditLogModel
+     */
+   @JsonProperty("reports", [ReportAuditLogReportInputModel], true)
+   reports?: ReportAuditLogReportInputModel[] | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ReportAuditLogModel
@@ -49,4 +55,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("compression", Enums.CompressionConverter, true)
    compression?: Enums.Compression | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ReportAuditLogModel
+     */
+   @JsonProperty("reportSource", String, true)
+   reportSource?: string | undefined = undefined;
  }

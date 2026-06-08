@@ -21,6 +21,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 */
  export enum ReportFormat {
         CSV = 0,
+        JSON = 1,
 }
 
 @JsonConverter
