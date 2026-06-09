@@ -75,4 +75,16 @@ be linked to one or more traditional custom Tax Rules.
      */
    @JsonProperty("continueOnError", Boolean)
    continueOnError: boolean = undefined;
+    /**
+     * @type {boolean}
+     * @memberof DynamicRuleInputModel
+     */
+   @JsonProperty("isDraft", Boolean, true)
+   isDraft?: boolean | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof DynamicRuleInputModel
+     */
+   @JsonProperty("priority", Number, true)
+   priority?: number | undefined = undefined;
  }

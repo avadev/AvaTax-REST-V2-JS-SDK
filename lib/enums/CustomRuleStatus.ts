@@ -25,6 +25,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         Inactive = 2,
         Expired = 3,
         Future = 4,
+        Draft = 5,
 }
 
 @JsonConverter

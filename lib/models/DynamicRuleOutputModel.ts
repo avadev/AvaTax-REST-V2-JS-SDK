@@ -82,6 +82,18 @@ be linked to one or more traditional custom Tax Rules.
    @JsonProperty("continueOnError", Boolean, true)
    continueOnError?: boolean | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof DynamicRuleOutputModel
+     */
+   @JsonProperty("isDraft", Boolean, true)
+   isDraft?: boolean | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof DynamicRuleOutputModel
+     */
+   @JsonProperty("priority", Number, true)
+   priority?: number | undefined = undefined;
+    /**
      * @type {number}
      * @memberof DynamicRuleOutputModel
      */

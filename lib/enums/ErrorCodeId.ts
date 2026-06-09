@@ -441,6 +441,11 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ValueMismatch = 4027,
         InvalidStatusForHSVerification = 4028,
         CannotVerifyHSCode = 4029,
+        RequestAlreadyInProgress = 4030,
+        ClassificationSettingsInProgress = 4031,
+        CannotDeleteEntity = 4032,
+        IncorrectValueForField = 4033,
+        APThresholdInheritanceRestriction = 4034,
         UnexpectedError = -1,
 }
 
