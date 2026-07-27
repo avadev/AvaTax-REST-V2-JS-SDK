@@ -117,3 +117,6 @@ export * from './PasswordStatusId';
 export * from './ApiVersionSchema';
 export * from './FailureCodes';
 export * from './AgeVerifyFailureCode';
+export * from './MemoryAlertSeverity';
+export * from './MemoryRecommendationPriority';
+export * from './ScraperType';
