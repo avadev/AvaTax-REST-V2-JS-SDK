@@ -30,6 +30,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         BadDebt = 7,
         Other = 8,
         Offline = 9,
+        Offset = 10,
 }
 
 @JsonConverter

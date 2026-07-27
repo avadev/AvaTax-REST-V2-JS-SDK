@@ -205,4 +205,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("jurisdictionNames", [String], true)
    jurisdictionNames?: string[] | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("includePOAandPOO", Boolean, true)
+   includePOAandPOO?: boolean | undefined = undefined;
+    /**
+     * @type {number[]}
+     * @memberof ReportParametersModel
+     */
+   @JsonProperty("companyIds", [Number], true)
+   companyIds?: number[] | undefined = undefined;
  }

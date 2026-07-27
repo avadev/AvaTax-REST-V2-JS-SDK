@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { CertificateJurisdictionTaxMappingModel } from "./CertificateJurisdictionTaxMappingModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -50,4 +51,16 @@ authority regions where the certificate applies.
      */
    @JsonProperty("code", String, true)
    code?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CertificateJurisdictionModel
+     */
+   @JsonProperty("isSalesTaxApplicable", Boolean, true)
+   isSalesTaxApplicable?: boolean | undefined = undefined;
+    /**
+     * @type {CertificateJurisdictionTaxMappingModel[]}
+     * @memberof CertificateJurisdictionModel
+     */
+   @JsonProperty("taxTypeMappings", [CertificateJurisdictionTaxMappingModel], true)
+   taxTypeMappings?: CertificateJurisdictionTaxMappingModel[] | undefined = undefined;
  }

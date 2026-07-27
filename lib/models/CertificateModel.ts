@@ -21,7 +21,7 @@ import { ExposureZoneModel } from "./ExposureZoneModel";
 import { CertificateJurisdictionModel } from "./CertificateJurisdictionModel";
 import { CertificateAttributeModel } from "./CertificateAttributeModel";
 import { HistoryModel } from "./HistoryModel";
-import { CustomerJobModel } from "./CustomerJobModel";
+import { CertificateJobModel } from "./CertificateJobModel";
 import { CertificateLogModel } from "./CertificateLogModel";
 import { CertificateInvalidReasonModel } from "./CertificateInvalidReasonModel";
 import { CustomFieldModel } from "./CustomFieldModel";
@@ -201,11 +201,11 @@ log onto the administrative website for the product you purchased.
    @JsonProperty("histories", [HistoryModel], true)
    histories?: HistoryModel[] | undefined = undefined;
     /**
-     * @type {CustomerJobModel[]}
+     * @type {CertificateJobModel[]}
      * @memberof CertificateModel
      */
-   @JsonProperty("jobs", [CustomerJobModel], true)
-   jobs?: CustomerJobModel[] | undefined = undefined;
+   @JsonProperty("jobs", [CertificateJobModel], true)
+   jobs?: CertificateJobModel[] | undefined = undefined;
     /**
      * @type {CertificateLogModel[]}
      * @memberof CertificateModel

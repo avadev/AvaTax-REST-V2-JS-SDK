@@ -41,6 +41,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ItemImportV2 = 18,
         VatValidationImport = 19,
         TxnWithDynamicParamBag = 20,
+        CustomRuleImport = 21,
 }
 
 @JsonConverter

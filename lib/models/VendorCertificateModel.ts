@@ -21,7 +21,7 @@ import { ExposureZoneModel } from "./ExposureZoneModel";
 import { CertificateJurisdictionModel } from "./CertificateJurisdictionModel";
 import { CertificateAttributeModel } from "./CertificateAttributeModel";
 import { HistoryModel } from "./HistoryModel";
-import { CustomerJobModel } from "./CustomerJobModel";
+import { CertificateJobModel } from "./CertificateJobModel";
 import { CertificateLogModel } from "./CertificateLogModel";
 import { CertificateInvalidReasonModel } from "./CertificateInvalidReasonModel";
 import { CustomFieldModel } from "./CustomFieldModel";
@@ -223,11 +223,11 @@ This model inherits all properties from CertificateModel and adds vendor-specifi
    @JsonProperty("histories", [HistoryModel], true)
    histories?: HistoryModel[] | undefined = undefined;
     /**
-     * @type {CustomerJobModel[]}
+     * @type {CertificateJobModel[]}
      * @memberof VendorCertificateModel
      */
-   @JsonProperty("jobs", [CustomerJobModel], true)
-   jobs?: CustomerJobModel[] | undefined = undefined;
+   @JsonProperty("jobs", [CertificateJobModel], true)
+   jobs?: CertificateJobModel[] | undefined = undefined;
     /**
      * @type {CertificateLogModel[]}
      * @memberof VendorCertificateModel
