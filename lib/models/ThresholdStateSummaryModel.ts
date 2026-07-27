@@ -18,7 +18,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Economic nexus threshold status for a single US state.
+ * Economic nexus threshold status for a single US region.
  * @export
  * @class ThresholdStateSummaryModel
  */
@@ -28,14 +28,20 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ThresholdStateSummaryModel
      */
-   @JsonProperty("state", String, true)
-   state?: string | undefined = undefined;
+   @JsonProperty("id", String, true)
+   id?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ThresholdStateSummaryModel
      */
-   @JsonProperty("stateName", String, true)
-   stateName?: string | undefined = undefined;
+   @JsonProperty("region", String, true)
+   region?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ThresholdStateSummaryModel
+     */
+   @JsonProperty("regionName", String, true)
+   regionName?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof ThresholdStateSummaryModel

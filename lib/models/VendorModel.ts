@@ -22,7 +22,6 @@ import { CustomerModel } from "./CustomerModel";
 import { CustomerAttributeModel } from "./CustomerAttributeModel";
 import { ActiveCertificateModel } from "./ActiveCertificateModel";
 import { HistoryModel } from "./HistoryModel";
-import { CustomerJobModel } from "./CustomerJobModel";
 import { CertificateLogModel } from "./CertificateLogModel";
 import { StateModel } from "./StateModel";
 import { JsonObject, JsonProperty } from "json2typescript";
@@ -228,12 +227,6 @@ This model inherits all properties from CustomerModel and adds vendor-specific f
      */
    @JsonProperty("histories", [HistoryModel], true)
    histories?: HistoryModel[] | undefined = undefined;
-    /**
-     * @type {CustomerJobModel[]}
-     * @memberof VendorModel
-     */
-   @JsonProperty("jobs", [CustomerJobModel], true)
-   jobs?: CustomerJobModel[] | undefined = undefined;
     /**
      * @type {CertificateLogModel[]}
      * @memberof VendorModel
