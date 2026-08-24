@@ -18,9 +18,9 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Model which can provide a summary of any custom rule variety.
-Custom rules is the umbrella term for traditional Tax Rules,
-legacy Advanced Rules (transaction rules), and the newest Dynamic Rules.
+ * Provides a unified, normalized summary of a custom rule, independent of its underlying type.
+It surfaces the common identifying and applicability fields - such as name, status, jurisdictions,
+tax types, and effective dates - so that a company's rules can be listed, filtered, and reviewed together.
  * @export
  * @class CustomRuleSummaryModel
  */

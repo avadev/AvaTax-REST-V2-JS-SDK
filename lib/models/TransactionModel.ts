@@ -97,6 +97,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof TransactionModel
      */
+   @JsonProperty("exchangeRateProvider", String, true)
+   exchangeRateProvider?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TransactionModel
+     */
    @JsonProperty("customerUsageType", String, true)
    customerUsageType?: string | undefined = undefined;
     /**

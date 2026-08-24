@@ -34,6 +34,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ValidatedAddressInfo
      */
+   @JsonProperty("deliveryIndicator", String, true)
+   deliveryIndicator?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ValidatedAddressInfo
+     */
    @JsonProperty("line1", String, true)
    line1?: string | undefined = undefined;
     /**

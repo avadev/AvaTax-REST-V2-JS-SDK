@@ -19,28 +19,21 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Optional additional criteria for when a custom tax should apply. This model is
-structurally identical to `CustomRuleDefinitionOutputModel` but is kept as a
-distinct type so that the custom tax surface can evolve independently of the underlying
-custom rule definition. The nodes defined here are prepended to the main custom tax node
-when the custom tax is translated into a custom rule at persistence time.
-<br>
-This is the output variant returned by Custom Tax read endpoints.
-
+ * Represents the definition of a Custom Rule, which defines its execution flow.
  * @export
- * @class CustomTaxAdditionalCriteriaOutputModel
+ * @class CustomRuleDefinitionOutputModel
  */
- @JsonObject("CustomTaxAdditionalCriteriaOutputModel")
- export class CustomTaxAdditionalCriteriaOutputModel {
+ @JsonObject("CustomRuleDefinitionOutputModel")
+ export class CustomRuleDefinitionOutputModel {
     /**
      * @type {CustomRuleComponentOutputModel[]}
-     * @memberof CustomTaxAdditionalCriteriaOutputModel
+     * @memberof CustomRuleDefinitionOutputModel
      */
    @JsonProperty("variables", [CustomRuleComponentOutputModel], true)
    variables?: CustomRuleComponentOutputModel[] | undefined = undefined;
     /**
      * @type {CustomRuleComponentOutputModel[]}
-     * @memberof CustomTaxAdditionalCriteriaOutputModel
+     * @memberof CustomRuleDefinitionOutputModel
      */
    @JsonProperty("nodes", [CustomRuleComponentOutputModel], true)
    nodes?: CustomRuleComponentOutputModel[] | undefined = undefined;

@@ -19,6 +19,8 @@ import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Describes a single taxability override row for a custom tax.
+Pattern matching is performed on the optional criteria to map taxability values to jurisdictions,
+where omitted values are treated as wildcards.
 <br>
 This is the output variant returned by Custom Tax read endpoints. Each taxability row
 defines whether an item is taxable or not, optionally scoped to a specific jurisdiction,

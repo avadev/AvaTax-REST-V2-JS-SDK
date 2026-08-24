@@ -16,143 +16,137 @@
 import * as Enums from '../enums/index';
 import { CustomRuleExportUser } from "./CustomRuleExportUser";
 import { TaxRuleModel } from "./TaxRuleModel";
-import { CustomRuleInputModel } from "./CustomRuleInputModel";
+import { CustomRuleOutputModel } from "./CustomRuleOutputModel";
 import { AdvancedRuleExecutionModel } from "./AdvancedRuleExecutionModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a create Custom Rules import batch request model. The payload is the Custom Rules
-export envelope (tax rules, custom rules, and advanced rules) which is stored as JSON in S3
-and processed downstream by BatchV2.
+ * A portable export envelope containing the custom rules (tax rules, custom rules, and
+advanced rules) matched by an ExportCustomRules request. This envelope can be re-imported
+into another company or account using the CreateCustomRulesBatch endpoint.
  * @export
- * @class CreateCustomRulesBatchRequestModel
+ * @class CustomRulesExportModel
  */
- @JsonObject("CreateCustomRulesBatchRequestModel")
- export class CreateCustomRulesBatchRequestModel {
+ @JsonObject("CustomRulesExportModel")
+ export class CustomRulesExportModel {
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
-     */
-   @JsonProperty("name", String, true)
-   name?: string | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("kind", String, true)
    kind?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("schemaVersion", String, true)
    schemaVersion?: string | undefined = undefined;
     /**
      * @type {Date}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("exportedAt", DateConverter, true)
    exportedAt?: Date | undefined = undefined;
     /**
      * @type {CustomRuleExportUser}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("exportedBy", CustomRuleExportUser, true)
    exportedBy?: CustomRuleExportUser | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("sourceAccountId", Number, true)
    sourceAccountId?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("sourceCompanyId", Number, true)
    sourceCompanyId?: number | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("filter", String, true)
    filter?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("taxRuleFilter", String, true)
    taxRuleFilter?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("advancedRuleFilter", String, true)
    advancedRuleFilter?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("customRuleFilter", String, true)
    customRuleFilter?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("orderBy", String, true)
    orderBy?: string | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("top", Number, true)
    top?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("skip", Number, true)
    skip?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("totalCount", Number, true)
    totalCount?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("taxRuleCount", Number, true)
    taxRuleCount?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("customRuleCount", Number, true)
    customRuleCount?: number | undefined = undefined;
     /**
      * @type {number}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("advancedRuleCount", Number, true)
    advancedRuleCount?: number | undefined = undefined;
     /**
      * @type {TaxRuleModel[]}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("taxRules", [TaxRuleModel], true)
    taxRules?: TaxRuleModel[] | undefined = undefined;
     /**
-     * @type {CustomRuleInputModel[]}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @type {CustomRuleOutputModel[]}
+     * @memberof CustomRulesExportModel
      */
-   @JsonProperty("customRules", [CustomRuleInputModel], true)
-   customRules?: CustomRuleInputModel[] | undefined = undefined;
+   @JsonProperty("customRules", [CustomRuleOutputModel], true)
+   customRules?: CustomRuleOutputModel[] | undefined = undefined;
     /**
      * @type {AdvancedRuleExecutionModel[]}
-     * @memberof CreateCustomRulesBatchRequestModel
+     * @memberof CustomRulesExportModel
      */
    @JsonProperty("advancedRules", [AdvancedRuleExecutionModel], true)
    advancedRules?: AdvancedRuleExecutionModel[] | undefined = undefined;

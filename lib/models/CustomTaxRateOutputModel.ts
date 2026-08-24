@@ -19,6 +19,8 @@ import { DateConverter } from "../utils/dateConverter";
 
 /**
  * Describes a single rate override row for a custom tax.
+Pattern matching is performed on the optional criteria to map rate values to jurisdictions,
+where omitted values are treated as wildcards.
 <br>
 This is the output variant returned by Custom Tax read endpoints. Each rate row specifies
 a rate and a set of optional criteria (jurisdiction, tax code, tariff code, entity use
