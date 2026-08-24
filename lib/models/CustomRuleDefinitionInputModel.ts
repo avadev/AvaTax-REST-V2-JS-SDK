@@ -19,29 +19,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Optional additional criteria for when a custom tax should apply. This model is
-structurally identical to `CustomRuleDefinitionInputModel` but is kept as a distinct
-type so that the custom tax surface can evolve independently of the underlying dynamic
-rule definition. The nodes defined here are prepended to the main custom tax node when
-the custom tax is translated into a custom rule at persistence time.
-<br>
-This is the input variant used when creating or updating a custom tax.
-
+ * Represents the definition of a Custom Rule, which defines its execution flow.
  * @export
- * @class CustomTaxAdditionalCriteriaInputModel
+ * @class CustomRuleDefinitionInputModel
  */
- @JsonObject("CustomTaxAdditionalCriteriaInputModel")
- export class CustomTaxAdditionalCriteriaInputModel {
+ @JsonObject("CustomRuleDefinitionInputModel")
+ export class CustomRuleDefinitionInputModel {
     /**
      * @type {CustomRuleComponentInputModel[]}
-     * @memberof CustomTaxAdditionalCriteriaInputModel
+     * @memberof CustomRuleDefinitionInputModel
      */
    @JsonProperty("variables", [CustomRuleComponentInputModel], true)
    variables?: CustomRuleComponentInputModel[] | undefined = undefined;
     /**
      * @type {CustomRuleComponentInputModel[]}
-     * @memberof CustomTaxAdditionalCriteriaInputModel
+     * @memberof CustomRuleDefinitionInputModel
      */
-   @JsonProperty("nodes", [CustomRuleComponentInputModel], true)
-   nodes?: CustomRuleComponentInputModel[] | undefined = undefined;
+   @JsonProperty("nodes", [CustomRuleComponentInputModel])
+   nodes: CustomRuleComponentInputModel[] = undefined;
  }

@@ -43,4 +43,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("options", String, true)
    options?: string | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof CreateTransactionBatchRequestModel
+     */
+   @JsonProperty("skipTransactionValidation", Boolean, true)
+   skipTransactionValidation?: boolean | undefined = undefined;
  }

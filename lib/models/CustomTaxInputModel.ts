@@ -18,22 +18,16 @@ import { CustomTaxJurisdictionInputModel } from "./CustomTaxJurisdictionInputMod
 import { CustomTaxAdditionalCriteriaInputModel } from "./CustomTaxAdditionalCriteriaInputModel";
 import { CustomTaxTaxabilityInputModel } from "./CustomTaxTaxabilityInputModel";
 import { CustomTaxRateInputModel } from "./CustomTaxRateInputModel";
-import { CustomTaxExemptionsInputModel } from "./CustomTaxExemptionsInputModel";
+import { CustomTaxExemptionInputModel } from "./CustomTaxExemptionInputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * A Custom Tax represents a tax-rate / taxability / exemption package owned by a single
-company. It is a type of Custom Rule that exposes a focused, content-oriented shape for
-callers who want to manage tax overrides without constructing a Custom Rule by hand.
+ * A Custom Tax defines company-specific tax content - the jurisdictions where a tax applies together with its
+rates, taxability, and exemptions. It provides a focused, content-oriented way to author and manage tax
+overrides for a company.
 <br>
 Use of the Custom Tax endpoints requires the `AvaCustomContent` subscription.
-<br>
-This is the input variant used when creating or updating a Custom Tax via the
-`CreateCustomTax`, `UpdateCustomTax`, or `ValidateCustomTax` endpoints. Any
-fields that are populated only by the system (such as `id`, `companyId`, and the
-created/modified audit fields) are excluded from this model and live on
-`CustomTaxOutputModel` instead.
 
  * @export
  * @class CustomTaxInputModel
@@ -137,9 +131,9 @@ created/modified audit fields) are excluded from this model and live on
    @JsonProperty("rates", [CustomTaxRateInputModel], true)
    rates?: CustomTaxRateInputModel[] | undefined = undefined;
     /**
-     * @type {CustomTaxExemptionsInputModel[]}
+     * @type {CustomTaxExemptionInputModel[]}
      * @memberof CustomTaxInputModel
      */
-   @JsonProperty("exemptions", [CustomTaxExemptionsInputModel], true)
-   exemptions?: CustomTaxExemptionsInputModel[] | undefined = undefined;
+   @JsonProperty("exemptions", [CustomTaxExemptionInputModel], true)
+   exemptions?: CustomTaxExemptionInputModel[] | undefined = undefined;
  }

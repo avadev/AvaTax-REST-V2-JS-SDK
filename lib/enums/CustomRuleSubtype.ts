@@ -52,6 +52,9 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         TaxRuleProductTaxability = 29,
         TaxRuleExemptEntity = 30,
         CustomTax = 31,
+        UpdateLiabilityDecision = 32,
+        AddMessage = 33,
+        MatchSellerRemits = 34,
 }
 
 @JsonConverter

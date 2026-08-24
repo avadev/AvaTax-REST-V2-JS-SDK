@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { ParameterMetadataModel } from "./ParameterMetadataModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -60,4 +61,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isFee", Boolean, true)
    isFee?: boolean | undefined = undefined;
+    /**
+     * @type {ParameterMetadataModel[]}
+     * @memberof UnitOfBasisModel
+     */
+   @JsonProperty("parameterMetadata", [ParameterMetadataModel], true)
+   parameterMetadata?: ParameterMetadataModel[] | undefined = undefined;
  }

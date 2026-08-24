@@ -18,107 +18,77 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Describes a single taxability override row for a custom tax.
-Pattern matching is performed on the optional criteria to map taxability values to jurisdictions,
+ * Describes a single exemption override row for a custom tax.
+Pattern matching is performed on the optional criteria to map exemption values to jurisdictions,
 where omitted values are treated as wildcards.
 <br>
-This is the input variant used when creating or updating a custom tax. Each taxability
-row defines whether an item is taxable or not, optionally scoped to a specific
-jurisdiction, tax code, tariff code, or entity use code.
+This is the input variant used when creating or updating a custom tax. Each exemption row
+defines whether a matching transaction line is exempt from the custom tax, optionally
+scoped by jurisdiction, rate type, tax code, tariff code, or entity use code.
 
  * @export
- * @class CustomTaxTaxabilityInputModel
+ * @class CustomTaxExemptionInputModel
  */
- @JsonObject("CustomTaxTaxabilityInputModel")
- export class CustomTaxTaxabilityInputModel {
+ @JsonObject("CustomTaxExemptionInputModel")
+ export class CustomTaxExemptionInputModel {
     /**
      * @type {boolean}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
-   @JsonProperty("taxable", Boolean)
-   taxable: boolean = undefined;
-    /**
-     * @type {number}
-     * @memberof CustomTaxTaxabilityInputModel
-     */
-   @JsonProperty("cap", Number, true)
-   cap?: number | undefined = undefined;
-    /**
-     * @type {number}
-     * @memberof CustomTaxTaxabilityInputModel
-     */
-   @JsonProperty("threshold", Number, true)
-   threshold?: number | undefined = undefined;
+   @JsonProperty("exempt", Boolean)
+   exempt: boolean = undefined;
     /**
      * @type {Enums.JurisdictionType}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("jurisdictionTypeId", Enums.JurisdictionTypeConverter, true)
    jurisdictionTypeId?: Enums.JurisdictionType | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("jurisCode", String, true)
    jurisCode?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("rateTypeCode", String, true)
    rateTypeCode?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("taxCode", String, true)
    taxCode?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("tariffCode", String, true)
    tariffCode?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("entityUseCode", String, true)
    entityUseCode?: string | undefined = undefined;
     /**
      * @type {Date}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("effectiveDate", DateConverter, true)
    effectiveDate?: Date | undefined = undefined;
     /**
      * @type {Date}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("endDate", DateConverter, true)
    endDate?: Date | undefined = undefined;
     /**
-     * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
-     */
-   @JsonProperty("currencyCode", String, true)
-   currencyCode?: string | undefined = undefined;
-    /**
      * @type {boolean}
-     * @memberof CustomTaxTaxabilityInputModel
+     * @memberof CustomTaxExemptionInputModel
      */
    @JsonProperty("isAllJuris", Boolean, true)
    isAllJuris?: boolean | undefined = undefined;
-    /**
-     * @type {string}
-     * @memberof CustomTaxTaxabilityInputModel
-     */
-   @JsonProperty("sourcing", String, true)
-   sourcing?: string | undefined = undefined;
-    /**
-     * @type {string[]}
-     * @memberof CustomTaxTaxabilityInputModel
-     */
-   @JsonProperty("options", [String], true)
-   options?: string[] | undefined = undefined;
  }

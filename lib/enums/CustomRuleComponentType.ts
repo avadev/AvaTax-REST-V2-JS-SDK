@@ -19,21 +19,19 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum NexusTypeId {
-        None = 0,
-        SalesOrSellersUseTax = 1,
-        SalesTax = 2,
-        SSTVolunteer = 3,
-        SSTNonVolunteer = 4,
-        SellersUseTax = 5,
+ export enum CustomRuleComponentType {
+        Unknown = 0,
+        Condition = 1,
+        Action = 2,
+        Variable = 3,
 }
 
 @JsonConverter
-export class NexusTypeIdConverter implements JsonCustomConvert<NexusTypeId> {
-    serialize(data: NexusTypeId) {
+export class CustomRuleComponentTypeConverter implements JsonCustomConvert<CustomRuleComponentType> {
+    serialize(data: CustomRuleComponentType) {
         return data;
     }
-    deserialize(enumType: string): NexusTypeId {
-        return NexusTypeId[enumType as keyof typeof NexusTypeId];
+    deserialize(enumType: string): CustomRuleComponentType {
+        return CustomRuleComponentType[enumType as keyof typeof CustomRuleComponentType];
     }
 }

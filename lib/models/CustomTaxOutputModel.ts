@@ -18,21 +18,16 @@ import { CustomTaxJurisdictionOutputModel } from "./CustomTaxJurisdictionOutputM
 import { CustomTaxAdditionalCriteriaOutputModel } from "./CustomTaxAdditionalCriteriaOutputModel";
 import { CustomTaxTaxabilityOutputModel } from "./CustomTaxTaxabilityOutputModel";
 import { CustomTaxRateOutputModel } from "./CustomTaxRateOutputModel";
-import { CustomTaxExemptionsOutputModel } from "./CustomTaxExemptionsOutputModel";
+import { CustomTaxExemptionOutputModel } from "./CustomTaxExemptionOutputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * A Custom Tax represents a tax-rate / taxability / exemption package owned by a single
-company. It is a type of Custom Rule that exposes a focused, content-oriented shape for
-callers who want to manage tax overrides without constructing a Custom Rule by hand.
+ * A Custom Tax defines company-specific tax content — the jurisdictions where a tax applies together with its
+rates, taxability, and exemptions. It provides a focused, content-oriented way to author and manage tax
+overrides for a company.
 <br>
 Use of the Custom Tax endpoints requires the `AvaCustomContent` subscription.
-<br>
-This is the output variant returned by `GetCustomTax`, `ListCustomTaxes`, and
-write endpoints that echo the persisted record. It includes system-populated fields such
-as `id`, `companyId`, and the created/modified audit fields which are not
-accepted on input.
 
  * @export
  * @class CustomTaxOutputModel
@@ -148,11 +143,11 @@ accepted on input.
    @JsonProperty("rates", [CustomTaxRateOutputModel], true)
    rates?: CustomTaxRateOutputModel[] | undefined = undefined;
     /**
-     * @type {CustomTaxExemptionsOutputModel[]}
+     * @type {CustomTaxExemptionOutputModel[]}
      * @memberof CustomTaxOutputModel
      */
-   @JsonProperty("exemptions", [CustomTaxExemptionsOutputModel], true)
-   exemptions?: CustomTaxExemptionsOutputModel[] | undefined = undefined;
+   @JsonProperty("exemptions", [CustomTaxExemptionOutputModel], true)
+   exemptions?: CustomTaxExemptionOutputModel[] | undefined = undefined;
     /**
      * @type {Date}
      * @memberof CustomTaxOutputModel

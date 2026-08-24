@@ -291,6 +291,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         AdvancedRuleError = 1605,
         DynamicRuleError = 1620,
         RuleValidationError = 1621,
+        CustomRuleError = 1699,
         TaxRuleRequiresNexus = 1701,
         UPCCodeNotUnique = 1702,
         TaxCodeAssociatedWithItemCodeNotFound = 1704,
@@ -446,6 +447,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         CannotDeleteEntity = 4032,
         IncorrectValueForField = 4033,
         APThresholdInheritanceRestriction = 4034,
+        InputContainsUnsupportedCharacters = 4035,
         UnexpectedError = -1,
 }
 

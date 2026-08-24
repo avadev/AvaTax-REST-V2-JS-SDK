@@ -1,6 +1,6 @@
 {
   "name": "avatax",
-  "version": "26.7.3",
+  "version": "26.8.3",
   "description": "AvaTax v2 SDK for languages using JavaScript",
   "main": "index.js",
   "types": "index.d.ts",
@@ -10,7 +10,10 @@
     "url": "git://github.com/avadev/AvaTax-REST-V2-JS-SDK.git"
   },
   "scripts": {
+    "sync-barrels": "node scripts/sync-barrels.js",
+    "prebuild-tsc": "npm run sync-barrels",
     "build-tsc": "tsc && cp package.json .build && cp README.md .build",
+    "prebuild-tsc-win": "npm run sync-barrels",
     "build-tsc-win": "tsc && copy package.json .build && copy README.md .build",
     "test": "jest",
     "lint": "eslint lib/**/*.js test/**/*.js --cache",

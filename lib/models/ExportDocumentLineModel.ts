@@ -188,6 +188,24 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("includeUserDefinedFields", Boolean, true)
    includeUserDefinedFields?: boolean | undefined = undefined;
     /**
+     * @type {boolean}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("isDocUdfFlag", Boolean, true)
+   isDocUdfFlag?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("isDLUdfFlag", Boolean, true)
+   isDLUdfFlag?: boolean | undefined = undefined;
+    /**
+     * @type {boolean}
+     * @memberof ExportDocumentLineModel
+     */
+   @JsonProperty("isLineLevelTaxbreakdown", Boolean, true)
+   isLineLevelTaxbreakdown?: boolean | undefined = undefined;
+    /**
      * @type {string}
      * @memberof ExportDocumentLineModel
      */

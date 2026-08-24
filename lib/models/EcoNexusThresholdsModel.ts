@@ -19,7 +19,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Response model for GET /api/v2/companies/{companyId}/econexusthresholds.
+ * The economic nexus threshold statuses evaluated for a company.
  * @export
  * @class EcoNexusThresholdsModel
  */

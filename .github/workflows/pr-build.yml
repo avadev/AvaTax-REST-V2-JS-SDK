@@ -14,4 +14,12 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
+
+      # Fails the PR if lib/enums/index.ts or lib/models/index.ts are missing an
+      # export for a .ts file that exists on disk. This is the drift that broke
+      # the release build repeatedly -- catching it here means it never reaches
+      # a production tag build.
+      - name: Verify barrel files are in sync
+        run: node scripts/sync-barrels.js --check
+
       - run: npm run build-tsc
