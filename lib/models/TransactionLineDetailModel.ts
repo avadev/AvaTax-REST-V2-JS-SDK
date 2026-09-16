@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { TransactionLineDetailUserDefinedFieldModel } from "./TransactionLineDetailUserDefinedFieldModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -232,6 +233,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {number}
      * @memberof TransactionLineDetailModel
      */
+   @JsonProperty("taxAuthorityId", Number, true)
+   taxAuthorityId?: number | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof TransactionLineDetailModel
+     */
    @JsonProperty("taxRegionId", Number, true)
    taxRegionId?: number | undefined = undefined;
     /**
@@ -337,6 +344,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("chargedTo", Enums.ChargedToConverter, true)
    chargedTo?: Enums.ChargedTo | undefined = undefined;
     /**
+     * @type {Enums.CollectedBy}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("collectedBy", Enums.CollectedByConverter, true)
+   collectedBy?: Enums.CollectedBy | undefined = undefined;
+    /**
      * @type {string}
      * @memberof TransactionLineDetailModel
      */
@@ -366,6 +379,12 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("vatCode", String, true)
    vatCode?: string | undefined = undefined;
+    /**
+     * @type {TransactionLineDetailUserDefinedFieldModel[]}
+     * @memberof TransactionLineDetailModel
+     */
+   @JsonProperty("userDefinedFields", [TransactionLineDetailUserDefinedFieldModel], true)
+   userDefinedFields?: TransactionLineDetailUserDefinedFieldModel[] | undefined = undefined;
     /**
      * @type {object[]}
      * @memberof TransactionLineDetailModel

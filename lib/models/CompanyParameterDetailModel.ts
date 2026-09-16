@@ -54,4 +54,28 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("unit", String, true)
    unit?: string | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof CompanyParameterDetailModel
+     */
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof CompanyParameterDetailModel
+     */
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof CompanyParameterDetailModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof CompanyParameterDetailModel
+     */
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

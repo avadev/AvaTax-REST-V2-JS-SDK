@@ -57,11 +57,11 @@ tax types, and effective dates - so that a company's rules can be listed, filter
    @JsonProperty("type", Enums.CustomRuleTypeConverter, true)
    type?: Enums.CustomRuleType | undefined = undefined;
     /**
-     * @type {Enums.CustomRuleSubtype}
+     * @type {string[]}
      * @memberof CustomRuleSummaryModel
      */
-   @JsonProperty("subtype", Enums.CustomRuleSubtypeConverter, true)
-   subtype?: Enums.CustomRuleSubtype | undefined = undefined;
+   @JsonProperty("subtype", [String], true)
+   subtype?: string[] | undefined = undefined;
     /**
      * @type {string[]}
      * @memberof CustomRuleSummaryModel

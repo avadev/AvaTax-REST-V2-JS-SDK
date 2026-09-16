@@ -24,6 +24,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         BuyersAgent = 1,
         Buyer = 2,
         ThirdParty = 3,
+        Marketplace = 4,
+        OTA = 5,
 }
 
 @JsonConverter

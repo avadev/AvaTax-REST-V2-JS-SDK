@@ -31,11 +31,11 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("type", Enums.CustomRuleComponentTypeConverter, true)
    type?: Enums.CustomRuleComponentType | undefined = undefined;
     /**
-     * @type {Enums.CustomRuleComponentSubtype}
+     * @type {string}
      * @memberof CustomRuleComponentDefinitionModel
      */
-   @JsonProperty("subtype", Enums.CustomRuleComponentSubtypeConverter, true)
-   subtype?: Enums.CustomRuleComponentSubtype | undefined = undefined;
+   @JsonProperty("subtype", String, true)
+   subtype?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomRuleComponentDefinitionModel

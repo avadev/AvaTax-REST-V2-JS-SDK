@@ -38,11 +38,11 @@ Components define the logic and flow of a rule, and include condition nodes, act
    @JsonProperty("type", Enums.CustomRuleComponentTypeConverter, true)
    type?: Enums.CustomRuleComponentType | undefined = undefined;
     /**
-     * @type {Enums.CustomRuleComponentSubtype}
+     * @type {string}
      * @memberof CustomRuleComponentOutputModel
      */
-   @JsonProperty("subtype", Enums.CustomRuleComponentSubtypeConverter, true)
-   subtype?: Enums.CustomRuleComponentSubtype | undefined = undefined;
+   @JsonProperty("subtype", String, true)
+   subtype?: string | undefined = undefined;
     /**
      * @type {string}
      * @memberof CustomRuleComponentOutputModel
