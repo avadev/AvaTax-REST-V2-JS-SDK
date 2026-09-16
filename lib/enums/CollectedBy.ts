@@ -19,18 +19,19 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 * @export
 * @enum {string}
 */
- export enum UserDefinedFieldType {
-        Document = 1,
-        Line = 2,
-        Detail = 3,
+ export enum CollectedBy {
+        Seller = 0,
+        Marketplace = 1,
+        Buyer = 2,
+        OTA = 3,
 }
 
 @JsonConverter
-export class UserDefinedFieldTypeConverter implements JsonCustomConvert<UserDefinedFieldType> {
-    serialize(data: UserDefinedFieldType) {
+export class CollectedByConverter implements JsonCustomConvert<CollectedBy> {
+    serialize(data: CollectedBy) {
         return data;
     }
-    deserialize(enumType: string): UserDefinedFieldType {
-        return UserDefinedFieldType[enumType as keyof typeof UserDefinedFieldType];
+    deserialize(enumType: string): CollectedBy {
+        return CollectedBy[enumType as keyof typeof CollectedBy];
     }
 }

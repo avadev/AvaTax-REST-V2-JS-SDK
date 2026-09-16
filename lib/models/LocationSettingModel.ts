@@ -42,4 +42,28 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("value", String, true)
    value?: string | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof LocationSettingModel
+     */
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof LocationSettingModel
+     */
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof LocationSettingModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof LocationSettingModel
+     */
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
  }

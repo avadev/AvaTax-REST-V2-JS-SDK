@@ -67,6 +67,18 @@ To define your own values, please choose a `set` name that begins with `X-` to i
      * @type {Date}
      * @memberof SettingModel
      */
+   @JsonProperty("createdDate", DateConverter, true)
+   createdDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof SettingModel
+     */
+   @JsonProperty("createdUserId", Number, true)
+   createdUserId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof SettingModel
+     */
    @JsonProperty("modifiedDate", DateConverter, true)
    modifiedDate?: Date | undefined = undefined;
     /**

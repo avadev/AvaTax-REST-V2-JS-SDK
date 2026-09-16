@@ -41,6 +41,7 @@ export * from './CertificateEcmStatus';
 export * from './CertificatePreviewType';
 export * from './CertificateRequestDeliveryMethod';
 export * from './ChargedTo';
+export * from './CollectedBy';
 export * from './CommentType';
 export * from './CompanyAccessLevel';
 export * from './CompanyFilingStatus';

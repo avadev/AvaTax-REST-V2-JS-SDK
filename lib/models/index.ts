@@ -518,6 +518,7 @@ export * from './ThresholdStatusesModel';
 export * from './TransactionAddressModel';
 export * from './TransactionBatchItemModel';
 export * from './TransactionLineDetailModel';
+export * from './TransactionLineDetailUserDefinedFieldModel';
 export * from './TransactionLineLocationTypeModel';
 export * from './TransactionLineModel';
 export * from './TransactionLineParameterModel';
