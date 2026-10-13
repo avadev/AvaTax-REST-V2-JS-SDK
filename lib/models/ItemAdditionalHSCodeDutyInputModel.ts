@@ -28,14 +28,14 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {number}
      * @memberof ItemAdditionalHSCodeDutyInputModel
      */
-   @JsonProperty("itemId", Number)
-   itemId: number = undefined;
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {number}
      * @memberof ItemAdditionalHSCodeDutyInputModel
      */
-   @JsonProperty("companyId", Number)
-   companyId: number = undefined;
+   @JsonProperty("companyId", Number, true)
+   companyId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemAdditionalHSCodeDutyInputModel
@@ -72,4 +72,16 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("isAdditionalDuty", Boolean)
    isAdditionalDuty: boolean = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemAdditionalHSCodeDutyInputModel
+     */
+   @JsonProperty("startDate", DateConverter, true)
+   startDate?: Date | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemAdditionalHSCodeDutyInputModel
+     */
+   @JsonProperty("endDate", DateConverter, true)
+   endDate?: Date | undefined = undefined;
  }

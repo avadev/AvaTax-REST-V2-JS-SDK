@@ -80,8 +80,32 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ItemHSCodeDutyDetailModel
      */
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
    @JsonProperty("uom", String)
    uom: string = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
+   @JsonProperty("effectiveDate", DateConverter, true)
+   effectiveDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
+   @JsonProperty("effectiveRate", Number, true)
+   effectiveRate?: number | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
+   @JsonProperty("effectiveRateFormula", String, true)
+   effectiveRateFormula?: string | undefined = undefined;
     /**
      * @type {Date}
      * @memberof ItemHSCodeDutyDetailModel
@@ -94,6 +118,18 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("createdUserId", Number, true)
    createdUserId?: number | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof ItemHSCodeDutyDetailModel
+     */
+   @JsonProperty("modifiedUserId", Number, true)
+   modifiedUserId?: number | undefined = undefined;
     /**
      * @type {ItemHSCodeFTADetailModel[]}
      * @memberof ItemHSCodeDutyDetailModel

@@ -38,6 +38,8 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         ReturnRejectedOnBehalf = 15,
         ApprovedToFileOnBehalf = 16,
         FiledByCustomer = 17,
+        Mailed = 18,
+        PaymentMadeNotFiled = 19,
 }
 
 @JsonConverter

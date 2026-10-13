@@ -193,4 +193,10 @@ This model mirrors the structure of a standard tax rule with relevant fields.
      */
    @JsonProperty("unitOfBasis", String, true)
    unitOfBasis?: string | undefined = undefined;
+    /**
+     * @type {number}
+     * @memberof CustomRuleGeneratedTaxRuleModel
+     */
+   @JsonProperty("uomId", Number, true)
+   uomId?: number | undefined = undefined;
  }

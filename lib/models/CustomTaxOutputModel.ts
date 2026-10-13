@@ -95,6 +95,12 @@ Use of the Custom Tax endpoints requires the `AvaCustomContent` subscription.
    @JsonProperty("unitOfBasis", String, true)
    unitOfBasis?: string | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof CustomTaxOutputModel
+     */
+   @JsonProperty("uomId", Number, true)
+   uomId?: number | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof CustomTaxOutputModel
      */
