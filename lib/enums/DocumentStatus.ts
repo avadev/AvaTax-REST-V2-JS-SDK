@@ -29,6 +29,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         Queued = 6,
         PendingApproval = 7,
         Uncommitted = 12,
+        All = -2,
         Any = -1,
 }
 

@@ -141,6 +141,12 @@ tax types, and effective dates - so that a company's rules can be listed, filter
    @JsonProperty("order", Number, true)
    order?: number | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof CustomRuleSummaryModel
+     */
+   @JsonProperty("executionPosition", String, true)
+   executionPosition?: string | undefined = undefined;
+    /**
      * @type {Date}
      * @memberof CustomRuleSummaryModel
      */

@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { DataQualityIssueModel } from "./DataQualityIssueModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -36,4 +37,22 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("level", String, true)
    level?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof TaxCodeRecommendationOutputModel
+     */
+   @JsonProperty("dqLabel", String, true)
+   dqLabel?: string | undefined = undefined;
+    /**
+     * @type {DataQualityIssueModel[]}
+     * @memberof TaxCodeRecommendationOutputModel
+     */
+   @JsonProperty("dqIssues", [DataQualityIssueModel], true)
+   dqIssues?: DataQualityIssueModel[] | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof TaxCodeRecommendationOutputModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
  }

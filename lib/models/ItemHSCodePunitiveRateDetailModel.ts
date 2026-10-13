@@ -34,6 +34,12 @@ import { DateConverter } from "../utils/dateConverter";
      * @type {string}
      * @memberof ItemHSCodePunitiveRateDetailModel
      */
+   @JsonProperty("currency", String, true)
+   currency?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemHSCodePunitiveRateDetailModel
+     */
    @JsonProperty("uom", String)
    uom: string = undefined;
     /**

@@ -19,6 +19,7 @@ import { TransactionLineLocationTypeModel } from "./TransactionLineLocationTypeM
 import { TransactionLineParameterModel } from "./TransactionLineParameterModel";
 import { TransactionLineUserDefinedFieldModel } from "./TransactionLineUserDefinedFieldModel";
 import { TransactionLineTaxAmountByTaxTypeModel } from "./TransactionLineTaxAmountByTaxTypeModel";
+import { CustomClearanceFeeModel } from "./CustomClearanceFeeModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -383,4 +384,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("nonRecoverableAmount", Number, true)
    nonRecoverableAmount?: number | undefined = undefined;
+    /**
+     * @type {CustomClearanceFeeModel[]}
+     * @memberof TransactionLineModel
+     */
+   @JsonProperty("customClearanceFees", [CustomClearanceFeeModel], true)
+   customClearanceFees?: CustomClearanceFeeModel[] | undefined = undefined;
  }

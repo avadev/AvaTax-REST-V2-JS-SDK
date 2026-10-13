@@ -25,6 +25,12 @@ import { DateConverter } from "../utils/dateConverter";
  @JsonObject("ItemTaxcodeRecommendationBatchesInputModel")
  export class ItemTaxcodeRecommendationBatchesInputModel {
     /**
+     * @type {number}
+     * @memberof ItemTaxcodeRecommendationBatchesInputModel
+     */
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
+    /**
      * @type {string}
      * @memberof ItemTaxcodeRecommendationBatchesInputModel
      */

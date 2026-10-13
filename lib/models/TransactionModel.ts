@@ -23,6 +23,7 @@ import { TransactionParameterModel } from "./TransactionParameterModel";
 import { TransactionUserDefinedFieldModel } from "./TransactionUserDefinedFieldModel";
 import { AvaTaxMessage } from "./AvaTaxMessage";
 import { InvoiceMessageModel } from "./InvoiceMessageModel";
+import { CustomClearanceFeeModel } from "./CustomClearanceFeeModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
@@ -423,4 +424,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("varianceAmount", Number, true)
    varianceAmount?: number | undefined = undefined;
+    /**
+     * @type {CustomClearanceFeeModel[]}
+     * @memberof TransactionModel
+     */
+   @JsonProperty("customClearanceFees", [CustomClearanceFeeModel], true)
+   customClearanceFees?: CustomClearanceFeeModel[] | undefined = undefined;
  }

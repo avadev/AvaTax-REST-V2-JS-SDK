@@ -14,6 +14,7 @@
  */
 
 import * as Enums from '../enums/index';
+import { DataQualityIssueModel } from "./DataQualityIssueModel";
 import { ItemTaxcodeRecommendationBaseBatchOutputModel } from "./ItemTaxcodeRecommendationBaseBatchOutputModel";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
@@ -25,6 +26,12 @@ import { DateConverter } from "../utils/dateConverter";
  */
  @JsonObject("ItemTaxcodeRecommendationBatchesOutputModel")
  export class ItemTaxcodeRecommendationBatchesOutputModel {
+    /**
+     * @type {number}
+     * @memberof ItemTaxcodeRecommendationBatchesOutputModel
+     */
+   @JsonProperty("itemId", Number, true)
+   itemId?: number | undefined = undefined;
     /**
      * @type {string}
      * @memberof ItemTaxcodeRecommendationBatchesOutputModel
@@ -55,6 +62,24 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("summary", String, true)
    summary?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ItemTaxcodeRecommendationBatchesOutputModel
+     */
+   @JsonProperty("dqLabel", String, true)
+   dqLabel?: string | undefined = undefined;
+    /**
+     * @type {DataQualityIssueModel[]}
+     * @memberof ItemTaxcodeRecommendationBatchesOutputModel
+     */
+   @JsonProperty("dqIssues", [DataQualityIssueModel], true)
+   dqIssues?: DataQualityIssueModel[] | undefined = undefined;
+    /**
+     * @type {Date}
+     * @memberof ItemTaxcodeRecommendationBatchesOutputModel
+     */
+   @JsonProperty("modifiedDate", DateConverter, true)
+   modifiedDate?: Date | undefined = undefined;
     /**
      * @type {ItemTaxcodeRecommendationBaseBatchOutputModel[]}
      * @memberof ItemTaxcodeRecommendationBatchesOutputModel

@@ -126,4 +126,34 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("measurementType", String, true)
    measurementType?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ParameterUsageModel
+     */
+   @JsonProperty("jurisdictionTypeId", String, true)
+   jurisdictionTypeId?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ParameterUsageModel
+     */
+   @JsonProperty("jurisdictionCode", String, true)
+   jurisdictionCode?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ParameterUsageModel
+     */
+   @JsonProperty("jurisdictionName", String, true)
+   jurisdictionName?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ParameterUsageModel
+     */
+   @JsonProperty("unitOfBasis", String, true)
+   unitOfBasis?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof ParameterUsageModel
+     */
+   @JsonProperty("taxSubTypeId", String, true)
+   taxSubTypeId?: string | undefined = undefined;
  }

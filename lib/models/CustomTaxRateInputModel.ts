@@ -110,6 +110,12 @@ entity use code, etc.) which determine when the rate applies.
    @JsonProperty("unitOfBasis", String, true)
    unitOfBasis?: string | undefined = undefined;
     /**
+     * @type {number}
+     * @memberof CustomTaxRateInputModel
+     */
+   @JsonProperty("uomId", Number, true)
+   uomId?: number | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof CustomTaxRateInputModel
      */
