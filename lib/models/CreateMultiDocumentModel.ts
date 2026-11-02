@@ -233,6 +233,12 @@ document.  This separation of documents allows each seller to file their taxes s
    @JsonProperty("customerSupplierName", String, true)
    customerSupplierName?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof CreateMultiDocumentModel
+     */
+   @JsonProperty("vendorName", String, true)
+   vendorName?: string | undefined = undefined;
+    /**
      * @type {number}
      * @memberof CreateMultiDocumentModel
      */

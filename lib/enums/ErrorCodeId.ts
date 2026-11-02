@@ -448,6 +448,11 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
         IncorrectValueForField = 4033,
         APThresholdInheritanceRestriction = 4034,
         InputContainsUnsupportedCharacters = 4035,
+        IncorrectParameterValue = 4036,
+        CountryNotSupported = 4037,
+        CountryOfExportNotSupported = 4038,
+        OperationNotAllowed = 4039,
+        CustomRolePermissionRequired = 4040,
         UnexpectedError = -1,
 }
 

@@ -18,22 +18,16 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents an operation within audit log report input parameters.
+ * Represents a permission within a custom security role
  * @export
- * @class ReportAuditLogOperationInputModel
+ * @class CustomSecurityRolePermissionModel
  */
- @JsonObject("ReportAuditLogOperationInputModel")
- export class ReportAuditLogOperationInputModel {
+ @JsonObject("CustomSecurityRolePermissionModel")
+ export class CustomSecurityRolePermissionModel {
     /**
      * @type {string}
-     * @memberof ReportAuditLogOperationInputModel
+     * @memberof CustomSecurityRolePermissionModel
      */
-   @JsonProperty("table", String, true)
-   table?: string | undefined = undefined;
-    /**
-     * @type {object}
-     * @memberof ReportAuditLogOperationInputModel
-     */
-   @JsonProperty("filters", Object, true)
-   filters?: object | undefined = undefined;
+   @JsonProperty("permissionId", String, true)
+   permissionId?: string | undefined = undefined;
  }

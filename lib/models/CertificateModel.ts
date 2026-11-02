@@ -69,6 +69,12 @@ log onto the administrative website for the product you purchased.
    @JsonProperty("filename", String, true)
    filename?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof CertificateModel
+     */
+   @JsonProperty("originalFilename", String, true)
+   originalFilename?: string | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof CertificateModel
      */

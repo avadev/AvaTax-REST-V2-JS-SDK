@@ -18,28 +18,28 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Encapsulates the result of uploading a file to the resource system
+ * Represents a permission within a permission category response (matches OpenAPI spec)
  * @export
- * @class ResourceFileUploadResultModel
+ * @class PermissionCategoryPermissionDto
  */
- @JsonObject("ResourceFileUploadResultModel")
- export class ResourceFileUploadResultModel {
+ @JsonObject("PermissionCategoryPermissionDto")
+ export class PermissionCategoryPermissionDto {
     /**
      * @type {string}
-     * @memberof ResourceFileUploadResultModel
+     * @memberof PermissionCategoryPermissionDto
      */
-   @JsonProperty("message", String, true)
-   message?: string | undefined = undefined;
+   @JsonProperty("permissionId", String)
+   permissionId: string = undefined;
     /**
-     * @type {number}
-     * @memberof ResourceFileUploadResultModel
+     * @type {string}
+     * @memberof PermissionCategoryPermissionDto
      */
-   @JsonProperty("resourceFileId", Number, true)
-   resourceFileId?: number | undefined = undefined;
+   @JsonProperty("name", String, true)
+   name?: string | undefined = undefined;
     /**
-     * @type {boolean}
-     * @memberof ResourceFileUploadResultModel
+     * @type {string}
+     * @memberof PermissionCategoryPermissionDto
      */
-   @JsonProperty("aaa_success", Boolean, true)
-   aaa_success?: boolean | undefined = undefined;
+   @JsonProperty("description", String, true)
+   description?: string | undefined = undefined;
  }

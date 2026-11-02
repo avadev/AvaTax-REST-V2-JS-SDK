@@ -18,21 +18,27 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a verification request using Skyscraper for a company
+ * Represents a permission within a custom security role response (matches OpenAPI spec)
  * @export
- * @class requiredFilingCalendarDataFieldModel
+ * @class CustomSecurityRolePermissionDto
  */
- @JsonObject("RequiredFilingCalendarDataFieldModel")
- export class RequiredFilingCalendarDataFieldModel {
+ @JsonObject("CustomSecurityRolePermissionDto")
+ export class CustomSecurityRolePermissionDto {
     /**
      * @type {string}
-     * @memberof requiredFilingCalendarDataFieldModel
+     * @memberof CustomSecurityRolePermissionDto
+     */
+   @JsonProperty("permissionId", String, true)
+   permissionId?: string | undefined = undefined;
+    /**
+     * @type {string}
+     * @memberof CustomSecurityRolePermissionDto
      */
    @JsonProperty("name", String, true)
    name?: string | undefined = undefined;
     /**
      * @type {string}
-     * @memberof requiredFilingCalendarDataFieldModel
+     * @memberof CustomSecurityRolePermissionDto
      */
    @JsonProperty("description", String, true)
    description?: string | undefined = undefined;

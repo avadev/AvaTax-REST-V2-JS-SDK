@@ -125,6 +125,12 @@ this override object will be assigned to the list of jurisdictions designated in
    @JsonProperty("taxRegionId", Number)
    taxRegionId: number = undefined;
     /**
+     * @type {number}
+     * @memberof JurisdictionOverrideModel
+     */
+   @JsonProperty("radius", Number, true)
+   radius?: number | undefined = undefined;
+    /**
      * @type {Enums.BoundaryLevel}
      * @memberof JurisdictionOverrideModel
      */

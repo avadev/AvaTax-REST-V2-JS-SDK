@@ -61,4 +61,10 @@ import { DateConverter } from "../utils/dateConverter";
      */
    @JsonProperty("lineLevel", CustomRuleFieldLevelDefinitionModel, true)
    lineLevel?: CustomRuleFieldLevelDefinitionModel | undefined = undefined;
+    /**
+     * @type {CustomRuleFieldLevelDefinitionModel}
+     * @memberof CustomRuleFieldDefinitionModel
+     */
+   @JsonProperty("detailLevel", CustomRuleFieldLevelDefinitionModel, true)
+   detailLevel?: CustomRuleFieldLevelDefinitionModel | undefined = undefined;
  }

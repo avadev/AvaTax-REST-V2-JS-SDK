@@ -222,6 +222,12 @@ import { DateConverter } from "../utils/dateConverter";
    @JsonProperty("customerSupplierName", String, true)
    customerSupplierName?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof CreateTransactionModel
+     */
+   @JsonProperty("vendorName", String, true)
+   vendorName?: string | undefined = undefined;
+    /**
      * @type {number}
      * @memberof CreateTransactionModel
      */
