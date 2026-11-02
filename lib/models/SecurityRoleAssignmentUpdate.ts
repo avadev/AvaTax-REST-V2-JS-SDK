@@ -18,34 +18,34 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * This is the output model coming from skyscraper services
+ * Security Role Assignment Update Request
  * @export
- * @class LoginVerificationOutputModel
+ * @class SecurityRoleAssignmentUpdate
  */
- @JsonObject("LoginVerificationOutputModel")
- export class LoginVerificationOutputModel {
-    /**
-     * @type {number}
-     * @memberof LoginVerificationOutputModel
-     */
-   @JsonProperty("jobId", Number)
-   jobId: number = undefined;
+ @JsonObject("SecurityRoleAssignmentUpdate")
+ export class SecurityRoleAssignmentUpdate {
     /**
      * @type {string}
-     * @memberof LoginVerificationOutputModel
+     * @memberof SecurityRoleAssignmentUpdate
      */
-   @JsonProperty("operationStatus", String, true)
-   operationStatus?: string | undefined = undefined;
+   @JsonProperty("userId", String)
+   userId: string = undefined;
     /**
      * @type {string}
-     * @memberof LoginVerificationOutputModel
+     * @memberof SecurityRoleAssignmentUpdate
      */
-   @JsonProperty("message", String, true)
-   message?: string | undefined = undefined;
+   @JsonProperty("companyId", String, true)
+   companyId?: string | undefined = undefined;
     /**
-     * @type {boolean}
-     * @memberof LoginVerificationOutputModel
+     * @type {string}
+     * @memberof SecurityRoleAssignmentUpdate
      */
-   @JsonProperty("loginSuccess", Boolean, true)
-   loginSuccess?: boolean | undefined = undefined;
+   @JsonProperty("securityRoleId", String)
+   securityRoleId: string = undefined;
+    /**
+     * @type {string}
+     * @memberof SecurityRoleAssignmentUpdate
+     */
+   @JsonProperty("accountId", String)
+   accountId: string = undefined;
  }

@@ -14,32 +14,33 @@
  */
 
 import * as Enums from '../enums/index';
+import { PermissionCategoryPermissionDto } from "./PermissionCategoryPermissionDto";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents a single validation message for a dynamic rule.
+ * Request model for updating a Permission Category
  * @export
- * @class DynamicRuleValidationMessageModel
+ * @class PermissionCategoryUpdateRequest
  */
- @JsonObject("DynamicRuleValidationMessageModel")
- export class DynamicRuleValidationMessageModel {
+ @JsonObject("PermissionCategoryUpdateRequest")
+ export class PermissionCategoryUpdateRequest {
     /**
      * @type {string}
-     * @memberof DynamicRuleValidationMessageModel
+     * @memberof PermissionCategoryUpdateRequest
      */
-   @JsonProperty("level", String, true)
-   level?: string | undefined = undefined;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
-     * @memberof DynamicRuleValidationMessageModel
+     * @memberof PermissionCategoryUpdateRequest
      */
-   @JsonProperty("message", String, true)
-   message?: string | undefined = undefined;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
-     * @type {string}
-     * @memberof DynamicRuleValidationMessageModel
+     * @type {PermissionCategoryPermissionDto[]}
+     * @memberof PermissionCategoryUpdateRequest
      */
-   @JsonProperty("refersTo", String, true)
-   refersTo?: string | undefined = undefined;
+   @JsonProperty("permissions", [PermissionCategoryPermissionDto])
+   permissions: PermissionCategoryPermissionDto[] = undefined;
  }

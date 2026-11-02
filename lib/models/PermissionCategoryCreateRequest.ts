@@ -14,32 +14,33 @@
  */
 
 import * as Enums from '../enums/index';
+import { PermissionCategoryPermissionDto } from "./PermissionCategoryPermissionDto";
 import { JsonObject, JsonProperty } from "json2typescript";
 import { DateConverter } from "../utils/dateConverter";
 
 /**
- * Represents item tax code model
+ * Request model for creating a new Permission Category
  * @export
- * @class ItemTaxCodeModel
+ * @class PermissionCategoryCreateRequest
  */
- @JsonObject("ItemTaxCodeModel")
- export class ItemTaxCodeModel {
+ @JsonObject("PermissionCategoryCreateRequest")
+ export class PermissionCategoryCreateRequest {
     /**
      * @type {string}
-     * @memberof ItemTaxCodeModel
+     * @memberof PermissionCategoryCreateRequest
      */
-   @JsonProperty("taxCode", String, true)
-   taxCode?: string | undefined = undefined;
+   @JsonProperty("name", String)
+   name: string = undefined;
     /**
      * @type {string}
-     * @memberof ItemTaxCodeModel
+     * @memberof PermissionCategoryCreateRequest
      */
-   @JsonProperty("description", String, true)
-   description?: string | undefined = undefined;
+   @JsonProperty("description", String)
+   description: string = undefined;
     /**
-     * @type {number}
-     * @memberof ItemTaxCodeModel
+     * @type {PermissionCategoryPermissionDto[]}
+     * @memberof PermissionCategoryCreateRequest
      */
-   @JsonProperty("rank", Number, true)
-   rank?: number | undefined = undefined;
+   @JsonProperty("permissions", [PermissionCategoryPermissionDto])
+   permissions: PermissionCategoryPermissionDto[] = undefined;
  }

@@ -91,6 +91,12 @@ This model inherits all properties from CertificateModel and adds vendor-specifi
    @JsonProperty("filename", String, true)
    filename?: string | undefined = undefined;
     /**
+     * @type {string}
+     * @memberof VendorCertificateModel
+     */
+   @JsonProperty("originalFilename", String, true)
+   originalFilename?: string | undefined = undefined;
+    /**
      * @type {boolean}
      * @memberof VendorCertificateModel
      */

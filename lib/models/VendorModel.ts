@@ -36,6 +36,12 @@ This model inherits all properties from CustomerModel and adds vendor-specific f
  @JsonObject("VendorModel")
  export class VendorModel {
     /**
+     * @type {string}
+     * @memberof VendorModel
+     */
+   @JsonProperty("customerCode", String)
+   customerCode: string = undefined;
+    /**
      * @type {boolean}
      * @memberof VendorModel
      */
@@ -59,12 +65,6 @@ This model inherits all properties from CustomerModel and adds vendor-specific f
      */
    @JsonProperty("companyId", Number)
    companyId: number = undefined;
-    /**
-     * @type {string}
-     * @memberof VendorModel
-     */
-   @JsonProperty("customerCode", String)
-   customerCode: string = undefined;
     /**
      * @type {string}
      * @memberof VendorModel
